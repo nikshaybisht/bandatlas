@@ -1,8 +1,15 @@
-import type { Compound } from '../types'
+import type { Compound, Spectrum, TechniqueTab } from '../types'
 
-export function PropertyCard({ compound }: { compound: Compound }) {
+interface Props {
+  compound: Compound
+  activeSpectrum?: Spectrum | null
+  technique: TechniqueTab
+}
+
+export function PropertyCard({ compound, activeSpectrum, technique }: Props) {
   const abs = compound.spectra.find((s) => s.technique === 'uvvis_abs')
   const em = compound.spectra.find((s) => s.technique === 'fluorescence')
+  const solvent = activeSpectrum?.solvent || abs?.solvent
 
   return (
     <div className="property-card">
@@ -48,30 +55,33 @@ export function PropertyCard({ compound }: { compound: Compound }) {
             )}
           </dd>
         </div>
-        {compound.smiles && (
+        {solvent && (
           <div className="wide">
-            <dt>SMILES</dt>
-            <dd className="mono smiles">{compound.smiles}</dd>
-          </div>
-        )}
-        {abs?.solvent && (
-          <div>
-            <dt>Solvent (UV)</dt>
-            <dd>{abs.solvent}</dd>
+            <dt>Solvent</dt>
+            <dd className="solvent-line">
+              solvent = {solvent}
+              {technique !== 'uvvis' && activeSpectrum?.solvent
+                ? ` (${technique.toUpperCase()})`
+                : ''}
+            </dd>
           </div>
         )}
         {abs?.lambda_max_nm?.length ? (
           <div>
-            <dt>λ<sub>max</sub></dt>
+            <dt>
+              λ<sub>max</sub>
+            </dt>
             <dd>{abs.lambda_max_nm.join(', ')} nm</dd>
           </div>
         ) : null}
         {em?.quantum_yield != null && (
           <div>
-            <dt>Φ<sub>f</sub></dt>
+            <dt>
+              Φ<sub>f</sub>
+            </dt>
             <dd>
               {em.quantum_yield}
-              {em.solvent ? ` (${em.solvent})` : ''}
+              {em.solvent ? ` (solvent = ${em.solvent})` : ''}
             </dd>
           </div>
         )}
@@ -80,26 +90,18 @@ export function PropertyCard({ compound }: { compound: Compound }) {
       <div className="avail-row">
         <TechniquePill label="UV–Vis" on={compound.availability.uvvis_abs} />
         <TechniquePill label="Fluorescence" on={compound.availability.fluorescence} />
-        <TechniquePill label="IR" on={compound.availability.ir} soon />
-        <TechniquePill label="Raman" on={compound.availability.raman} soon />
+        <TechniquePill label="IR" on={compound.availability.ir} />
+        <TechniquePill label="Raman" on={compound.availability.raman} />
       </div>
     </div>
   )
 }
 
-function TechniquePill({
-  label,
-  on,
-  soon,
-}: {
-  label: string
-  on: boolean
-  soon?: boolean
-}) {
+function TechniquePill({ label, on }: { label: string; on: boolean }) {
   return (
-    <span className={`tech-pill ${on ? 'on' : soon ? 'soon' : 'off'}`}>
+    <span className={`tech-pill ${on ? 'on' : 'off'}`}>
       {label}
-      {!on && soon ? ' · soon' : on ? ' · yes' : ' · —'}
+      {on ? ' · yes' : ' · —'}
     </span>
   )
 }

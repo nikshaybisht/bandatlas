@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import type { Compound, Spectrum, TechniqueTab } from '../types'
 import {
   compoundBibtex,
@@ -13,12 +14,13 @@ interface Props {
 }
 
 export function ResearchTools({ compound, spectrum, technique }: Props) {
+  const [open, setOpen] = useState(false)
+
   const exportCsv = () => {
     if (!spectrum) return
-    const csv = spectrumToCsv(spectrum, compound)
     downloadText(
       `${compound.id}_${technique}_spectrum.csv`,
-      csv,
+      spectrumToCsv(spectrum, compound),
       'text/csv;charset=utf-8',
     )
   }
@@ -33,7 +35,6 @@ export function ResearchTools({ compound, spectrum, technique }: Props) {
         cas: compound.cas,
         formula: compound.formula,
         mw: compound.mw,
-        smiles: compound.smiles,
         pubchem_cid: compound.pubchem_cid,
         family: compound.family_label,
       },
@@ -43,16 +44,10 @@ export function ResearchTools({ compound, spectrum, technique }: Props) {
             technique: spectrum.technique,
             solvent: spectrum.solvent,
             y_unit: spectrum.y_unit,
-            y_unit_label: spectrum.y_unit_label,
-            lambda_max_nm: spectrum.lambda_max_nm,
-            peak_positions: spectrum.peak_positions,
-            peak_labels: spectrum.peak_labels,
             points: spectrum.display_points,
             source: spectrum.source,
           }
         : null,
-      disclaimer:
-        'Verify teaching/curated data against primary literature before quantitative claims.',
     }
     downloadText(
       `${compound.id}_${technique}.json`,
@@ -61,28 +56,46 @@ export function ResearchTools({ compound, spectrum, technique }: Props) {
     )
   }
 
-  const exportBib = () => {
-    downloadText(`${compound.id}.bib`, compoundBibtex(compound), 'application/x-bibtex')
-  }
-
   return (
-    <div className="research-tools">
-      <h3>Export for lab notes / SI</h3>
-      <p className="rt-help">
-        Download the active {techniqueLabel(technique)} series as CSV (columns: x, y with header
-        metadata) or a JSON bundle for notebooks. Always retain the source note in SI tables.
-      </p>
-      <div className="rt-actions">
-        <button type="button" className="ghost" disabled={!spectrum} onClick={exportCsv}>
-          Export CSV
-        </button>
-        <button type="button" className="ghost" onClick={exportJson}>
-          Export JSON
-        </button>
-        <button type="button" className="ghost" onClick={exportBib}>
-          BibTeX stub
-        </button>
-      </div>
+    <div className="fold-block">
+      <button
+        type="button"
+        className="fold-toggle"
+        aria-expanded={open}
+        onClick={() => setOpen((v) => !v)}
+      >
+        <span>Export ({techniqueLabel(technique)})</span>
+        <span className="fold-chevron">{open ? '▾' : '▸'}</span>
+      </button>
+      {open && (
+        <div className="fold-body">
+          <p className="rt-help">
+            Download the plotted series for notes. Headers include solvent and source text — keep
+            them if you paste into SI drafts.
+          </p>
+          <div className="rt-actions">
+            <button type="button" className="ghost" disabled={!spectrum} onClick={exportCsv}>
+              CSV
+            </button>
+            <button type="button" className="ghost" onClick={exportJson}>
+              JSON
+            </button>
+            <button
+              type="button"
+              className="ghost"
+              onClick={() =>
+                downloadText(
+                  `${compound.id}.bib`,
+                  compoundBibtex(compound),
+                  'application/x-bibtex',
+                )
+              }
+            >
+              BibTeX (software stub)
+            </button>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

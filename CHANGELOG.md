@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.5.1] — 2026-07-16
+
+### Fixed
+- Dark / light theme: CSS tokens for panels, chips, plot, 3D, folds; plot remounts on theme change
+- Peak label colours respect light theme
+- Spectrum plot: IG-style continuous rainbow under x-axis; smoother emission
+
+### Added
+- `docs/HANDOFF.md` and Documents/github handoff for BandAtlas
+
 ## [0.5.0] — 2026-07-16
 
 ### Changed

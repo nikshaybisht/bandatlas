@@ -52,8 +52,11 @@ export function MoleculeViewer({ pubchemCid, name }: Props) {
         const api: any = (mod as any).default ?? mod
         if (cancelled || !hostRef.current) return
 
+        const isLight =
+          typeof document !== 'undefined' &&
+          document.documentElement.dataset.theme === 'light'
         const viewer = api.createViewer(hostRef.current, {
-          backgroundColor: '0x0f172a',
+          backgroundColor: isLight ? '0xfafafa' : '0x0a0a0b',
           antialias: true,
         })
         viewerRef.current = viewer
@@ -144,7 +147,7 @@ export function MoleculeViewer({ pubchemCid, name }: Props) {
         const dt = Math.min(t - last, 50)
         last = t
         try {
-          v.rotate(0.04 * dt * 0.06, { x: 0, y: 1, z: 0.15 })
+          v.rotate(0.04 * dt * 0.34, { x: 0, y: 1, z: 0.08 })
           v.render()
         } catch {
           /* stop spinning if viewer died */

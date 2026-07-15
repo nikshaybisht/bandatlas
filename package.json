@@ -1,7 +1,7 @@
 {
   "name": "bandatlas",
   "private": false,
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "BandAtlas — working atlas of small-molecule UV–Vis, IR & Raman bands",
   "keywords": [
     "spectroscopy",
