@@ -1,12 +1,17 @@
 # Changelog
 
+## [0.5.0] — 2026-07-16
+
+### Changed
+- Product and repository renamed to **BandAtlas**
+- Final branding (UI, docs, package, GitHub `nikshaybisht/bandatlas`)
+- Distinct from mass-spec tools named Chromascope
+
 ## [0.4.1] — 2026-07-16
 
 ### Changed
-- Project renamed **BandAtlas → BandAtlas**
-- Repository branding, citations, and GitHub metadata updated
-- Author attributed as **Nikshay Bisht** (@nikshaybisht)
-- Added [SECURITY.md](SECURITY.md) and README security section
+- Author attribution for **Nikshay Bisht** (@nikshaybisht)
+- Added [SECURITY.md](SECURITY.md)
 
 ## [0.4.0] — 2026-07-16
 
@@ -21,7 +26,6 @@
 ### Changed
 - UI wording toward laboratory / teaching use (Teaching vs Research modes)
 - README rewritten for scientific readers
-- Package version 0.4.0
 
 ## [0.3.0] — 2026-07-16
 
