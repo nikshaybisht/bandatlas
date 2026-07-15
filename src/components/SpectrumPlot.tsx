@@ -729,7 +729,6 @@ export function SpectrumPlot({
         ref={rootRef}
         className={`plot-root ${technique === 'ir' ? 'plot-ir' : ''} ${technique === 'raman' ? 'plot-raman' : ''} ${coarsePointer ? 'plot-touch' : ''}`}
       />
-      {/* Always-on honesty — teaching watermark + disclaimer (not research SI) */}
       {primary &&
         (primary.quality === 'teaching' ||
           (primary.quality === 'experimental' && primary.example_not_for_citation)) && (
@@ -739,17 +738,17 @@ export function SpectrumPlot({
         )}
       <p className="plot-disclaimer" role="note">
         {primary?.quality === 'experimental' && !primary.example_not_for_citation
-          ? 'Experimental series (open source). Verify DOI/URL before quantitative use.'
+          ? 'Experimental series (open source). Check DOI/URL before quantitative use.'
           : primary?.example_not_for_citation
             ? 'Schema example only — synthetic points, not measured data.'
             : primary
-              ? 'Teaching envelope (model curve) — not a certified instrument digitization. Cite primary literature for experimental numbers.'
+              ? 'Teaching envelope — model curve, not instrument SI. Cite primary literature for numbers.'
               : 'No series plotted for this technique.'}
         {compare
           ? ' Overlay is qualitative only (solvents / scales may differ).'
           : ''}
       </p>
-      {/* Short series note — shown in normalized view; absolute scale still has disclaimer above */}
+      {/* TODO: peak labels crowd at high zoom on multi-peak IR — need collision or toggle */}
       {mode === 'simple' && caption && primary && (
         <p className="plain-caption">
           <strong>Notes. </strong>

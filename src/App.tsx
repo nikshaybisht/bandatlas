@@ -9,7 +9,6 @@ import './App.css'
 const navClass = ({ isActive }: { isActive: boolean }) =>
   `app-nav-link${isActive ? ' active' : ''}`
 
-/** Isolate route crashes so nav/footer stay usable. */
 function RouteOutlet() {
   const loc = useLocation()
   return (
@@ -54,9 +53,9 @@ export default function App() {
               data-testid="run-60s-tour-nav"
               onClick={startTour}
               disabled={running}
-              title="Scripted 60-second portfolio tour"
+              title="Walk through search, UV, IR, export"
             >
-              {running ? 'Tour…' : 'Run 60s tour'}
+              {running ? 'Tour…' : 'Quick tour'}
             </button>
             <span className="version-chip" title="Application version">
               v{APP_VERSION}
@@ -77,8 +76,8 @@ export default function App() {
 
         <footer className="footer">
           <span>
-            BandAtlas v{APP_VERSION} · MIT · teaching envelopes, not certified digitizations ·{' '}
-            Bisht, N. BandAtlas (cite CITATION.cff)
+            BandAtlas v{APP_VERSION} · MIT · teaching models, not instrument SI ·{' '}
+            Bisht, N. (see CITATION.cff)
           </span>
           <span>
             <a

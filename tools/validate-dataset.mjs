@@ -242,7 +242,8 @@ export function validateSummary(summary) {
   }
   if (typeof s.total !== 'number' || s.total < 1) err('total must be positive number')
   if (typeof s.full_uvvis !== 'number') err('full_uvvis must be number')
-  if (s.full_uvvis < 80) err(`full_uvvis should be ≥80 for app credibility (got ${s.full_uvvis})`)
+  // hard floor so we notice accidental UV wipeouts in the seed set
+  if (s.full_uvvis < 80) err(`full_uvvis dropped below 80 (got ${s.full_uvvis})`)
   const lab = s.lab_set ?? s.lab_set_count
   if (lab == null || typeof lab !== 'number') err('lab_set or lab_set_count required')
   if (!s.generatedAt && !s.generated_at) err('generatedAt (or generated_at) required')

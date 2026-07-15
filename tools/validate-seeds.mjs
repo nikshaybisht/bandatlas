@@ -76,7 +76,7 @@ export function validateUvSeed(seed, opts = {}) {
     err('pubchem_cid must be a positive number when set')
   }
 
-  // Teaching seeds must never claim experimental quality at seed level
+  // seeds are teaching-only
   if (seed.quality != null && seed.quality !== 'teaching') {
     err('UV teaching seeds must use quality: "teaching" (or omit; experimental uses data/experimental/)')
   }

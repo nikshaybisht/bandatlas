@@ -1,22 +1,14 @@
-/**
- * Pure helpers shared by tests (and documented contracts for the UI/export).
- */
+// small helpers for tests + build checks
 
-/**
- * Index / compound has a full UV–Vis curve.
- * Reads **build-output flags only** — no tier guessing.
- */
 export function hasFullUvVis(entry) {
   if (!entry || typeof entry !== 'object') return false
   if (typeof entry.hasFullUvVis === 'boolean') return entry.hasFullUvVis
   if (typeof entry.has_uvvis === 'boolean') return entry.has_uvvis
   if (typeof entry.flags?.hasFullUvVis === 'boolean') return entry.flags.hasFullUvVis
-  // availability is also written by the dataset build
   if (typeof entry.availability?.uvvis_abs === 'boolean') return entry.availability.uvvis_abs
   return false
 }
 
-/** Search key fields required on every index compound. */
 export function hasSearchKeyFields(entry) {
   if (!entry || typeof entry !== 'object') return false
   return (
@@ -29,10 +21,6 @@ export function hasSearchKeyFields(entry) {
   )
 }
 
-/**
- * Validate per-spectrum experimental quality schema.
- * Teaching spectra must not claim quality experimental.
- */
 export function validateExperimentalSpectrum(spectrum) {
   const errors = []
   if (!spectrum || typeof spectrum !== 'object') {
@@ -73,7 +61,6 @@ export function validateExperimentalSpectrum(spectrum) {
   return { ok: errors.length === 0, errors }
 }
 
-/** Teaching spectra must never be labeled experimental. */
 export function assertTeachingNotExperimental(spectrum) {
   if (!spectrum) return true
   if (spectrum.quality === 'experimental' && !spectrum.example_not_for_citation) {

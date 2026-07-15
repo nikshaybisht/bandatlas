@@ -8,7 +8,7 @@ import {
 } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-/** Scripted 60s portfolio tour steps (auto-advance timers in Explorer). */
+// Step ids driven by timers in ExplorerPage
 export type TourStepId = 'idle' | 'search' | 'uv' | 'ir' | 'export' | 'filter' | 'done'
 
 export const TOUR_FEATURED_ID = 'rhodamine-b'
@@ -19,23 +19,23 @@ export const TOUR_STEP_COPY: Record<
 > = {
   search: {
     title: '1 · Search',
-    body: 'Type a name, CAS, or formula. Filters hide catalog-only rows.',
+    body: 'Type a name, CAS, or formula. Filters drop catalog-only rows.',
   },
   uv: {
     title: '2 · UV–Vis',
-    body: 'Featured dye with a full teaching envelope — shape first, then absolute ε.',
+    body: 'Full teaching envelope for a dye — shape first, then absolute ε if you need it.',
   },
   ir: {
     title: '3 · IR',
-    body: 'Same molecule, vibrational teaching bands for group-frequency discussion.',
+    body: 'Same molecule, vibrational teaching bands.',
   },
   export: {
     title: '4 · Export',
-    body: 'CSV / JSON / lab note pack for notebooks — quality tags stay in the file headers.',
+    body: 'CSV / JSON / lab note pack — quality tags go in the file headers.',
   },
   filter: {
     title: '5 · Full UV filter',
-    body: '“Has full UV–Vis” shows only compounds with a curated curve (103 of 496).',
+    body: '“Has full UV–Vis” keeps compounds with a curated curve only.',
   },
 }
 
@@ -62,7 +62,6 @@ export function DemoTourProvider({ children }: { children: ReactNode }) {
   const startTour = useCallback(() => {
     setRunning(true)
     setStep('search')
-    // Land on featured compound; Explorer advances steps with timers
     navigate(`/c/${TOUR_FEATURED_ID}?tech=uvvis&tour=1`, { replace: false })
   }, [navigate])
 

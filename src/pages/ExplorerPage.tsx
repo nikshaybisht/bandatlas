@@ -376,13 +376,12 @@ export function ExplorerPage({ preset = 'default' }: Props) {
     setSearchOpen(true)
   }
 
-  // Scripted 60s portfolio tour (search → UV → IR → export → UV filter)
+  // quick tour sequence — timers are a bit arbitrary, tweak if it feels rushed
   useEffect(() => {
     if (!tourRunning || isLab) {
       tourSeqRef.current = false
       return
     }
-    // Ensure featured compound is selected
     if (selectedId !== TOUR_FEATURED_ID) {
       techLocked.current = true
       setSelectedId(TOUR_FEATURED_ID)
@@ -429,7 +428,6 @@ export function ExplorerPage({ preset = 'default' }: Props) {
       setUvOnly(false)
       setSearchOpen(false)
       stopTour()
-      // Drop ?tour=1 so refresh doesn't re-run
       if (searchParams.get('tour')) {
         navigate(`/c/${TOUR_FEATURED_ID}?tech=uvvis`, { replace: true })
       }
@@ -470,15 +468,15 @@ export function ExplorerPage({ preset = 'default' }: Props) {
   return (
     <>
       <div className="teaching-banner" role="note">
-        Teaching envelopes for learning &amp; triage — not a certified spectral library. Cite
-        primary literature for experimental numbers.
+        Teaching envelopes for learning — don&apos;t cite them as instrument SI. Primary literature
+        for research numbers.
       </div>
 
       {isLab && (
         <div className="lab-banner" role="status">
-          <strong>Lab companion</strong> — before UV/IR discussion, open a compound and export a
-          note pack. Default filter: curated lab set (
-          {index?.counts.lab_set ?? '—'} compounds, all with full UV).
+          <strong>Lab set</strong> — curated list (
+          {index?.counts.lab_set ?? '—'} compounds, all full UV). Open one, talk, export a note pack
+          if you want it in your notebook.
         </div>
       )}
 

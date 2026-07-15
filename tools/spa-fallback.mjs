@@ -1,7 +1,4 @@
-/**
- * Copy index.html → 404.html so GitHub Pages SPA deep links
- * (/about, /lab, /c/:id) reload correctly under /bandatlas/.
- */
+// Pages needs 404.html = index.html so deep links don't 404 on refresh
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'

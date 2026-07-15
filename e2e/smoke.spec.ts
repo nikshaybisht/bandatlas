@@ -1,13 +1,8 @@
 import { test, expect } from '@playwright/test'
 
-/**
- * Smoke tests — offline-friendly:
- * - Blocks PubChem so 3D uses local SDF cache only (no network flake).
- * - Dataset and structures are static under public/.
- */
+// smoke: block PubChem so 3D uses local SDF only
 test.describe('BandAtlas smoke', () => {
   test.beforeEach(async ({ page }) => {
-    // Do not hit PubChem in CI (rate limits / offline). Cached SDFs still load.
     await page.route('**/pubchem.ncbi.nlm.nih.gov/**', (route) => route.abort())
     const res = await page.goto('/', { waitUntil: 'networkidle', timeout: 60_000 })
     expect(res?.ok() || res?.status() === 304).toBeTruthy()
@@ -142,7 +137,7 @@ test.describe('BandAtlas smoke', () => {
     await expect(page.getByText(/What it is not/i)).toBeVisible()
 
     await nav.getByRole('link', { name: 'Guide', exact: true }).click()
-    await expect(page.getByRole('heading', { name: /60-second guide/i })).toBeVisible()
+    await expect(page.getByRole('heading', { name: /quick guide/i })).toBeVisible()
 
     await nav.getByRole('link', { name: 'Lab', exact: true }).click()
     await expect(page.locator('.lab-banner')).toBeVisible()
@@ -164,18 +159,17 @@ test.describe('BandAtlas smoke', () => {
     await expect(page.locator('.teaching-banner')).toBeVisible()
   })
 
-  test('guide page and about metrics for portfolio demo', async ({ page }) => {
+  test('guide and about pages load', async ({ page }) => {
     await page.goto('/guide', { waitUntil: 'networkidle' })
-    await expect(page.getByRole('heading', { name: /60-second guide/i })).toBeVisible()
+    await expect(page.getByRole('heading', { name: /quick guide/i })).toBeVisible()
     await expect(page.getByTestId('run-60s-tour')).toBeVisible()
     await expect(page.getByText(/React \+ TypeScript \+ Vite/i)).toBeVisible()
-    await expect(page.locator('.page-panel').getByText('teaching envelopes', { exact: true })).toBeVisible()
+    await expect(page.locator('.page-panel').getByText(/teaching envelopes/i).first()).toBeVisible()
 
     await page.goto('/about', { waitUntil: 'networkidle' })
     await expect(page.getByTestId('skills-panel')).toBeVisible()
-    await expect(page.getByText(/Built by Nikshay Bisht/i)).toBeVisible()
+    await expect(page.getByText(/Nikshay Bisht/i)).toBeVisible()
     await expect(page.getByTestId('metrics-grid')).toBeVisible({ timeout: 10_000 })
-    // summary.json metrics
     await expect(page.locator('.metric-val').first()).not.toHaveText('—', { timeout: 10_000 })
     await expect(page.getByRole('link', { name: /Open instructor pack/i })).toBeVisible()
   })
@@ -183,7 +177,7 @@ test.describe('BandAtlas smoke', () => {
   test('instructors page loads lecture plan', async ({ page }) => {
     await page.goto('/instructors', { waitUntil: 'networkidle' })
     await expect(page.getByRole('heading', { name: /^Instructors$/i })).toBeVisible()
-    await expect(page.getByText(/10-minute lecture plan/i)).toBeVisible()
-    await expect(page.getByText(/Pin a release tag/i)).toBeVisible()
+    await expect(page.getByText(/10 min walkthrough/i)).toBeVisible()
+    await expect(page.getByText(/Pin a version/i)).toBeVisible()
   })
 })

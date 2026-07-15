@@ -1,12 +1,11 @@
-# BandAtlas worksheet (printable)
+# BandAtlas worksheet
 
 **Course / date:** _______________________  
 **Name:** _______________________  
 
-Open the live app: **https://nikshaybisht.github.io/bandatlas/**  
-(Optional offline build: pin a release tag — see [WORKSHOP.md](../WORKSHOP.md).)
+App: https://nikshaybisht.github.io/bandatlas/
 
-**Honesty line (read first):** Most spectra in BandAtlas are **teaching envelopes** (model curves constrained to literature λ_max or characteristic IR/Raman frequencies). They are **not** certified experimental digitizations. Do not cite them as instrument SI.
+Most plots here are teaching models, not instrument SI. Don’t cite them as measured data.
 
 ---
 

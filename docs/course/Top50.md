@@ -1,11 +1,11 @@
-# Top 50 teaching compounds (curriculum map)
+# Top 50 teaching compounds
 
-Mapped **BandAtlas compound ids** for lectures and workshops. All have **full UV–Vis teaching envelopes** plus IR/Raman teaching models. Deep links use the live base `/bandatlas/`.
+Compound ids I use when sketching a lecture. All have full UV teaching curves (+ IR/Raman models).
 
-**Live pattern:** `https://nikshaybisht.github.io/bandatlas/c/<id>?tech=uvvis`  
-**Local:** `/c/<id>?tech=uvvis` (or `ir` / `raman`)
+Live: `https://nikshaybisht.github.io/bandatlas/c/<id>?tech=uvvis`  
+Local: `/c/<id>?tech=uvvis` (or `ir` / `raman`)
 
-> **Honesty:** curves are **teaching envelopes**, not certified instrument digitizations. Use primary literature for research SI.
+These are teaching envelopes — use primary lit for research SI.
 
 | # | id | Name | Family | Suggested use |
 |--:|----|------|--------|---------------|

@@ -1,7 +1,8 @@
 /**
- * Builds public/dataset: searchable index + full compound records with
- * educational UV–Vis, IR, and Raman curves.
+ * Build public/dataset (index + compound JSON).
  * Run: node tools/build-dataset.mjs
+ *
+ * TODO: move more FULL entries into data/uv-seeds/ so the big array is not the only source of truth
  */
 import fs from 'node:fs'
 import path from 'node:path'

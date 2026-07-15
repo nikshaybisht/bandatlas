@@ -1,9 +1,7 @@
-/**
- * Pure export string builders (shared by runtime + Node tests).
- */
+// twin of src/lib/exportContracts.ts for node tests (no TS loader)
 
 export const TEACHING_DISCLAIMER =
-  'DISCLAIMER: teaching envelope / model spectrum — NOT experimental SI or certified digitization. Cite primary literature for research numbers.'
+  'DISCLAIMER: teaching envelope / model spectrum — NOT experimental SI. Cite primary literature for research numbers.'
 
 export function techniqueLabel(tab) {
   if (tab === 'uvvis') return 'UV-Vis'
@@ -83,7 +81,7 @@ export function labNoteMarkdown(opts) {
     compound.cas ? `- **CAS:** ${compound.cas}` : null,
     compound.pubchem_cid ? `- **PubChem CID:** ${compound.pubchem_cid}` : null,
     `- **Technique:** ${techniqueLabel(technique)}`,
-    `- **Quality:** ${quality}${quality === 'teaching' ? ' (teaching envelope — not certified digitization)' : ''}`,
+    `- **Quality:** ${quality}${quality === 'teaching' ? ' (teaching envelope — not experimental SI)' : ''}`,
     spectrum?.solvent ? `- **Solvent / conditions:** ${spectrum.solvent}` : null,
     technique === 'uvvis' ? `- **λ_max:** ${lambda}` : null,
     peaks ? `- **Peak markers:** ${peaks}` : null,

@@ -2,12 +2,11 @@ import { assetUrl } from './paths'
 
 const PUBCHEM_TIMEOUT_MS = 8_000
 
-/** Primary offline path (user-facing vendor location). */
 export function localStructureUrl(pubchemCid: number): string {
   return assetUrl(`structures/${pubchemCid}.sdf`)
 }
 
-/** Legacy / dual path under dataset/ (kept for older deploys + tests). */
+// older deploys still look under dataset/structures/
 export function localStructureUrlLegacy(pubchemCid: number): string {
   return assetUrl(`dataset/structures/${pubchemCid}.sdf`)
 }
@@ -78,23 +77,17 @@ async function tryLocal(url: string): Promise<string | null> {
   }
 }
 
-/**
- * Resolve SDF text: local cache (structures/ then dataset/structures/) →
- * PubChem 3D (timeout + 1 retry) → PubChem 2D (timeout + 1 retry).
- *
- * Failures here must never block spectrum/search UI (callers isolate errors).
- */
+// local cache → PubChem 3D → 2D. Callers should isolate errors so search/spectrum keep working.
+// TODO: surface "2D only" more clearly when 3D conformer missing — flat models look weird in the viewer
 export async function loadStructureSdf(pubchemCid: number): Promise<{
   sdf: string
   source: StructureSource
 }> {
-  // 1) Local cache (offline / rate-limit safe)
   const local =
     (await tryLocal(localStructureUrl(pubchemCid))) ||
     (await tryLocal(localStructureUrlLegacy(pubchemCid)))
   if (local) return { sdf: local, source: 'local' }
 
-  // 2) PubChem 3D — timeout + one retry
   const r3 = await fetchText(pubchemSdf3dUrl(pubchemCid), {
     timeoutMs: PUBCHEM_TIMEOUT_MS,
     retries: 1,
@@ -103,7 +96,6 @@ export async function loadStructureSdf(pubchemCid: number): Promise<{
     return { sdf: r3.text, source: 'pubchem-3d' }
   }
 
-  // 3) PubChem 2D — timeout + one retry
   const r2 = await fetchText(pubchemSdf2dUrl(pubchemCid), {
     timeoutMs: PUBCHEM_TIMEOUT_MS,
     retries: 1,

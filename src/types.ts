@@ -2,7 +2,7 @@ export type Technique = 'uvvis_abs' | 'fluorescence' | 'ir' | 'raman'
 
 export type TechniqueTab = 'uvvis' | 'ir' | 'raman'
 
-/** Per-spectrum data quality. Teaching envelopes must never be labeled experimental. */
+// teaching envelopes must stay "teaching" — never relabel as experimental
 export type SpectrumQuality = 'teaching' | 'experimental'
 
 export interface SpectrumSource {
@@ -17,32 +17,24 @@ export interface Spectrum {
   id: string
   technique: Technique
   kind: string
-  /** teaching = multi-Gaussian / group-frequency model; experimental = instrument series with open redistribution rights */
   quality: SpectrumQuality
-  /**
-   * When true (with quality experimental): synthetic schema demo only.
-   * Must never be cited as measured data. Excluded from “Experimental only” filter.
-   */
+  // synthetic schema demo when quality is experimental — excluded from "Experimental only"
   example_not_for_citation?: boolean
   solvent?: string
-  /** Absolute temperature in kelvin, if known for experimental series */
   temperature_K?: number
   y_unit: 'epsilon' | 'normalized' | 'absorbance'
   y_unit_label: string
-  /** UV–Vis peak wavelengths (nm) */
   lambda_max_nm?: number[]
   epsilon_max?: number[]
-  /** IR / Raman peak positions (cm⁻¹) */
   peak_positions?: number[]
   peak_labels?: string[]
   quantum_yield?: number
   plain_caption: string
-  /** Series points (build name: display_points; conceptual schema: series) */
   display_points: [number, number][]
   source: SpectrumSource
 }
 
-/** Build-computed technique flags — UI must use these, not re-derive. */
+// flags come from the dataset build — don't re-derive in the UI
 export interface CompoundFlags {
   hasFullUvVis: boolean
   hasIr: boolean
@@ -61,7 +53,6 @@ export interface Compound {
   mw: number
   smiles: string
   pubchem_cid: number
-  /** Camel alias from build */
   pubchemCid?: number
   plain_summary: string
   structure: { pubchem_3d?: boolean; sdf?: string }
@@ -76,14 +67,11 @@ export interface Compound {
     ir: boolean
     raman: boolean
   }
-  /** Preferred: build-time flags (mirrors availability) */
   flags?: CompoundFlags
   tier: 'full' | 'catalog' | 'partial'
-  /** Lab companion curated set */
   lab_set?: boolean
   labSet?: boolean
   lab_classes?: string[]
-  /** family + lab classes */
   class_labels?: string[]
   classLabels?: string[]
   tags?: string[]
@@ -102,19 +90,14 @@ export interface IndexCompound {
   pubchem_cid: number
   pubchemCid?: number
   tier: 'full' | 'catalog' | 'partial'
-  /** @deprecated prefer hasFullUvVis */
   has_uvvis: boolean
   hasFullUvVis?: boolean
   has_fluorescence: boolean
-  /** @deprecated prefer hasIr */
   has_ir: boolean
   hasIr?: boolean
-  /** @deprecated prefer hasRaman */
   has_raman: boolean
   hasRaman?: boolean
-  /** True experimental UV–Vis (quality experimental, not example-only) */
   has_experimental: boolean
-  /** Schema demo experimental series only (example-not-for-citation) */
   has_experimental_example: boolean
   lab_set?: boolean
   labSet?: boolean
@@ -126,7 +109,6 @@ export interface IndexCompound {
   solvents: string[]
 }
 
-/** Prefer camelCase build flags; fall back to snake_case for older index. */
 export function indexHasFullUvVis(c: IndexCompound): boolean {
   if (typeof c.hasFullUvVis === 'boolean') return c.hasFullUvVis
   return !!c.has_uvvis
@@ -144,7 +126,6 @@ export function indexHasRaman(c: IndexCompound): boolean {
 
 export function compoundFlags(c: Compound): CompoundFlags {
   if (c.flags) return c.flags
-  // Legacy compounds only — still from build availability, not UI invention
   return {
     hasFullUvVis: !!c.availability?.uvvis_abs,
     hasIr: !!c.availability?.ir,
@@ -153,15 +134,11 @@ export function compoundFlags(c: Compound): CompoundFlags {
   }
 }
 
-/** App-facing defaults shipped with the dataset index (not per-compound). */
 export interface DatasetAppMeta {
-  /** Full-UV compound opened on first load / after dismiss when no deep link */
   default_compound_id: string
-  /** Lab companion preset */
   lab: {
     compound_id: string
     technique: TechniqueTab
-    /** Prefer lab-set filter (default true for /lab) */
     lab_set_only?: boolean
     uv_only?: boolean
     mode: 'simple' | 'advanced'
@@ -197,15 +174,11 @@ export interface DatasetIndex {
     with_raman?: number
     ir?: number
     raman?: number
-    /** Compounds with at least one real experimental spectrum */
     experimental?: number
-    /** Schema-demo experimental fixtures (not for citation) */
     experimental_examples?: number
-    /** Curated lab companion set size */
     lab_set?: number
   }
   families: { id: string; label: string; count: number }[]
   compounds: IndexCompound[]
-  /** Optional until older datasets refresh; UI has hard-coded fallbacks */
   app_meta?: DatasetAppMeta
 }

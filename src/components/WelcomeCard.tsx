@@ -19,12 +19,10 @@ export function WelcomeCard({ exampleName, onOpenExample, onDismiss }: Props) {
           Welcome to BandAtlas
         </h2>
         <p>
-          Browse teaching-quality <strong>UV–Vis</strong>, <strong>IR</strong>, and{' '}
-          <strong>Raman</strong> curves for common small molecules — with structures and export.
+          UV–Vis, IR, and Raman for common small molecules — with structures and export for notes.
         </p>
         <p className="welcome-honesty">
-          Most curves are <strong>teaching envelopes</strong>, not certified experimental
-          digitizations. Always cite primary literature for research numbers.
+          Most curves are <strong>teaching envelopes</strong>. Don’t cite them as experimental SI.
         </p>
         <div className="welcome-actions">
           <button

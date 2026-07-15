@@ -12,8 +12,7 @@ interface Props {
   compound: Compound
   spectrum: Spectrum | null
   technique: TechniqueTab
-  /** Force open (e.g. demo tour export step) */
-  forceOpen?: boolean
+  forceOpen?: boolean // tour forces export panel open
 }
 
 export function ResearchTools({ compound, spectrum, technique, forceOpen }: Props) {
@@ -58,7 +57,7 @@ export function ResearchTools({ compound, spectrum, technique, forceOpen }: Prop
       exported_at: new Date().toISOString(),
       application: 'BandAtlas',
       disclaimer:
-        'Teaching envelope / model spectrum — NOT experimental SI or certified digitization.',
+        'Teaching envelope / model spectrum — NOT experimental SI. Cite primary literature.',
       permalink,
       compound: {
         id: compound.id,
@@ -109,8 +108,8 @@ export function ResearchTools({ compound, spectrum, technique, forceOpen }: Prop
       {open && (
         <div className="fold-body" id="bandatlas-export-panel" role="region" aria-label="Export">
           <p className="rt-help">
-            Lab-note exports always mark <strong>quality=teaching</strong> when applicable. Not a
-            certified digitization archive — keep the disclaimer in your notebook.
+            Exports put <strong>quality=</strong> and the teaching disclaimer in the file headers.
+            Keep that when you paste into a notebook.
           </p>
           <div className="rt-actions">
             <button

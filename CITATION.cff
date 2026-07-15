@@ -1,7 +1,7 @@
 cff-version: 1.2.0
-message: "If you use BandAtlas, please cite it as below."
+message: "If BandAtlas was useful, cite it as below."
 type: software
-title: "BandAtlas: browser-based multi-technique spectral viewer for small molecules"
+title: "BandAtlas"
 version: "1.1.0"
 date-released: "2026-07-16"
 authors:
@@ -11,10 +11,9 @@ repository-code: "https://github.com/nikshaybisht/bandatlas"
 url: "https://nikshaybisht.github.io/bandatlas/"
 license: MIT
 abstract: >
-  BandAtlas is a static web application for browsing UV–Vis, IR, and Raman
-  spectral records of common small molecules together with structures and
-  metadata. The package includes teaching envelopes and curated identifiers
-  for laboratory teaching and literature triage.
+  Static web app for browsing small-molecule UV–Vis, IR, and Raman records
+  with structures and export. Mostly teaching envelopes; not a certified
+  spectral library.
 keywords:
   - UV-Vis
   - infrared spectroscopy

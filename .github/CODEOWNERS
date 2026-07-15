@@ -1,8 +1,0 @@
-# Default owner for the BandAtlas repository
-*       @nikshaybisht
-
-# Dataset pipeline and teaching seeds
-/data/                 @nikshaybisht
-/tools/                @nikshaybisht
-/public/dataset/       @nikshaybisht
-/docs/                 @nikshaybisht

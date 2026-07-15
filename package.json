@@ -2,7 +2,7 @@
   "name": "bandatlas",
   "private": false,
   "version": "1.1.0",
-  "description": "BandAtlas — working atlas of small-molecule UV–Vis, IR & Raman bands",
+  "description": "Browser atlas of small-molecule UV–Vis, IR, and Raman bands",
   "keywords": [
     "spectroscopy",
     "UV-Vis",
