@@ -124,13 +124,16 @@ src/                     React + TypeScript UI
 public/dataset/          Built index, compound JSON, references
 tools/
   build-dataset.mjs      UV–Vis seeds + index
+  validate-seeds.mjs     UV teaching seed validation (`npm run validate:seeds`)
   ir-raman-lib.mjs       IR/Raman profiles + catalog stubs
   quality-helpers.mjs    Test contracts (UV flags, CSV markers)
   cache-structures.mjs   Offline PubChem SDF cache (`npm run structures`)
   README-structures.md
   capture-screenshots.mjs
+data/uv-seeds/           Additive UV teaching seed JSON (see docs/ADD_SPECTRUM.md)
 public/dataset/structures/  Cached SDF for demo compounds
-tests/                   Node test runner (dataset / experimental / structures)
+tests/                   Node test runner (dataset / experimental / structures / seeds)
+docs/ADD_SPECTRUM.md     15-minute path to add a UV teaching curve
 docs/
   methodology.md
   images/                UI screenshots

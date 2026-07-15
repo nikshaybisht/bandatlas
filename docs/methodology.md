@@ -35,7 +35,8 @@ Optional flags / fields:
 
 ### Teaching UV–Vis
 
-- Full-curve seeds live in `tools/build-dataset.mjs` (`FULL` array).
+- Full-curve seeds live in `tools/build-dataset.mjs` (`FULL` array) and optional additive files in `data/uv-seeds/*.json`.
+- **How to add a seed (~15 min):** [docs/ADD_SPECTRUM.md](ADD_SPECTRUM.md). Validation: `npm run validate:seeds` (also runs inside `npm run dataset`).
 - Catalog-only compounds have **no** UV series; the UI shows an empty state.
 - Display series: wavelength (nm) vs ε (advanced) or normalized intensity (teaching mode).
 - Rebuild counts: `npm run dataset` prints totals and writes `public/dataset/summary.json`.

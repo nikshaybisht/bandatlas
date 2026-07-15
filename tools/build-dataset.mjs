@@ -11,6 +11,11 @@ import {
   buildIrSpectrum,
   buildRamanSpectrum,
 } from './ir-raman-lib.mjs'
+import {
+  assertValidSeeds,
+  loadUvSeedFiles,
+  mergeUvSeeds,
+} from './validate-seeds.mjs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const outRoot = path.join(__dirname, '..', 'public', 'dataset')
@@ -3335,7 +3340,15 @@ function applyExperimentalOverlay(allById, overlay) {
 
 ensureDir(compoundsDir)
 
-const fullCompounds = FULL.map(buildFullCompound)
+// Validate built-in FULL seeds + optional data/uv-seeds/*.json (see docs/ADD_SPECTRUM.md)
+const externalUvSeeds = loadUvSeedFiles()
+const mergedFullSeeds = mergeUvSeeds(FULL, externalUvSeeds)
+assertValidSeeds(mergedFullSeeds, 'UV teaching seeds (FULL + data/uv-seeds)')
+if (externalUvSeeds.length) {
+  console.log(`  + ${externalUvSeeds.length} external UV seed(s) from data/uv-seeds/`)
+}
+
+const fullCompounds = mergedFullSeeds.map(buildFullCompound)
 const stubCompounds = [...STUBS, ...EXTRA_STUBS].map(stubToEntry)
 
 // Avoid duplicate ids if stub overlaps full

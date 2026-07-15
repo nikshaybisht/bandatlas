@@ -1,0 +1,26 @@
+{
+  "id": "your-compound-id",
+  "name": "Your compound name",
+  "synonyms": [],
+  "family": "dyes",
+  "cas": "",
+  "formula": "C?",
+  "mw": 0,
+  "smiles": "",
+  "pubchem_cid": 0,
+  "quality": "teaching",
+  "plain_summary": "One or two sentences for undergrad teaching (what it is / why the colour).",
+  "abs": {
+    "solvent": "ethanol",
+    "peaks": [
+      { "lambda": 500, "height": 10000, "sigma": 16 }
+    ],
+    "xMin": 350,
+    "xMax": 650,
+    "lambda_max_nm": [500],
+    "epsilon_max": [10000],
+    "plain_caption": "Short note for the plot caption (colour relationship).",
+    "lit": "λ_max after <source / table / DOI> — multi-Gaussian teaching envelope, not a digitization.",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

@@ -20,15 +20,37 @@ npm run dev
 Build check:
 
 ```bash
-npm run build
+npm run ci          # validate seeds + unit tests + build
+npm run validate:seeds
 ```
 
-## Adding compounds
+## Adding a UV–Vis teaching curve (~15 min)
 
-1. Prefer editing `tools/build-dataset.mjs` (UV–Vis seeds) or `tools/ir-raman-lib.mjs` (IR/Raman profiles, catalog stubs).
+**→ Full guide: [docs/ADD_SPECTRUM.md](docs/ADD_SPECTRUM.md)**
+
+Short path:
+
+1. Copy `data/uv-seeds/_template.json` → `data/uv-seeds/<id>.json` (do not keep the `_` prefix).
+2. Fill **name**, **CID or SMILES**, **λ_max**, **solvent**, **source note** (`abs.lit` / `abs.quality_note`), peaks.
+3. Run:
+
+   ```bash
+   npm run validate:seeds
+   npm run dataset
+   ```
+
+   Bad seeds **fail the build** with a clear error list.
+
+4. Spot-check in `npm run dev`, then open a PR.
+
+You can also append to the `FULL` array in `tools/build-dataset.mjs` (same schema).
+
+Issue template: **Request / add UV teaching curve** (GitHub Issues).
+
+## Catalog stubs / IR–Raman only
+
+1. Edit `tools/ir-raman-lib.mjs` or the `STUBS` list in `tools/build-dataset.mjs`.
 2. Run `npm run dataset`.
-3. Spot-check the compound page (spectrum, provenance note, 3D).
-4. Document any new literature sources in `public/dataset/references.json`.
 
 ## Experimental spectra
 

@@ -1,0 +1,75 @@
+name: Request / add UV teaching curve
+description: Propose a new multi-Gaussian UV–Vis teaching envelope (not experimental data)
+title: "[UV teaching] "
+labels: ["data", "uv-vis"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Teaching curves are **multi-Gaussian envelopes** constrained to literature λ_max — **not** instrument digitizations.
+        Full guide: [docs/ADD_SPECTRUM.md](https://github.com/nikshaybisht/bandatlas/blob/main/docs/ADD_SPECTRUM.md)
+
+  - type: input
+    id: compound_name
+    attributes:
+      label: Compound name
+      placeholder: e.g. Nile red
+    validations:
+      required: true
+
+  - type: input
+    id: cas_or_cid
+    attributes:
+      label: CAS and/or PubChem CID
+      placeholder: "CAS … / CID …"
+    validations:
+      required: true
+
+  - type: input
+    id: solvent
+    attributes:
+      label: Solvent / conditions for λ_max
+      placeholder: ethanol, water pH 7, …
+    validations:
+      required: true
+
+  - type: textarea
+    id: lambda_max
+    attributes:
+      label: Literature λ_max (nm)
+      description: List peaks and approximate ε if known. Include source (DOI, textbook, table).
+      placeholder: |
+        552 nm (ε ≈ …) in ethanol
+        Source: …
+    validations:
+      required: true
+
+  - type: dropdown
+    id: contribution_type
+    attributes:
+      label: How will this land?
+      options:
+        - Request only (maintainer may add a teaching envelope)
+        - I will open a PR with data/uv-seeds/<id>.json
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I understand this is a **teaching envelope**, not a certified digitization
+          required: true
+        - label: λ_max has a **source note** (paper, table, or standard reference)
+          required: true
+        - label: I will not paste copyrighted full spectral traces without redistribution rights
+          required: true
+        - label: If PR — I ran `npm run validate:seeds` and `npm run dataset` successfully
+          required: false
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Extra notes
+      placeholder: Family (dye, PAH, …), fluorescence?, synonyms, urgency for teaching lab

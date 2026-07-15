@@ -1,5 +1,14 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+- **Contributor path for UV teaching seeds:** [docs/ADD_SPECTRUM.md](docs/ADD_SPECTRUM.md)
+- `data/uv-seeds/` additive JSON seeds + `_template.json`
+- `npm run validate:seeds` (`tools/validate-seeds.mjs`); `npm run dataset` fails on bad seeds
+- GitHub issue template: Request / add UV teaching curve
+- Tests: `tests/seeds.test.mjs`
+
 ## [0.7.1] — 2026-07-16
 
 ### Changed

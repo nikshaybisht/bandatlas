@@ -25,13 +25,14 @@
   "type": "module",
   "scripts": {
     "dataset": "node tools/build-dataset.mjs",
+    "validate:seeds": "node tools/validate-seeds.mjs",
     "structures": "node tools/cache-structures.mjs",
     "dev": "vite",
     "build": "npm run dataset && tsc -b && vite build",
-    "test": "npm run dataset && node --test tests/dataset.test.mjs tests/experimental.test.mjs tests/structures.test.mjs",
+    "test": "npm run validate:seeds && npm run dataset && node --test tests/dataset.test.mjs tests/experimental.test.mjs tests/structures.test.mjs tests/seeds.test.mjs",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
-    "ci": "npm run dataset && node --test tests/dataset.test.mjs tests/experimental.test.mjs tests/structures.test.mjs && tsc -b && vite build",
+    "ci": "npm run validate:seeds && npm run dataset && node --test tests/dataset.test.mjs tests/experimental.test.mjs tests/structures.test.mjs tests/seeds.test.mjs && tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
     "screenshots": "node tools/capture-screenshots.mjs"
