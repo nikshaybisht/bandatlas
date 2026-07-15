@@ -7,12 +7,17 @@
 [![Author](https://img.shields.io/badge/author-Nikshay%20Bisht-0B3D91.svg)](https://github.com/nikshaybisht)
 
 <p align="center">
-  <img src="docs/images/screenshot-uvvis.png" alt="BandAtlas — UV–Vis view of a dye spectrum" width="860" />
+  <img src="docs/images/screenshot-uvvis.png" alt="BandAtlas — UV–Vis (dark) with emission and colour band" width="860" />
 </p>
 
 <p align="center">
-  <img src="docs/images/screenshot-ir.png" alt="Infrared view" width="420" />
-  <img src="docs/images/screenshot-compare.png" alt="Overlay comparison" width="420" />
+  <img src="docs/images/screenshot-ir.png" alt="Infrared spectrum" width="280" />
+  <img src="docs/images/screenshot-raman.png" alt="Raman spectrum" width="280" />
+  <img src="docs/images/screenshot-compare.png" alt="Overlay comparison" width="280" />
+</p>
+
+<p align="center">
+  <img src="docs/images/screenshot-light.png" alt="BandAtlas light theme" width="860" />
 </p>
 
 ---
