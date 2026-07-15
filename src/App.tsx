@@ -298,9 +298,14 @@ export default function App() {
                   : ''}
               </span>
             )}
-            <label className="filter-chip" title="Show only compounds with a full UV–Vis curve">
+            <label
+              className="filter-chip"
+              title="Show only compounds with a full UV–Vis curve"
+              data-testid="filter-uv-only-label"
+            >
               <input
                 type="checkbox"
+                data-testid="filter-uv-only"
                 checked={uvOnly}
                 onChange={(e) => {
                   setUvOnly(e.target.checked)
@@ -312,9 +317,11 @@ export default function App() {
             <label
               className="filter-chip"
               title="Show only compounds with real experimental series (excludes schema demos)"
+              data-testid="filter-experimental-only-label"
             >
               <input
                 type="checkbox"
+                data-testid="filter-experimental-only"
                 checked={experimentalOnly}
                 onChange={(e) => {
                   setExperimentalOnly(e.target.checked)

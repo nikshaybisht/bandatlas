@@ -72,9 +72,22 @@ Open the URL Vite prints (usually `http://127.0.0.1:5173`).
 Production build and checks:
 
 ```bash
-npm run ci          # dataset + tests + typecheck + vite build
+npm run ci          # dataset + unit tests + typecheck + vite build
 npm run preview
 ```
+
+### End-to-end smoke (Playwright)
+
+Requires a production build (or an existing `dist/`):
+
+```bash
+npm run ci          # builds dist/
+npm run test:e2e    # starts vite preview + Playwright smoke
+```
+
+What the smoke suite covers: home shell loads, search finds benzene, **Has full UV–Vis** filter hides catalog-only water, technique tabs switch without crash, CSV export downloads a file. PubChem is blocked in tests so 3D uses the **local SDF cache** only (no network flake).
+
+On GitHub Actions: unit+build always; Playwright runs on push/PR to `main` after the unit job.
 
 ### Deploy base path
 

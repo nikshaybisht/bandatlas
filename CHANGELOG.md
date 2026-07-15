@@ -7,6 +7,8 @@
 - 3D viewer: local cache first, then PubChem 3D/2D; clear empty state if both fail
 - `npm run structures` (`tools/cache-structures.mjs`) + `tools/README-structures.md`
 - Tests: at least 5 known CID SDF files present; soft size budget
+- **Playwright e2e smoke** (`npm run test:e2e`): home, search, UV filter, technique tabs, CSV export
+- CI: unit+build always; e2e job on push/PR to `main` (Chromium, PubChem blocked)
 
 ## [0.7.0] — 2026-07-16
 

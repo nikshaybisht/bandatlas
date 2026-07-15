@@ -8,7 +8,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
+  unit:
+    name: Unit + build
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -17,8 +18,48 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci
-      - name: Dataset + tests + production build
+      - name: Dataset + unit tests + production build
         env:
-          # Local/CI default base is / ; Pages workflow sets /bandatlas/
           VITE_BASE: /
         run: npm run ci
+      - name: Upload dist for e2e
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+          retention-days: 1
+
+  e2e:
+    name: Playwright smoke
+    needs: unit
+    # Run on PRs and main (not every fork dispatch without code)
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Download production dist
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+      - name: Install Playwright Chromium
+        run: npx playwright install chromium --with-deps
+      - name: E2E smoke
+        env:
+          CI: true
+          E2E_BASE_URL: http://127.0.0.1:4173
+        run: npm run test:e2e
+      - name: Upload Playwright report on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: |
+            playwright-report
+            test-results
+          retention-days: 7
