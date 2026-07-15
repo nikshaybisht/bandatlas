@@ -10,12 +10,19 @@ import { ResearchTools } from '../components/ResearchTools'
 import { WelcomeCard } from '../components/WelcomeCard'
 import { LabDiscussionCard } from '../components/LabDiscussionCard'
 import { FeaturedStrip } from '../components/FeaturedStrip'
+import { RecentList } from '../components/RecentList'
 import { useAppTheme } from '../context/AppThemeContext'
 import { TOUR_FEATURED_ID, useDemoTour } from '../context/DemoTourContext'
 import { buildSearchIndex } from '../lib/search'
 import { loadCompound } from '../lib/loadCompound'
 import { datasetUrl } from '../lib/paths'
 import { parseTechniqueParam } from '../lib/export'
+import {
+  clearRecent,
+  pushRecent,
+  readRecent,
+  type RecentEntry,
+} from '../lib/history'
 import { isWelcomeDismissed } from '../lib/theme'
 import type {
   Compound,
@@ -125,6 +132,7 @@ export function ExplorerPage({ preset = 'default' }: Props) {
   const [showWelcome, setShowWelcome] = useState(
     () => !isLab && !isWelcomeDismissed(),
   )
+  const [recent, setRecent] = useState<RecentEntry[]>(() => readRecent())
   /** When true, do not auto-pick technique from compound availability (deep link owns it). */
   const techLocked = useRef(Boolean(techFromUrl))
   const searchBoxRef = useRef<HTMLDivElement>(null)
@@ -218,6 +226,7 @@ export function ExplorerPage({ preset = 'default' }: Props) {
         if (!cancelled) {
           setCompound(c)
           setLoadingMol(false)
+          setRecent(pushRecent({ id: c.id, name: c.name, formula: c.formula }))
           const flags = compoundFlags(c)
           if (!techLocked.current) {
             if (flags.hasFullUvVis) setTechnique('uvvis')
@@ -858,6 +867,7 @@ export function ExplorerPage({ preset = 'default' }: Props) {
                   <ShareCard
                     compound={compound}
                     technique={technique}
+                    spectrum={primary}
                     caption={
                       primary?.plain_caption ||
                       compound.plain_summary ||
@@ -872,6 +882,15 @@ export function ExplorerPage({ preset = 'default' }: Props) {
                   compound={compound}
                   activeSpectrum={primary}
                   technique={technique}
+                />
+                <RecentList
+                  items={recent}
+                  selectedId={selectedId}
+                  onSelect={(id) => select(id)}
+                  onClear={() => {
+                    clearRecent()
+                    setRecent([])
+                  }}
                 />
                 {compound.pubchem_cid ? (
                   <MoleculeViewer

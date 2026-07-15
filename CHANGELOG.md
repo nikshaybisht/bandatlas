@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.13.0] — 2026-07-16
+
+### Export for lab notes
+- **Lab Note Pack** (no zip): staggered Markdown + CSV + JSON + print figure; always embeds teaching disclaimer, quality, source, app version, permalink
+- **Figure card**: axis labels, **TEACHING MODEL** watermark; theme export or print-light
+- **Clipboard**: Copy Markdown citation, Copy BibTeX (software + optional source)
+- **Recent** list (localStorage, last 10 compounds) in side panel — privacy-safe, no server
+- Pure contracts in `tools/export-contracts.mjs`; unit tests for CSV quality/teaching + Markdown permalink
+
 ## [0.12.0] — 2026-07-16
 
 ### Reliability

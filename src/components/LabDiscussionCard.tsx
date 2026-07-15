@@ -2,8 +2,10 @@ import { useState } from 'react'
 import type { Compound, Spectrum, TechniqueTab } from '../types'
 import { compoundFlags } from '../types'
 import {
+  clipboardMarkdownCitation,
   compoundShareUrl,
   exportLabNotePack,
+  fullBibtexClipboard,
   qualityWord,
   techniqueLabel,
 } from '../lib/export'
@@ -28,8 +30,7 @@ export function LabDiscussionCard({
   technique,
   onTechniqueChange,
 }: Props) {
-  const [linkStatus, setLinkStatus] = useState<string | null>(null)
-  const [packStatus, setPackStatus] = useState<string | null>(null)
+  const [status, setStatus] = useState<string | null>(null)
 
   const shareUrl = compoundShareUrl(compound.id, technique)
   const lambda =
@@ -46,21 +47,49 @@ export function LabDiscussionCard({
     .filter(Boolean)
     .join(' · ')
 
+  const flash = (msg: string) => {
+    setStatus(msg)
+    window.setTimeout(() => setStatus(null), 2200)
+  }
+
   const copyLink = async () => {
     try {
       await navigator.clipboard.writeText(shareUrl)
-      setLinkStatus('Link copied')
-      setTimeout(() => setLinkStatus(null), 2000)
+      flash('Link copied')
     } catch {
-      setLinkStatus('Clipboard blocked')
-      setTimeout(() => setLinkStatus(null), 2000)
+      flash('Clipboard blocked')
+    }
+  }
+
+  const copyMd = async () => {
+    try {
+      await navigator.clipboard.writeText(
+        clipboardMarkdownCitation({ compound, spectrum, technique, url: shareUrl }),
+      )
+      flash('Markdown citation copied')
+    } catch {
+      flash('Clipboard blocked')
+    }
+  }
+
+  const copyBib = async () => {
+    try {
+      await navigator.clipboard.writeText(fullBibtexClipboard(compound, spectrum, { url: shareUrl }))
+      flash('BibTeX copied')
+    } catch {
+      flash('Clipboard blocked')
     }
   }
 
   const exportPack = () => {
-    exportLabNotePack({ compound, spectrum, technique, url: shareUrl })
-    setPackStatus('Note pack downloaded')
-    setTimeout(() => setPackStatus(null), 2500)
+    exportLabNotePack({
+      compound,
+      spectrum,
+      technique,
+      url: shareUrl,
+      figureTheme: 'light',
+    })
+    flash('Lab Note Pack (MD + CSV + figure)')
   }
 
   return (
@@ -100,11 +129,7 @@ export function LabDiscussionCard({
             <div className="lab-tech-seg" role="group" aria-label="Discussion technique">
               {(['uvvis', 'ir', 'raman'] as const).map((t) => {
                 const on =
-                  t === 'uvvis'
-                    ? flags.hasFullUvVis
-                    : t === 'ir'
-                      ? flags.hasIr
-                      : flags.hasRaman
+                  t === 'uvvis' ? flags.hasFullUvVis : t === 'ir' ? flags.hasIr : flags.hasRaman
                 return (
                   <button
                     key={t}
@@ -122,9 +147,7 @@ export function LabDiscussionCard({
         </div>
         <div>
           <dt>λ_max (active UV)</dt>
-          <dd className="mono">
-            {technique === 'uvvis' ? lambda : 'switch to UV–Vis'}
-          </dd>
+          <dd className="mono">{technique === 'uvvis' ? lambda : 'switch to UV–Vis'}</dd>
         </div>
         <div>
           <dt>Quality tag</dt>
@@ -145,24 +168,25 @@ export function LabDiscussionCard({
         >
           Export Lab Note Pack
         </button>
-        <button
-          type="button"
-          className="ghost"
-          data-testid="copy-lab-link"
-          onClick={copyLink}
-          title={shareUrl}
-        >
+        <button type="button" className="ghost" data-testid="copy-lab-link" onClick={copyLink}>
           Copy link
         </button>
-        {(packStatus || linkStatus) && (
+        <button type="button" className="ghost" onClick={copyMd}>
+          Copy Markdown
+        </button>
+        <button type="button" className="ghost" onClick={copyBib}>
+          Copy BibTeX
+        </button>
+        {status && (
           <span className="share-status" role="status">
-            {packStatus || linkStatus}
+            {status}
           </span>
         )}
       </div>
       <p className="lab-card-hint">
-        Pack downloads CSV (if series), JSON bundle, Markdown notebook snippet, and a figure PNG.
-        Link includes technique: <code className="mono">{`/c/${compound.id}?tech=${technique}`}</code>
+        Pack = Markdown notebook note + CSV (with teaching disclaimer) + print figure (TEACHING
+        MODEL watermark). No zip dependency. Permalink:{' '}
+        <code className="mono">{`/c/${compound.id}?tech=${technique}`}</code>
       </p>
     </div>
   )

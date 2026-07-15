@@ -74,6 +74,21 @@ A stranger (PhD panel / internship) should understand the app and the builder’
 5. Enable **Has full UV–Vis** filter  
 6. Optional: `/lab` note pack + copy share link  
 
+### Export for lab notes
+
+Exports are meant for notebooks, not debug dumps.
+
+| Action | What you get |
+|--------|----------------|
+| **Lab Note Pack** | Markdown note + CSV series + JSON bundle + figure PNG (staggered multi-download; no zip dependency) |
+| **CSV headers** | `quality=teaching` (when applicable), solvent, source, app version, **permalink**, teaching disclaimer |
+| **Figure card** | Title, axis labels, **TEACHING MODEL** watermark; print-light option for lab books |
+| **Copy Markdown** | Compound line + quality honesty + permalink + software citation |
+| **Copy BibTeX** | Software `@misc` + optional spectrum source note |
+| **Recent** | Last 10 viewed compounds on **this device only** (`localStorage`) |
+
+Always keep the disclaimer: teaching envelopes are not experimental SI.
+
 ### Lab companion
 
 Primary job: **before UV/IR discussion, open this compound and export a note pack.**
@@ -192,7 +207,7 @@ CHANGELOG.md
 If BandAtlas helped your teaching material or analysis workflow:
 
 ```
-Bisht, N. (2026). BandAtlas (v0.12.0) [Computer software].
+Bisht, N. (2026). BandAtlas (v0.13.0) [Computer software].
 https://github.com/nikshaybisht/bandatlas
 Live demo: https://nikshaybisht.github.io/bandatlas/
 ```

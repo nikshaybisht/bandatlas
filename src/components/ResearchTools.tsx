@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react'
 import type { Compound, Spectrum, TechniqueTab } from '../types'
 import {
-  compoundBibtex,
+  compoundShareUrl,
   downloadText,
+  exportLabNotePack,
   spectrumToCsv,
   techniqueLabel,
 } from '../lib/export'
@@ -17,7 +18,9 @@ interface Props {
 
 export function ResearchTools({ compound, spectrum, technique, forceOpen }: Props) {
   const [open, setOpen] = useState(false)
+  const [status, setStatus] = useState<string | null>(null)
   const rootRef = useRef<HTMLDivElement>(null)
+  const permalink = compoundShareUrl(compound.id, technique)
 
   useEffect(() => {
     if (forceOpen) setOpen(true)
@@ -35,19 +38,28 @@ export function ResearchTools({ compound, spectrum, technique, forceOpen }: Prop
     return () => document.removeEventListener('keydown', onKey)
   }, [open])
 
+  const flash = (msg: string) => {
+    setStatus(msg)
+    window.setTimeout(() => setStatus(null), 2200)
+  }
+
   const exportCsv = () => {
     if (!spectrum) return
     downloadText(
       `${compound.id}_${technique}_spectrum.csv`,
-      spectrumToCsv(spectrum, compound),
+      spectrumToCsv(spectrum, compound, { permalink }),
       'text/csv;charset=utf-8',
     )
+    flash('CSV downloaded')
   }
 
   const exportJson = () => {
     const payload = {
       exported_at: new Date().toISOString(),
       application: 'BandAtlas',
+      disclaimer:
+        'Teaching envelope / model spectrum — NOT experimental SI or certified digitization.',
+      permalink,
       compound: {
         id: compound.id,
         name: compound.name,
@@ -61,6 +73,7 @@ export function ResearchTools({ compound, spectrum, technique, forceOpen }: Prop
         ? {
             id: spectrum.id,
             technique: spectrum.technique,
+            quality: spectrum.quality,
             solvent: spectrum.solvent,
             y_unit: spectrum.y_unit,
             points: spectrum.display_points,
@@ -73,14 +86,16 @@ export function ResearchTools({ compound, spectrum, technique, forceOpen }: Prop
       JSON.stringify(payload, null, 2),
       'application/json',
     )
+    flash('JSON downloaded')
+  }
+
+  const exportPack = () => {
+    exportLabNotePack({ compound, spectrum, technique, url: permalink, figureTheme: 'light' })
+    flash('Lab Note Pack (MD + CSV + PNG)')
   }
 
   return (
-    <div
-      className="fold-block"
-      ref={rootRef}
-      data-tour-target="export"
-    >
+    <div className="fold-block" ref={rootRef} data-tour-target="export">
       <button
         type="button"
         className="fold-toggle"
@@ -94,30 +109,30 @@ export function ResearchTools({ compound, spectrum, technique, forceOpen }: Prop
       {open && (
         <div className="fold-body" id="bandatlas-export-panel" role="region" aria-label="Export">
           <p className="rt-help">
-            Download the plotted series for lab notes. Headers include quality, solvent, and source
-            text — keep them. Teaching envelopes are not certified digitizations.
+            Lab-note exports always mark <strong>quality=teaching</strong> when applicable. Not a
+            certified digitization archive — keep the disclaimer in your notebook.
           </p>
           <div className="rt-actions">
+            <button
+              type="button"
+              className="welcome-primary"
+              data-testid="export-note-pack-main"
+              onClick={exportPack}
+            >
+              Lab Note Pack
+            </button>
             <button type="button" className="ghost" disabled={!spectrum} onClick={exportCsv}>
               CSV
             </button>
             <button type="button" className="ghost" onClick={exportJson}>
               JSON
             </button>
-            <button
-              type="button"
-              className="ghost"
-              onClick={() =>
-                downloadText(
-                  `${compound.id}.bib`,
-                  compoundBibtex(compound),
-                  'application/x-bibtex',
-                )
-              }
-            >
-              BibTeX (software stub)
-            </button>
           </div>
+          {status && (
+            <p className="share-status" role="status">
+              {status}
+            </p>
+          )}
         </div>
       )}
     </div>

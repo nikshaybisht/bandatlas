@@ -91,7 +91,7 @@ export function assertTeachingNotExperimental(spectrum) {
 export function csvHasRequiredMarkers(csv) {
   if (typeof csv !== 'string' || !csv.length) return false
   const hasHeader =
-    csv.includes('# BandAtlas export') &&
+    (csv.includes('# BandAtlas export') || csv.includes('# BandAtlas lab export')) &&
     csv.includes('# compound:') &&
     csv.includes('# technique:')
   const hasXy = /^x_(nm|cm-1),y$/m.test(csv) || csv.includes('x_nm,y') || csv.includes('x_cm-1,y')

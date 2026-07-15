@@ -1,29 +1,28 @@
 import type { Compound, Spectrum, TechniqueTab } from '../types'
 import { APP_VERSION } from './version'
+import {
+  TEACHING_DISCLAIMER,
+  clipboardMarkdownCitation as clipboardMarkdownCitationCore,
+  compoundBibtex as compoundBibtexCore,
+  labNoteMarkdown as labNoteMarkdownCore,
+  qualityWord as qualityWordCore,
+  spectrumSourceBibtex as spectrumSourceBibtexCore,
+  spectrumToCsv as spectrumToCsvCore,
+  techniqueLabel as techniqueLabelCore,
+} from './exportContracts'
 
-export function spectrumToCsv(spectrum: Spectrum, compound: Compound): string {
-  const unitX =
-    spectrum.technique === 'ir' || spectrum.technique === 'raman' ? 'cm-1' : 'nm'
-  const quality = spectrum.quality || 'teaching'
-  const header = [
-    `# BandAtlas export`,
-    `# compound: ${compound.name}`,
-    `# id: ${compound.id}`,
-    `# CAS: ${compound.cas || 'n/a'}`,
-    `# formula: ${compound.formula || 'n/a'}`,
-    `# technique: ${spectrum.technique}`,
-    `# quality: ${quality}${spectrum.example_not_for_citation ? ' (example-not-for-citation)' : ''}`,
-    `# solvent_or_conditions: ${spectrum.solvent || 'n/a'}`,
-    `# temperature_K: ${spectrum.temperature_K ?? 'n/a'}`,
-    `# y_unit: ${spectrum.y_unit_label}`,
-    `# quality_note: ${spectrum.source?.note || 'see source'}`,
-    `# source: ${(spectrum.source?.citation || '').replace(/\n/g, ' ')}`,
-    `# doi: ${spectrum.source?.doi || 'n/a'}`,
-    `# exported: ${new Date().toISOString()}`,
-    `x_${unitX},y`,
-  ]
-  const rows = spectrum.display_points.map(([x, y]) => `${x},${y}`)
-  return [...header, ...rows].join('\n')
+export const TEACHING_DISCLAIMER_LINE = TEACHING_DISCLAIMER
+
+export function spectrumToCsv(
+  spectrum: Spectrum,
+  compound: Compound,
+  opts?: { permalink?: string; exportedAt?: string },
+): string {
+  return spectrumToCsvCore(spectrum, compound, {
+    appVersion: APP_VERSION,
+    permalink: opts?.permalink,
+    exportedAt: opts?.exportedAt,
+  })
 }
 
 export function downloadText(filename: string, content: string, mime = 'text/plain') {
@@ -43,23 +42,32 @@ export function downloadDataUrl(filename: string, dataUrl: string) {
   a.click()
 }
 
-export function compoundBibtex(compound: Compound): string {
-  const key = `bandatlas_${compound.id.replace(/[^a-zA-Z0-9]/g, '_')}`
-  return `@misc{${key},
-  title        = {${compound.name} spectral record (BandAtlas)},
-  author       = {Bisht, Nikshay},
-  year         = {${new Date().getFullYear()}},
-  howpublished = {BandAtlas compound id: ${compound.id}},
-  note         = {CAS ${compound.cas || 'n/a'}; formula ${compound.formula || 'n/a'}. Teaching/curated packaging — verify primary literature before quantitative use.},
-  url          = {https://github.com/nikshaybisht/bandatlas}
+export function compoundBibtex(compound: Compound, opts?: { url?: string }): string {
+  return compoundBibtexCore(compound, { appVersion: APP_VERSION, url: opts?.url })
 }
-`
+
+export function spectrumSourceBibtex(
+  compound: Compound,
+  spectrum: Spectrum | null,
+  opts?: { url?: string },
+): string {
+  if (!spectrum) return ''
+  return spectrumSourceBibtexCore(compound, spectrum, opts)
+}
+
+/** Software BibTeX + optional spectrum source note as one clipboard string. */
+export function fullBibtexClipboard(
+  compound: Compound,
+  spectrum: Spectrum | null,
+  opts?: { url?: string },
+): string {
+  const soft = compoundBibtex(compound, opts)
+  const src = spectrumSourceBibtex(compound, spectrum, opts)
+  return src ? `${soft}\n${src}` : soft
 }
 
 export function techniqueLabel(tab: TechniqueTab): string {
-  if (tab === 'uvvis') return 'UV-Vis'
-  if (tab === 'ir') return 'IR'
-  return 'Raman'
+  return techniqueLabelCore(tab)
 }
 
 export function parseTechniqueParam(raw: string | null | undefined): TechniqueTab | null {
@@ -82,14 +90,9 @@ export function compoundShareUrl(compoundId: string, technique: TechniqueTab): s
 }
 
 export function qualityWord(spectrum: Spectrum | null | undefined): string {
-  if (!spectrum) return 'unknown'
-  if (spectrum.quality === 'experimental' && spectrum.example_not_for_citation) {
-    return 'schema-example'
-  }
-  return spectrum.quality || 'teaching'
+  return qualityWordCore(spectrum)
 }
 
-/** Markdown snippet for lab notebook paste. */
 export function labNoteMarkdown(opts: {
   compound: Compound
   spectrum: Spectrum | null
@@ -98,46 +101,22 @@ export function labNoteMarkdown(opts: {
   appVersion?: string
   exportedAt?: string
 }): string {
-  const { compound, spectrum, technique, url } = opts
-  const exportedAt = opts.exportedAt || new Date().toISOString()
-  const appVersion = opts.appVersion || APP_VERSION
-  const quality = spectrum ? qualityWord(spectrum) : 'n/a (no series for technique)'
-  const lambda =
-    spectrum?.lambda_max_nm && spectrum.lambda_max_nm.length
-      ? spectrum.lambda_max_nm.map((n) => `${n} nm`).join(', ')
-      : 'n/a'
-  const peaks =
-    spectrum?.peak_positions && spectrum.peak_positions.length
-      ? spectrum.peak_positions.map((p, i) => {
-          const lab = spectrum.peak_labels?.[i]
-          return lab ? `${p} cm⁻¹ (${lab})` : `${p} cm⁻¹`
-        }).join('; ')
-      : ''
+  return labNoteMarkdownCore({
+    ...opts,
+    appVersion: opts.appVersion || APP_VERSION,
+  })
+}
 
-  const lines = [
-    `## ${compound.name} — lab note (BandAtlas)`,
-    ``,
-    `- **Compound id:** \`${compound.id}\``,
-    `- **Formula:** ${compound.formula || 'n/a'}`,
-    compound.cas ? `- **CAS:** ${compound.cas}` : null,
-    compound.pubchem_cid ? `- **PubChem CID:** ${compound.pubchem_cid}` : null,
-    `- **Technique:** ${techniqueLabel(technique)}`,
-    `- **Quality:** ${quality}${quality === 'teaching' ? ' (teaching envelope — not certified digitization)' : ''}`,
-    spectrum?.solvent ? `- **Solvent / conditions:** ${spectrum.solvent}` : null,
-    technique === 'uvvis' ? `- **λ_max:** ${lambda}` : null,
-    peaks ? `- **Peak markers:** ${peaks}` : null,
-    spectrum?.source?.note ? `- **Source note:** ${spectrum.source.note}` : null,
-    spectrum?.source?.citation
-      ? `- **Source / citation text:** ${spectrum.source.citation.replace(/\n/g, ' ')}`
-      : null,
-    `- **App version:** BandAtlas v${appVersion}`,
-    `- **Exported:** ${exportedAt}`,
-    `- **URL:** ${url}`,
-    ``,
-    `> Teaching envelopes are for lab discussion and notes only. Replace with primary experimental data for publication.`,
-    ``,
-  ]
-  return lines.filter((l) => l !== null).join('\n')
+export function clipboardMarkdownCitation(opts: {
+  compound: Compound
+  spectrum: Spectrum | null
+  technique: TechniqueTab
+  url: string
+}): string {
+  return clipboardMarkdownCitationCore({
+    ...opts,
+    appVersion: APP_VERSION,
+  })
 }
 
 export function labNoteJsonBundle(opts: {
@@ -155,6 +134,7 @@ export function labNoteJsonBundle(opts: {
     app_version: opts.appVersion || APP_VERSION,
     url: opts.url,
     pack: 'lab-note',
+    disclaimer: TEACHING_DISCLAIMER,
     compound: {
       id: opts.compound.id,
       name: opts.compound.name,
@@ -188,12 +168,20 @@ export function labNoteJsonBundle(opts: {
   return JSON.stringify(payload, null, 2)
 }
 
-/** Figure-card PNG as data URL (same visual language as ShareCard). */
+export type FigureTheme = 'light' | 'dark'
+
+/**
+ * Lab figure card PNG — print-friendly light default, or match app theme.
+ * Watermark: TEACHING MODEL
+ */
 export function buildFigureCardDataUrl(
   compound: Compound,
   technique: TechniqueTab,
   caption: string,
+  opts?: { theme?: FigureTheme; spectrum?: Spectrum | null },
 ): string | null {
+  const theme: FigureTheme = opts?.theme ?? 'light'
+  const spectrum = opts?.spectrum
   const w = 720
   const h = 900
   const canvas = document.createElement('canvas')
@@ -202,29 +190,42 @@ export function buildFigureCardDataUrl(
   const ctx = canvas.getContext('2d')
   if (!ctx) return null
 
-  const grad = ctx.createLinearGradient(0, 0, w, h)
-  grad.addColorStop(0, '#0b1220')
-  grad.addColorStop(1, '#1e1b4b')
-  ctx.fillStyle = grad
+  const bg = theme === 'light' ? '#fafafa' : '#0b1220'
+  const panel = theme === 'light' ? '#ffffff' : 'rgba(30, 41, 59, 0.95)'
+  const text = theme === 'light' ? '#18181b' : '#f8fafc'
+  const muted = theme === 'light' ? '#52525b' : '#94a3b8'
+  const border = theme === 'light' ? '#e4e4e7' : 'rgba(255,255,255,0.12)'
+
+  ctx.fillStyle = bg
   ctx.fillRect(0, 0, w, h)
 
   const bar = ctx.createLinearGradient(0, 0, w, 0)
-  bar.addColorStop(0, '#818cf8')
-  bar.addColorStop(0.5, '#c084fc')
-  bar.addColorStop(1, '#f59e0b')
+  bar.addColorStop(0, '#0f766e')
+  bar.addColorStop(0.5, '#6366f1')
+  bar.addColorStop(1, '#d97706')
   ctx.fillStyle = bar
   ctx.fillRect(0, 0, w, 8)
 
-  ctx.fillStyle = '#94a3b8'
-  ctx.font = '20px system-ui,sans-serif'
-  ctx.fillText('BandAtlas  |  lab figure card', 48, 64)
+  ctx.fillStyle = muted
+  ctx.font = '600 18px system-ui,sans-serif'
+  ctx.fillText('BandAtlas  ·  lab figure card', 48, 56)
 
-  ctx.fillStyle = '#f8fafc'
-  ctx.font = 'bold 42px system-ui,sans-serif'
-  wrapText(ctx, compound.name, 48, 140, w - 96, 50)
+  ctx.save()
+  ctx.translate(w / 2, h / 2)
+  ctx.rotate(-0.45)
+  ctx.fillStyle = theme === 'light' ? 'rgba(15, 118, 110, 0.12)' : 'rgba(94, 234, 212, 0.12)'
+  ctx.font = 'bold 54px system-ui,sans-serif'
+  ctx.textAlign = 'center'
+  ctx.fillText('TEACHING MODEL', 0, 0)
+  ctx.restore()
 
-  ctx.fillStyle = '#94a3b8'
-  ctx.font = '20px system-ui,sans-serif'
+  ctx.fillStyle = text
+  ctx.font = 'bold 40px system-ui,sans-serif'
+  ctx.textAlign = 'left'
+  wrapText(ctx, compound.name, 48, 120, w - 96, 48)
+
+  ctx.fillStyle = muted
+  ctx.font = '18px system-ui,sans-serif'
   const meta = [
     compound.family_label,
     techniqueLabel(technique),
@@ -233,43 +234,64 @@ export function buildFigureCardDataUrl(
   ]
     .filter(Boolean)
     .join('  ·  ')
-  wrapText(ctx, meta, 48, 260, w - 96, 28)
+  wrapText(ctx, meta, 48, 220, w - 96, 26)
 
-  ctx.fillStyle = 'rgba(30, 41, 59, 0.95)'
-  roundRect(ctx, 40, 340, w - 80, 380, 12)
+  ctx.fillStyle = panel
+  roundRect(ctx, 40, 280, w - 80, 200, 12)
   ctx.fill()
-  ctx.fillStyle = '#e2e8f0'
-  ctx.font = '22px system-ui,sans-serif'
-  wrapText(ctx, caption, 64, 390, w - 128, 32)
+  ctx.strokeStyle = border
+  ctx.lineWidth = 1
+  roundRect(ctx, 40, 280, w - 80, 200, 12)
+  ctx.stroke()
 
-  ctx.fillStyle = '#64748b'
-  ctx.font = '16px system-ui,sans-serif'
-  ctx.fillText('Teaching packaging — check primary literature for SI', 48, h - 72)
+  const xLabel = technique === 'uvvis' ? 'Wavelength / nm' : 'Wavenumber / cm⁻¹'
+  const yLabel =
+    spectrum?.y_unit_label ||
+    (technique === 'uvvis' ? 'Relative intensity / ε' : 'Relative intensity')
+
+  ctx.fillStyle = muted
+  ctx.font = '14px ui-monospace, monospace'
+  ctx.fillText(`X: ${xLabel}`, 64, 320)
+  ctx.fillText(`Y: ${yLabel}`, 64, 348)
+  ctx.fillText(`Quality: ${qualityWord(spectrum)}`, 64, 376)
+  if (spectrum?.solvent) ctx.fillText(`Solvent: ${spectrum.solvent}`, 64, 404)
+  ctx.fillStyle = theme === 'light' ? '#0f766e' : '#5eead4'
+  ctx.font = 'bold 16px system-ui,sans-serif'
+  ctx.fillText('TEACHING MODEL — not experimental SI', 64, 448)
+
+  ctx.fillStyle = panel
+  roundRect(ctx, 40, 510, w - 80, 240, 12)
+  ctx.fill()
+  ctx.strokeStyle = border
+  roundRect(ctx, 40, 510, w - 80, 240, 12)
+  ctx.stroke()
+
+  ctx.fillStyle = text
+  ctx.font = '20px system-ui,sans-serif'
+  wrapText(ctx, caption, 64, 560, w - 128, 30)
+
+  ctx.fillStyle = muted
+  ctx.font = '15px system-ui,sans-serif'
+  ctx.fillText(`${TEACHING_DISCLAIMER.slice(0, 72)}…`, 48, h - 72)
   ctx.fillText(`id: ${compound.id}  ·  BandAtlas v${APP_VERSION}`, 48, h - 44)
 
   return canvas.toDataURL('image/png')
 }
 
-/** One-click lab note pack: CSV + JSON + MD + PNG (when series exists). */
+/**
+ * Lab Note Pack without zip: Markdown + CSV first (lab notebook), then figure PNG.
+ * Staggered downloads so browsers don't drop files.
+ */
 export function exportLabNotePack(opts: {
   compound: Compound
   spectrum: Spectrum | null
   technique: TechniqueTab
   url: string
+  figureTheme?: FigureTheme
 }): void {
   const { compound, spectrum, technique, url } = opts
   const stamp = new Date().toISOString()
   const base = `${compound.id}_${technique}_labnote`
-
-  if (spectrum) {
-    downloadText(`${base}.csv`, spectrumToCsv(spectrum, compound), 'text/csv;charset=utf-8')
-  }
-
-  downloadText(
-    `${base}.json`,
-    labNoteJsonBundle({ compound, spectrum, technique, url, exportedAt: stamp }),
-    'application/json',
-  )
 
   downloadText(
     `${base}.md`,
@@ -277,12 +299,33 @@ export function exportLabNotePack(opts: {
     'text/markdown;charset=utf-8',
   )
 
-  const caption =
-    spectrum?.plain_caption || compound.plain_summary || `${compound.name} spectrum`
-  const png = buildFigureCardDataUrl(compound, technique, caption)
-  if (png) {
-    downloadDataUrl(`bandatlas-${compound.id}-${technique}.png`, png)
-  }
+  window.setTimeout(() => {
+    if (spectrum) {
+      downloadText(
+        `${base}.csv`,
+        spectrumToCsv(spectrum, compound, { permalink: url, exportedAt: stamp }),
+        'text/csv;charset=utf-8',
+      )
+    }
+  }, 180)
+
+  window.setTimeout(() => {
+    downloadText(
+      `${base}.json`,
+      labNoteJsonBundle({ compound, spectrum, technique, url, exportedAt: stamp }),
+      'application/json',
+    )
+  }, 360)
+
+  window.setTimeout(() => {
+    const caption =
+      spectrum?.plain_caption || compound.plain_summary || `${compound.name} spectrum`
+    const png = buildFigureCardDataUrl(compound, technique, caption, {
+      theme: opts.figureTheme ?? 'light',
+      spectrum,
+    })
+    if (png) downloadDataUrl(`bandatlas-${compound.id}-${technique}.png`, png)
+  }, 540)
 }
 
 function wrapText(
