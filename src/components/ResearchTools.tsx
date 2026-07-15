@@ -26,7 +26,7 @@ export function ResearchTools({ compound, spectrum, technique }: Props) {
   const exportJson = () => {
     const payload = {
       exported_at: new Date().toISOString(),
-      application: 'MolSpectra',
+      application: 'Chromoscope',
       compound: {
         id: compound.id,
         name: compound.name,

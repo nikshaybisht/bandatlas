@@ -4,7 +4,7 @@ export function spectrumToCsv(spectrum: Spectrum, compound: Compound): string {
   const unitX =
     spectrum.technique === 'ir' || spectrum.technique === 'raman' ? 'cm-1' : 'nm'
   const header = [
-    `# MolSpectra export`,
+    `# Chromoscope export`,
     `# compound: ${compound.name}`,
     `# id: ${compound.id}`,
     `# CAS: ${compound.cas || 'n/a'}`,
@@ -32,14 +32,14 @@ export function downloadText(filename: string, content: string, mime = 'text/pla
 }
 
 export function compoundBibtex(compound: Compound): string {
-  const key = `molspectra_${compound.id.replace(/[^a-zA-Z0-9]/g, '_')}`
+  const key = `chromoscope_${compound.id.replace(/[^a-zA-Z0-9]/g, '_')}`
   return `@misc{${key},
-  title        = {${compound.name} spectral record (MolSpectra)},
-  author       = {MolSpectra contributors},
+  title        = {${compound.name} spectral record (Chromoscope)},
+  author       = {Bisht, Nikshay},
   year         = {${new Date().getFullYear()}},
-  howpublished = {MolSpectra compound id: ${compound.id}},
+  howpublished = {Chromoscope compound id: ${compound.id}},
   note         = {CAS ${compound.cas || 'n/a'}; formula ${compound.formula || 'n/a'}. Teaching/curated packaging — verify primary literature before quantitative use.},
-  url          = {https://github.com/nikshaybisht/molspectra}
+  url          = {https://github.com/nikshaybisht/chromoscope}
 }
 `
 }

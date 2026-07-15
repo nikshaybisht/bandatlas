@@ -27,8 +27,8 @@ jobs:
       - run: npm run dataset
       - name: Build with Pages base
         run: |
-          # Project site: https://<user>.github.io/molspectra/
-          npx vite build --base /molspectra/
+          # Project site: https://nikshaybisht.github.io/chromoscope/
+          npx vite build --base /chromoscope/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

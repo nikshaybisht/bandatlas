@@ -16,7 +16,7 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, info: ErrorInfo) {
-    console.error('MolSpectra UI error', error, info)
+    console.error('Chromoscope UI error', error, info)
   }
 
   render() {

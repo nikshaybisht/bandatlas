@@ -164,7 +164,7 @@ export default function App() {
       <div className="app">
         <header className="topbar">
           <div className="brand">
-            <span className="logo">MolSpectra</span>
+            <span className="logo">Chromoscope</span>
             <span className="tagline">
               Small-molecule UV–Vis, IR &amp; Raman viewer for teaching and literature triage
             </span>
@@ -409,7 +409,7 @@ export default function App() {
           </span>
           <span>
             Teaching / curated packaging · 3D: PubChem ·{' '}
-            <a href="https://github.com/nikshaybisht/molspectra">source</a> · cite{' '}
+            <a href="https://github.com/nikshaybisht/chromoscope">source</a> · cite{' '}
             <code>CITATION.cff</code>
           </span>
         </footer>

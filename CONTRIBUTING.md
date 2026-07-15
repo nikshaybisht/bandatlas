@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for considering a contribution. MolSpectra is intentionally small and static so that others can audit the data and rebuild the client offline.
+Thanks for considering a contribution. Chromoscope is intentionally small and static so that others can audit the data and rebuild the client offline.
 
 ## Ground rules
 

@@ -1,21 +1,26 @@
 {
-  "name": "molspectra",
+  "name": "chromoscope",
   "private": false,
-  "version": "0.4.0",
-  "description": "Browser client for small-molecule UV–Vis, IR, and Raman records with provenance and export",
+  "version": "0.4.1",
+  "description": "Chromoscope — small-molecule UV–Vis, IR & Raman viewer with provenance and export",
   "keywords": [
     "spectroscopy",
     "UV-Vis",
     "infrared",
     "Raman",
     "photochemistry",
-    "cheminformatics"
+    "cheminformatics",
+    "chromoscope"
   ],
-  "author": "Nikshay Bisht",
+  "author": "Nikshay Bisht <https://github.com/nikshaybisht>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nikshaybisht/molspectra.git"
+    "url": "https://github.com/nikshaybisht/chromoscope.git"
   },
+  "bugs": {
+    "url": "https://github.com/nikshaybisht/chromoscope/issues"
+  },
+  "homepage": "https://github.com/nikshaybisht/chromoscope#readme",
   "license": "MIT",
   "type": "module",
   "scripts": {
