@@ -729,7 +729,14 @@ export function SpectrumPlot({
         ref={rootRef}
         className={`plot-root ${technique === 'ir' ? 'plot-ir' : ''} ${technique === 'raman' ? 'plot-raman' : ''} ${coarsePointer ? 'plot-touch' : ''}`}
       />
-      {/* Always-on honesty line — not a certified spectral library */}
+      {/* Always-on honesty — teaching watermark + disclaimer (not research SI) */}
+      {primary &&
+        (primary.quality === 'teaching' ||
+          (primary.quality === 'experimental' && primary.example_not_for_citation)) && (
+          <p className="plot-watermark" aria-hidden="true">
+            TEACHING MODEL
+          </p>
+        )}
       <p className="plot-disclaimer" role="note">
         {primary?.quality === 'experimental' && !primary.example_not_for_citation
           ? 'Experimental series (open source). Verify DOI/URL before quantitative use.'

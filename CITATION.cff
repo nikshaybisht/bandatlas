@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use BandAtlas, please cite it as below."
 type: software
 title: "BandAtlas: browser-based multi-technique spectral viewer for small molecules"
-version: "0.13.0"
+version: "1.0.0"
 date-released: "2026-07-16"
 authors:
   - family-names: Bisht

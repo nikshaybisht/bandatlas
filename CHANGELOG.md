@@ -1,5 +1,27 @@
 # Changelog
 
+## [1.0.0] — 2026-07-16
+
+**First production release** as a lab companion + portfolio application. Criteria met honestly (not a certified spectral library).
+
+### Product (must-ship)
+- **App shell:** routes `/`, `/lab`, `/guide`, `/about`; deep links `/c/:id?tech=`; version in chrome
+- **Lab companion:** 35 labSet compounds (all full UV); note pack (MD+CSV+disclaimer); copy share link
+- **Data backend:** schema validation in `npm run dataset`; full UV **103** (≥80); `summary.json` + `health.json`
+- **Reliability:** 35 SDF structure cache; PubChem timeout/retry; Playwright e2e in CI
+- **Portfolio:** `/guide`, 60s tour, [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md), Open Graph tags
+- **Honesty:** plot **TEACHING MODEL** watermark + always-on disclaimer; export headers mark teaching
+
+### Also in 0.8–0.13 (rolled into 1.0)
+- App chrome, PWA-lite manifest (no SW), SPA 404 fallback, recent history, contributor docs/templates
+
+### Known limitations (honest)
+- **0** real open experimental digitizations (schema ready; teaching only for now)
+- **393** catalog compounds still lack full UV (IR/Raman teaching still present)
+- 3D for non-cached CIDs needs live PubChem
+- Teaching envelopes ≠ instrument SI — cite primary literature for research numbers
+- No backend, accounts, NMR/MS, or multi-user note sync
+
 ## [Unreleased]
 
 ### Docs / contributors

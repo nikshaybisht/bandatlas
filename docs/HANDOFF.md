@@ -6,9 +6,9 @@
 **Author:** Nikshay Bisht ([@nikshaybisht](https://github.com/nikshaybisht))  
 **Repository:** https://github.com/nikshaybisht/bandatlas  
 **Live demo:** https://nikshaybisht.github.io/bandatlas/  
-**Latest release:** [v0.9.0](https://github.com/nikshaybisht/bandatlas/releases/tag/v0.9.0)  
+**Latest release:** [v1.0.0](https://github.com/nikshaybisht/bandatlas/releases/tag/v1.0.0)  
 **Local app (dev):** `C:\Users\Niksh\molspectra` (folder name is historical; product is **BandAtlas**)  
-**Package version:** `0.9.0`  
+**Package version:** `1.0.0`  
 **Updated:** 2026-07-16  
 
 ---

@@ -1411,8 +1411,19 @@ input:focus-visible,
   font-size: 0.88rem;
 }
 
+.plot-watermark {
+  margin: 0.35rem 0 0;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: color-mix(in srgb, var(--good) 75%, var(--muted));
+  text-transform: uppercase;
+  user-select: none;
+}
+
 .plot-disclaimer {
-  margin: 0.55rem 0 0;
+  margin: 0.35rem 0 0;
   padding: 0.45rem 0.55rem;
   border-radius: 6px;
   border-left: 3px solid var(--border-strong);
