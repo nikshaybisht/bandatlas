@@ -6,9 +6,9 @@
 **Author:** Nikshay Bisht ([@nikshaybisht](https://github.com/nikshaybisht))  
 **Repository:** https://github.com/nikshaybisht/bandatlas  
 **Live demo:** https://nikshaybisht.github.io/bandatlas/  
-**Latest release:** [v0.7.2](https://github.com/nikshaybisht/bandatlas/releases/tag/v0.7.2)  
+**Latest release:** [v0.8.0](https://github.com/nikshaybisht/bandatlas/releases/tag/v0.8.0)  
 **Local app (dev):** `C:\Users\Niksh\molspectra` (folder name is historical; product is **BandAtlas**)  
-**Package version:** `0.7.2`  
+**Package version:** `0.8.0`  
 **Updated:** 2026-07-16  
 
 ---
@@ -19,7 +19,9 @@ Browser tool for **small-molecule UV–Vis, IR, and Raman** spectra:
 
 | Feature | Status |
 |---------|--------|
-| Search (name, CAS, formula) | Yes — top search dropdown only (no left sidebar) |
+| App routes | `/` explorer, `/c/:id`, `/lab`, `/guide`, `/about` |
+| App chrome | Nav, version, theme, teaching banner, MIT footer |
+| Search (name, CAS, formula) | Yes — explorer search dropdown only (no left sidebar) |
 | Filter: Has full UV–Vis | Yes |
 | Filter: Experimental only | Yes (excludes schema demos; 0 real experimental yet) |
 | UV / catalog / Exp badges | Yes |
@@ -176,6 +178,7 @@ origin  https://github.com/nikshaybisht/bandatlas.git
 | **v0.7.0** | Experimental quality schema |
 | **v0.7.1** | Honest UI copy (Absolute scale, disclaimers) |
 | **v0.7.2** | Mobile 375px, keyboard, touch zoom, a11y checklist |
+| **v0.8.0** | App shell: routes, chrome, onboarding, deep links, PWA-lite |
 
 Author email for commits: `78500704+nikshaybisht@users.noreply.github.com`
 

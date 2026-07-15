@@ -92,6 +92,19 @@ export interface IndexCompound {
   solvents: string[]
 }
 
+/** App-facing defaults shipped with the dataset index (not per-compound). */
+export interface DatasetAppMeta {
+  /** Full-UV compound opened on first load / after dismiss when no deep link */
+  default_compound_id: string
+  /** Lab companion preset */
+  lab: {
+    compound_id: string
+    technique: TechniqueTab
+    uv_only: boolean
+    mode: 'simple' | 'advanced'
+  }
+}
+
 export interface DatasetIndex {
   version: string
   generated_at: string
@@ -108,4 +121,6 @@ export interface DatasetIndex {
   }
   families: { id: string; label: string; count: number }[]
   compounds: IndexCompound[]
+  /** Optional until older datasets refresh; UI has hard-coded fallbacks */
+  app_meta?: DatasetAppMeta
 }

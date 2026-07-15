@@ -29,6 +29,19 @@ test('index.json exists and parses', () => {
   assert.equal(index.counts.total, index.compounds.length)
 })
 
+test('index app_meta has resolvable default and lab compounds', () => {
+  const index = JSON.parse(fs.readFileSync(indexPath, 'utf8'))
+  assert.ok(index.app_meta, 'missing app_meta')
+  const { default_compound_id, lab } = index.app_meta
+  assert.ok(default_compound_id, 'missing default_compound_id')
+  assert.ok(lab?.compound_id, 'missing lab.compound_id')
+  const ids = new Set(index.compounds.map((c) => c.id))
+  assert.ok(ids.has(default_compound_id), `default ${default_compound_id} not in index`)
+  assert.ok(ids.has(lab.compound_id), `lab ${lab.compound_id} not in index`)
+  const def = index.compounds.find((c) => c.id === default_compound_id)
+  assert.ok(def?.has_uvvis, 'default compound should have full UV–Vis')
+})
+
 test('index compounds have required search key fields', () => {
   const index = JSON.parse(fs.readFileSync(indexPath, 'utf8'))
   for (const c of index.compounds) {

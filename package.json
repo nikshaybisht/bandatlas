@@ -1,7 +1,7 @@
 {
   "name": "bandatlas",
   "private": false,
-  "version": "0.7.2",
+  "version": "0.8.0",
   "description": "BandAtlas — working atlas of small-molecule UV–Vis, IR & Raman bands",
   "keywords": [
     "spectroscopy",
@@ -28,7 +28,7 @@
     "validate:seeds": "node tools/validate-seeds.mjs",
     "structures": "node tools/cache-structures.mjs",
     "dev": "vite",
-    "build": "npm run dataset && tsc -b && vite build",
+    "build": "npm run dataset && tsc -b && vite build && node tools/spa-fallback.mjs",
     "test": "npm run validate:seeds && npm run dataset && node --test tests/dataset.test.mjs tests/experimental.test.mjs tests/structures.test.mjs tests/seeds.test.mjs",
     "test:e2e": "playwright test",
     "test:e2e:ui": "playwright test --ui",
@@ -42,6 +42,7 @@
     "minisearch": "^7.2.0",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
+    "react-router-dom": "^7.18.1",
     "uplot": "^1.6.32"
   },
   "devDependencies": {

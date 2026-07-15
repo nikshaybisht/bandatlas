@@ -114,4 +114,27 @@ test.describe('BandAtlas smoke', () => {
     expect(name).toMatch(/\.csv$/i)
     expect(name.toLowerCase()).toContain('benzene')
   })
+
+  test('app routes: about, guide, lab, deep link /c/:id', async ({ page }) => {
+    const nav = page.getByRole('navigation', { name: 'Primary' })
+    await nav.getByRole('link', { name: 'About', exact: true }).click()
+    await expect(page.getByRole('heading', { name: /About BandAtlas/i })).toBeVisible()
+    await expect(page.getByText(/What it is not/i)).toBeVisible()
+
+    await nav.getByRole('link', { name: 'Guide', exact: true }).click()
+    await expect(page.getByRole('heading', { name: /60-second guide/i })).toBeVisible()
+
+    await nav.getByRole('link', { name: 'Lab', exact: true }).click()
+    await expect(page.locator('.lab-banner')).toBeVisible()
+    await expect(page.getByTestId('filter-uv-only')).toBeChecked()
+    await expect(page.locator('.property-card h2')).toContainText(/Benzene/i, {
+      timeout: 15_000,
+    })
+
+    await page.goto('/c/anthracene', { waitUntil: 'networkidle' })
+    await expect(page.locator('.property-card h2')).toContainText(/Anthracene/i, {
+      timeout: 15_000,
+    })
+    await expect(page.locator('.teaching-banner')).toBeVisible()
+  })
 })

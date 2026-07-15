@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.8.0] — 2026-07-16
+
+### Added
+- **App shell** with React Router: `/` explorer, `/c/:id` deep links, `/lab`, `/guide`, `/about`
+- **App chrome:** top nav, theme toggle, version from `package.json`, teaching-quality banner on explorer
+- **First-run welcome** (dismissible, `localStorage`) + configurable default/lab compounds via `index.app_meta`
+- Query deep link `?q=benzene` (exact name/id → `/c/:id`)
+- **PWA-lite:** `manifest.webmanifest` + theme-color (no service worker — see [docs/PWA.md](docs/PWA.md))
+- GitHub Pages SPA fallback: `dist/404.html` copy of `index.html` (`tools/spa-fallback.mjs`)
+- E2E coverage for routes and compound deep links
+
+### Changed
+- Search/filters live under the chrome on explorer/lab (not mixed into brand bar)
+- Footer: MIT + citation one-liner + methodology / GitHub / live links
+- Dataset index version **0.8.0** with `app_meta.default_compound_id` (`rhodamine-b`) and lab preset (`benzene`)
+
 ## [0.7.2] — 2026-07-16
 
 ### Changed

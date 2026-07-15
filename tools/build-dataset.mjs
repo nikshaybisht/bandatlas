@@ -3381,9 +3381,23 @@ const withRaman = all.filter((c) => c.availability.raman).length
 const withExperimental = all.filter((c) => c.spectra.some(isExperimentalSpectrum)).length
 const withExpExamples = all.filter((c) => c.spectra.some(isExperimentalExampleSpectrum)).length
 
+/** App chrome defaults — keep in sync with ExplorerPage fallbacks. */
+const APP_META = {
+  // Visual teaching dye with full UV + emission (good first impression)
+  default_compound_id: 'rhodamine-b',
+  lab: {
+    // Classic undergrad aromatic UV demo
+    compound_id: 'benzene',
+    technique: 'uvvis',
+    uv_only: true,
+    mode: 'simple',
+  },
+}
+
 const index = {
-  version: '0.7.2',
+  version: '0.8.0',
   generated_at: new Date().toISOString(),
+  app_meta: APP_META,
   counts: {
     total: all.length,
     full_spectra: withUv,
