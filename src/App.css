@@ -636,14 +636,6 @@ input:focus-visible,
   user-select: none;
 }
 
-.plot-root {
-  touch-action: manipulation;
-  min-width: 0;
-  width: 100%;
-  overflow: hidden;
-  background: var(--plot-bg);
-}
-
 .zoom-toolbar .zoom-btn {
   font-size: 0.75rem !important;
   padding: 0.35rem 0.6rem !important;
@@ -651,6 +643,8 @@ input:focus-visible,
 }
 
 .plot-root {
+  touch-action: manipulation;
+  min-width: 0;
   width: 100%;
   min-height: 400px;
   max-width: 100%;
@@ -662,6 +656,10 @@ input:focus-visible,
   position: relative;
   z-index: 1;
   padding-bottom: 4px;
+}
+
+.plot-root.plot-touch {
+  cursor: default;
 }
 
 .theme-toggle {
