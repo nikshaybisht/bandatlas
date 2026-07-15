@@ -123,6 +123,10 @@ Selected background references:
 
 See [CONTRIBUTING.md](CONTRIBUTING.md). Please keep teaching vs experimental data clearly labeled.
 
+## Security
+
+To report a vulnerability, see [SECURITY.md](SECURITY.md). Please do **not** open public issues for unfixed security problems.
+
 ---
 
 ## License
