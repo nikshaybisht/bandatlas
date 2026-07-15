@@ -1,6 +1,8 @@
 import { NavLink, Outlet } from 'react-router-dom'
 import { ErrorBoundary } from './components/ErrorBoundary'
+import { TourOverlay } from './components/TourOverlay'
 import { useAppTheme } from './context/AppThemeContext'
+import { useDemoTour } from './context/DemoTourContext'
 import { APP_VERSION } from './lib/version'
 import './App.css'
 
@@ -9,6 +11,7 @@ const navClass = ({ isActive }: { isActive: boolean }) =>
 
 export default function App() {
   const { theme, toggleTheme } = useAppTheme()
+  const { startTour, running } = useDemoTour()
 
   return (
     <ErrorBoundary>
@@ -35,6 +38,16 @@ export default function App() {
           </div>
 
           <div className="top-meta chrome-meta">
+            <button
+              type="button"
+              className="ghost tour-btn"
+              data-testid="run-60s-tour-nav"
+              onClick={startTour}
+              disabled={running}
+              title="Scripted 60-second portfolio tour"
+            >
+              {running ? 'Tour…' : 'Run 60s tour'}
+            </button>
             <span className="version-chip" title="Application version">
               v{APP_VERSION}
             </span>
@@ -49,6 +62,7 @@ export default function App() {
           </div>
         </header>
 
+        <TourOverlay />
         <Outlet />
 
         <footer className="footer">

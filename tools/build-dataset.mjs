@@ -3468,7 +3468,7 @@ const APP_META = {
 }
 
 const index = {
-  version: '0.9.0',
+  version: '0.10.0',
   generated_at: new Date().toISOString(),
   app_meta: APP_META,
   counts: {

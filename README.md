@@ -51,6 +51,29 @@ Layout and photochemical metadata conventions are inspired by [PhotochemCAD](htt
 - Quick triage before a lab meeting (“do we have a UV curve for this dye?”)  
 - Exporting a series into notes with an explicit source tag  
 
+### Portfolio / interview demo
+
+**Live:** https://nikshaybisht.github.io/bandatlas/ · **Guide:** [/guide](https://nikshaybisht.github.io/bandatlas/guide)
+
+A stranger (PhD panel / internship) should understand the app and the builder’s skill in **60 seconds**.
+
+| | |
+|---|---|
+| **In-app tour** | **Run 60s tour** in the top bar (or Guide / About) |
+| **Script** | [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md) — spoken monologue + click path |
+| **Featured strip** | Six full-UV compounds on the home explorer |
+| **Stack signal** | React/TS/Vite SPA, Node dataset pipeline, CI + Playwright, GitHub Pages (`/bandatlas/`) |
+| **Honesty** | Teaching envelopes labeled; not a certified spectral library |
+
+**60s bullet path**
+
+1. Open live demo → optional **Run 60s tour**  
+2. Search / featured chip → **Rhodamine B** UV teaching curve  
+3. Switch **IR** (same molecule)  
+4. Open **Export** (CSV/JSON with quality headers)  
+5. Enable **Has full UV–Vis** filter  
+6. Optional: `/lab` note pack + copy share link  
+
 ### Lab companion
 
 Primary job: **before UV/IR discussion, open this compound and export a note pack.**
@@ -169,7 +192,7 @@ CHANGELOG.md
 If BandAtlas helped your teaching material or analysis workflow:
 
 ```
-Bisht, N. (2026). BandAtlas (v0.9.0) [Computer software].
+Bisht, N. (2026). BandAtlas (v0.10.0) [Computer software].
 https://github.com/nikshaybisht/bandatlas
 Live demo: https://nikshaybisht.github.io/bandatlas/
 ```

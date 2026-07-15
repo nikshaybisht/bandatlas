@@ -11,11 +11,17 @@ interface Props {
   compound: Compound
   spectrum: Spectrum | null
   technique: TechniqueTab
+  /** Force open (e.g. demo tour export step) */
+  forceOpen?: boolean
 }
 
-export function ResearchTools({ compound, spectrum, technique }: Props) {
+export function ResearchTools({ compound, spectrum, technique, forceOpen }: Props) {
   const [open, setOpen] = useState(false)
   const rootRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (forceOpen) setOpen(true)
+  }, [forceOpen])
 
   useEffect(() => {
     if (!open) return
@@ -70,7 +76,11 @@ export function ResearchTools({ compound, spectrum, technique }: Props) {
   }
 
   return (
-    <div className="fold-block" ref={rootRef}>
+    <div
+      className="fold-block"
+      ref={rootRef}
+      data-tour-target="export"
+    >
       <button
         type="button"
         className="fold-toggle"

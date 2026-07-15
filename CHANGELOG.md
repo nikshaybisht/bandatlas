@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.10.0] — 2026-07-16
+
+### Added
+- **60s portfolio tour** (`Run 60s tour`): scripted search → UV → IR → export → UV filter highlights
+- **Guide page** redesign: 4 steps with screenshots, tech stack paragraph, honesty line
+- **Featured strip** on home (6 full-UV compounds, one click)
+- **About skills panel**: Built by Nikshay Bisht + live metrics from `summary.json`
+- **Open Graph / Twitter** cards in `index.html` (`public/images/og-cover.png`)
+- Spoken script: [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md)
+- README “Portfolio / interview demo” subsection
+
 ## [0.9.0] — 2026-07-16
 
 ### Added

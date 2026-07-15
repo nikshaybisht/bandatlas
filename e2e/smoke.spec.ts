@@ -23,6 +23,8 @@ test.describe('BandAtlas smoke', () => {
     await expect(page.locator('.spectrum-wrap, .banner.error').first()).toBeVisible({
       timeout: 20_000,
     })
+    await expect(page.getByTestId('featured-strip')).toBeVisible()
+    await expect(page.getByTestId('run-60s-tour-nav')).toBeVisible()
   })
 
   test('search finds a known full-UV compound', async ({ page }) => {
@@ -142,5 +144,20 @@ test.describe('BandAtlas smoke', () => {
     })
     await expect(page.getByRole('tab', { name: 'IR' })).toHaveAttribute('aria-selected', 'true')
     await expect(page.locator('.teaching-banner')).toBeVisible()
+  })
+
+  test('guide page and about metrics for portfolio demo', async ({ page }) => {
+    await page.goto('/guide', { waitUntil: 'networkidle' })
+    await expect(page.getByRole('heading', { name: /60-second guide/i })).toBeVisible()
+    await expect(page.getByTestId('run-60s-tour')).toBeVisible()
+    await expect(page.getByText(/React \+ TypeScript \+ Vite/i)).toBeVisible()
+    await expect(page.locator('.page-panel').getByText('teaching envelopes', { exact: true })).toBeVisible()
+
+    await page.goto('/about', { waitUntil: 'networkidle' })
+    await expect(page.getByTestId('skills-panel')).toBeVisible()
+    await expect(page.getByText(/Built by Nikshay Bisht/i)).toBeVisible()
+    await expect(page.getByTestId('metrics-grid')).toBeVisible({ timeout: 10_000 })
+    // summary.json metrics
+    await expect(page.locator('.metric-val').first()).not.toHaveText('—', { timeout: 10_000 })
   })
 })

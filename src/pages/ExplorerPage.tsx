@@ -9,7 +9,9 @@ import { CitationsPanel } from '../components/CitationsPanel'
 import { ResearchTools } from '../components/ResearchTools'
 import { WelcomeCard } from '../components/WelcomeCard'
 import { LabDiscussionCard } from '../components/LabDiscussionCard'
+import { FeaturedStrip } from '../components/FeaturedStrip'
 import { useAppTheme } from '../context/AppThemeContext'
+import { TOUR_FEATURED_ID, useDemoTour } from '../context/DemoTourContext'
 import { buildSearchIndex } from '../lib/search'
 import { loadCompound } from '../lib/loadCompound'
 import { datasetUrl } from '../lib/paths'
@@ -81,14 +83,23 @@ type Props = {
   preset?: ExplorerPreset
 }
 
+function sleep(ms: number) {
+  return new Promise<void>((resolve) => {
+    window.setTimeout(resolve, ms)
+  })
+}
+
 export function ExplorerPage({ preset = 'default' }: Props) {
   const isLab = preset === 'lab'
   const { theme } = useAppTheme()
+  const { step: tourStep, running: tourRunning, setStep: setTourStep, stopTour } =
+    useDemoTour()
   const navigate = useNavigate()
   const { compoundId: routeCompoundId } = useParams<{ compoundId?: string }>()
   const [searchParams] = useSearchParams()
   const queryFromUrl = searchParams.get('q') ?? ''
   const techFromUrl = parseTechniqueParam(searchParams.get('tech'))
+  const tourExportOpen = tourRunning && tourStep === 'export'
 
   const [index, setIndex] = useState<DatasetIndex | null>(null)
   const [searcher, setSearcher] = useState<MiniSearch<IndexCompound> | null>(null)
@@ -117,6 +128,7 @@ export function ExplorerPage({ preset = 'default' }: Props) {
   const techLocked = useRef(Boolean(techFromUrl))
   const searchBoxRef = useRef<HTMLDivElement>(null)
   const bootstrapped = useRef(false)
+  const tourSeqRef = useRef(false)
 
   useEffect(() => {
     setQuery(queryFromUrl)
@@ -353,6 +365,82 @@ export function ExplorerPage({ preset = 'default' }: Props) {
     setSearchOpen(true)
   }
 
+  // Scripted 60s portfolio tour (search → UV → IR → export → UV filter)
+  useEffect(() => {
+    if (!tourRunning || isLab) {
+      tourSeqRef.current = false
+      return
+    }
+    // Ensure featured compound is selected
+    if (selectedId !== TOUR_FEATURED_ID) {
+      techLocked.current = true
+      setSelectedId(TOUR_FEATURED_ID)
+      return
+    }
+    if (!compound || compound.id !== TOUR_FEATURED_ID) return
+    if (tourSeqRef.current) return
+    tourSeqRef.current = true
+
+    let cancelled = false
+    ;(async () => {
+      setTourStep('search')
+      setSearchOpen(true)
+      setQuery('rhodamine')
+      await sleep(2800)
+      if (cancelled) return
+
+      setTourStep('uv')
+      setQuery('')
+      setSearchOpen(false)
+      techLocked.current = true
+      setTechnique('uvvis')
+      await sleep(3000)
+      if (cancelled) return
+
+      setTourStep('ir')
+      setTechnique('ir')
+      await sleep(2800)
+      if (cancelled) return
+
+      setTourStep('export')
+      setTechnique('uvvis')
+      await sleep(3000)
+      if (cancelled) return
+
+      setTourStep('filter')
+      setUvOnly(true)
+      setSearchOpen(true)
+      setQuery('')
+      await sleep(3200)
+      if (cancelled) return
+
+      setTourStep('done')
+      setUvOnly(false)
+      setSearchOpen(false)
+      stopTour()
+      // Drop ?tour=1 so refresh doesn't re-run
+      if (searchParams.get('tour')) {
+        navigate(`/c/${TOUR_FEATURED_ID}?tech=uvvis`, { replace: true })
+      }
+    })()
+
+    return () => {
+      cancelled = true
+    }
+  }, [
+    tourRunning,
+    isLab,
+    selectedId,
+    compound,
+    setTourStep,
+    stopTour,
+    navigate,
+    searchParams,
+  ])
+
+  const tourTarget = (id: string) =>
+    tourRunning && tourStep === id ? 'tour-active' : ''
+
   const primary = spectrumForTab(compound, technique)
   const emission =
     technique === 'uvvis'
@@ -382,8 +470,20 @@ export function ExplorerPage({ preset = 'default' }: Props) {
         </div>
       )}
 
-      <div className="explorer-toolbar">
-        <div className="search-wrap" ref={searchBoxRef}>
+      {!isLab && index && (
+        <FeaturedStrip
+          compounds={index.compounds}
+          selectedId={selectedId}
+          onSelect={(id) => select(id)}
+        />
+      )}
+
+      <div className={`explorer-toolbar ${tourRunning ? 'tour-running' : ''}`}>
+        <div
+          className={`search-wrap ${tourTarget('search')}`}
+          ref={searchBoxRef}
+          data-tour-target="search"
+        >
           <input
             className="search"
             type="search"
@@ -518,9 +618,10 @@ export function ExplorerPage({ preset = 'default' }: Props) {
             </label>
           )}
           <label
-            className="filter-chip"
+            className={`filter-chip ${tourTarget('filter')}`}
             title="Show only compounds with a full UV–Vis curve"
             data-testid="filter-uv-only-label"
+            data-tour-target="filter"
           >
             <input
               type="checkbox"
@@ -607,7 +708,12 @@ export function ExplorerPage({ preset = 'default' }: Props) {
             )}
 
             <div className="main-toolbar">
-              <div className="tabs" role="tablist" aria-label="Technique">
+              <div
+                className={`tabs ${tourTarget('uv') || tourTarget('ir')}`}
+                role="tablist"
+                aria-label="Technique"
+                data-tour-target={technique === 'ir' ? 'ir' : 'uv'}
+              >
                 {(
                   [
                     ['uvvis', 'UV–Vis'],
@@ -616,14 +722,18 @@ export function ExplorerPage({ preset = 'default' }: Props) {
                   ] as const
                 ).map(([id, label]) => {
                   const on = tabAvailable(id)
+                  const tourHit =
+                    (id === 'uvvis' && tourStep === 'uv') ||
+                    (id === 'ir' && tourStep === 'ir')
                   return (
                     <button
                       key={id}
                       type="button"
                       role="tab"
-                      className={`tab ${technique === id ? 'active' : ''} ${on ? '' : 'empty'}`}
+                      className={`tab ${technique === id ? 'active' : ''} ${on ? '' : 'empty'} ${tourHit ? 'tour-active' : ''}`}
                       aria-selected={technique === id}
                       onClick={() => setTechniqueAndUrl(id)}
+                      data-tour-target={id === 'uvvis' ? 'uv' : id === 'ir' ? 'ir' : undefined}
                     >
                       {label}
                     </button>
@@ -668,7 +778,10 @@ export function ExplorerPage({ preset = 'default' }: Props) {
             </div>
 
             <div className="hero-grid">
-              <section className="panel spectrum-wrap">
+              <section
+                className={`panel spectrum-wrap ${tourTarget('uv') || tourTarget('ir')}`}
+                data-tour-target={technique === 'ir' ? 'ir' : 'uv'}
+              >
                 <h2 className="panel-title">
                   {technique === 'uvvis'
                     ? 'Electronic spectrum'
@@ -731,11 +844,12 @@ export function ExplorerPage({ preset = 'default' }: Props) {
                     envelope construction may differ. Not for quantitative comparison.
                   </p>
                 )}
-                <div className="tool-row">
+                <div className={`tool-row ${tourTarget('export')}`}>
                   <ResearchTools
                     compound={compound}
                     spectrum={primary}
                     technique={technique}
+                    forceOpen={tourExportOpen}
                   />
                   <CitationsPanel compound={compound} activeSpectrum={primary} />
                   <ShareCard
