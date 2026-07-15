@@ -1,10 +1,11 @@
 {
-  "version": "0.8.0",
+  "version": "0.9.0",
   "total": 496,
   "full_uvvis": 103,
   "ir": 496,
   "raman": 496,
   "catalog_only": 393,
   "experimental": 0,
-  "experimental_examples": 1
+  "experimental_examples": 1,
+  "lab_set_count": 35
 }

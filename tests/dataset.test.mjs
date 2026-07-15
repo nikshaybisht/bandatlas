@@ -42,6 +42,32 @@ test('index app_meta has resolvable default and lab compounds', () => {
   assert.ok(def?.has_uvvis, 'default compound should have full UV–Vis')
 })
 
+test('lab set: every lab_set compound has full UV series length > 10', () => {
+  const index = JSON.parse(fs.readFileSync(indexPath, 'utf8'))
+  const lab = index.compounds.filter((c) => c.lab_set)
+  assert.ok(lab.length >= 20, `expected ≥20 lab set, got ${lab.length}`)
+  assert.ok(lab.length <= 40, `expected ≤40 lab set, got ${lab.length}`)
+  assert.equal(index.counts.lab_set, lab.length)
+  const summary = JSON.parse(
+    fs.readFileSync(path.join(datasetDir, 'summary.json'), 'utf8'),
+  )
+  assert.equal(summary.lab_set_count, lab.length)
+
+  for (const entry of lab) {
+    assert.ok(entry.has_uvvis, `${entry.id} lab_set without has_uvvis`)
+    const p = path.join(datasetDir, 'compounds', `${entry.id}.json`)
+    const c = JSON.parse(fs.readFileSync(p, 'utf8'))
+    assert.equal(c.lab_set, true)
+    const abs = c.spectra?.find((s) => s.technique === 'uvvis_abs')
+    assert.ok(abs, `${entry.id} missing uvvis_abs`)
+    assert.ok(
+      Array.isArray(abs.display_points) && abs.display_points.length > 10,
+      `${entry.id} UV series too short (${abs.display_points?.length})`,
+    )
+    assert.equal(abs.quality, 'teaching')
+  }
+})
+
 test('index compounds have required search key fields', () => {
   const index = JSON.parse(fs.readFileSync(indexPath, 'utf8'))
   for (const c of index.compounds) {

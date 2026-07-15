@@ -126,15 +126,21 @@ test.describe('BandAtlas smoke', () => {
 
     await nav.getByRole('link', { name: 'Lab', exact: true }).click()
     await expect(page.locator('.lab-banner')).toBeVisible()
-    await expect(page.getByTestId('filter-uv-only')).toBeChecked()
+    await expect(page.getByTestId('filter-lab-set')).toBeChecked()
+    await expect(page.getByTestId('lab-discussion-card')).toBeVisible({ timeout: 15_000 })
     await expect(page.locator('.property-card h2')).toContainText(/Benzene/i, {
       timeout: 15_000,
     })
+    await expect(page.getByTestId('copy-lab-link')).toBeVisible()
+    await expect(page.getByTestId('export-lab-note-pack')).toBeVisible()
+    // Share path pattern shown in UI
+    await expect(page.locator('.lab-card-hint')).toContainText(/\/c\/benzene\?tech=/)
 
-    await page.goto('/c/anthracene', { waitUntil: 'networkidle' })
+    await page.goto('/c/anthracene?tech=ir', { waitUntil: 'networkidle' })
     await expect(page.locator('.property-card h2')).toContainText(/Anthracene/i, {
       timeout: 15_000,
     })
+    await expect(page.getByRole('tab', { name: 'IR' })).toHaveAttribute('aria-selected', 'true')
     await expect(page.locator('.teaching-banner')).toBeVisible()
   })
 })

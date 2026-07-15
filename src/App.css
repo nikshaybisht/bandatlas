@@ -559,6 +559,162 @@ input:focus-visible,
   color: var(--muted);
 }
 
+.hit-badge.lab {
+  color: #38bdf8;
+  border-color: rgba(56, 189, 248, 0.45);
+}
+
+/* Lab companion */
+.lab-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  padding: 0.4rem 1rem 0.55rem;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+  flex-shrink: 0;
+}
+
+.lab-chip {
+  border: 1px solid var(--border);
+  background: var(--chip);
+  color: var(--muted);
+  border-radius: 999px;
+  padding: 0.28rem 0.7rem;
+  min-height: 36px;
+  font-size: 0.78rem;
+  font-family: var(--font);
+  cursor: pointer;
+}
+
+.lab-chip:hover {
+  color: var(--text);
+  border-color: var(--border-strong);
+}
+
+.lab-chip.active {
+  color: var(--text);
+  background: var(--active);
+  border-color: var(--border-strong);
+}
+
+.lab-discussion-card {
+  margin: 0 0 0.85rem;
+  padding: 0.9rem 1rem;
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius);
+  background: var(--bg-panel);
+  box-shadow: var(--shadow);
+}
+
+.lab-card-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75rem;
+  align-items: flex-start;
+  margin-bottom: 0.65rem;
+}
+
+.lab-card-title {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 650;
+}
+
+.lab-card-meta {
+  margin: 0.2rem 0 0;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+
+.lab-card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.55rem 0.85rem;
+  margin: 0 0 0.75rem;
+}
+
+.lab-card-grid .wide {
+  grid-column: 1 / -1;
+}
+
+.lab-card-grid dt {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin: 0 0 0.15rem;
+}
+
+.lab-card-grid dd {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--text);
+  line-height: 1.4;
+}
+
+.lab-tech-seg {
+  display: inline-flex;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.lab-tech-seg button {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  padding: 0.3rem 0.55rem;
+  cursor: pointer;
+  font-size: 0.78rem;
+  font-family: var(--font);
+  min-height: 34px;
+}
+
+.lab-tech-seg button.active {
+  background: var(--active);
+  color: var(--text);
+}
+
+.lab-tech-seg button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.lab-card-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  align-items: center;
+}
+
+.lab-card-hint {
+  margin: 0.55rem 0 0;
+  font-size: 0.72rem;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.lab-card-hint code {
+  font-size: 0.7rem;
+}
+
+.spectrum-empty-cta {
+  min-height: 180px;
+  display: flex;
+  align-items: center;
+}
+
+@media (max-width: 560px) {
+  .lab-card-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .lab-chips {
+    padding: 0.35rem 0.55rem 0.45rem;
+  }
+}
+
 .badge-stack {
   display: flex;
   flex-direction: column;

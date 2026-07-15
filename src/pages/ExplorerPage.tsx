@@ -8,10 +8,12 @@ import { ShareCard } from '../components/ShareCard'
 import { CitationsPanel } from '../components/CitationsPanel'
 import { ResearchTools } from '../components/ResearchTools'
 import { WelcomeCard } from '../components/WelcomeCard'
+import { LabDiscussionCard } from '../components/LabDiscussionCard'
 import { useAppTheme } from '../context/AppThemeContext'
 import { buildSearchIndex } from '../lib/search'
 import { loadCompound } from '../lib/loadCompound'
 import { datasetUrl } from '../lib/paths'
+import { parseTechniqueParam } from '../lib/export'
 import { isWelcomeDismissed } from '../lib/theme'
 import type {
   Compound,
@@ -31,9 +33,16 @@ const FALLBACK_META = {
   lab: {
     compound_id: 'benzene',
     technique: 'uvvis' as TechniqueTab,
-    uv_only: true,
+    lab_set_only: true,
     mode: 'simple' as Mode,
   },
+  lab_classes: [
+    { id: 'dyes', label: 'UV dyes' },
+    { id: 'solvents', label: 'Solvents' },
+    { id: 'aromatics', label: 'Aromatics' },
+    { id: 'porphyrins', label: 'Porphyrins' },
+    { id: 'biomolecules', label: 'Biomolecules' },
+  ],
 }
 
 function qualityLabel(s: Spectrum | null | undefined): string {
@@ -53,12 +62,16 @@ function spectrumForTab(c: Compound | null, tab: TechniqueTab): Spectrum | null 
 function resolveDefaultId(
   data: DatasetIndex,
   preferred: string | null | undefined,
+  labOnly: boolean,
 ): string | null {
   const meta = data.app_meta ?? FALLBACK_META
   const tryId = preferred || meta.default_compound_id
+  const pool = labOnly ? data.compounds.filter((c) => c.lab_set) : data.compounds
   const hit =
-    data.compounds.find((c) => c.id === tryId) ||
-    data.compounds.find((c) => c.id === meta.default_compound_id) ||
+    pool.find((c) => c.id === tryId) ||
+    pool.find((c) => c.id === meta.lab?.compound_id) ||
+    pool.find((c) => c.has_uvvis) ||
+    pool[0] ||
     data.compounds.find((c) => c.has_uvvis) ||
     data.compounds[0]
   return hit?.id ?? null
@@ -69,11 +82,13 @@ type Props = {
 }
 
 export function ExplorerPage({ preset = 'default' }: Props) {
+  const isLab = preset === 'lab'
   const { theme } = useAppTheme()
   const navigate = useNavigate()
   const { compoundId: routeCompoundId } = useParams<{ compoundId?: string }>()
   const [searchParams] = useSearchParams()
   const queryFromUrl = searchParams.get('q') ?? ''
+  const techFromUrl = parseTechniqueParam(searchParams.get('tech'))
 
   const [index, setIndex] = useState<DatasetIndex | null>(null)
   const [searcher, setSearcher] = useState<MiniSearch<IndexCompound> | null>(null)
@@ -85,29 +100,38 @@ export function ExplorerPage({ preset = 'default' }: Props) {
   const [loadError, setLoadError] = useState<string | null>(null)
   const [indexError, setIndexError] = useState<string | null>(null)
   const [loadingMol, setLoadingMol] = useState(false)
-  const [mode, setMode] = useState<Mode>(
-    preset === 'lab' ? FALLBACK_META.lab.mode : 'simple',
-  )
+  const [mode, setMode] = useState<Mode>(isLab ? FALLBACK_META.lab.mode : 'simple')
   const [showEmission, setShowEmission] = useState(true)
   const [technique, setTechnique] = useState<TechniqueTab>(
-    preset === 'lab' ? FALLBACK_META.lab.technique : 'uvvis',
+    techFromUrl || (isLab ? FALLBACK_META.lab.technique : 'uvvis'),
   )
   const [searchOpen, setSearchOpen] = useState(false)
-  const [uvOnly, setUvOnly] = useState(preset === 'lab' ? FALLBACK_META.lab.uv_only : false)
+  const [uvOnly, setUvOnly] = useState(false)
+  const [labSetOnly, setLabSetOnly] = useState(isLab)
+  const [labClass, setLabClass] = useState<string | null>(null)
   const [experimentalOnly, setExperimentalOnly] = useState(false)
   const [showWelcome, setShowWelcome] = useState(
-    () => preset === 'default' && !isWelcomeDismissed(),
+    () => !isLab && !isWelcomeDismissed(),
   )
+  /** When true, do not auto-pick technique from compound availability (deep link owns it). */
+  const techLocked = useRef(Boolean(techFromUrl))
   const searchBoxRef = useRef<HTMLDivElement>(null)
   const bootstrapped = useRef(false)
 
-  // Keep query input in sync when ?q= changes externally
   useEffect(() => {
     setQuery(queryFromUrl)
     if (queryFromUrl.trim()) setSearchOpen(true)
   }, [queryFromUrl])
 
-  // Load dataset once; pick default / route / lab compound
+  // Apply ?tech= from URL when it changes
+  useEffect(() => {
+    const t = parseTechniqueParam(searchParams.get('tech'))
+    if (t) {
+      techLocked.current = true
+      setTechnique(t)
+    }
+  }, [searchParams])
+
   useEffect(() => {
     let cancelled = false
     fetch(datasetUrl('index.json'))
@@ -120,17 +144,19 @@ export function ExplorerPage({ preset = 'default' }: Props) {
         setIndex(data)
         setSearcher(buildSearchIndex(data.compounds))
         const meta = data.app_meta ?? FALLBACK_META
-        if (preset === 'lab') {
-          setUvOnly(meta.lab.uv_only)
+        if (isLab) {
+          setLabSetOnly(meta.lab.lab_set_only !== false)
           setMode(meta.lab.mode)
-          setTechnique(meta.lab.technique)
+          if (!techFromUrl) setTechnique(meta.lab.technique)
         }
         if (!bootstrapped.current) {
           bootstrapped.current = true
           if (routeCompoundId) {
             setSelectedId(routeCompoundId)
-          } else if (preset === 'lab') {
-            const id = resolveDefaultId(data, meta.lab.compound_id)
+          } else if (isLab) {
+            const fromQuery = searchParams.get('c')
+            const preferred = fromQuery || meta.lab.compound_id
+            const id = resolveDefaultId(data, preferred, true)
             if (id) setSelectedId(id)
           } else {
             const q = (searchParams.get('q') || '').trim().toLowerCase()
@@ -140,13 +166,17 @@ export function ExplorerPage({ preset = 'default' }: Props) {
                 data.compounds.find((c) => c.name.toLowerCase() === q)
               if (exact) {
                 setSelectedId(exact.id)
-                navigate(`/c/${exact.id}`, { replace: true })
+                const techQ = parseTechniqueParam(searchParams.get('tech'))
+                navigate(
+                  `/c/${exact.id}${techQ ? `?tech=${techQ}` : ''}`,
+                  { replace: true },
+                )
               } else {
-                const id = resolveDefaultId(data, null)
+                const id = resolveDefaultId(data, null, false)
                 if (id) setSelectedId(id)
               }
             } else {
-              const id = resolveDefaultId(data, null)
+              const id = resolveDefaultId(data, null, false)
               if (id) setSelectedId(id)
             }
           }
@@ -158,11 +188,9 @@ export function ExplorerPage({ preset = 'default' }: Props) {
     return () => {
       cancelled = true
     }
-    // Intentionally once-ish per mount; route deep links handled below
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [preset])
 
-  // Deep link path /c/:id while staying on explorer
   useEffect(() => {
     if (routeCompoundId) setSelectedId(routeCompoundId)
   }, [routeCompoundId])
@@ -177,9 +205,23 @@ export function ExplorerPage({ preset = 'default' }: Props) {
         if (!cancelled) {
           setCompound(c)
           setLoadingMol(false)
-          if (c.availability.uvvis_abs) setTechnique('uvvis')
-          else if (c.availability.ir) setTechnique('ir')
-          else if (c.availability.raman) setTechnique('raman')
+          if (!techLocked.current) {
+            if (c.availability.uvvis_abs) setTechnique('uvvis')
+            else if (c.availability.ir) setTechnique('ir')
+            else if (c.availability.raman) setTechnique('raman')
+          } else {
+            // Honor deep-link tech if available; otherwise fall back
+            const want = technique
+            const ok =
+              (want === 'uvvis' && c.availability.uvvis_abs) ||
+              (want === 'ir' && c.availability.ir) ||
+              (want === 'raman' && c.availability.raman)
+            if (!ok) {
+              if (c.availability.uvvis_abs) setTechnique('uvvis')
+              else if (c.availability.ir) setTechnique('ir')
+              else if (c.availability.raman) setTechnique('raman')
+            }
+          }
         }
       })
       .catch(() => {
@@ -191,6 +233,7 @@ export function ExplorerPage({ preset = 'default' }: Props) {
     return () => {
       cancelled = true
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedId])
 
   useEffect(() => {
@@ -228,14 +271,22 @@ export function ExplorerPage({ preset = 'default' }: Props) {
     }
   }, [])
 
+  const labClasses = index?.app_meta?.lab_classes ?? FALLBACK_META.lab_classes
+
   const results = useMemo(() => {
     if (!index || !searcher) return [] as IndexCompound[]
     const q = query.trim()
     let pool = index.compounds
+    if (labSetOnly) pool = pool.filter((c) => c.lab_set)
+    if (labClass) {
+      pool = pool.filter((c) => (c.lab_classes || []).includes(labClass))
+    }
     if (uvOnly) pool = pool.filter((c) => c.has_uvvis)
     if (experimentalOnly) pool = pool.filter((c) => c.has_experimental)
     if (!q) {
-      if (uvOnly || experimentalOnly) return pool.slice(0, RESULT_CAP)
+      if (labSetOnly || labClass || uvOnly || experimentalOnly) {
+        return pool.slice(0, isLab ? 24 : RESULT_CAP)
+      }
       return []
     }
     const hits = searcher.search(q)
@@ -243,8 +294,8 @@ export function ExplorerPage({ preset = 'default' }: Props) {
     return hits
       .map((h) => byId.get(h.id))
       .filter((c): c is IndexCompound => Boolean(c))
-      .slice(0, RESULT_CAP)
-  }, [index, query, searcher, uvOnly, experimentalOnly])
+      .slice(0, isLab ? 24 : RESULT_CAP)
+  }, [index, query, searcher, uvOnly, experimentalOnly, labSetOnly, labClass, isLab])
 
   const exampleName = useMemo(() => {
     const meta = index?.app_meta ?? FALLBACK_META
@@ -252,21 +303,48 @@ export function ExplorerPage({ preset = 'default' }: Props) {
     return index?.compounds.find((c) => c.id === id)?.name ?? 'Rhodamine B'
   }, [index])
 
+  /** Peer share URL path (/c/:id?tech=). Lab session keeps /lab?c=&tech=. */
+  const navigateToCompound = useCallback(
+    (id: string, tech: TechniqueTab) => {
+      navigate(`/c/${id}?tech=${tech}`, { replace: true })
+    },
+    [navigate],
+  )
+
+  const syncLabUrl = useCallback(
+    (id: string, tech: TechniqueTab) => {
+      navigate(`/lab?c=${encodeURIComponent(id)}&tech=${tech}`, { replace: true })
+    },
+    [navigate],
+  )
+
   const select = useCallback(
     (id: string) => {
+      techLocked.current = false
       setSelectedId(id)
       setQuery('')
       setSearchOpen(false)
-      // Shareable deep link (works under Vite base /bandatlas/)
-      navigate(`/c/${id}`, { replace: true })
+      if (isLab) syncLabUrl(id, technique)
+      else navigateToCompound(id, technique)
     },
-    [navigate],
+    [isLab, navigateToCompound, syncLabUrl, technique],
+  )
+
+  const setTechniqueAndUrl = useCallback(
+    (t: TechniqueTab) => {
+      techLocked.current = true
+      setTechnique(t)
+      if (!selectedId) return
+      if (isLab) syncLabUrl(selectedId, t)
+      else navigateToCompound(selectedId, t)
+    },
+    [isLab, navigateToCompound, selectedId, syncLabUrl],
   )
 
   const openExample = useCallback(() => {
     if (!index) return
     const meta = index.app_meta ?? FALLBACK_META
-    const id = resolveDefaultId(index, meta.default_compound_id)
+    const id = resolveDefaultId(index, meta.default_compound_id, false)
     if (id) select(id)
   }, [index, select])
 
@@ -296,10 +374,11 @@ export function ExplorerPage({ preset = 'default' }: Props) {
         primary literature for experimental numbers.
       </div>
 
-      {preset === 'lab' && (
+      {isLab && (
         <div className="lab-banner" role="status">
-          <strong>Lab companion</strong> — full UV filter on · default benzene · normalized scale.
-          Share any compound via <code>/c/&lt;id&gt;</code> from the main explorer.
+          <strong>Lab companion</strong> — before UV/IR discussion, open a compound and export a
+          note pack. Default filter: curated lab set (
+          {index?.counts.lab_set ?? '—'} compounds, all with full UV).
         </div>
       )}
 
@@ -308,7 +387,11 @@ export function ExplorerPage({ preset = 'default' }: Props) {
           <input
             className="search"
             type="search"
-            placeholder="Search compound, CAS, or formula…"
+            placeholder={
+              isLab
+                ? 'Search lab set (name, CAS, formula)…'
+                : 'Search compound, CAS, or formula…'
+            }
             value={query}
             onChange={(e) => onQueryChange(e.target.value)}
             onFocus={() => setSearchOpen(true)}
@@ -320,93 +403,92 @@ export function ExplorerPage({ preset = 'default' }: Props) {
               }
             }}
             aria-label="Search compounds"
-            aria-expanded={searchOpen && (Boolean(query.trim()) || uvOnly || experimentalOnly)}
+            aria-expanded={
+              searchOpen &&
+              (Boolean(query.trim()) || uvOnly || experimentalOnly || labSetOnly || Boolean(labClass))
+            }
             aria-controls="bandatlas-search-results"
             autoComplete="off"
             enterKeyHint="search"
           />
-          {searchOpen && (query.trim() || uvOnly || experimentalOnly) && (
-            <ul
-              id="bandatlas-search-results"
-              className="search-dropdown"
-              role="listbox"
-              aria-label="Search results"
-            >
-              {results.length === 0 && (
-                <li className="search-empty">
-                  {experimentalOnly
-                    ? 'No real experimental series yet (open data only)'
-                    : uvOnly
-                      ? 'No full UV–Vis curves match'
-                      : 'No matches'}
-                </li>
-              )}
-              {results.map((c) => (
-                <li key={c.id}>
-                  <button
-                    type="button"
-                    className="search-hit"
-                    onClick={() => select(c.id)}
-                  >
-                    <span className="hit-name">
-                      {c.name}
-                      {c.has_experimental ? (
-                        <span className="hit-badge experimental" title="Has experimental spectrum">
-                          Exp
-                        </span>
-                      ) : c.has_experimental_example ? (
-                        <span
-                          className="hit-badge example"
-                          title="Schema example only — not for citation"
-                        >
-                          Demo
-                        </span>
-                      ) : null}
-                      {c.has_uvvis ? (
-                        <span
-                          className="hit-badge uv"
-                          title={
-                            c.has_experimental
-                              ? 'Full UV–Vis (includes experimental)'
-                              : 'Full UV–Vis teaching curve'
-                          }
-                        >
-                          UV
-                        </span>
-                      ) : (
-                        <span className="hit-badge catalog" title="Catalog / IR–Raman only">
-                          IR/Ra
-                        </span>
-                      )}
-                    </span>
-                    <span className="hit-meta">
-                      {c.formula}
-                      {c.has_experimental
-                        ? ' · experimental'
-                        : c.has_uvvis
-                          ? ' · full UV–Vis (teaching)'
-                          : ' · catalog'}
-                      {c.has_ir ? ' · IR' : ''}
-                      {c.has_raman ? ' · Ra' : ''}
-                    </span>
-                  </button>
-                  <button
-                    type="button"
-                    className="hit-overlay"
-                    title="Overlay on current spectrum"
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      setCompareId((prev) => (prev === c.id ? null : c.id))
-                      setSearchOpen(false)
-                      setQuery('')
-                    }}
-                  >
-                    Overlay
-                  </button>
-                </li>
-              ))}
-            </ul>
-          )}
+          {searchOpen &&
+            (query.trim() || uvOnly || experimentalOnly || labSetOnly || labClass) && (
+              <ul
+                id="bandatlas-search-results"
+                className="search-dropdown"
+                role="listbox"
+                aria-label="Search results"
+              >
+                {results.length === 0 && (
+                  <li className="search-empty">
+                    {experimentalOnly
+                      ? 'No real experimental series yet (open data only)'
+                      : labSetOnly || labClass
+                        ? 'No lab-set matches'
+                        : uvOnly
+                          ? 'No full UV–Vis curves match'
+                          : 'No matches'}
+                  </li>
+                )}
+                {results.map((c) => (
+                  <li key={c.id}>
+                    <button
+                      type="button"
+                      className="search-hit"
+                      onClick={() => select(c.id)}
+                    >
+                      <span className="hit-name">
+                        {c.name}
+                        {c.lab_set ? (
+                          <span className="hit-badge lab" title="Lab companion set">
+                            Lab
+                          </span>
+                        ) : null}
+                        {c.has_experimental ? (
+                          <span className="hit-badge experimental" title="Has experimental spectrum">
+                            Exp
+                          </span>
+                        ) : c.has_experimental_example ? (
+                          <span
+                            className="hit-badge example"
+                            title="Schema example only — not for citation"
+                          >
+                            Demo
+                          </span>
+                        ) : null}
+                        {c.has_uvvis ? (
+                          <span className="hit-badge uv" title="Full UV–Vis teaching curve">
+                            UV
+                          </span>
+                        ) : (
+                          <span className="hit-badge catalog" title="Catalog / IR–Raman only">
+                            IR/Ra
+                          </span>
+                        )}
+                      </span>
+                      <span className="hit-meta">
+                        {c.formula}
+                        {c.lab_set ? ' · lab set' : ''}
+                        {c.has_uvvis ? ' · full UV' : ' · catalog'}
+                      </span>
+                    </button>
+                    <button
+                      type="button"
+                      className="hit-overlay"
+                      title="Overlay on current spectrum"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        setCompareId((prev) => (prev === c.id ? null : c.id))
+                        setSearchOpen(false)
+                        setQuery('')
+                      }}
+                    >
+                      Overlay
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
         </div>
 
         <div className="explorer-filters">
@@ -414,7 +496,26 @@ export function ExplorerPage({ preset = 'default' }: Props) {
             <span className="count-chip">
               n = {index.counts.total}
               {index.counts.full_spectra != null ? ` · UV ${index.counts.full_spectra}` : ''}
+              {index.counts.lab_set != null ? ` · lab ${index.counts.lab_set}` : ''}
             </span>
+          )}
+          {(isLab || labSetOnly) && (
+            <label
+              className="filter-chip"
+              title="Curated lab companion compounds (all have full UV)"
+              data-testid="filter-lab-set-label"
+            >
+              <input
+                type="checkbox"
+                data-testid="filter-lab-set"
+                checked={labSetOnly}
+                onChange={(e) => {
+                  setLabSetOnly(e.target.checked)
+                  if (e.target.checked) setSearchOpen(true)
+                }}
+              />
+              Lab set
+            </label>
           )}
           <label
             className="filter-chip"
@@ -451,6 +552,36 @@ export function ExplorerPage({ preset = 'default' }: Props) {
         </div>
       </div>
 
+      {isLab && (
+        <div className="lab-chips" role="toolbar" aria-label="Lab class filters">
+          <button
+            type="button"
+            className={`lab-chip ${labClass === null ? 'active' : ''}`}
+            onClick={() => {
+              setLabClass(null)
+              setSearchOpen(true)
+            }}
+          >
+            All lab
+          </button>
+          {labClasses.map((c) => (
+            <button
+              key={c.id}
+              type="button"
+              className={`lab-chip ${labClass === c.id ? 'active' : ''}`}
+              data-testid={`lab-chip-${c.id}`}
+              onClick={() => {
+                setLabClass((prev) => (prev === c.id ? null : c.id))
+                setLabSetOnly(true)
+                setSearchOpen(true)
+              }}
+            >
+              {c.label}
+            </button>
+          ))}
+        </div>
+      )}
+
       {showWelcome && (
         <WelcomeCard
           exampleName={exampleName}
@@ -466,6 +597,15 @@ export function ExplorerPage({ preset = 'default' }: Props) {
       <main className="main">
         {compound && (
           <>
+            {isLab && (
+              <LabDiscussionCard
+                compound={compound}
+                spectrum={primary}
+                technique={technique}
+                onTechniqueChange={setTechniqueAndUrl}
+              />
+            )}
+
             <div className="main-toolbar">
               <div className="tabs" role="tablist" aria-label="Technique">
                 {(
@@ -483,7 +623,7 @@ export function ExplorerPage({ preset = 'default' }: Props) {
                       role="tab"
                       className={`tab ${technique === id ? 'active' : ''} ${on ? '' : 'empty'}`}
                       aria-selected={technique === id}
-                      onClick={() => setTechnique(id)}
+                      onClick={() => setTechniqueAndUrl(id)}
                     >
                       {label}
                     </button>
@@ -537,30 +677,33 @@ export function ExplorerPage({ preset = 'default' }: Props) {
                       : 'Raman spectrum'}
                   {compareCompound ? ` · vs ${compareCompound.name}` : ''}
                 </h2>
-                <SpectrumPlot
-                  key={`${compound.id}-${technique}-${mode}-${theme}`}
-                  primary={primary}
-                  emission={emission}
-                  showEmission={showEmission}
-                  mode={mode}
-                  technique={technique}
-                  moleculeName={compound.name}
-                  compare={compareSpec}
-                  compareName={compareCompound?.name}
-                  theme={theme}
-                />
-                {!primary && (
-                  <div className="spectrum-empty-banner" role="status">
+                {primary ? (
+                  <SpectrumPlot
+                    key={`${compound.id}-${technique}-${mode}-${theme}`}
+                    primary={primary}
+                    emission={emission}
+                    showEmission={showEmission}
+                    mode={mode}
+                    technique={technique}
+                    moleculeName={compound.name}
+                    compare={compareSpec}
+                    compareName={compareCompound?.name}
+                    theme={theme}
+                  />
+                ) : (
+                  <div className="spectrum-empty-banner spectrum-empty-cta" role="status">
                     {technique === 'uvvis' ? (
                       <>
-                        <strong>No full UV–Vis teaching curve yet</strong> for{' '}
-                        <strong>{compound.name}</strong>. This catalog entry still has{' '}
-                        <strong>IR</strong> and <strong>Raman</strong> teaching envelopes — use
-                        those tabs. To browse only compounds with a full UV curve, enable{' '}
-                        <em>Has full UV–Vis</em> in the search bar.
+                        <strong>No full UV teaching curve</strong> for{' '}
+                        <strong>{compound.name}</strong>. IR/Raman may still be available — use those
+                        tabs. Enable <em>Has full UV–Vis</em> or open the{' '}
+                        <strong>Lab</strong> set for compounds curated with full UV envelopes.
                       </>
                     ) : (
-                      <>No {technique === 'ir' ? 'IR' : 'Raman'} series for this compound yet.</>
+                      <>
+                        No {technique === 'ir' ? 'IR' : 'Raman'} series for this compound yet. Never
+                        treat an empty panel as measured data.
+                      </>
                     )}
                   </div>
                 )}

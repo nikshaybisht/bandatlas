@@ -36,16 +36,31 @@ export function GuidePage() {
           </li>
         </ol>
 
+        <h2 className="page-h2">Lab discussion workflow</h2>
+        <ol className="guide-steps">
+          <li>
+            Open <Link to="/lab">Lab companion</Link> — lab set filter is on (all entries have full UV).
+          </li>
+          <li>
+            Pick a class chip (UV dyes, solvents, aromatics…) or search.
+          </li>
+          <li>
+            Use the <strong>discussion card</strong> → <em>Export Lab Note Pack</em> (CSV + JSON +
+            Markdown + PNG) or <em>Copy link</em> for peers.
+          </li>
+        </ol>
+
         <h2 className="page-h2">Deep links for peers</h2>
         <ul className="page-list">
           <li>
-            Compound path: <code>/c/benzene</code>
+            Compound + technique: <code>/c/benzene?tech=uvvis</code> (also <code>ir</code>,{' '}
+            <code>raman</code>)
           </li>
           <li>
             Search query: <code>/?q=anthracene</code>
           </li>
           <li>
-            Lab preset: <code>/lab</code> (UV filter on, benzene default)
+            Lab session: <code>/lab</code> or <code>/lab?c=benzene&amp;tech=uvvis</code>
           </li>
         </ul>
 

@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.9.0] — 2026-07-16
+
+### Added
+- **Lab companion** product mode (`/lab`): curated **lab set** (35 compounds, all full UV)
+- Index fields: `lab_set`, `lab_classes`, `tags`; `summary.lab_set_count`
+- Lab class chips: UV dyes · Solvents · Aromatics · Porphyrins · Biomolecules
+- **Discussion card** + one-click **Export Lab Note Pack** (CSV + JSON + Markdown + PNG)
+- Shareable technique deep links: `/c/<id>?tech=uvvis|ir|raman` + Copy link
+- Clear empty-curve CTA (no blank chart pretending data exists)
+- Tests: lab-set UV integrity; markdown note contract; e2e lab + `?tech=`
+
+### Changed
+- Lab default filters to lab set (not merely “Has full UV–Vis”)
+- Empty UV messaging emphasizes IR/Raman may still be available
+
 ## [0.8.0] — 2026-07-16
 
 ### Added

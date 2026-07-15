@@ -3229,6 +3229,9 @@ function toIndexEntry(c) {
     has_raman: !!c.availability.raman,
     has_experimental: c.spectra.some(isExperimentalSpectrum),
     has_experimental_example: c.spectra.some(isExperimentalExampleSpectrum),
+    lab_set: !!c.lab_set,
+    lab_classes: c.lab_classes || [],
+    tags: c.tags || [],
     lambda_max_nm: abs?.lambda_max_nm || [],
     solvents: [...new Set(c.spectra.map((s) => s.solvent).filter(Boolean))],
   }
@@ -3369,7 +3372,70 @@ for (const c of [...fullCompounds, ...stubsUnique]) allById.set(c.id, c)
 const experimentalOverlays = loadExperimentalOverlays()
 for (const ov of experimentalOverlays) applyExperimentalOverlay(allById, ov)
 
+/**
+ * Lab companion set — every id MUST have a full UV–Vis teaching curve.
+ * Classes drive /lab quick chips (dyes | solvents | aromatics | porphyrins | biomolecules).
+ */
+const LAB_SET = {
+  // Solvents / common blanks
+  acetone: ['solvents'],
+  // Simple aromatics + PAHs (UV discussion staples)
+  benzene: ['aromatics'],
+  toluene: ['aromatics'],
+  phenol: ['aromatics'],
+  aniline: ['aromatics'],
+  nitrobenzene: ['aromatics'],
+  styrene: ['aromatics'],
+  biphenyl: ['aromatics'],
+  ferrocene: ['aromatics'],
+  naphthalene: ['aromatics'],
+  anthracene: ['aromatics'],
+  pyrene: ['aromatics'],
+  phenanthrene: ['aromatics'],
+  // UV dyes / fluorophores
+  fluorescein: ['dyes'],
+  'rhodamine-b': ['dyes'],
+  'rhodamine-6g': ['dyes'],
+  'methylene-blue': ['dyes'],
+  'crystal-violet': ['dyes'],
+  'eosin-y': ['dyes'],
+  'malachite-green': ['dyes'],
+  'coumarin-1': ['dyes'],
+  'bodipy-fl': ['dyes'],
+  dapi: ['dyes'],
+  cy3: ['dyes'],
+  indigo: ['dyes'],
+  // Porphyrin-like
+  'chlorophyll-a': ['porphyrins'],
+  tetraphenylporphyrin: ['porphyrins'],
+  'protoporphyrin-ix': ['porphyrins'],
+  phthalocyanine: ['porphyrins'],
+  // Biomolecules (lab teaching)
+  tryptophan: ['biomolecules'],
+  adenine: ['biomolecules'],
+  thymine: ['biomolecules'],
+  riboflavin: ['biomolecules'],
+  nadh: ['biomolecules'],
+  fad: ['biomolecules'],
+}
+
+// Tag compounds; fail loud if a lab id is missing or lacks UV
+for (const [id, classes] of Object.entries(LAB_SET)) {
+  const c = allById.get(id)
+  if (!c) {
+    throw new Error(`LAB_SET: unknown compound id "${id}"`)
+  }
+  if (!c.availability?.uvvis_abs) {
+    throw new Error(`LAB_SET: "${id}" must have full UV–Vis teaching curve`)
+  }
+  c.lab_set = true
+  c.lab_classes = classes
+  c.tags = Array.from(new Set([...(c.tags || []), 'lab', ...classes]))
+  allById.set(id, c)
+}
+
 const all = [...allById.values()]
+const labSetCount = all.filter((c) => c.lab_set).length
 
 for (const c of all) {
   fs.writeFileSync(path.join(compoundsDir, `${c.id}.json`), JSON.stringify(c))
@@ -3389,13 +3455,20 @@ const APP_META = {
     // Classic undergrad aromatic UV demo
     compound_id: 'benzene',
     technique: 'uvvis',
-    uv_only: true,
+    lab_set_only: true,
     mode: 'simple',
   },
+  lab_classes: [
+    { id: 'dyes', label: 'UV dyes' },
+    { id: 'solvents', label: 'Solvents' },
+    { id: 'aromatics', label: 'Aromatics' },
+    { id: 'porphyrins', label: 'Porphyrins' },
+    { id: 'biomolecules', label: 'Biomolecules' },
+  ],
 }
 
 const index = {
-  version: '0.8.0',
+  version: '0.9.0',
   generated_at: new Date().toISOString(),
   app_meta: APP_META,
   counts: {
@@ -3406,6 +3479,7 @@ const index = {
     catalog_only: all.filter((c) => !c.availability.uvvis_abs).length,
     experimental: withExperimental,
     experimental_examples: withExpExamples,
+    lab_set: labSetCount,
   },
   families: Object.entries(FAMILIES).map(([id, label]) => ({
     id,
@@ -3427,6 +3501,7 @@ const summary = {
   catalog_only: index.counts.catalog_only,
   experimental: withExperimental,
   experimental_examples: withExpExamples,
+  lab_set_count: labSetCount,
 }
 fs.writeFileSync(path.join(outRoot, 'summary.json'), JSON.stringify(summary, null, 2) + '\n')
 
@@ -3434,6 +3509,7 @@ console.log(
   `Dataset built: ${all.length} molecules (UV ${withUv}, IR ${withIr}, Raman ${withRaman}) → public/dataset/`,
 )
 console.log(`  full UV–Vis curves: ${withUv} (teaching + any experimental overlays)`)
+console.log(`  lab set: ${labSetCount}`)
 console.log(`  experimental (real): ${withExperimental}`)
 console.log(`  experimental schema examples: ${withExpExamples}`)
 console.log(`  catalog / IR–Raman only: ${index.counts.catalog_only}`)

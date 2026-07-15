@@ -51,6 +51,23 @@ Layout and photochemical metadata conventions are inspired by [PhotochemCAD](htt
 - Quick triage before a lab meeting (“do we have a UV curve for this dye?”)  
 - Exporting a series into notes with an explicit source tag  
 
+### Lab companion
+
+Primary job: **before UV/IR discussion, open this compound and export a note pack.**
+
+| | |
+|---|---|
+| **Open** | Live: […/bandatlas/lab](https://nikshaybisht.github.io/bandatlas/lab) · local: `/lab` |
+| **Lab set** | ~35 curated compounds (solvents, aromatics, UV dyes, porphyrins, biomolecules) — **every** entry has a full UV–Vis teaching curve + IR/Raman |
+| **Filters** | Lab set on by default; chips for UV dyes / Solvents / Aromatics / Porphyrins / Biomolecules |
+| **Discussion card** | Name, formula, technique summary, λ_max, quality tag, source note |
+| **Export Lab Note Pack** | CSV (active series) + JSON bundle + Markdown notebook snippet + figure PNG |
+| **Share** | `/c/<id>?tech=uvvis` (also `ir`, `raman`) — **Copy link** on the discussion card |
+
+Markdown notes always state `quality: teaching` (or experimental when real open series exist) and include compound id, CAS/CID when present, app version, timestamp, and URL.
+
+Teaching honesty stays visible: empty UV never draws a blank “fake” chart — the UI states that no full UV curve exists and points to IR/Raman when available.
+
 ### What it is not
 
 Many curves are **teaching envelopes** (multi-Gaussian shapes constrained to literature λ<sub>max</sub> or characteristic IR/Raman frequencies). They are **not** certified instrument digitizations and **not** a NIST-grade spectral archive. For publication SI, replace them with primary experimental data and cite the original source. Details: [docs/methodology.md](docs/methodology.md).
@@ -152,7 +169,7 @@ CHANGELOG.md
 If BandAtlas helped your teaching material or analysis workflow:
 
 ```
-Bisht, N. (2026). BandAtlas (v0.8.0) [Computer software].
+Bisht, N. (2026). BandAtlas (v0.9.0) [Computer software].
 https://github.com/nikshaybisht/bandatlas
 Live demo: https://nikshaybisht.github.io/bandatlas/
 ```

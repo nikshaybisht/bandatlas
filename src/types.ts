@@ -66,6 +66,10 @@ export interface Compound {
     raman: boolean
   }
   tier: 'full' | 'catalog' | 'partial'
+  /** Lab companion curated set */
+  lab_set?: boolean
+  lab_classes?: string[]
+  tags?: string[]
 }
 
 export interface IndexCompound {
@@ -88,6 +92,9 @@ export interface IndexCompound {
   has_experimental: boolean
   /** Schema demo experimental series only (example-not-for-citation) */
   has_experimental_example: boolean
+  lab_set?: boolean
+  lab_classes?: string[]
+  tags?: string[]
   lambda_max_nm: number[]
   solvents: string[]
 }
@@ -100,9 +107,12 @@ export interface DatasetAppMeta {
   lab: {
     compound_id: string
     technique: TechniqueTab
-    uv_only: boolean
+    /** Prefer lab-set filter (default true for /lab) */
+    lab_set_only?: boolean
+    uv_only?: boolean
     mode: 'simple' | 'advanced'
   }
+  lab_classes?: { id: string; label: string }[]
 }
 
 export interface DatasetIndex {
@@ -118,6 +128,8 @@ export interface DatasetIndex {
     experimental?: number
     /** Schema-demo experimental fixtures (not for citation) */
     experimental_examples?: number
+    /** Curated lab companion set size */
+    lab_set?: number
   }
   families: { id: string; label: string; count: number }[]
   compounds: IndexCompound[]
