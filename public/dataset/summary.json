@@ -1,8 +1,8 @@
 {
-  "version": "0.6.0",
-  "total": 494,
-  "full_uvvis": 51,
-  "ir": 494,
-  "raman": 494,
-  "catalog_only": 443
+  "version": "0.6.1",
+  "total": 495,
+  "full_uvvis": 102,
+  "ir": 495,
+  "raman": 495,
+  "catalog_only": 393
 }

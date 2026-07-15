@@ -40,8 +40,8 @@ test('full UV–Vis teaching set is large enough', () => {
   const index = JSON.parse(fs.readFileSync(indexPath, 'utf8'))
   const fullUv = index.compounds.filter((c) => hasFullUvVis(c))
   assert.ok(
-    fullUv.length >= 40,
-    `expected ≥40 full UV–Vis curves, got ${fullUv.length}`,
+    fullUv.length >= 80,
+    `expected ≥80 full UV–Vis curves, got ${fullUv.length}`,
   )
   assert.equal(index.counts.full_spectra, fullUv.length)
 })
@@ -74,7 +74,7 @@ test('at least N compounds have UV series length > 10', () => {
     const abs = c.spectra?.find((s) => s.technique === 'uvvis_abs')
     if (abs?.display_points?.length > 10) long++
   }
-  assert.ok(long >= 40, `expected ≥40 long UV series, got ${long}`)
+  assert.ok(long >= 80, `expected ≥80 long UV series, got ${long}`)
 })
 
 test('IR and Raman present on majors', () => {

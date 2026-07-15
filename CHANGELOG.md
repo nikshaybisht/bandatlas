@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.6.1] — 2026-07-16
+
+### Added
+- Expanded full UV–Vis **teaching** set **51 → 102** multi-Gaussian envelopes
+- Undergrad-focused seeds: nucleobases (G/C/U), food dyes, stains, cyanines, BODIPY/DAPI/Hoechst, porphyrinoids, cofactors (NADH/FAD), simple heterocycles, PAHs (chrysene, pentacene, coronene, C60)
+- Optional `abs.lit` / DOI / URL on FULL seeds → richer `source.citation` in compound JSON
+
+### Changed
+- README dataset table and version citation → **0.6.1**
+- Dataset index `version` field → 0.6.1
+
+### Notes
+- All new curves remain **Tier A teaching envelopes** constrained to tabulated literature λ_max — not experimental digitizations.
+
 ## [0.6.0] — 2026-07-16
 
 ### Added

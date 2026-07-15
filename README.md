@@ -90,7 +90,7 @@ Counts come from `npm run dataset` (also written to `public/dataset/summary.json
 | Content | Count |
 |---------|------:|
 | Searchable compounds | ~494 |
-| Full UV–Vis teaching curves | **51** |
+| Full UV–Vis teaching curves | **102** |
 | IR teaching envelopes | all majors (~494) |
 | Raman teaching envelopes | all majors (~494) |
 
@@ -130,7 +130,7 @@ CHANGELOG.md
 If BandAtlas helped your teaching material or analysis workflow:
 
 ```
-Bisht, N. (2026). BandAtlas (v0.6.0) [Computer software].
+Bisht, N. (2026). BandAtlas (v0.6.1) [Computer software].
 https://github.com/nikshaybisht/bandatlas
 Live demo: https://nikshaybisht.github.io/bandatlas/
 ```

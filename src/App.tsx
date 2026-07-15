@@ -19,7 +19,7 @@ import type {
 } from './types'
 import './App.css'
 
-const APP_VERSION = '0.6.0'
+const APP_VERSION = '0.6.1'
 
 type Mode = 'simple' | 'advanced'
 
