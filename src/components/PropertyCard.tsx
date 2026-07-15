@@ -17,14 +17,24 @@ export function PropertyCard({ compound, activeSpectrum, technique }: Props) {
         <h2>{compound.name}</h2>
         <span className={`tier-badge ${compound.tier === 'full' ? 'full' : 'catalog'}`}>
           {compound.tier === 'full'
-            ? 'Full UV–Vis'
+            ? 'Full UV–Vis (teaching)'
             : compound.tier === 'partial'
-              ? 'IR/Raman'
-              : 'Catalog'}
+              ? 'Catalog / partial'
+              : 'Catalog / partial'}
         </span>
       </div>
       <p className="family-badge">{compound.family_label}</p>
       <p className="summary">{compound.plain_summary}</p>
+      {compound.tier === 'full' ? (
+        <p className="quality-note">
+          UV–Vis curve is a multi-Gaussian teaching envelope (literature λ<sub>max</sub>), not a
+          certified instrument trace.
+        </p>
+      ) : (
+        <p className="quality-note">
+          No full UV–Vis teaching curve yet. IR/Raman are group-frequency teaching envelopes.
+        </p>
+      )}
 
       <dl className="prop-grid">
         <div>

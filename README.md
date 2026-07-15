@@ -2,7 +2,14 @@
 
 **A working atlas of molecular UV–Vis, IR, and Raman bands** — structures, class labels, provenance, and export for lab notes.
 
+| | |
+|---|---|
+| **Live demo** | **https://nikshaybisht.github.io/bandatlas/** |
+| **Source** | This repository |
+| **Install** | `npm ci && npm run dataset && npm run dev` |
+
 [![Release](https://img.shields.io/github/v/release/nikshaybisht/bandatlas?include_prereleases&label=release)](https://github.com/nikshaybisht/bandatlas/releases)
+[![CI](https://github.com/nikshaybisht/bandatlas/actions/workflows/ci.yml/badge.svg)](https://github.com/nikshaybisht/bandatlas/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Author](https://img.shields.io/badge/author-Nikshay%20Bisht-0B3D91.svg)](https://github.com/nikshaybisht)
 
@@ -32,6 +39,7 @@ BandAtlas is a static web client for browsing common small molecules and their s
 | **Structures** | Ball-and-stick 3D via PubChem conformers |
 | **Compare** | Overlay a second compound on the same technique |
 | **Export** | CSV / JSON for notebooks; figure card PNG; BibTeX stub |
+| **Filters** | “Has full UV–Vis” — only compounds with a curated teaching curve |
 | **Provenance** | Source notes and core literature DOIs in the UI |
 
 Layout and photochemical metadata conventions are inspired by [PhotochemCAD](https://www.photochemcad.com/) (Lindsey *et al.*). BandAtlas is an **independent** project and is **not affiliated** with PhotochemCAD.
@@ -44,7 +52,7 @@ Layout and photochemical metadata conventions are inspired by [PhotochemCAD](htt
 
 ### What it is not
 
-Many curves are **teaching envelopes** (multi-Gaussian shapes constrained to literature λ<sub>max</sub> or characteristic IR/Raman frequencies). They are **not** certified instrument digitizations. For publication SI, replace them with primary experimental data and cite the original source. Details: [docs/methodology.md](docs/methodology.md).
+Many curves are **teaching envelopes** (multi-Gaussian shapes constrained to literature λ<sub>max</sub> or characteristic IR/Raman frequencies). They are **not** certified instrument digitizations and **not** a NIST-grade spectral archive. For publication SI, replace them with primary experimental data and cite the original source. Details: [docs/methodology.md](docs/methodology.md).
 
 ---
 
@@ -53,30 +61,43 @@ Many curves are **teaching envelopes** (multi-Gaussian shapes constrained to lit
 ```bash
 git clone https://github.com/nikshaybisht/bandatlas.git
 cd bandatlas
-npm install
+npm ci
 npm run dataset
 npm run dev
 ```
 
-Build for production:
+Open the URL Vite prints (usually `http://127.0.0.1:5173`).
+
+Production build and checks:
 
 ```bash
-npm run build
+npm run ci          # dataset + tests + typecheck + vite build
 npm run preview
 ```
+
+### Deploy base path
+
+- **Local / default:** Vite `base` is `/`.
+- **GitHub Pages (this repo):** `base` is `/bandatlas/` when `GITHUB_ACTIONS=true` or `VITE_BASE=/bandatlas/`.
+- Override any time: `VITE_BASE=/your-prefix/ npm run build`.
 
 ---
 
 ## Dataset (current build)
 
-| Content | Approx. size |
-|---------|----------------|
-| Searchable compounds | ~500 |
-| Full UV–Vis teaching curves | 25 |
-| IR teaching envelopes | all majors |
-| Raman teaching envelopes | all majors |
+Counts come from `npm run dataset` (also written to `public/dataset/summary.json`):
 
-Identities and 3D models: **PubChem**. Spectral construction: see methodology.
+| Content | Count |
+|---------|------:|
+| Searchable compounds | ~494 |
+| Full UV–Vis teaching curves | **51** |
+| IR teaching envelopes | all majors (~494) |
+| Raman teaching envelopes | all majors (~494) |
+
+- **Full UV–Vis:** multi-Gaussian teaching envelopes (Tier A) with literature λ<sub>max</sub>.  
+- **Catalog / partial:** searchable identity + teaching IR/Raman; no full UV curve yet.  
+
+Identities and 3D models: **PubChem**. Spectral construction: [docs/methodology.md](docs/methodology.md).
 
 ---
 
@@ -88,10 +109,15 @@ public/dataset/          Built index, compound JSON, references
 tools/
   build-dataset.mjs      UV–Vis seeds + index
   ir-raman-lib.mjs       IR/Raman profiles + catalog stubs
+  quality-helpers.mjs    Test contracts (UV flags, CSV markers)
   capture-screenshots.mjs
+tests/                   Node test runner (dataset integrity)
 docs/
   methodology.md
   images/                UI screenshots
+.github/workflows/
+  ci.yml                 npm run ci
+  pages.yml              GitHub Pages deploy
 CITATION.cff
 CONTRIBUTING.md
 CHANGELOG.md
@@ -104,8 +130,9 @@ CHANGELOG.md
 If BandAtlas helped your teaching material or analysis workflow:
 
 ```
-Bisht, N. (2026). BandAtlas (v0.5.0) [Computer software].
+Bisht, N. (2026). BandAtlas (v0.6.0) [Computer software].
 https://github.com/nikshaybisht/bandatlas
+Live demo: https://nikshaybisht.github.io/bandatlas/
 ```
 
 Also see [`CITATION.cff`](CITATION.cff). Always cite **primary spectral literature** for experimental numbers.

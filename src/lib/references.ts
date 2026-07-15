@@ -1,3 +1,5 @@
+import { datasetUrl } from './paths'
+
 export interface Reference {
   id: string
   type: string
@@ -18,7 +20,7 @@ let cache: Reference[] | null = null
 
 export async function loadReferences(): Promise<Reference[]> {
   if (cache) return cache
-  const res = await fetch('/dataset/references.json')
+  const res = await fetch(datasetUrl('references.json'))
   if (!res.ok) return []
   const data = (await res.json()) as { references: Reference[] }
   cache = data.references

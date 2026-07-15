@@ -24,11 +24,12 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci
-      - run: npm run dataset
-      - name: Build with Pages base
-        run: |
+      - name: Dataset + typecheck + Vite build
+        env:
           # Project site: https://nikshaybisht.github.io/bandatlas/
-          npx vite build --base /bandatlas/
+          GITHUB_ACTIONS: 'true'
+          VITE_BASE: /bandatlas/
+        run: npm run build
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

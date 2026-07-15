@@ -24,9 +24,12 @@ Each spectrum JSON includes a `source` object with a free-text citation, optiona
 
 ### UV–Vis
 
+- Full-curve seeds live in `tools/build-dataset.mjs` (`FULL` array): multi-Gaussian envelopes constrained to literature λ_max / relative ε.
+- Catalog-only compounds have **no** UV series; the UI shows an empty state and “Catalog / partial” badge.
 - Display series: wavelength (nm) vs ε (advanced) or normalized intensity (teaching mode).
 - Emission overlays are normalized independently.
 - Points are downsampled at build time for interactive display; CSV export writes the displayed series plus header metadata.
+- Rebuild counts: `npm run dataset` prints totals and writes `public/dataset/summary.json`.
 
 ### IR / Raman
 

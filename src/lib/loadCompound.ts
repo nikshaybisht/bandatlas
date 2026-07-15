@@ -1,11 +1,12 @@
 import type { Compound } from '../types'
+import { datasetUrl } from './paths'
 
 const cache = new Map<string, Compound>()
 
 export async function loadCompound(id: string): Promise<Compound> {
   const hit = cache.get(id)
   if (hit) return hit
-  const res = await fetch(`/dataset/compounds/${encodeURIComponent(id)}.json`)
+  const res = await fetch(datasetUrl(`compounds/${encodeURIComponent(id)}.json`))
   if (!res.ok) throw new Error(`Failed to load compound ${id}`)
   const data = (await res.json()) as Compound
   cache.set(id, data)

@@ -9,6 +9,7 @@ import { ResearchTools } from './components/ResearchTools'
 import { ErrorBoundary } from './components/ErrorBoundary'
 import { buildSearchIndex } from './lib/search'
 import { loadCompound } from './lib/loadCompound'
+import { datasetUrl } from './lib/paths'
 import type {
   Compound,
   DatasetIndex,
@@ -17,6 +18,8 @@ import type {
   TechniqueTab,
 } from './types'
 import './App.css'
+
+const APP_VERSION = '0.6.0'
 
 type Mode = 'simple' | 'advanced'
 
@@ -44,6 +47,7 @@ export default function App() {
   const [showEmission, setShowEmission] = useState(true)
   const [technique, setTechnique] = useState<TechniqueTab>('uvvis')
   const [searchOpen, setSearchOpen] = useState(false)
+  const [uvOnly, setUvOnly] = useState(false)
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
     try {
       const saved = localStorage.getItem('bandatlas-theme')
@@ -68,7 +72,7 @@ export default function App() {
 
   useEffect(() => {
     let cancelled = false
-    fetch('/dataset/index.json')
+    fetch(datasetUrl('index.json'))
       .then((r) => {
         if (!r.ok) throw new Error(`HTTP ${r.status}`)
         return r.json()
@@ -142,14 +146,21 @@ export default function App() {
   const results = useMemo(() => {
     if (!index || !searcher) return [] as IndexCompound[]
     const q = query.trim()
-    if (!q) return []
+    const pool = uvOnly
+      ? index.compounds.filter((c) => c.has_uvvis)
+      : index.compounds
+    if (!q) {
+      // With UV filter on and empty query, show curated full-UV hits for discovery
+      if (uvOnly) return pool.slice(0, RESULT_CAP)
+      return []
+    }
     const hits = searcher.search(q)
-    const byId = new Map(index.compounds.map((c) => [c.id, c]))
+    const byId = new Map(pool.map((c) => [c.id, c]))
     return hits
       .map((h) => byId.get(h.id))
       .filter((c): c is IndexCompound => Boolean(c))
       .slice(0, RESULT_CAP)
-  }, [index, query, searcher])
+  }, [index, query, searcher, uvOnly])
 
   const select = useCallback((id: string) => {
     setSelectedId(id)
@@ -194,10 +205,12 @@ export default function App() {
               aria-label="Search compounds"
               autoComplete="off"
             />
-            {searchOpen && query.trim() && (
+            {searchOpen && (query.trim() || uvOnly) && (
               <ul className="search-dropdown" role="listbox">
                 {results.length === 0 && (
-                  <li className="search-empty">No matches</li>
+                  <li className="search-empty">
+                    {uvOnly ? 'No full UV–Vis teaching curves match' : 'No matches'}
+                  </li>
                 )}
                 {results.map((c) => (
                   <li key={c.id}>
@@ -206,10 +219,21 @@ export default function App() {
                       className="search-hit"
                       onClick={() => select(c.id)}
                     >
-                      <span className="hit-name">{c.name}</span>
+                      <span className="hit-name">
+                        {c.name}
+                        {c.has_uvvis ? (
+                          <span className="hit-badge uv" title="Full UV–Vis teaching curve">
+                            UV
+                          </span>
+                        ) : (
+                          <span className="hit-badge catalog" title="Catalog / IR–Raman only">
+                            IR/Ra
+                          </span>
+                        )}
+                      </span>
                       <span className="hit-meta">
                         {c.formula}
-                        {c.has_uvvis ? ' · UV' : ''}
+                        {c.has_uvvis ? ' · full UV–Vis (teaching)' : ' · catalog'}
                         {c.has_ir ? ' · IR' : ''}
                         {c.has_raman ? ' · Ra' : ''}
                       </span>
@@ -237,8 +261,22 @@ export default function App() {
             {index && (
               <span className="count-chip">
                 n = {index.counts.total}
+                {index.counts.full_spectra != null
+                  ? ` · UV ${index.counts.full_spectra}`
+                  : ''}
               </span>
             )}
+            <label className="filter-chip" title="Show only compounds with a full UV–Vis teaching curve">
+              <input
+                type="checkbox"
+                checked={uvOnly}
+                onChange={(e) => {
+                  setUvOnly(e.target.checked)
+                  if (e.target.checked) setSearchOpen(true)
+                }}
+              />
+              Has full UV–Vis
+            </label>
             <button
               type="button"
               className="ghost theme-toggle"
@@ -342,6 +380,29 @@ export default function App() {
                     compareName={compareCompound?.name}
                     theme={theme}
                   />
+                  {!primary && (
+                    <div className="spectrum-empty-banner" role="status">
+                      {technique === 'uvvis' ? (
+                        <>
+                          No full UV–Vis teaching curve for <strong>{compound.name}</strong>.
+                          IR and Raman envelopes are available; use the technique tabs or filter
+                          search with <em>Has full UV–Vis</em>.
+                        </>
+                      ) : (
+                        <>
+                          No {technique === 'ir' ? 'IR' : 'Raman'} series for this compound yet.
+                        </>
+                      )}
+                    </div>
+                  )}
+                  {primary && (
+                    <p className="quality-line" title="Data quality">
+                      {primary.source?.note || 'Teaching envelope'}
+                      {compareSpec
+                        ? ' · Overlay is qualitative (teaching envelopes, not certified traces).'
+                        : ''}
+                    </p>
+                  )}
                   <div className="tool-row">
                     <ResearchTools
                       compound={compound}
@@ -386,11 +447,14 @@ export default function App() {
 
         <footer className="footer">
           <span>
-            BandAtlas · UV {index?.counts.full_spectra ?? '—'} · IR{' '}
+            BandAtlas v{APP_VERSION} · UV {index?.counts.full_spectra ?? '—'} · IR{' '}
             {index?.counts.with_ir ?? '—'} · Raman {index?.counts.with_raman ?? '—'}
+            {' · '}teaching envelopes, not certified digitizations
           </span>
           <span>
             <a href="https://github.com/nikshaybisht/bandatlas">GitHub</a>
+            {' · '}
+            <a href="https://nikshaybisht.github.io/bandatlas/">Live demo</a>
           </span>
         </footer>
       </div>

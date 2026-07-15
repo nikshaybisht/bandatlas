@@ -187,12 +187,87 @@ body {
 .hit-name {
   font-weight: 600;
   font-size: 0.88rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+
+.hit-badge {
+  font-size: 0.62rem;
+  font-weight: 600;
+  font-family: var(--mono);
+  padding: 0.08rem 0.32rem;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+  letter-spacing: 0.02em;
+}
+
+.hit-badge.uv {
+  color: var(--good);
+  border-color: rgba(94, 234, 212, 0.4);
+}
+
+.hit-badge.catalog {
+  color: var(--muted);
 }
 
 .hit-meta {
   font-size: 0.72rem;
   color: var(--muted);
   font-family: var(--mono);
+}
+
+.filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  color: var(--muted);
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.28rem 0.55rem;
+  background: var(--chip, transparent);
+}
+
+.filter-chip:hover {
+  border-color: var(--border-strong);
+  color: var(--text);
+}
+
+.filter-chip input {
+  margin: 0;
+  accent-color: #5eead4;
+}
+
+.spectrum-empty-banner {
+  margin: 0.5rem 0 0;
+  padding: 0.65rem 0.75rem;
+  border-radius: 8px;
+  border: 1px dashed var(--border-strong);
+  background: var(--chip);
+  color: var(--muted);
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
+.quality-line {
+  margin: 0.45rem 0 0;
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-family: var(--mono);
+}
+
+.quality-note {
+  margin: 0 0 0.75rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+  line-height: 1.4;
+  border-left: 2px solid var(--border-strong);
+  padding-left: 0.55rem;
 }
 
 .hit-overlay {

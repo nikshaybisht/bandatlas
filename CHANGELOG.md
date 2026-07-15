@@ -1,5 +1,25 @@
 # Changelog
 
+## [0.6.0] — 2026-07-16
+
+### Added
+- **Live demo** on GitHub Pages: https://nikshaybisht.github.io/bandatlas/
+- **Has full UV–Vis** search filter + UV / catalog badges in results
+- Expanded full UV–Vis teaching set (**25 → 51** multi-Gaussian envelopes)
+- Minimal `npm test` suite (dataset integrity + export CSV contract)
+- CI workflow (dataset + test + build) on push/PR to `main`
+- Dataset `summary.json` counts from `npm run dataset`
+- Clearer teaching-quality notes in property card, plot, and footer
+
+### Fixed
+- GitHub Pages deploy (Pages source = GitHub Actions; `has_pages` enabled)
+- Vite `base` for project pages (`VITE_BASE` / `GITHUB_ACTIONS`) so assets load under `/bandatlas/`
+- Dataset fetches use `import.meta.env.BASE_URL` (no broken paths on Pages)
+- Version alignment: package, CITATION.cff, README citation, UI footer → **0.6.0**
+
+### Changed
+- README: Live demo table at top; accurate dataset counts
+
 ## [0.5.1] — 2026-07-16
 
 ### Fixed
