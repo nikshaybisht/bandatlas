@@ -19,7 +19,7 @@ import type {
 } from './types'
 import './App.css'
 
-const APP_VERSION = '0.7.1'
+const APP_VERSION = '0.7.2'
 
 function qualityLabel(s: Spectrum | null | undefined): string {
   if (!s) return ''
@@ -147,8 +147,22 @@ export default function App() {
     const onDoc = (e: MouseEvent) => {
       if (!searchBoxRef.current?.contains(e.target as Node)) setSearchOpen(false)
     }
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setSearchOpen(false)
+        // Clear compare overlay with Esc when focus is not in an input
+        const t = e.target as HTMLElement | null
+        if (t && (t.tagName === 'INPUT' || t.tagName === 'TEXTAREA')) {
+          ;(t as HTMLInputElement).blur()
+        }
+      }
+    }
     document.addEventListener('mousedown', onDoc)
-    return () => document.removeEventListener('mousedown', onDoc)
+    document.addEventListener('keydown', onKey)
+    return () => {
+      document.removeEventListener('mousedown', onDoc)
+      document.removeEventListener('keydown', onKey)
+    }
   }, [])
 
   const results = useMemo(() => {
@@ -209,12 +223,26 @@ export default function App() {
                 setSearchOpen(true)
               }}
               onFocus={() => setSearchOpen(true)}
-              autoFocus
+              onKeyDown={(e) => {
+                if (e.key === 'Escape') {
+                  e.stopPropagation()
+                  setSearchOpen(false)
+                  ;(e.target as HTMLInputElement).blur()
+                }
+              }}
               aria-label="Search compounds"
+              aria-expanded={searchOpen && (Boolean(query.trim()) || uvOnly || experimentalOnly)}
+              aria-controls="bandatlas-search-results"
               autoComplete="off"
+              enterKeyHint="search"
             />
             {searchOpen && (query.trim() || uvOnly || experimentalOnly) && (
-              <ul className="search-dropdown" role="listbox">
+              <ul
+                id="bandatlas-search-results"
+                className="search-dropdown"
+                role="listbox"
+                aria-label="Search results"
+              >
                 {results.length === 0 && (
                   <li className="search-empty">
                     {experimentalOnly

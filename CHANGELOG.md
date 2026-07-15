@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.7.2] — 2026-07-16
+
+### Changed
+- **Mobile (375px):** stacked topbar, full-width search, wrap filters/tabs, larger touch targets
+- **Touch plots:** drag-box zoom disabled on coarse pointer; zoom toolbar + hint
+- **Keyboard:** `:focus-visible` rings; Escape closes search + export/citations folds
+- **Light theme:** stronger muted/footer/chip contrast (rough WCAG AA for UI text)
+- **prefers-reduced-motion:** kill transitions/animations globally
+
+### Added
+- [docs/A11Y_MOBILE_CHECKLIST.md](docs/A11Y_MOBILE_CHECKLIST.md) manual QA list
+
 ## [Unreleased]
 
 ### Added

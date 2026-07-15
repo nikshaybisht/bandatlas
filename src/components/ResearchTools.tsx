@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import type { Compound, Spectrum, TechniqueTab } from '../types'
 import {
   compoundBibtex,
@@ -15,6 +15,19 @@ interface Props {
 
 export function ResearchTools({ compound, spectrum, technique }: Props) {
   const [open, setOpen] = useState(false)
+  const rootRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.stopPropagation()
+        setOpen(false)
+      }
+    }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [open])
 
   const exportCsv = () => {
     if (!spectrum) return
@@ -57,18 +70,19 @@ export function ResearchTools({ compound, spectrum, technique }: Props) {
   }
 
   return (
-    <div className="fold-block">
+    <div className="fold-block" ref={rootRef}>
       <button
         type="button"
         className="fold-toggle"
         aria-expanded={open}
+        aria-controls="bandatlas-export-panel"
         onClick={() => setOpen((v) => !v)}
       >
         <span>Export ({techniqueLabel(technique)})</span>
         <span className="fold-chevron">{open ? '▾' : '▸'}</span>
       </button>
       {open && (
-        <div className="fold-body">
+        <div className="fold-body" id="bandatlas-export-panel" role="region" aria-label="Export">
           <p className="rt-help">
             Download the plotted series for lab notes. Headers include quality, solvent, and source
             text — keep them. Teaching envelopes are not certified digitizations.

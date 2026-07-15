@@ -68,6 +68,10 @@ Schema tooling demo: `schema-example.json` uses `example_not_for_citation: true`
 - No unnecessary dependencies.
 - Avoid chatty UI copy; prefer laboratory wording.
 
+## Accessibility & mobile
+
+After UI changes, run the short checklist: [docs/A11Y_MOBILE_CHECKLIST.md](docs/A11Y_MOBILE_CHECKLIST.md) (375px layout, keyboard Esc/focus, light contrast, reduce motion).
+
 ## Reporting issues
 
 Include: compound id, technique tab, browser, and whether the failure is data or UI.

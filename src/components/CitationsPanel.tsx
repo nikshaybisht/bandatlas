@@ -40,6 +40,18 @@ export function CitationsPanel({ compound, activeSpectrum }: Props) {
     if (open && refs.length === 0) loadReferences().then(setRefs)
   }, [open, refs.length])
 
+  useEffect(() => {
+    if (!open) return
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.stopPropagation()
+        setOpen(false)
+      }
+    }
+    document.addEventListener('keydown', onKey)
+    return () => document.removeEventListener('keydown', onKey)
+  }, [open])
+
   const background = refs.filter((r) => BACKGROUND_IDS.includes(r.id))
 
   return (
@@ -48,6 +60,7 @@ export function CitationsPanel({ compound, activeSpectrum }: Props) {
         type="button"
         className="fold-toggle"
         aria-expanded={open}
+        aria-controls="bandatlas-citations-panel"
         onClick={() => setOpen((v) => !v)}
       >
         <span>Data &amp; references</span>
@@ -55,7 +68,12 @@ export function CitationsPanel({ compound, activeSpectrum }: Props) {
       </button>
 
       {open && (
-        <div className="fold-body">
+        <div
+          className="fold-body"
+          id="bandatlas-citations-panel"
+          role="region"
+          aria-label="Data and references"
+        >
           <p className="cite-lead">
             <strong>How to cite a spectrum.</strong> Prefer the{' '}
             <em>primary experimental source</em> (paper or database) for the numbers you report.

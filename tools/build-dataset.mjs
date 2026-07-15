@@ -3382,7 +3382,7 @@ const withExperimental = all.filter((c) => c.spectra.some(isExperimentalSpectrum
 const withExpExamples = all.filter((c) => c.spectra.some(isExperimentalExampleSpectrum)).length
 
 const index = {
-  version: '0.7.1',
+  version: '0.7.2',
   generated_at: new Date().toISOString(),
   counts: {
     total: all.length,

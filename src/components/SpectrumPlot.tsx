@@ -200,6 +200,10 @@ export function SpectrumPlot({
 
   const isWavenumber = technique === 'ir' || technique === 'raman'
   const maxDist = isWavenumber ? 40 : 8
+  /** Touch / coarse pointer: drag-zoom fights scrolling — use toolbar buttons instead */
+  const coarsePointer =
+    typeof window !== 'undefined' &&
+    window.matchMedia('(pointer: coarse)').matches
 
   const zoomBy = (factor: number) => {
     const u = plotRef.current
@@ -435,9 +439,10 @@ export function SpectrumPlot({
       padding: [8, 14, bottomPad, 8],
       cursor: {
         drag: {
-          x: true,
-          y: true,
-          setScale: true,
+          // Mouse: drag-box zoom. Touch: disabled (use Zoom buttons; avoid scroll conflicts)
+          x: !coarsePointer,
+          y: !coarsePointer,
+          setScale: !coarsePointer,
         },
         focus: { prox: 28 },
         points: { size: 9 },
@@ -663,6 +668,7 @@ export function SpectrumPlot({
     emLineColor,
     emPeak,
     theme,
+    coarsePointer,
   ])
 
   return (
@@ -713,10 +719,15 @@ export function SpectrumPlot({
         <button type="button" className="ghost zoom-btn" onClick={resetZoom} title="Reset to full spectrum">
           Reset view
         </button>
+        <span className="zoom-hint">
+          {coarsePointer
+            ? 'Touch: use buttons (drag-zoom off)'
+            : 'Drag box to zoom · double-click reset'}
+        </span>
       </div>
       <div
         ref={rootRef}
-        className={`plot-root ${technique === 'ir' ? 'plot-ir' : ''} ${technique === 'raman' ? 'plot-raman' : ''}`}
+        className={`plot-root ${technique === 'ir' ? 'plot-ir' : ''} ${technique === 'raman' ? 'plot-raman' : ''} ${coarsePointer ? 'plot-touch' : ''}`}
       />
       {/* Always-on honesty line — not a certified spectral library */}
       <p className="plot-disclaimer" role="note">
