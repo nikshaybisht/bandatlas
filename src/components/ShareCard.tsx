@@ -40,37 +40,37 @@ export function ShareCard({ compound, technique, caption }: Props) {
     ctx.fillStyle = bar
     ctx.fillRect(0, 0, w, 8)
 
-    ctx.fillStyle = '#a5b4fc'
-    ctx.font = 'bold 28px system-ui,sans-serif'
-    ctx.fillText('MolSpectra', 48, 72)
+    ctx.fillStyle = '#94a3b8'
+    ctx.font = '20px system-ui,sans-serif'
+    ctx.fillText('MolSpectra  ·  figure card', 48, 64)
 
     ctx.fillStyle = '#f8fafc'
-    ctx.font = 'bold 48px system-ui,sans-serif'
-    wrapText(ctx, compound.name, 48, 160, w - 96, 56)
+    ctx.font = 'bold 42px system-ui,sans-serif'
+    wrapText(ctx, compound.name, 48, 140, w - 96, 50)
 
     ctx.fillStyle = '#94a3b8'
-    ctx.font = '22px system-ui,sans-serif'
-    ctx.fillText(
-      `${compound.family_label}  ·  ${techLabel[technique]}`,
-      48,
-      280,
-    )
-    if (compound.formula) {
-      ctx.fillText(compound.formula, 48, 318)
-    }
+    ctx.font = '20px system-ui,sans-serif'
+    const meta = [
+      compound.family_label,
+      techLabel[technique],
+      compound.formula,
+      compound.cas ? `CAS ${compound.cas}` : '',
+    ]
+      .filter(Boolean)
+      .join('  ·  ')
+    wrapText(ctx, meta, 48, 260, w - 96, 28)
 
-    // Caption box
-    ctx.fillStyle = 'rgba(99, 102, 241, 0.15)'
-    roundRect(ctx, 40, 360, w - 80, 360, 20)
+    ctx.fillStyle = 'rgba(30, 41, 59, 0.95)'
+    roundRect(ctx, 40, 340, w - 80, 380, 12)
     ctx.fill()
     ctx.fillStyle = '#e2e8f0'
-    ctx.font = '24px system-ui,sans-serif'
-    wrapText(ctx, caption, 64, 410, w - 128, 34)
+    ctx.font = '22px system-ui,sans-serif'
+    wrapText(ctx, caption, 64, 390, w - 128, 32)
 
     ctx.fillStyle = '#64748b'
-    ctx.font = '18px system-ui,sans-serif'
-    ctx.fillText('Teaching spectrum · educational use', 48, h - 80)
-    ctx.fillText('github.com/nikshaybisht/molspectra', 48, h - 48)
+    ctx.font = '16px system-ui,sans-serif'
+    ctx.fillText('Curated / teaching packaging — check primary literature for SI', 48, h - 72)
+    ctx.fillText('github.com/nikshaybisht/molspectra', 48, h - 44)
 
     const a = document.createElement('a')
     a.download = `molspectra-${compound.id}-${technique}.png`
@@ -104,10 +104,10 @@ export function ShareCard({ compound, technique, caption }: Props) {
     <div className="share-block">
       <div className="share-actions">
         <button type="button" className="ghost" onClick={downloadPng}>
-          Share card PNG
+          Figure card (PNG)
         </button>
         <button type="button" className="ghost" onClick={copySummary}>
-          Copy summary
+          Copy caption
         </button>
         {status && <span className="share-status">{status}</span>}
       </div>

@@ -1,0 +1,155 @@
+{
+  "version": "1.0",
+  "references": [
+    {
+      "id": "taniguchi2018db",
+      "type": "journal",
+      "authors": "Taniguchi, M.; Lindsey, J. S.",
+      "title": "Database of Absorption and Fluorescence Spectra of >300 Common Compounds for Use in PhotochemCAD",
+      "journal": "Photochem. Photobiol.",
+      "year": 2018,
+      "volume": "94",
+      "pages": "290–327",
+      "doi": "10.1111/php.12860",
+      "note": "Curated absorption/emission spectra and literature λmax for common photochemical compounds. Primary design reference for compound-page metadata (solvent, instrument context, families)."
+    },
+    {
+      "id": "taniguchi2018pccad3",
+      "type": "journal",
+      "authors": "Taniguchi, M.; Du, H.; Lindsey, J. S.",
+      "title": "PhotochemCAD 3: Diverse Modules for Photophysical Calculations with Access to Multiple Spectral Databases",
+      "journal": "Photochem. Photobiol.",
+      "year": 2018,
+      "volume": "94",
+      "pages": "277–289",
+      "doi": "10.1111/php.12862",
+      "note": "Program architecture and photophysical calculation modules."
+    },
+    {
+      "id": "du1998pccad",
+      "type": "journal",
+      "authors": "Du, H.; Fuh, R.-C. A.; Li, J.; Corkan, L. A.; Lindsey, J. S.",
+      "title": "PhotochemCAD: A Computer-Aided Design and Research Tool in Photochemistry",
+      "journal": "Photochem. Photobiol.",
+      "year": 1998,
+      "volume": "68",
+      "pages": "141–142",
+      "doi": "10.1111/j.1751-1097.1998.tb02480.x",
+      "note": "Original PhotochemCAD description."
+    },
+    {
+      "id": "nist-webbook",
+      "type": "database",
+      "authors": "Linstrom, P. J.; Mallard, W. G. (Eds.)",
+      "title": "NIST Chemistry WebBook, NIST Standard Reference Database Number 69",
+      "journal": "National Institute of Standards and Technology, Gaithersburg MD",
+      "year": 2024,
+      "url": "https://webbook.nist.gov/chemistry/",
+      "note": "Public UV/Vis and IR spectral collections; planned experimental import source."
+    },
+    {
+      "id": "nist-uvvis-guide",
+      "type": "web",
+      "authors": "Talrose, V.; et al.",
+      "title": "UV/Vis Database User's Guide — NIST Chemistry WebBook",
+      "year": 2024,
+      "url": "https://webbook.nist.gov/chemistry/uv-vis/",
+      "note": "Documentation of NIST UV/Vis holdings (liquid-phase majority)."
+    },
+    {
+      "id": "berlman1971",
+      "type": "book",
+      "authors": "Berlman, I. B.",
+      "title": "Handbook of Fluorescence Spectra of Aromatic Molecules",
+      "year": 1971,
+      "edition": "2nd",
+      "publisher": "Academic Press",
+      "note": "Classic fluorescence spectra and quantum yields for aromatics (e.g. naphthalene Φf)."
+    },
+    {
+      "id": "pubchem",
+      "type": "database",
+      "authors": "Kim, S.; et al.",
+      "title": "PubChem 2025 update",
+      "journal": "Nucleic Acids Res.",
+      "year": 2025,
+      "url": "https://pubchem.ncbi.nlm.nih.gov/",
+      "note": "Compound identifiers, synonyms, and 3D conformers used for structure display."
+    },
+    {
+      "id": "mpi-mainz",
+      "type": "journal",
+      "authors": "Keller-Rudek, H.; Moortgat, G. K.; Sander, R.; Sörensen, R.",
+      "title": "The MPI-Mainz UV/VIS spectral atlas of gaseous molecules of atmospheric interest",
+      "journal": "Earth Syst. Sci. Data",
+      "year": 2013,
+      "volume": "5",
+      "pages": "365–373",
+      "doi": "10.5194/essd-5-365-2013",
+      "note": "Gas-phase cross sections; future expansion path for atmospheric species."
+    },
+    {
+      "id": "braslavsky2007",
+      "type": "journal",
+      "authors": "Braslavsky, S. E.",
+      "title": "Glossary of terms used in photochemistry, 3rd edition (IUPAC Recommendations 2006)",
+      "journal": "Pure Appl. Chem.",
+      "year": 2007,
+      "volume": "79",
+      "pages": "293–465",
+      "doi": "10.1351/pac200779030293",
+      "note": "Terminology for absorption, emission, quantum yield, and related quantities."
+    },
+    {
+      "id": "brouwer2011",
+      "type": "journal",
+      "authors": "Brouwer, A. M.",
+      "title": "Standards for photoluminescence quantum yield measurements in solution (IUPAC Technical Report)",
+      "journal": "Pure Appl. Chem.",
+      "year": 2011,
+      "volume": "83",
+      "pages": "2213–2228",
+      "doi": "10.1351/PAC-REP-10-09-31",
+      "note": "Quantum yield measurement standards."
+    },
+    {
+      "id": "lakowicz2006",
+      "type": "book",
+      "authors": "Lakowicz, J. R.",
+      "title": "Principles of Fluorescence Spectroscopy",
+      "year": 2006,
+      "edition": "3rd",
+      "publisher": "Springer",
+      "note": "Reference text for fluorescence interpretation and instrumentation context."
+    },
+    {
+      "id": "pretsch2009",
+      "type": "book",
+      "authors": "Pretsch, E.; Bühlmann, P.; Badertscher, M.",
+      "title": "Structure Determination of Organic Compounds: Tables of Spectral Data",
+      "year": 2009,
+      "edition": "4th",
+      "publisher": "Springer",
+      "note": "IR characteristic frequencies used to parameterize teaching vibrational envelopes."
+    },
+    {
+      "id": "socrates2001",
+      "type": "book",
+      "authors": "Socrates, G.",
+      "title": "Infrared and Raman Characteristic Group Frequencies",
+      "year": 2001,
+      "edition": "3rd",
+      "publisher": "Wiley",
+      "note": "Group-frequency tables informing IR/Raman teaching peak placements."
+    },
+    {
+      "id": "molspectra-methods",
+      "type": "software",
+      "authors": "Bisht, N.",
+      "title": "MolSpectra: browser-based multi-technique spectral viewer for small molecules",
+      "year": 2026,
+      "url": "https://github.com/nikshaybisht/molspectra",
+      "note": "This software. Cite when using the application or curated packaging in publications."
+    }
+  ]
+}

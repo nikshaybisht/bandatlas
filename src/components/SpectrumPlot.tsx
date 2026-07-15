@@ -392,31 +392,31 @@ export function SpectrumPlot({
       </div>
       <div ref={rootRef} className="plot-root" />
       <p className="plain-caption">
-        <strong>What you&apos;re seeing: </strong>
+        <strong>Notes. </strong>
         {caption}
       </p>
       {mode === 'simple' && technique === 'uvvis' && (
         <p className="simple-help">
-          Higher line = more light taken in (or given off). Rainbow bar ≈ colors people can see
-          (380–750 nm).
+          Ordinate: relative absorption (or emission). Abscissa: wavelength (nm). Shaded region
+          left of 380 nm is ultraviolet; the colour bar marks the visible window (~380–750 nm).
         </p>
       )}
       {mode === 'simple' && technique === 'ir' && (
         <p className="simple-help">
-          IR axis is usually read right-to-left (high → low cm⁻¹). Bumps mark bond vibrations
-          (O–H, C=O, fingerprint, …).
+          Conventional IR display (high → low cm⁻¹ left → right). Band positions track
+          characteristic group frequencies (O–H, C–H, C=O, fingerprint region).
         </p>
       )}
       {mode === 'simple' && technique === 'raman' && (
         <p className="simple-help">
-          Raman peaks are shifts from the laser line. They form a vibrational fingerprint, often
-          strong for rings and nonpolar bonds.
+          Abscissa: Raman shift (cm⁻¹). Intensities are relative; polarisable modes (e.g. aromatic
+          rings) often dominate teaching envelopes.
         </p>
       )}
       {mode === 'advanced' && primary?.source && (
         <p className="source-note">
-          Source: {primary.source.citation}
-          {primary.source.note ? ` (${primary.source.note})` : ''}
+          Provenance: {primary.source.citation}
+          {primary.source.note ? ` [${primary.source.note}]` : ''}
         </p>
       )}
     </div>

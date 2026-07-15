@@ -1272,7 +1272,7 @@ const withIr = all.filter((c) => c.availability.ir).length
 const withRaman = all.filter((c) => c.availability.raman).length
 
 const index = {
-  version: '0.3.0',
+  version: '0.4.0',
   generated_at: new Date().toISOString(),
   counts: {
     total: all.length,

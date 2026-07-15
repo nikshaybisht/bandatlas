@@ -294,6 +294,127 @@ body {
   color: var(--accent);
 }
 
+.methods-banner {
+  margin: 0;
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid var(--border);
+  background: color-mix(in srgb, var(--accent) 10%, var(--bg-panel));
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.5;
+}
+
+.methods-banner strong {
+  color: var(--text);
+}
+
+.research-tools,
+.citations-panel {
+  margin-top: 0.85rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--border);
+}
+
+.research-tools h3,
+.citations-panel h3 {
+  margin: 0 0 0.4rem;
+  font-size: 0.9rem;
+}
+
+.rt-help,
+.cite-lead {
+  margin: 0 0 0.55rem;
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
+.rt-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.provenance-box {
+  background: color-mix(in srgb, var(--bg) 60%, var(--bg-panel));
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 0.6rem 0.75rem;
+  margin-bottom: 0.55rem;
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+.prov-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+  margin-bottom: 0.25rem;
+}
+
+.prov-note {
+  color: var(--muted);
+  margin: 0.25rem 0 0;
+  font-size: 0.78rem;
+}
+
+.prov-list {
+  margin: 0.2rem 0 0;
+  padding-left: 1.1rem;
+}
+
+.ref-list {
+  margin: 0.5rem 0 0;
+  padding-left: 0;
+  list-style: none;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.ref-list li {
+  margin-bottom: 0.55rem;
+}
+
+.ref-num {
+  color: var(--accent);
+  font-weight: 600;
+  margin-right: 0.25rem;
+}
+
+.ref-note {
+  margin-top: 0.15rem;
+  font-size: 0.75rem;
+  opacity: 0.9;
+}
+
+.cite-how {
+  margin: 0.75rem 0 0;
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.cite-how a {
+  color: var(--accent);
+}
+
+.error-boundary {
+  max-width: 40rem;
+  margin: 2rem auto;
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--bg-panel);
+}
+
+.error-boundary pre {
+  overflow: auto;
+  font-size: 0.8rem;
+  color: var(--danger);
+}
+
 .view-toggles {
   display: flex;
   flex-wrap: wrap;

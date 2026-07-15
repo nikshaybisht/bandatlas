@@ -1,8 +1,17 @@
 {
   "name": "molspectra",
   "private": false,
-  "version": "0.3.0",
-  "description": "Public UV–Vis molecule explorer: search majors, clear spectra, family/properties, rotating 3D",
+  "version": "0.4.0",
+  "description": "Browser client for small-molecule UV–Vis, IR, and Raman records with provenance and export",
+  "keywords": [
+    "spectroscopy",
+    "UV-Vis",
+    "infrared",
+    "Raman",
+    "photochemistry",
+    "cheminformatics"
+  ],
+  "author": "Nikshay Bisht",
   "repository": {
     "type": "git",
     "url": "https://github.com/nikshaybisht/molspectra.git"
@@ -14,7 +23,8 @@
     "dev": "vite",
     "build": "npm run dataset && tsc -b && vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "screenshots": "node tools/capture-screenshots.mjs"
   },
   "dependencies": {
     "3dmol": "^2.5.5",
@@ -29,6 +39,7 @@
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^6.0.3",
     "oxlint": "^1.71.0",
+    "playwright": "^1.61.1",
     "typescript": "~6.0.2",
     "vite": "^8.1.1"
   }
