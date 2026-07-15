@@ -1,13 +1,16 @@
 /**
  * Cache PubChem SDF (prefer 3D, fall back to 2D) for offline / rate-limit-safe demos.
  *
- * Output: public/dataset/structures/{cid}.sdf
- *         public/dataset/structures/manifest.json
+ * Outputs (mirrored):
+ *   public/structures/{cid}.sdf          ← primary (airplane-mode path)
+ *   public/dataset/structures/{cid}.sdf  ← legacy dual path
+ *   public/structures/manifest.json
+ *   public/dataset/structures/manifest.json
  *
- * Run:  npm run structures
- * Docs: tools/README-structures.md
+ * Run manually (network required), then commit artifacts:
+ *   npm run dataset && npm run structures
  *
- * Does not require a backend. Files are committed for CI/Pages offline demos.
+ * Targets: all labSet compounds + featured strip IDs (≈20–40).
  */
 import fs from 'node:fs'
 import path from 'node:path'
@@ -15,43 +18,21 @@ import { fileURLToPath } from 'node:url'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const root = path.join(__dirname, '..')
-const outDir = path.join(root, 'public', 'dataset', 'structures')
+const outPrimary = path.join(root, 'public', 'structures')
+const outLegacy = path.join(root, 'public', 'dataset', 'structures')
 const indexPath = path.join(root, 'public', 'dataset', 'index.json')
 
-/** Soft budget for committed SDF cache (bytes). Warn above this. */
-const SIZE_WARN_BYTES = 4 * 1024 * 1024 // 4 MiB
+const SIZE_WARN_BYTES = 6 * 1024 * 1024 // 6 MiB soft budget
+const FETCH_TIMEOUT_MS = 12_000
 
-/**
- * Curated offline set: top full-UV teaching compounds + a few majors for demos.
- * Prefer small-ish molecules (skip huge natural products when 3D is huge/missing).
- */
-const PRIORITY_IDS = [
-  // Classic UV teaching set
-  'benzene',
-  'naphthalene',
-  'anthracene',
-  'pyrene',
-  'fluorescein',
+/** Featured strip (home) — always cache. */
+const FEATURED_IDS = [
   'rhodamine-b',
-  'methylene-blue',
-  'crystal-violet',
-  'coumarin-1',
-  'tryptophan',
-  'riboflavin',
-  'caffeine',
-  'phenol',
-  'aniline',
-  'nitrobenzene',
+  'benzene',
+  'anthracene',
+  'fluorescein',
+  'chlorophyll-a',
   'acetone',
-  'quinine',
-  'eosin-y',
-  'acridine-orange',
-  'curcumin',
-  // Extra majors / common lab
-  'toluene',
-  'adenine',
-  'thymine',
-  'indigo',
 ]
 
 function ensureDir(d) {
@@ -62,83 +43,158 @@ function sleep(ms) {
   return new Promise((r) => setTimeout(r, ms))
 }
 
-async function fetchText(url) {
-  const res = await fetch(url, {
-    headers: { 'User-Agent': 'BandAtlas-structure-cache/0.7 (+https://github.com/nikshaybisht/bandatlas)' },
-  })
-  if (!res.ok) return { ok: false, status: res.status, text: '' }
-  const text = await res.text()
-  return { ok: true, status: res.status, text }
-}
-
 function looksLikeSdf(text) {
   if (!text || text.length < 40) return false
   if (/Status:\s*40[04]/i.test(text)) return false
   if (/<\s*html/i.test(text)) return false
-  // SDF typically has "V2000" or "V3000" or M  END
   return /V2000|V3000|M\s+END/i.test(text)
+}
+
+async function fetchText(url, { retries = 1 } = {}) {
+  let lastErr = null
+  for (let attempt = 0; attempt <= retries; attempt++) {
+    const ctrl = new AbortController()
+    const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS)
+    try {
+      const res = await fetch(url, {
+        signal: ctrl.signal,
+        headers: {
+          'User-Agent':
+            'BandAtlas-structure-cache/0.12 (+https://github.com/nikshaybisht/bandatlas)',
+        },
+      })
+      clearTimeout(timer)
+      if (!res.ok) {
+        lastErr = new Error(`HTTP ${res.status}`)
+        if (attempt < retries && (res.status >= 500 || res.status === 429)) {
+          await sleep(500 * (attempt + 1))
+          continue
+        }
+        return { ok: false, status: res.status, text: '' }
+      }
+      const text = await res.text()
+      return { ok: true, status: res.status, text }
+    } catch (e) {
+      clearTimeout(timer)
+      lastErr = e
+      if (attempt < retries) {
+        await sleep(500 * (attempt + 1))
+        continue
+      }
+    }
+  }
+  return { ok: false, status: 0, text: '', error: lastErr }
 }
 
 async function fetchSdfForCid(cid) {
   const url3d = `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/${cid}/SDF?record_type=3d`
   const url2d = `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/${cid}/SDF`
 
-  let r = await fetchText(url3d)
+  let r = await fetchText(url3d, { retries: 1 })
   if (r.ok && looksLikeSdf(r.text)) {
     return { sdf: r.text, record_type: '3d', source: 'pubchem' }
   }
-  r = await fetchText(url2d)
+  r = await fetchText(url2d, { retries: 1 })
   if (r.ok && looksLikeSdf(r.text)) {
     return { sdf: r.text, record_type: '2d', source: 'pubchem' }
   }
-  throw new Error(`PubChem SDF unavailable for CID ${cid} (3d/2d failed)`)
+  throw new Error(`PubChem SDF unavailable for CID ${cid}`)
 }
 
 function loadTargets() {
-  /** @type {{ id: string, name: string, pubchem_cid: number }[]} */
-  let fromIndex = []
-  if (fs.existsSync(indexPath)) {
-    const index = JSON.parse(fs.readFileSync(indexPath, 'utf8'))
-    const byId = new Map(index.compounds.map((c) => [c.id, c]))
-    for (const id of PRIORITY_IDS) {
-      const c = byId.get(id)
-      if (c?.pubchem_cid) {
-        fromIndex.push({ id: c.id, name: c.name, pubchem_cid: c.pubchem_cid })
-      }
-    }
+  if (!fs.existsSync(indexPath)) {
+    console.error('index.json missing — run npm run dataset first')
+    process.exit(1)
   }
-  // de-dupe by cid
-  const seen = new Set()
-  const out = []
-  for (const t of fromIndex) {
-    if (seen.has(t.pubchem_cid)) continue
-    seen.add(t.pubchem_cid)
-    out.push(t)
+  const index = JSON.parse(fs.readFileSync(indexPath, 'utf8'))
+  const byId = new Map(index.compounds.map((c) => [c.id, c]))
+
+  /** @type {Map<number, { id: string, name: string, pubchem_cid: number, reason: string }>} */
+  const byCid = new Map()
+
+  const add = (id, reason) => {
+    const c = byId.get(id)
+    if (!c?.pubchem_cid) return
+    if (byCid.has(c.pubchem_cid)) return
+    byCid.set(c.pubchem_cid, {
+      id: c.id,
+      name: c.name,
+      pubchem_cid: c.pubchem_cid,
+      reason,
+    })
   }
-  return out
+
+  // All lab set
+  for (const c of index.compounds) {
+    if (c.lab_set || c.labSet) add(c.id, 'labSet')
+  }
+  // Featured strip
+  for (const id of FEATURED_IDS) add(id, 'featured')
+
+  // Prefer stable sort by id
+  return [...byCid.values()].sort((a, b) => a.id.localeCompare(b.id))
+}
+
+function writeBoth(file, content) {
+  ensureDir(outPrimary)
+  ensureDir(outLegacy)
+  fs.writeFileSync(path.join(outPrimary, file), content, 'utf8')
+  fs.writeFileSync(path.join(outLegacy, file), content, 'utf8')
 }
 
 async function main() {
-  ensureDir(outDir)
   const targets = loadTargets()
   if (targets.length === 0) {
-    console.error('No targets found. Run npm run dataset first.')
+    console.error('No targets found.')
     process.exit(1)
   }
 
-  console.log(`Caching SDF for ${targets.length} compounds → ${path.relative(root, outDir)}/`)
+  console.log(
+    `Caching SDF for ${targets.length} compounds (labSet + featured) → public/structures/ + public/dataset/structures/`,
+  )
+
   const entries = []
   let ok = 0
   let fail = 0
+  let skippedExisting = 0
 
   for (let i = 0; i < targets.length; i++) {
     const t = targets[i]
     const file = `${t.pubchem_cid}.sdf`
-    const dest = path.join(outDir, file)
-    process.stdout.write(`  [${i + 1}/${targets.length}] ${t.id} (CID ${t.pubchem_cid}) … `)
+    const existing = path.join(outPrimary, file)
+    const existingLegacy = path.join(outLegacy, file)
+    // Re-use existing valid cache when offline rebuilds are partial
+    if (fs.existsSync(existing) || fs.existsSync(existingLegacy)) {
+      const src = fs.existsSync(existing) ? existing : existingLegacy
+      const text = fs.readFileSync(src, 'utf8')
+      if (looksLikeSdf(text)) {
+        writeBoth(file, text)
+        const bytes = Buffer.byteLength(text, 'utf8')
+        entries.push({
+          id: t.id,
+          name: t.name,
+          pubchem_cid: t.pubchem_cid,
+          file,
+          record_type: 'cached',
+          source: 'local-reuse',
+          reason: t.reason,
+          bytes,
+        })
+        ok++
+        skippedExisting++
+        console.log(
+          `  [${i + 1}/${targets.length}] ${t.id} (CID ${t.pubchem_cid}) … reuse ${(bytes / 1024).toFixed(1)} KB`,
+        )
+        continue
+      }
+    }
+
+    process.stdout.write(
+      `  [${i + 1}/${targets.length}] ${t.id} (CID ${t.pubchem_cid}) … `,
+    )
     try {
       const { sdf, record_type, source } = await fetchSdfForCid(t.pubchem_cid)
-      fs.writeFileSync(dest, sdf, 'utf8')
+      writeBoth(file, sdf)
       const bytes = Buffer.byteLength(sdf, 'utf8')
       entries.push({
         id: t.id,
@@ -147,6 +203,7 @@ async function main() {
         file,
         record_type,
         source,
+        reason: t.reason,
         bytes,
       })
       ok++
@@ -155,30 +212,33 @@ async function main() {
       fail++
       console.log(`FAIL ${e instanceof Error ? e.message : e}`)
     }
-    // Be polite to PubChem
-    if (i < targets.length - 1) await sleep(250)
+    if (i < targets.length - 1) await sleep(280)
   }
 
   const totalBytes = entries.reduce((s, e) => s + e.bytes, 0)
   const manifest = {
-    version: 1,
+    version: 2,
     generated_at: new Date().toISOString(),
     count: entries.length,
     total_bytes: totalBytes,
-    note: 'Local SDF cache for offline/rate-limit demos. Viewer tries these before PubChem.',
+    paths: ['public/structures/', 'public/dataset/structures/'],
+    note: 'Local SDF cache for offline/rate-limit demos. Viewer tries local before PubChem (timeout + 1 retry).',
     structures: entries,
   }
-  fs.writeFileSync(path.join(outDir, 'manifest.json'), JSON.stringify(manifest, null, 2) + '\n')
+  const manJson = JSON.stringify(manifest, null, 2) + '\n'
+  writeBoth('manifest.json', manJson)
 
   console.log('')
-  console.log(`Done: ${ok} cached, ${fail} failed, total ${(totalBytes / 1024).toFixed(1)} KB`)
+  console.log(
+    `Done: ${ok} cached (${skippedExisting} reused), ${fail} failed, total ${(totalBytes / 1024).toFixed(1)} KB`,
+  )
   if (totalBytes > SIZE_WARN_BYTES) {
     console.warn(
-      `WARNING: structure cache is ${(totalBytes / (1024 * 1024)).toFixed(2)} MiB (> ${(SIZE_WARN_BYTES / (1024 * 1024)).toFixed(0)} MiB budget). Consider dropping large CIDs.`,
+      `WARNING: structure cache is ${(totalBytes / (1024 * 1024)).toFixed(2)} MiB`,
     )
   }
-  if (ok < 5) {
-    console.error('ERROR: fewer than 5 structures cached — refusing success.')
+  if (ok < 15) {
+    console.error('ERROR: fewer than 15 structures cached — lab/featured offline set incomplete.')
     process.exit(1)
   }
 }

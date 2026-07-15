@@ -1,39 +1,41 @@
 # Structure cache (offline 3D)
 
-BandAtlas loads ball-and-stick models from **local SDF first**, then PubChem.
+BandAtlas loads ball-and-stick models from **local SDF first**, then PubChem (timeout + one retry). Spectrum/search UI never waits on 3D.
 
 ## Layout
 
 ```
+public/structures/
+  manifest.json
+  {pubchem_cid}.sdf     # primary airplane-mode path
+
 public/dataset/structures/
-  manifest.json      # index of cached CIDs
-  {pubchem_cid}.sdf  # PubChem SDF (3D preferred, else 2D)
+  manifest.json         # mirrored (legacy + tests)
+  {pubchem_cid}.sdf
 ```
 
-## Rebuild
-
-Requires network access to PubChem (one-time for maintainers):
+## Rebuild (maintainers only — network)
 
 ```bash
-# Ensure index exists so compound ids resolve to CIDs
 npm run dataset
-npm run structures
+npm run structures      # fetch-and-vendor; commit the SDF artifacts
 ```
 
 Script: `tools/cache-structures.mjs`
 
-- Targets a curated list of ~20 full-UV teaching compounds + a few majors.
-- Prefers `record_type=3d`, falls back to 2D SDF.
-- Writes `manifest.json` with sizes and record type.
-- Warns if total cache exceeds ~4 MiB.
+- Targets **all labSet** compounds + **featured strip** IDs (~20–40).
+- Prefers PubChem `record_type=3d`, falls back to 2D.
+- Timeout 12s + one retry per URL.
+- Reuses existing valid local files when present (safe partial re-runs).
+- Writes both `public/structures/` and `public/dataset/structures/`.
 
-## Runtime behaviour
+## Runtime
 
-1. `GET {base}dataset/structures/{cid}.sdf`
-2. If missing/invalid → PubChem 3D → PubChem 2D
-3. If all fail → clear empty state (no blank canvas)
+1. `GET {base}structures/{cid}.sdf`
+2. Else `GET {base}dataset/structures/{cid}.sdf`
+3. Else PubChem 3D → PubChem 2D (8s timeout, 1 retry each)
+4. Else friendly empty state — **plot and search keep working**
 
-## CI
+## CI / Pages
 
-Cached SDFs are **committed** so CI and GitHub Pages work offline without hitting PubChem.
-Tests assert that at least five known CIDs have local files.
+Cached SDFs are **committed** so unit tests, Playwright (PubChem blocked), and GitHub Pages work offline.

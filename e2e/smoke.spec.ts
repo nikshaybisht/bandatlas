@@ -103,8 +103,10 @@ test.describe('BandAtlas smoke', () => {
     await page.locator('.search-hit', { hasText: /Benzene/i }).first().click()
     await expect(page.locator('.property-card h2')).toContainText(/Benzene/i)
 
-    // Open Export fold
-    await page.getByRole('button', { name: /Export/i }).click()
+    // Open Export fold — control must be enabled when a spectrum exists
+    const exportToggle = page.getByRole('button', { name: /Export/i })
+    await expect(exportToggle).toBeEnabled()
+    await exportToggle.click()
     const csvBtn = page.getByRole('button', { name: 'CSV' })
     await expect(csvBtn).toBeEnabled({ timeout: 10_000 })
 
@@ -115,6 +117,22 @@ test.describe('BandAtlas smoke', () => {
     const name = download.suggestedFilename()
     expect(name).toMatch(/\.csv$/i)
     expect(name.toLowerCase()).toContain('benzene')
+  })
+
+  test('IR tab switch works after search (PubChem blocked)', async ({ page }) => {
+    const search = page.getByLabel('Search compounds')
+    await search.fill('benzene')
+    await page.locator('.search-hit', { hasText: /Benzene/i }).first().click()
+    await expect(page.locator('.property-card h2')).toContainText(/Benzene/i, {
+      timeout: 15_000,
+    })
+    const ir = page.getByRole('tab', { name: 'IR' })
+    await ir.click()
+    await expect(ir).toHaveAttribute('aria-selected', 'true')
+    // Spectrum panel still present; 3D failure must not white-screen
+    await expect(page.locator('.spectrum-wrap')).toBeVisible()
+    await expect(page.locator('.app')).toBeVisible()
+    await expect(page.getByTestId('error-boundary')).toHaveCount(0)
   })
 
   test('app routes: about, guide, lab, deep link /c/:id', async ({ page }) => {

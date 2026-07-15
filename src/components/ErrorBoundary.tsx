@@ -22,15 +22,20 @@ export class ErrorBoundary extends Component<Props, State> {
   render() {
     if (this.state.error) {
       return (
-        <div className="error-boundary">
+        <div className="error-boundary" role="alert" data-testid="error-boundary">
           <h2>Something went wrong rendering this view</h2>
           <p>
-            Try selecting another compound or reloading. If it persists, open an issue with the
-            compound id and browser console output.
+            Try another route (Explorer / Lab / Guide), select a different compound, or reload. Nav
+            and theme should still work above. If it persists, open an issue with the compound id
+            and browser console output.
           </p>
           <pre>{this.state.error.message}</pre>
-          <button type="button" className="ghost" onClick={() => this.setState({ error: null })}>
-            Dismiss
+          <button
+            type="button"
+            className="ghost"
+            onClick={() => this.setState({ error: null })}
+          >
+            Try again
           </button>
         </div>
       )

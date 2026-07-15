@@ -3522,7 +3522,7 @@ const generatedAt = new Date().toISOString()
 const catalogOnly = all.filter((c) => !c.flags.hasFullUvVis).length
 
 const index = {
-  version: '0.11.0',
+  version: '0.12.0',
   generated_at: generatedAt,
   generatedAt,
   app_meta: APP_META,
@@ -3565,6 +3565,20 @@ const summary = {
   generated_at: generatedAt,
 }
 fs.writeFileSync(path.join(outRoot, 'summary.json'), JSON.stringify(summary, null, 2) + '\n')
+
+// Lightweight health probe for deploys / offline smoke (not required by UI)
+const health = {
+  version: index.version,
+  full_uvvis: withUv,
+  total: all.length,
+  lab_set: labSetCount,
+  generatedAt,
+  ok: true,
+}
+const publicRoot = path.join(__dirname, '..', 'public')
+fs.writeFileSync(path.join(publicRoot, 'health.json'), JSON.stringify(health, null, 2) + '\n')
+// Also under dataset for assetUrl('dataset/...') consumers
+fs.writeFileSync(path.join(outRoot, 'health.json'), JSON.stringify(health, null, 2) + '\n')
 
 // Fail the build if any compound/index/summary violates schema
 const validation = validateDatasetTree(outRoot)

@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from 'react-router-dom'
+import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { ErrorBoundary } from './components/ErrorBoundary'
 import { TourOverlay } from './components/TourOverlay'
 import { useAppTheme } from './context/AppThemeContext'
@@ -8,6 +8,16 @@ import './App.css'
 
 const navClass = ({ isActive }: { isActive: boolean }) =>
   `app-nav-link${isActive ? ' active' : ''}`
+
+/** Isolate route crashes so nav/footer stay usable. */
+function RouteOutlet() {
+  const loc = useLocation()
+  return (
+    <ErrorBoundary key={loc.pathname}>
+      <Outlet />
+    </ErrorBoundary>
+  )
+}
 
 export default function App() {
   const { theme, toggleTheme } = useAppTheme()
@@ -63,7 +73,7 @@ export default function App() {
         </header>
 
         <TourOverlay />
-        <Outlet />
+        <RouteOutlet />
 
         <footer className="footer">
           <span>

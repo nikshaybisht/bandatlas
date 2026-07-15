@@ -218,11 +218,11 @@ export function MoleculeViewer({ pubchemCid, name }: Props) {
           <strong>Structure unavailable</strong>
           <p>
             No local cache and PubChem failed for CID {pubchemCid}
-            {errorDetail ? ` (${errorDetail})` : ''}.
+            {errorDetail ? ` (${errorDetail})` : ''}. Spectra and search still work.
           </p>
           <p className="mol-empty-hint">
-            Offline demos use cached SDFs under <code>public/dataset/structures/</code>. Rebuild with{' '}
-            <code>npm run structures</code> when online.
+            Offline demos use cached SDFs under <code>public/structures/</code>. Rebuild with{' '}
+            <code>npm run structures</code> when online (lab set + featured compounds).
           </p>
         </div>
       )}

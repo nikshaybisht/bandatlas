@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.12.0] — 2026-07-16
+
+### Reliability
+- **Structure cache:** lab set + featured compounds vendored under `public/structures/` (mirrored to `public/dataset/structures/`); `npm run structures` fetch-and-vendor with timeout + retry
+- **PubChem resilience:** 8s timeout, one retry on 3D/2D; local SDF tried first (dual path)
+- **3D isolation:** structure failures show friendly empty state — search/spectrum never blocked
+- **Route error boundary:** path-keyed boundary around `<Outlet />` so chrome survives page crashes
+- **`public/health.json`:** `{ version, full_uvvis, total, lab_set, generatedAt, ok }` from `npm run dataset`
+- **E2E:** export control enabled assert + IR tab with PubChem blocked; CI already runs Playwright on main/PR
+
 ## [0.11.0] — 2026-07-16
 
 ### Dataset backend (schema + validation)
