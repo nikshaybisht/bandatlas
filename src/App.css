@@ -831,6 +831,14 @@ body {
   background: var(--plot-bg);
 }
 
+.mol-canvas.mol-canvas-empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px dashed var(--border-strong);
+  background: var(--chip, var(--plot-bg));
+}
+
 .mol-canvas canvas {
   outline: none;
 }
@@ -844,8 +852,42 @@ body {
   background: var(--status-bg);
 }
 
+.mol-status.mol-source {
+  opacity: 0.9;
+}
+
 .mol-status.error {
   color: var(--danger);
+}
+
+.mol-status.mol-empty-state {
+  position: absolute;
+  inset: 2.5rem 0.5rem 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.35rem;
+  padding: 0.75rem 0.85rem;
+  border-radius: 8px;
+  background: var(--panel, var(--bg-panel));
+  border: 1px dashed var(--border-strong);
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.mol-status.mol-empty-state strong {
+  color: var(--text);
+  font-size: 0.8rem;
+}
+
+.mol-status.mol-empty-state p {
+  margin: 0;
+  font-size: 0.72rem;
+}
+
+.mol-empty-hint code {
+  font-family: var(--mono);
+  font-size: 0.68rem;
 }
 
 /* —— research / citations —— */

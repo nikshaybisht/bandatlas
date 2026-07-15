@@ -113,8 +113,11 @@ tools/
   build-dataset.mjs      UV–Vis seeds + index
   ir-raman-lib.mjs       IR/Raman profiles + catalog stubs
   quality-helpers.mjs    Test contracts (UV flags, CSV markers)
+  cache-structures.mjs   Offline PubChem SDF cache (`npm run structures`)
+  README-structures.md
   capture-screenshots.mjs
-tests/                   Node test runner (dataset integrity)
+public/dataset/structures/  Cached SDF for demo compounds
+tests/                   Node test runner (dataset / experimental / structures)
 docs/
   methodology.md
   images/                UI screenshots

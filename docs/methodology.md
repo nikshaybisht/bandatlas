@@ -5,7 +5,7 @@ BandAtlas is a browser client for browsing small-molecule spectral records (UVâ€
 ## Compound identity
 
 - Canonical names, formulae, CAS numbers (where known), SMILES, and PubChem CIDs are stored in the curated index.
-- Three-dimensional coordinates are requested at runtime from PubChem (`record_type=3d`, with 2D SDF fallback).
+- **3D structures:** the viewer loads a **local SDF cache** first (`public/dataset/structures/{cid}.sdf` for curated demo compounds), then falls back to PubChem (`record_type=3d`, then 2D). Rebuild cache with `npm run structures` (see `tools/README-structures.md`).
 - Class labels (e.g. PAHs, xanthenes, solvents) follow a PhotochemCAD-like teaching taxonomy and are not a formal chemical ontology.
 
 ## Spectral series

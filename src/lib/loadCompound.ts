@@ -13,10 +13,12 @@ export async function loadCompound(id: string): Promise<Compound> {
   return data
 }
 
+/** @deprecated Prefer lib/structures — kept for any external imports */
 export function pubchemSdfUrl(cid: number) {
   return `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/${cid}/SDF?record_type=3d`
 }
 
+/** @deprecated Prefer lib/structures */
 export function pubchemSdf2dUrl(cid: number) {
   return `https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/${cid}/SDF`
 }

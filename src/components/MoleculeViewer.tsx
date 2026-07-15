@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { pubchemSdf2dUrl, pubchemSdfUrl } from '../lib/loadCompound'
+import { loadStructureSdf, type StructureSource } from '../lib/structures'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Viewer = any
@@ -18,6 +18,7 @@ export function MoleculeViewer({ pubchemCid, name }: Props) {
   const [style, setStyle] = useState<'ballstick' | 'stick' | 'sphere'>('ballstick')
   const [spin, setSpin] = useState(true)
   const [errorDetail, setErrorDetail] = useState<string | null>(null)
+  const [source, setSource] = useState<StructureSource | null>(null)
 
   styleRef.current = style
 
@@ -43,11 +44,11 @@ export function MoleculeViewer({ pubchemCid, name }: Props) {
     viewerRef.current = null
     setStatus('loading')
     setErrorDetail(null)
+    setSource(null)
 
     ;(async () => {
       try {
         const mod = await import('3dmol')
-        // Bundlers expose either default or named createViewer
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const api: any = (mod as any).default ?? mod
         if (cancelled || !hostRef.current) return
@@ -61,35 +62,27 @@ export function MoleculeViewer({ pubchemCid, name }: Props) {
         })
         viewerRef.current = viewer
 
-        let sdf = ''
-        try {
-          const r = await fetch(pubchemSdfUrl(pubchemCid))
-          if (r.ok) {
-            const text = await r.text()
-            if (text && !text.includes('Status: 404') && !text.includes('Status: 400')) {
-              sdf = text
-            }
-          }
-        } catch {
-          /* fall through to 2D */
-        }
-        if (!sdf) {
-          const r2 = await fetch(pubchemSdf2dUrl(pubchemCid))
-          if (!r2.ok) throw new Error(`PubChem HTTP ${r2.status}`)
-          sdf = await r2.text()
-          if (!sdf || sdf.includes('Status: 404')) throw new Error('No structure data')
-        }
+        const { sdf, source: src } = await loadStructureSdf(pubchemCid)
         if (cancelled) return
 
         viewer.addModel(sdf, 'sdf')
         applyStyle(viewer, styleRef.current)
         viewer.zoomTo()
         viewer.render()
+        setSource(src)
         setStatus('ready')
       } catch (e) {
         if (!cancelled) {
           setStatus('error')
           setErrorDetail(e instanceof Error ? e.message : 'Load failed')
+          // Leave canvas empty — clear any partial viewer
+          try {
+            viewerRef.current?.clear?.()
+          } catch {
+            /* ignore */
+          }
+          if (hostRef.current) hostRef.current.innerHTML = ''
+          viewerRef.current = null
         }
       }
     })()
@@ -150,7 +143,6 @@ export function MoleculeViewer({ pubchemCid, name }: Props) {
           v.rotate(0.04 * dt * 0.34, { x: 0, y: 1, z: 0.08 })
           v.render()
         } catch {
-          /* stop spinning if viewer died */
           return
         }
       } else {
@@ -166,6 +158,15 @@ export function MoleculeViewer({ pubchemCid, name }: Props) {
       spinRef.current = null
     }
   }, [spin, status, pubchemCid])
+
+  const sourceLabel =
+    source === 'local'
+      ? 'local cache'
+      : source === 'pubchem-3d'
+        ? 'PubChem 3D'
+        : source === 'pubchem-2d'
+          ? 'PubChem 2D'
+          : null
 
   return (
     <div className="mol-viewer">
@@ -198,12 +199,31 @@ export function MoleculeViewer({ pubchemCid, name }: Props) {
           </button>
         </div>
       </div>
-      <div ref={hostRef} className="mol-canvas" />
-      {status === 'loading' && <div className="mol-status">Loading structure from PubChem…</div>}
+      <div
+        ref={hostRef}
+        className={`mol-canvas ${status === 'error' ? 'mol-canvas-empty' : ''}`}
+        aria-hidden={status === 'error'}
+      />
+      {status === 'loading' && (
+        <div className="mol-status">Loading structure (local cache, then PubChem)…</div>
+      )}
+      {status === 'ready' && sourceLabel && (
+        <div className="mol-status mol-source" title="Where the SDF was loaded from">
+          Structure: {sourceLabel}
+          {source === 'local' ? ' · offline-safe' : ''}
+        </div>
+      )}
       {status === 'error' && (
-        <div className="mol-status error">
-          Could not load 3D (CID {pubchemCid})
-          {errorDetail ? ` — ${errorDetail}` : ''}. Check network.
+        <div className="mol-status error mol-empty-state" role="status">
+          <strong>Structure unavailable</strong>
+          <p>
+            No local cache and PubChem failed for CID {pubchemCid}
+            {errorDetail ? ` (${errorDetail})` : ''}.
+          </p>
+          <p className="mol-empty-hint">
+            Offline demos use cached SDFs under <code>public/dataset/structures/</code>. Rebuild with{' '}
+            <code>npm run structures</code> when online.
+          </p>
         </div>
       )}
     </div>

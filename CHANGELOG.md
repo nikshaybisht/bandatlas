@@ -1,5 +1,13 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+- **Local SDF structure cache** for top ~20 UV compounds + majors (`public/dataset/structures/`)
+- 3D viewer: local cache first, then PubChem 3D/2D; clear empty state if both fail
+- `npm run structures` (`tools/cache-structures.mjs`) + `tools/README-structures.md`
+- Tests: at least 5 known CID SDF files present; soft size budget
+
 ## [0.7.0] — 2026-07-16
 
 ### Added

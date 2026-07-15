@@ -1,0 +1,225 @@
+{
+  "version": 1,
+  "generated_at": "2026-07-15T21:17:23.450Z",
+  "count": 24,
+  "total_bytes": 117014,
+  "note": "Local SDF cache for offline/rate-limit demos. Viewer tries these before PubChem.",
+  "structures": [
+    {
+      "id": "benzene",
+      "name": "Benzene",
+      "pubchem_cid": 241,
+      "file": "241.sdf",
+      "record_type": "3d",
+      "source": "pubchem",
+      "bytes": 2245
+    },
+    {
+      "id": "naphthalene",
+      "name": "Naphthalene",
+      "pubchem_cid": 931,
+      "file": "931.sdf",
+      "record_type": "3d",
+      "source": "pubchem",
+      "bytes": 3290
+    },
+    {
+      "id": "anthracene",
+      "name": "Anthracene",
+      "pubchem_cid": 8418,
+      "file": "8418.sdf",
+      "record_type": "3d",
+      "source": "pubchem",
+      "bytes": 4898
+    },
+    {
+      "id": "pyrene",
+      "name": "Pyrene",
+      "pubchem_cid": 31423,
+      "file": "31423.sdf",
+      "record_type": "3d",
+      "source": "pubchem",
+      "bytes": 4772
+    },
+    {
+      "id": "fluorescein",
+      "name": "Fluorescein",
+      "pubchem_cid": 16850,
+      "file": "16850.sdf",
+      "record_type": "3d",
+      "source": "pubchem",
+      "bytes": 6459
+    },
+    {
+      "id": "rhodamine-b",
+      "name": "Rhodamine B",
+      "pubchem_cid": 6694,
+      "file": "6694.sdf",
+      "record_type": "2d",
+      "source": "pubchem",
+      "bytes": 8403
+    },
+    {
+      "id": "methylene-blue",
+      "name": "Methylene blue",
+      "pubchem_cid": 6099,
+      "file": "6099.sdf",
+      "record_type": "2d",
+      "source": "pubchem",
+      "bytes": 5759
+    },
+    {
+      "id": "crystal-violet",
+      "name": "Crystal violet",
+      "pubchem_cid": 11057,
+      "file": "11057.sdf",
+      "record_type": "2d",
+      "source": "pubchem",
+      "bytes": 7822
+    },
+    {
+      "id": "coumarin-1",
+      "name": "Coumarin 1",
+      "pubchem_cid": 7050,
+      "file": "7050.sdf",
+      "record_type": "3d",
+      "source": "pubchem",
+      "bytes": 6008
+    },
+    {
+      "id": "tryptophan",
+      "name": "Tryptophan",
+      "pubchem_cid": 6305,
+      "file": "6305.sdf",
+      "record_type": "3d",
+      "source": "pubchem",
+      "bytes": 4776
+    },
+    {
+      "id": "riboflavin",
+      "name": "Riboflavin",
+      "pubchem_cid": 493570,
+      "file": "493570.sdf",
+      "record_type": "3d",
+      "source": "pubchem",
+      "bytes": 7381
+    },
+    {
+      "id": "caffeine",
+      "name": "Caffeine",
+      "pubchem_cid": 2519,
+      "file": "2519.sdf",
+      "record_type": "3d",
+      "source": "pubchem",
+      "bytes": 3950
+    },
+    {
+      "id": "phenol",
+      "name": "Phenol",
+      "pubchem_cid": 996,
+      "file": "996.sdf",
+      "record_type": "3d",
+      "source": "pubchem",
+      "bytes": 2402
+    },
+    {
+      "id": "aniline",
+      "name": "Aniline",
+      "pubchem_cid": 6115,
+      "file": "6115.sdf",
+      "record_type": "3d",
+      "source": "pubchem",
+      "bytes": 2509
+    },
+    {
+      "id": "nitrobenzene",
+      "name": "Nitrobenzene",
+      "pubchem_cid": 7416,
+      "file": "7416.sdf",
+      "record_type": "3d",
+      "source": "pubchem",
+      "bytes": 2810
+    },
+    {
+      "id": "acetone",
+      "name": "Acetone",
+      "pubchem_cid": 180,
+      "file": "180.sdf",
+      "record_type": "3d",
+      "source": "pubchem",
+      "bytes": 1970
+    },
+    {
+      "id": "quinine",
+      "name": "Quinine",
+      "pubchem_cid": 3034034,
+      "file": "3034034.sdf",
+      "record_type": "3d",
+      "source": "pubchem",
+      "bytes": 7425
+    },
+    {
+      "id": "eosin-y",
+      "name": "Eosin Y",
+      "pubchem_cid": 11048,
+      "file": "11048.sdf",
+      "record_type": "2d",
+      "source": "pubchem",
+      "bytes": 5791
+    },
+    {
+      "id": "acridine-orange",
+      "name": "Acridine orange",
+      "pubchem_cid": 62344,
+      "file": "62344.sdf",
+      "record_type": "3d",
+      "source": "pubchem",
+      "bytes": 6569
+    },
+    {
+      "id": "curcumin",
+      "name": "Curcumin",
+      "pubchem_cid": 969516,
+      "file": "969516.sdf",
+      "record_type": "3d",
+      "source": "pubchem",
+      "bytes": 7845
+    },
+    {
+      "id": "toluene",
+      "name": "Toluene",
+      "pubchem_cid": 1140,
+      "file": "1140.sdf",
+      "record_type": "3d",
+      "source": "pubchem",
+      "bytes": 2567
+    },
+    {
+      "id": "adenine",
+      "name": "Adenine",
+      "pubchem_cid": 190,
+      "file": "190.sdf",
+      "record_type": "3d",
+      "source": "pubchem",
+      "bytes": 2839
+    },
+    {
+      "id": "thymine",
+      "name": "Thymine",
+      "pubchem_cid": 1135,
+      "file": "1135.sdf",
+      "record_type": "3d",
+      "source": "pubchem",
+      "bytes": 2786
+    },
+    {
+      "id": "indigo",
+      "name": "Indigo",
+      "pubchem_cid": 10215,
+      "file": "10215.sdf",
+      "record_type": "3d",
+      "source": "pubchem",
+      "bytes": 5738
+    }
+  ]
+}
