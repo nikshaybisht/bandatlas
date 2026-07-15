@@ -30,6 +30,19 @@
 
 ---
 
+## Instructors
+
+Free workshop pack (still a static app — **no accounts or payments**):
+
+| | |
+|---|---|
+| **In-app** | [/instructors](https://nikshaybisht.github.io/bandatlas/instructors) |
+| **Top 50 ids** | [docs/course/Top50.md](docs/course/Top50.md) |
+| **Worksheet** | [docs/course/WORKSHEET.md](docs/course/WORKSHEET.md) |
+| **2h outline** | [docs/WORKSHOP.md](docs/WORKSHOP.md) |
+
+---
+
 ## Contribute (good first issues)
 
 Outsiders can add a **UV teaching seed** or file a bug **without reading the whole repo**:
@@ -224,7 +237,7 @@ CHANGELOG.md
 If BandAtlas helped your teaching material or analysis workflow:
 
 ```
-Bisht, N. (2026). BandAtlas (v1.0.0) [Computer software].
+Bisht, N. (2026). BandAtlas (v1.1.0) [Computer software].
 https://github.com/nikshaybisht/bandatlas
 Live demo: https://nikshaybisht.github.io/bandatlas/
 ```

@@ -1,5 +1,14 @@
 # Changelog
 
+## [1.1.0] — 2026-07-16
+
+### Instructors pack (static, free)
+- **`/instructors`** — 10-minute lecture plan, pin release tag, links to course docs
+- **docs/course/Top50.md** — 50 full-UV compound ids for curriculum modules
+- **docs/course/WORKSHEET.md** — printable exercises (color vs λ_max, IR group, teaching vs experimental)
+- **docs/WORKSHOP.md** — 2-hour workshop outline
+- Linked from About (and Guide). No accounts, payments, or license keys.
+
 ## [1.0.0] — 2026-07-16
 
 **First production release** as a lab companion + portfolio application. Criteria met honestly (not a certified spectral library).

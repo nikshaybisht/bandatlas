@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
+  "version": "1.1.0",
   "total": 496,
   "full_uvvis": 103,
   "ir": 496,
@@ -9,6 +9,6 @@
   "catalog_only": 393,
   "experimental": 0,
   "experimental_examples": 1,
-  "generatedAt": "2026-07-15T22:17:41.047Z",
-  "generated_at": "2026-07-15T22:17:41.047Z"
+  "generatedAt": "2026-07-15T22:20:26.668Z",
+  "generated_at": "2026-07-15T22:20:26.668Z"
 }

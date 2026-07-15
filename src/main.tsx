@@ -8,6 +8,7 @@ import { DemoTourProvider } from './context/DemoTourContext'
 import { AboutPage } from './pages/AboutPage'
 import { ExplorerPage } from './pages/ExplorerPage'
 import { GuidePage } from './pages/GuidePage'
+import { InstructorsPage } from './pages/InstructorsPage'
 
 /** Vite BASE_URL is e.g. `/` or `/bandatlas/` — Router wants no trailing slash (except root). */
 function routerBasename(): string | undefined {
@@ -28,6 +29,7 @@ createRoot(document.getElementById('root')!).render(
               <Route path="lab" element={<ExplorerPage preset="lab" />} />
               <Route path="guide" element={<GuidePage />} />
               <Route path="about" element={<AboutPage />} />
+              <Route path="instructors" element={<InstructorsPage />} />
               <Route path="*" element={<Navigate to="/" replace />} />
             </Route>
           </Routes>

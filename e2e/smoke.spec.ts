@@ -177,5 +177,13 @@ test.describe('BandAtlas smoke', () => {
     await expect(page.getByTestId('metrics-grid')).toBeVisible({ timeout: 10_000 })
     // summary.json metrics
     await expect(page.locator('.metric-val').first()).not.toHaveText('—', { timeout: 10_000 })
+    await expect(page.getByRole('link', { name: /Open instructor pack/i })).toBeVisible()
+  })
+
+  test('instructors page loads lecture plan', async ({ page }) => {
+    await page.goto('/instructors', { waitUntil: 'networkidle' })
+    await expect(page.getByRole('heading', { name: /^Instructors$/i })).toBeVisible()
+    await expect(page.getByText(/10-minute lecture plan/i)).toBeVisible()
+    await expect(page.getByText(/Pin a release tag/i)).toBeVisible()
   })
 })

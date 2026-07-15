@@ -3522,7 +3522,7 @@ const generatedAt = new Date().toISOString()
 const catalogOnly = all.filter((c) => !c.flags.hasFullUvVis).length
 
 const index = {
-  version: '1.0.0',
+  version: '1.1.0',
   generated_at: generatedAt,
   generatedAt,
   app_meta: APP_META,

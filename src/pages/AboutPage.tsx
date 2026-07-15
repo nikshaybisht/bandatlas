@@ -89,6 +89,26 @@ export function AboutPage() {
           </button>
         </section>
 
+        <section className="skills-panel" aria-label="Instructors">
+          <h2 className="page-h2">Instructors &amp; workshops</h2>
+          <p>
+            Free static app for lectures and labs — no accounts or license keys. Start at the
+            in-app pack:
+          </p>
+          <p>
+            <Link to="/instructors" className="welcome-primary" style={{ display: 'inline-block' }}>
+              Open instructor pack
+            </Link>
+          </p>
+          <ul className="page-list">
+            <li>10-minute lecture plan + pin a release tag</li>
+            <li>
+              Top 50 curriculum ids, printable worksheet, 2-hour workshop outline (in repo{' '}
+              <code>docs/</code>)
+            </li>
+          </ul>
+        </section>
+
         <h2 className="page-h2">What it is</h2>
         <ul className="page-list">
           <li>A teaching and lab-discussion companion for common chromophores and solvents</li>
@@ -164,6 +184,8 @@ export function AboutPage() {
           <Link to="/guide">60-second guide</Link>
           {' · '}
           <Link to="/lab">Lab companion</Link>
+          {' · '}
+          <Link to="/instructors">Instructors</Link>
         </p>
       </article>
     </main>

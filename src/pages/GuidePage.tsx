@@ -123,6 +123,8 @@ export function GuidePage() {
           <Link to="/lab">Lab companion</Link>
           {' · '}
           <Link to="/about">About &amp; skills</Link>
+          {' · '}
+          <Link to="/instructors">Instructors</Link>
         </p>
       </article>
     </main>
