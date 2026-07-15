@@ -1,5 +1,7 @@
 export type Technique = 'uvvis_abs' | 'fluorescence' | 'ir' | 'raman'
 
+export type TechniqueTab = 'uvvis' | 'ir' | 'raman'
+
 export interface SpectrumSource {
   citation: string
   license?: string
@@ -15,8 +17,12 @@ export interface Spectrum {
   solvent?: string
   y_unit: 'epsilon' | 'normalized' | 'absorbance'
   y_unit_label: string
+  /** UV–Vis peak wavelengths (nm) */
   lambda_max_nm?: number[]
   epsilon_max?: number[]
+  /** IR / Raman peak positions (cm⁻¹) */
+  peak_positions?: number[]
+  peak_labels?: string[]
   quantum_yield?: number
   plain_caption: string
   display_points: [number, number][]
@@ -47,7 +53,7 @@ export interface Compound {
     ir: boolean
     raman: boolean
   }
-  tier: 'full' | 'catalog'
+  tier: 'full' | 'catalog' | 'partial'
 }
 
 export interface IndexCompound {
@@ -61,7 +67,7 @@ export interface IndexCompound {
   mw: number
   smiles: string
   pubchem_cid: number
-  tier: 'full' | 'catalog'
+  tier: 'full' | 'catalog' | 'partial'
   has_uvvis: boolean
   has_fluorescence: boolean
   has_ir: boolean
@@ -77,6 +83,8 @@ export interface DatasetIndex {
     total: number
     full_spectra: number
     catalog_only: number
+    with_ir?: number
+    with_raman?: number
   }
   families: { id: string; label: string; count: number }[]
   compounds: IndexCompound[]

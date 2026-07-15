@@ -233,6 +233,9 @@ body {
   font-size: 0.85rem;
   border: 1px solid var(--border);
   color: var(--muted);
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
 }
 
 .tab.active {
@@ -241,9 +244,54 @@ body {
   border-color: transparent;
 }
 
+.tab.empty {
+  opacity: 0.55;
+}
+
 .tab.disabled {
   opacity: 0.45;
   cursor: not-allowed;
+}
+
+.compare-btn {
+  display: block;
+  width: calc(100% - 0.5rem);
+  margin: 0 0.25rem 0.35rem;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  border-radius: 6px;
+  font-size: 0.7rem;
+  padding: 0.15rem 0.4rem;
+  cursor: pointer;
+}
+
+.compare-btn:hover,
+.compare-btn.active {
+  color: var(--accent-2);
+  border-color: color-mix(in srgb, var(--accent-2) 50%, var(--border));
+}
+
+.share-block {
+  margin-top: 0.75rem;
+  padding-top: 0.65rem;
+  border-top: 1px solid var(--border);
+}
+
+.share-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  align-items: center;
+}
+
+.share-status {
+  font-size: 0.75rem;
+  color: var(--good);
+}
+
+.footer a {
+  color: var(--accent);
 }
 
 .view-toggles {

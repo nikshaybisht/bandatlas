@@ -8,8 +8,12 @@ export function PropertyCard({ compound }: { compound: Compound }) {
     <div className="property-card">
       <div className="prop-header">
         <h2>{compound.name}</h2>
-        <span className={`tier-badge ${compound.tier}`}>
-          {compound.tier === 'full' ? 'Full spectrum' : 'Catalog'}
+        <span className={`tier-badge ${compound.tier === 'full' ? 'full' : 'catalog'}`}>
+          {compound.tier === 'full'
+            ? 'Full UV–Vis'
+            : compound.tier === 'partial'
+              ? 'IR/Raman'
+              : 'Catalog'}
         </span>
       </div>
       <p className="family-badge">{compound.family_label}</p>
