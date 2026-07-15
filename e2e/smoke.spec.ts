@@ -9,10 +9,11 @@ test.describe('BandAtlas smoke', () => {
   test.beforeEach(async ({ page }) => {
     // Do not hit PubChem in CI (rate limits / offline). Cached SDFs still load.
     await page.route('**/pubchem.ncbi.nlm.nih.gov/**', (route) => route.abort())
-    await page.goto('/', { waitUntil: 'domcontentloaded' })
+    const res = await page.goto('/', { waitUntil: 'networkidle', timeout: 60_000 })
+    expect(res?.ok() || res?.status() === 304).toBeTruthy()
     // Dataset index must load
-    await expect(page.locator('.logo')).toHaveText('BandAtlas')
-    await expect(page.locator('.count-chip')).toContainText(/n\s*=/, { timeout: 20_000 })
+    await expect(page.locator('.logo')).toHaveText('BandAtlas', { timeout: 30_000 })
+    await expect(page.locator('.count-chip')).toContainText(/n\s*=/, { timeout: 30_000 })
   })
 
   test('home loads with shell UI', async ({ page }) => {

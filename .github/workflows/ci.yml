@@ -22,17 +22,10 @@ jobs:
         env:
           VITE_BASE: /
         run: npm run ci
-      - name: Upload dist for e2e
-        uses: actions/upload-artifact@v4
-        with:
-          name: dist
-          path: dist
-          retention-days: 1
 
   e2e:
     name: Playwright smoke
-    needs: unit
-    # Run on PRs and main (not every fork dispatch without code)
+    # PRs and main pushes (unit stays independent so e2e can still signal UI breaks)
     if: github.event_name == 'push' || github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
@@ -42,11 +35,10 @@ jobs:
           node-version: '22'
           cache: npm
       - run: npm ci
-      - name: Download production dist
-        uses: actions/download-artifact@v4
-        with:
-          name: dist
-          path: dist
+      - name: Dataset + production build
+        env:
+          VITE_BASE: /
+        run: npm run build
       - name: Install Playwright Chromium
         run: npx playwright install chromium --with-deps
       - name: E2E smoke

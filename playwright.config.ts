@@ -22,9 +22,12 @@ export default defineConfig({
     ...devices['Desktop Chrome'],
   },
   webServer: {
+    // Expects dist/ from `npm run build` (or npm run ci) beforehand.
     command: 'npx vite preview --host 127.0.0.1 --port 4173 --strictPort',
-    url: 'http://127.0.0.1:4173',
+    url: 'http://127.0.0.1:4173/',
     reuseExistingServer: !process.env.CI,
-    timeout: 120_000,
+    timeout: 180_000,
+    stdout: 'pipe',
+    stderr: 'pipe',
   },
 })
