@@ -1,0 +1,4 @@
+/* Base reset handled mostly in App.css */
+button {
+  font: inherit;
+}

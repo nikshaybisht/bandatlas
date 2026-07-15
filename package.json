@@ -1,0 +1,35 @@
+{
+  "name": "molspectra",
+  "private": false,
+  "version": "0.1.0",
+  "description": "Public UV–Vis molecule explorer: search majors, clear spectra, family/properties, rotating 3D",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nikshaybisht/molspectra.git"
+  },
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dataset": "node tools/build-dataset.mjs",
+    "dev": "vite",
+    "build": "npm run dataset && tsc -b && vite build",
+    "lint": "oxlint",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "3dmol": "^2.5.5",
+    "minisearch": "^7.2.0",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7",
+    "uplot": "^1.6.32"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.2",
+    "@types/react": "^19.2.17",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.3",
+    "oxlint": "^1.71.0",
+    "typescript": "~6.0.2",
+    "vite": "^8.1.1"
+  }
+}
