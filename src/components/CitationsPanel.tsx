@@ -19,7 +19,7 @@ const CORE_IDS = [
   'pretsch2009',
   'socrates2001',
   'braslavsky2007',
-  'chromoscope-methods',
+  'chromascope-methods',
 ]
 
 export function CitationsPanel({ compound, activeSpectrum }: Props) {
@@ -35,7 +35,7 @@ export function CitationsPanel({ compound, activeSpectrum }: Props) {
     <div className="citations-panel">
       <h3>References &amp; data provenance</h3>
       <p className="cite-lead">
-        Spectral traces in Chromoscope are labeled by quality. Teaching envelopes are for
+        Spectral traces in Chromascope are labeled by quality. Teaching envelopes are for
         orientation and education; they are <strong>not</strong> substitutes for primary
         experimental records when reporting quantitative results.
       </p>
@@ -96,9 +96,9 @@ export function CitationsPanel({ compound, activeSpectrum }: Props) {
       </ol>
 
       <p className="cite-how">
-        Suggested software citation: Bisht, N. (2026). <em>Chromoscope</em> (v0.4.1). GitHub.{' '}
-        <a href="https://github.com/nikshaybisht/chromoscope">
-          https://github.com/nikshaybisht/chromoscope
+        Suggested software citation: Bisht, N. (2026). <em>Chromascope</em> (v0.4.1). GitHub.{' '}
+        <a href="https://github.com/nikshaybisht/chromascope">
+          https://github.com/nikshaybisht/chromascope
         </a>
         . Also see <code>CITATION.cff</code> in the repository.
       </p>

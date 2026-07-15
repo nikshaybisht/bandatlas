@@ -3,7 +3,7 @@
 ## [0.4.1] — 2026-07-16
 
 ### Changed
-- Project renamed **MolSpectra → Chromoscope**
+- Project renamed **MolSpectra → Chromascope**
 - Repository branding, citations, and GitHub metadata updated
 - Author attributed as **Nikshay Bisht** (@nikshaybisht)
 - Added [SECURITY.md](SECURITY.md) and README security section

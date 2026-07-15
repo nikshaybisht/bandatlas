@@ -1,8 +1,8 @@
 {
-  "name": "chromoscope",
+  "name": "chromascope",
   "private": false,
   "version": "0.4.1",
-  "description": "Chromoscope — small-molecule UV–Vis, IR & Raman viewer with provenance and export",
+  "description": "Chromascope — small-molecule UV–Vis, IR & Raman viewer with provenance and export",
   "keywords": [
     "spectroscopy",
     "UV-Vis",
@@ -10,17 +10,17 @@
     "Raman",
     "photochemistry",
     "cheminformatics",
-    "chromoscope"
+    "chromascope"
   ],
   "author": "Nikshay Bisht <https://github.com/nikshaybisht>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nikshaybisht/chromoscope.git"
+    "url": "https://github.com/nikshaybisht/chromascope.git"
   },
   "bugs": {
-    "url": "https://github.com/nikshaybisht/chromoscope/issues"
+    "url": "https://github.com/nikshaybisht/chromascope/issues"
   },
-  "homepage": "https://github.com/nikshaybisht/chromoscope#readme",
+  "homepage": "https://github.com/nikshaybisht/chromascope#readme",
   "license": "MIT",
   "type": "module",
   "scripts": {

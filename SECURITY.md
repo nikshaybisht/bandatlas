@@ -7,7 +7,7 @@
 | `0.4.x` (latest on `main`) | Yes |
 | Older tags (`v0.1`–`v0.3`) | No — please upgrade to latest `main` / release |
 
-Chromoscope is a static browser application (no default backend). Security issues are still taken seriously when they affect users who clone, host, or integrate the project.
+Chromascope is a static browser application (no default backend). Security issues are still taken seriously when they affect users who clone, host, or integrate the project.
 
 ## What to report
 
@@ -34,7 +34,7 @@ Preferred options (use either):
 
 1. **GitHub Security Advisories** (recommended)  
    Repository → **Security** → **Report a vulnerability**  
-   (or: [Advisories for this repo](https://github.com/nikshaybisht/chromoscope/security/advisories/new) once enabled)
+   (or: [Advisories for this repo](https://github.com/nikshaybisht/chromascope/security/advisories/new) once enabled)
 
 2. **Private contact**  
    Open a **private** security advisory, or contact the maintainer via GitHub:  
@@ -61,7 +61,7 @@ We will credit reporters who wish to be named (unless you prefer to remain anony
 - Treat compound JSON / user-contributed spectral data as **untrusted** if you ever accept uploads.  
 - Keep Node/npm dependencies updated (`npm audit` as part of routine maintenance).  
 - The 3D viewer dependency (`3dmol`) and other third-party packages may ship their own advisories—track upstream releases.  
-- Do not embed API keys in the static client; Chromoscope is designed to work without secrets.
+- Do not embed API keys in the static client; Chromascope is designed to work without secrets.
 
 ## Safe harbor
 
@@ -71,6 +71,6 @@ We will not pursue legal action against good-faith security research that:
 - does not degrade availability of third-party services, and  
 - follows this disclosure process.
 
-Thank you for helping keep Chromoscope and its users safe.
+Thank you for helping keep Chromascope and its users safe.
 
 — **Nikshay Bisht** ([@nikshaybisht](https://github.com/nikshaybisht))

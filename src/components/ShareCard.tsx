@@ -42,7 +42,7 @@ export function ShareCard({ compound, technique, caption }: Props) {
 
     ctx.fillStyle = '#94a3b8'
     ctx.font = '20px system-ui,sans-serif'
-    ctx.fillText('Chromoscope  |  figure card', 48, 64)
+    ctx.fillText('Chromascope  |  figure card', 48, 64)
 
     ctx.fillStyle = '#f8fafc'
     ctx.font = 'bold 42px system-ui,sans-serif'
@@ -70,10 +70,10 @@ export function ShareCard({ compound, technique, caption }: Props) {
     ctx.fillStyle = '#64748b'
     ctx.font = '16px system-ui,sans-serif'
     ctx.fillText('Curated / teaching packaging — check primary literature for SI', 48, h - 72)
-    ctx.fillText('github.com/nikshaybisht/chromoscope', 48, h - 44)
+    ctx.fillText('github.com/nikshaybisht/chromascope', 48, h - 44)
 
     const a = document.createElement('a')
-    a.download = `chromoscope-${compound.id}-${technique}.png`
+    a.download = `chromascope-${compound.id}-${technique}.png`
     a.href = canvas.toDataURL('image/png')
     a.click()
     setStatus('Downloaded PNG')
@@ -87,7 +87,7 @@ export function ShareCard({ compound, technique, caption }: Props) {
       `Technique: ${techLabel[technique]}`,
       caption,
       compound.cas ? `CAS ${compound.cas}` : '',
-      'Chromoscope · github.com/nikshaybisht/chromoscope',
+      'Chromascope · github.com/nikshaybisht/chromascope',
     ]
       .filter(Boolean)
       .join('\n')

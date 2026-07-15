@@ -143,12 +143,12 @@
       "note": "Group-frequency tables informing IR/Raman teaching peak placements."
     },
     {
-      "id": "chromoscope-methods",
+      "id": "chromascope-methods",
       "type": "software",
       "authors": "Bisht, N.",
-      "title": "Chromoscope: browser-based multi-technique spectral viewer for small molecules",
+      "title": "Chromascope: browser-based multi-technique spectral viewer for small molecules",
       "year": 2026,
-      "url": "https://github.com/nikshaybisht/chromoscope",
+      "url": "https://github.com/nikshaybisht/chromascope",
       "note": "This software. Cite when using the application or curated packaging in publications."
     }
   ]
