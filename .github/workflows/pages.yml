@@ -27,8 +27,8 @@ jobs:
       - run: npm run dataset
       - name: Build with Pages base
         run: |
-          # Project site: https://nikshaybisht.github.io/chromascope/
-          npx vite build --base /chromascope/
+          # Project site: https://nikshaybisht.github.io/bandatlas/
+          npx vite build --base /bandatlas/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

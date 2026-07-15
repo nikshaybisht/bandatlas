@@ -1,16 +1,16 @@
 cff-version: 1.2.0
-message: "If you use Chromascope, please cite it as below."
+message: "If you use BandAtlas, please cite it as below."
 type: software
-title: "Chromascope: browser-based multi-technique spectral viewer for small molecules"
-version: "0.4.1"
+title: "BandAtlas: browser-based multi-technique spectral viewer for small molecules"
+version: "0.5.0"
 date-released: "2026-07-16"
 authors:
   - family-names: Bisht
     given-names: Nikshay
-repository-code: "https://github.com/nikshaybisht/chromascope"
+repository-code: "https://github.com/nikshaybisht/bandatlas"
 license: MIT
 abstract: >
-  Chromascope is a static web application for browsing UV–Vis, IR, and Raman
+  BandAtlas is a static web application for browsing UV–Vis, IR, and Raman
   spectral records of common small molecules together with structures and
   metadata. The package includes teaching envelopes and curated identifiers
   for laboratory teaching and literature triage.

@@ -1,8 +1,8 @@
 {
-  "name": "chromascope",
+  "name": "bandatlas",
   "private": false,
   "version": "0.4.1",
-  "description": "Chromascope — small-molecule UV–Vis, IR & Raman viewer with provenance and export",
+  "description": "BandAtlas — small-molecule UV–Vis, IR & Raman viewer with provenance and export",
   "keywords": [
     "spectroscopy",
     "UV-Vis",
@@ -10,17 +10,17 @@
     "Raman",
     "photochemistry",
     "cheminformatics",
-    "chromascope"
+    "bandatlas"
   ],
   "author": "Nikshay Bisht <https://github.com/nikshaybisht>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nikshaybisht/chromascope.git"
+    "url": "https://github.com/nikshaybisht/bandatlas.git"
   },
   "bugs": {
-    "url": "https://github.com/nikshaybisht/chromascope/issues"
+    "url": "https://github.com/nikshaybisht/bandatlas/issues"
   },
-  "homepage": "https://github.com/nikshaybisht/chromascope#readme",
+  "homepage": "https://github.com/nikshaybisht/bandatlas#readme",
   "license": "MIT",
   "type": "module",
   "scripts": {

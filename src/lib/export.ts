@@ -4,7 +4,7 @@ export function spectrumToCsv(spectrum: Spectrum, compound: Compound): string {
   const unitX =
     spectrum.technique === 'ir' || spectrum.technique === 'raman' ? 'cm-1' : 'nm'
   const header = [
-    `# Chromascope export`,
+    `# BandAtlas export`,
     `# compound: ${compound.name}`,
     `# id: ${compound.id}`,
     `# CAS: ${compound.cas || 'n/a'}`,
@@ -32,14 +32,14 @@ export function downloadText(filename: string, content: string, mime = 'text/pla
 }
 
 export function compoundBibtex(compound: Compound): string {
-  const key = `chromascope_${compound.id.replace(/[^a-zA-Z0-9]/g, '_')}`
+  const key = `bandatlas_${compound.id.replace(/[^a-zA-Z0-9]/g, '_')}`
   return `@misc{${key},
-  title        = {${compound.name} spectral record (Chromascope)},
+  title        = {${compound.name} spectral record (BandAtlas)},
   author       = {Bisht, Nikshay},
   year         = {${new Date().getFullYear()}},
-  howpublished = {Chromascope compound id: ${compound.id}},
+  howpublished = {BandAtlas compound id: ${compound.id}},
   note         = {CAS ${compound.cas || 'n/a'}; formula ${compound.formula || 'n/a'}. Teaching/curated packaging — verify primary literature before quantitative use.},
-  url          = {https://github.com/nikshaybisht/chromascope}
+  url          = {https://github.com/nikshaybisht/bandatlas}
 }
 `
 }

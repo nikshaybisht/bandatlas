@@ -1,6 +1,6 @@
 # Methodology
 
-Chromascope is a browser client for browsing small-molecule spectral records (UV–Vis, IR, Raman), structures, and metadata. It is intended for teaching, rapid literature triage, and laboratory discussion—not as a closed archive of certified reference spectra.
+BandAtlas is a browser client for browsing small-molecule spectral records (UV–Vis, IR, Raman), structures, and metadata. It is intended for teaching, rapid literature triage, and laboratory discussion—not as a closed archive of certified reference spectra.
 
 ## Compound identity
 
@@ -67,4 +67,4 @@ Planned (see README roadmap):
 
 ## Software citation
 
-See `CITATION.cff` and the References panel in the application. When citing PhotochemCAD or NIST data products, cite those works directly in addition to Chromascope.
+See `CITATION.cff` and the References panel in the application. When citing PhotochemCAD or NIST data products, cite those works directly in addition to BandAtlas.

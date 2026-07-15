@@ -1,13 +1,13 @@
-# Chromascope
+# BandAtlas
 
-**A browser tool for small-molecule UV–Vis, IR, and Raman spectra** — with structures, class labels, provenance, and export for lab notes.
+**A working atlas of molecular UV–Vis, IR, and Raman bands** — structures, class labels, provenance, and export for lab notes.
 
-[![Release](https://img.shields.io/github/v/release/nikshaybisht/chromascope?include_prereleases&label=release)](https://github.com/nikshaybisht/chromascope/releases)
+[![Release](https://img.shields.io/github/v/release/nikshaybisht/bandatlas?include_prereleases&label=release)](https://github.com/nikshaybisht/bandatlas/releases)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Author](https://img.shields.io/badge/author-Nikshay%20Bisht-0B3D91.svg)](https://github.com/nikshaybisht)
 
 <p align="center">
-  <img src="docs/images/screenshot-uvvis.png" alt="Chromascope — UV–Vis view of a dye spectrum" width="860" />
+  <img src="docs/images/screenshot-uvvis.png" alt="BandAtlas — UV–Vis view of a dye spectrum" width="860" />
 </p>
 
 <p align="center">
@@ -19,7 +19,7 @@
 
 ## Overview
 
-Chromascope is a static web client for browsing common small molecules and their spectral records:
+BandAtlas is a static web client for browsing common small molecules and their spectral records:
 
 | | |
 |---|---|
@@ -29,7 +29,7 @@ Chromascope is a static web client for browsing common small molecules and their
 | **Export** | CSV / JSON for notebooks; figure card PNG; BibTeX stub |
 | **Provenance** | Source notes and core literature DOIs in the UI |
 
-Layout and photochemical metadata conventions are inspired by [PhotochemCAD](https://www.photochemcad.com/) (Lindsey *et al.*). Chromascope is an **independent** project and is **not affiliated** with PhotochemCAD.
+Layout and photochemical metadata conventions are inspired by [PhotochemCAD](https://www.photochemcad.com/) (Lindsey *et al.*). BandAtlas is an **independent** project and is **not affiliated** with PhotochemCAD.
 
 ### What it is good for
 
@@ -46,8 +46,8 @@ Many curves are **teaching envelopes** (multi-Gaussian shapes constrained to lit
 ## Quick start
 
 ```bash
-git clone https://github.com/nikshaybisht/chromascope.git
-cd chromascope
+git clone https://github.com/nikshaybisht/bandatlas.git
+cd bandatlas
 npm install
 npm run dataset
 npm run dev
@@ -96,11 +96,11 @@ CHANGELOG.md
 
 ## Citation
 
-If Chromascope helped your teaching material or analysis workflow:
+If BandAtlas helped your teaching material or analysis workflow:
 
 ```
-Bisht, N. (2026). Chromascope (v0.4.1) [Computer software].
-https://github.com/nikshaybisht/chromascope
+Bisht, N. (2026). BandAtlas (v0.5.0) [Computer software].
+https://github.com/nikshaybisht/bandatlas
 ```
 
 Also see [`CITATION.cff`](CITATION.cff). Always cite **primary spectral literature** for experimental numbers.

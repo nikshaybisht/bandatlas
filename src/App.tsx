@@ -164,7 +164,7 @@ export default function App() {
       <div className="app">
         <header className="topbar">
           <div className="brand">
-            <span className="logo">Chromascope</span>
+            <span className="logo">BandAtlas</span>
             <span className="tagline">
               Small-molecule UV–Vis, IR &amp; Raman viewer for teaching and literature triage
             </span>
@@ -409,7 +409,7 @@ export default function App() {
           </span>
           <span>
             Teaching / curated packaging · 3D: PubChem ·{' '}
-            <a href="https://github.com/nikshaybisht/chromascope">source</a> · cite{' '}
+            <a href="https://github.com/nikshaybisht/bandatlas">source</a> · cite{' '}
             <code>CITATION.cff</code>
           </span>
         </footer>
