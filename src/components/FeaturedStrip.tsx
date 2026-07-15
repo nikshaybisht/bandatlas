@@ -1,4 +1,5 @@
 import type { IndexCompound } from '../types'
+import { indexHasFullUvVis } from '../types'
 
 const DEFAULT_FEATURED = [
   'rhodamine-b',
@@ -18,7 +19,7 @@ type Props = {
 export function FeaturedStrip({ compounds, onSelect, selectedId }: Props) {
   const byId = new Map(compounds.map((c) => [c.id, c]))
   const featured = DEFAULT_FEATURED.map((id) => byId.get(id)).filter(
-    (c): c is IndexCompound => Boolean(c && c.has_uvvis),
+    (c): c is IndexCompound => Boolean(c && indexHasFullUvVis(c)),
   )
 
   if (featured.length === 0) return null

@@ -1,4 +1,5 @@
 import type { Compound, Spectrum, TechniqueTab } from '../types'
+import { compoundFlags } from '../types'
 
 interface Props {
   compound: Compound
@@ -27,6 +28,7 @@ function spectrumQualityLabel(s?: Spectrum | null) {
 export function PropertyCard({ compound, activeSpectrum, technique }: Props) {
   const abs = compound.spectra.find((s) => s.technique === 'uvvis_abs')
   const em = compound.spectra.find((s) => s.technique === 'fluorescence')
+  const flags = compoundFlags(compound)
   const solvent = activeSpectrum?.solvent || abs?.solvent
   const qualityTarget = activeSpectrum ?? null
 
@@ -38,10 +40,10 @@ export function PropertyCard({ compound, activeSpectrum, technique }: Props) {
           <span className={`tier-badge ${spectrumQualityClass(qualityTarget)}`}>
             {spectrumQualityLabel(qualityTarget)}
           </span>
-          {compound.tier === 'full' && qualityTarget?.quality === 'teaching' && (
+          {flags.hasFullUvVis && qualityTarget?.quality === 'teaching' && (
             <span className="tier-badge full">Full UV–Vis</span>
           )}
-          {compound.tier !== 'full' && !abs && (
+          {!flags.hasFullUvVis && !abs && (
             <span className="tier-badge catalog">Catalog / partial</span>
           )}
         </div>
@@ -153,10 +155,10 @@ export function PropertyCard({ compound, activeSpectrum, technique }: Props) {
       </dl>
 
       <div className="avail-row">
-        <TechniquePill label="UV–Vis" on={compound.availability.uvvis_abs} />
-        <TechniquePill label="Fluorescence" on={compound.availability.fluorescence} />
-        <TechniquePill label="IR" on={compound.availability.ir} />
-        <TechniquePill label="Raman" on={compound.availability.raman} />
+        <TechniquePill label="UV–Vis" on={flags.hasFullUvVis} />
+        <TechniquePill label="Fluorescence" on={!!flags.hasFluorescence} />
+        <TechniquePill label="IR" on={flags.hasIr} />
+        <TechniquePill label="Raman" on={flags.hasRaman} />
       </div>
     </div>
   )

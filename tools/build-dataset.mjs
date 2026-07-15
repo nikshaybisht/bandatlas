@@ -16,6 +16,7 @@ import {
   loadUvSeedFiles,
   mergeUvSeeds,
 } from './validate-seeds.mjs'
+import { validateDatasetTree } from './validate-dataset.mjs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const outRoot = path.join(__dirname, '..', 'public', 'dataset')
@@ -3207,10 +3208,51 @@ function isExperimentalExampleSpectrum(s) {
   return s && s.quality === 'experimental' && !!s.example_not_for_citation
 }
 
+/** Build-time flags + class labels (dataset “API” contract for the UI). */
+function attachBuildFlags(c) {
+  const hasFullUvVis = c.spectra.some((s) => s.technique === 'uvvis_abs')
+  const hasIr = c.spectra.some((s) => s.technique === 'ir')
+  const hasRaman = c.spectra.some((s) => s.technique === 'raman')
+  const hasFluorescence = c.spectra.some((s) => s.technique === 'fluorescence')
+  c.availability = {
+    uvvis_abs: hasFullUvVis,
+    fluorescence: hasFluorescence,
+    ir: hasIr,
+    raman: hasRaman,
+  }
+  c.flags = {
+    hasFullUvVis,
+    hasIr,
+    hasRaman,
+    hasFluorescence,
+  }
+  // classLabels: family + lab class chips
+  const classLabels = []
+  if (c.family) classLabels.push(c.family)
+  for (const lc of c.lab_classes || []) {
+    if (!classLabels.includes(lc)) classLabels.push(lc)
+  }
+  c.class_labels = classLabels
+  c.classLabels = classLabels
+  c.labSet = !!c.lab_set
+  if (c.pubchem_cid != null) c.pubchemCid = c.pubchem_cid
+  // Ensure every spectrum has quality enum
+  for (const s of c.spectra) {
+    if (s.quality !== 'teaching' && s.quality !== 'experimental') {
+      s.quality = 'teaching'
+    }
+  }
+  c.tier = hasFullUvVis ? 'full' : c.tier === 'partial' ? 'partial' : 'catalog'
+  return c
+}
+
 function toIndexEntry(c) {
   const abs =
     c.spectra.find((s) => s.technique === 'uvvis_abs' && isExperimentalSpectrum(s)) ||
     c.spectra.find((s) => s.technique === 'uvvis_abs')
+  const hasFullUvVis = !!c.flags?.hasFullUvVis
+  const hasIr = !!c.flags?.hasIr
+  const hasRaman = !!c.flags?.hasRaman
   return {
     id: c.id,
     name: c.name,
@@ -3222,15 +3264,23 @@ function toIndexEntry(c) {
     mw: c.mw,
     smiles: c.smiles || '',
     pubchem_cid: c.pubchem_cid,
+    pubchemCid: c.pubchem_cid,
     tier: c.tier,
-    has_uvvis: !!c.availability.uvvis_abs,
-    has_fluorescence: !!c.availability.fluorescence,
-    has_ir: !!c.availability.ir,
-    has_raman: !!c.availability.raman,
+    // Build-computed flags (UI must not re-derive)
+    has_uvvis: hasFullUvVis,
+    hasFullUvVis,
+    has_fluorescence: !!c.flags?.hasFluorescence,
+    has_ir: hasIr,
+    hasIr,
+    has_raman: hasRaman,
+    hasRaman,
     has_experimental: c.spectra.some(isExperimentalSpectrum),
     has_experimental_example: c.spectra.some(isExperimentalExampleSpectrum),
     lab_set: !!c.lab_set,
+    labSet: !!c.lab_set,
     lab_classes: c.lab_classes || [],
+    class_labels: c.class_labels || [],
+    classLabels: c.classLabels || c.class_labels || [],
     tags: c.tags || [],
     lambda_max_nm: abs?.lambda_max_nm || [],
     solvents: [...new Set(c.spectra.map((s) => s.solvent).filter(Boolean))],
@@ -3434,16 +3484,17 @@ for (const [id, classes] of Object.entries(LAB_SET)) {
   allById.set(id, c)
 }
 
-const all = [...allById.values()]
+// Finalize flags / classLabels on every record before write
+const all = [...allById.values()].map(attachBuildFlags)
 const labSetCount = all.filter((c) => c.lab_set).length
 
 for (const c of all) {
   fs.writeFileSync(path.join(compoundsDir, `${c.id}.json`), JSON.stringify(c))
 }
 
-const withUv = all.filter((c) => c.availability.uvvis_abs).length
-const withIr = all.filter((c) => c.availability.ir).length
-const withRaman = all.filter((c) => c.availability.raman).length
+const withUv = all.filter((c) => c.flags.hasFullUvVis).length
+const withIr = all.filter((c) => c.flags.hasIr).length
+const withRaman = all.filter((c) => c.flags.hasRaman).length
 const withExperimental = all.filter((c) => c.spectra.some(isExperimentalSpectrum)).length
 const withExpExamples = all.filter((c) => c.spectra.some(isExperimentalExampleSpectrum)).length
 
@@ -3467,16 +3518,23 @@ const APP_META = {
   ],
 }
 
+const generatedAt = new Date().toISOString()
+const catalogOnly = all.filter((c) => !c.flags.hasFullUvVis).length
+
 const index = {
-  version: '0.10.0',
-  generated_at: new Date().toISOString(),
+  version: '0.11.0',
+  generated_at: generatedAt,
+  generatedAt,
   app_meta: APP_META,
   counts: {
     total: all.length,
     full_spectra: withUv,
+    full_uvvis: withUv,
     with_ir: withIr,
     with_raman: withRaman,
-    catalog_only: all.filter((c) => !c.availability.uvvis_abs).length,
+    ir: withIr,
+    raman: withRaman,
+    catalog_only: catalogOnly,
     experimental: withExperimental,
     experimental_examples: withExpExamples,
     lab_set: labSetCount,
@@ -3491,19 +3549,33 @@ const index = {
 
 fs.writeFileSync(path.join(outRoot, 'index.json'), JSON.stringify(index))
 
-// Machine-readable summary for README / CI
+// Machine-readable summary / lightweight “API” for About + CI
 const summary = {
   version: index.version,
   total: all.length,
   full_uvvis: withUv,
   ir: withIr,
   raman: withRaman,
-  catalog_only: index.counts.catalog_only,
+  lab_set: labSetCount,
+  lab_set_count: labSetCount,
+  catalog_only: catalogOnly,
   experimental: withExperimental,
   experimental_examples: withExpExamples,
-  lab_set_count: labSetCount,
+  generatedAt,
+  generated_at: generatedAt,
 }
 fs.writeFileSync(path.join(outRoot, 'summary.json'), JSON.stringify(summary, null, 2) + '\n')
+
+// Fail the build if any compound/index/summary violates schema
+const validation = validateDatasetTree(outRoot)
+if (!validation.ok) {
+  console.error('Dataset schema validation FAILED:')
+  for (const e of validation.errors.slice(0, 30)) console.error('  ·', e)
+  if (validation.errors.length > 30) {
+    console.error(`  … +${validation.errors.length - 30} more`)
+  }
+  process.exit(1)
+}
 
 console.log(
   `Dataset built: ${all.length} molecules (UV ${withUv}, IR ${withIr}, Raman ${withRaman}) → public/dataset/`,
@@ -3512,4 +3584,5 @@ console.log(`  full UV–Vis curves: ${withUv} (teaching + any experimental over
 console.log(`  lab set: ${labSetCount}`)
 console.log(`  experimental (real): ${withExperimental}`)
 console.log(`  experimental schema examples: ${withExpExamples}`)
-console.log(`  catalog / IR–Raman only: ${index.counts.catalog_only}`)
+console.log(`  catalog / IR–Raman only: ${catalogOnly}`)
+console.log(`  schema validation: OK (${validation.stats.compoundsChecked} compounds)`)

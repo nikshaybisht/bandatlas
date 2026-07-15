@@ -37,8 +37,17 @@ export interface Spectrum {
   peak_labels?: string[]
   quantum_yield?: number
   plain_caption: string
+  /** Series points (build name: display_points; conceptual schema: series) */
   display_points: [number, number][]
   source: SpectrumSource
+}
+
+/** Build-computed technique flags — UI must use these, not re-derive. */
+export interface CompoundFlags {
+  hasFullUvVis: boolean
+  hasIr: boolean
+  hasRaman: boolean
+  hasFluorescence?: boolean
 }
 
 export interface Compound {
@@ -52,6 +61,8 @@ export interface Compound {
   mw: number
   smiles: string
   pubchem_cid: number
+  /** Camel alias from build */
+  pubchemCid?: number
   plain_summary: string
   structure: { pubchem_3d?: boolean; sdf?: string }
   spectra: Spectrum[]
@@ -65,10 +76,16 @@ export interface Compound {
     ir: boolean
     raman: boolean
   }
+  /** Preferred: build-time flags (mirrors availability) */
+  flags?: CompoundFlags
   tier: 'full' | 'catalog' | 'partial'
   /** Lab companion curated set */
   lab_set?: boolean
+  labSet?: boolean
   lab_classes?: string[]
+  /** family + lab classes */
+  class_labels?: string[]
+  classLabels?: string[]
   tags?: string[]
 }
 
@@ -83,20 +100,57 @@ export interface IndexCompound {
   mw: number
   smiles: string
   pubchem_cid: number
+  pubchemCid?: number
   tier: 'full' | 'catalog' | 'partial'
+  /** @deprecated prefer hasFullUvVis */
   has_uvvis: boolean
+  hasFullUvVis?: boolean
   has_fluorescence: boolean
+  /** @deprecated prefer hasIr */
   has_ir: boolean
+  hasIr?: boolean
+  /** @deprecated prefer hasRaman */
   has_raman: boolean
+  hasRaman?: boolean
   /** True experimental UV–Vis (quality experimental, not example-only) */
   has_experimental: boolean
   /** Schema demo experimental series only (example-not-for-citation) */
   has_experimental_example: boolean
   lab_set?: boolean
+  labSet?: boolean
   lab_classes?: string[]
+  class_labels?: string[]
+  classLabels?: string[]
   tags?: string[]
   lambda_max_nm: number[]
   solvents: string[]
+}
+
+/** Prefer camelCase build flags; fall back to snake_case for older index. */
+export function indexHasFullUvVis(c: IndexCompound): boolean {
+  if (typeof c.hasFullUvVis === 'boolean') return c.hasFullUvVis
+  return !!c.has_uvvis
+}
+
+export function indexHasIr(c: IndexCompound): boolean {
+  if (typeof c.hasIr === 'boolean') return c.hasIr
+  return !!c.has_ir
+}
+
+export function indexHasRaman(c: IndexCompound): boolean {
+  if (typeof c.hasRaman === 'boolean') return c.hasRaman
+  return !!c.has_raman
+}
+
+export function compoundFlags(c: Compound): CompoundFlags {
+  if (c.flags) return c.flags
+  // Legacy compounds only — still from build availability, not UI invention
+  return {
+    hasFullUvVis: !!c.availability?.uvvis_abs,
+    hasIr: !!c.availability?.ir,
+    hasRaman: !!c.availability?.raman,
+    hasFluorescence: !!c.availability?.fluorescence,
+  }
 }
 
 /** App-facing defaults shipped with the dataset index (not per-compound). */
@@ -115,15 +169,34 @@ export interface DatasetAppMeta {
   lab_classes?: { id: string; label: string }[]
 }
 
+export interface DatasetSummary {
+  version: string
+  total: number
+  full_uvvis: number
+  ir: number
+  raman: number
+  lab_set?: number
+  lab_set_count?: number
+  catalog_only: number
+  experimental?: number
+  experimental_examples?: number
+  generatedAt?: string
+  generated_at?: string
+}
+
 export interface DatasetIndex {
   version: string
   generated_at: string
+  generatedAt?: string
   counts: {
     total: number
     full_spectra: number
+    full_uvvis?: number
     catalog_only: number
     with_ir?: number
     with_raman?: number
+    ir?: number
+    raman?: number
     /** Compounds with at least one real experimental spectrum */
     experimental?: number
     /** Schema-demo experimental fixtures (not for citation) */

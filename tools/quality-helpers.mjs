@@ -2,12 +2,17 @@
  * Pure helpers shared by tests (and documented contracts for the UI/export).
  */
 
-/** Index / compound entry has a full UV–Vis curve (teaching or experimental). */
+/**
+ * Index / compound has a full UV–Vis curve.
+ * Reads **build-output flags only** — no tier guessing.
+ */
 export function hasFullUvVis(entry) {
   if (!entry || typeof entry !== 'object') return false
+  if (typeof entry.hasFullUvVis === 'boolean') return entry.hasFullUvVis
   if (typeof entry.has_uvvis === 'boolean') return entry.has_uvvis
-  if (entry.availability?.uvvis_abs) return true
-  if (entry.tier === 'full') return true
+  if (typeof entry.flags?.hasFullUvVis === 'boolean') return entry.flags.hasFullUvVis
+  // availability is also written by the dataset build
+  if (typeof entry.availability?.uvvis_abs === 'boolean') return entry.availability.uvvis_abs
   return false
 }
 

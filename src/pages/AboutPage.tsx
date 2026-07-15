@@ -11,8 +11,10 @@ type Summary = {
   ir: number
   raman: number
   catalog_only: number
+  lab_set?: number
   lab_set_count?: number
   experimental?: number
+  generatedAt?: string
 }
 
 export function AboutPage() {
@@ -68,7 +70,9 @@ export function AboutPage() {
               <span className="metric-label">full UV curves</span>
             </li>
             <li>
-              <span className="metric-val">{summary?.lab_set_count ?? '—'}</span>
+              <span className="metric-val">
+                {summary?.lab_set ?? summary?.lab_set_count ?? '—'}
+              </span>
               <span className="metric-label">lab set</span>
             </li>
             <li>

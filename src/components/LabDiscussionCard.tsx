@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import type { Compound, Spectrum, TechniqueTab } from '../types'
+import { compoundFlags } from '../types'
 import {
   compoundShareUrl,
   exportLabNotePack,
@@ -36,10 +37,11 @@ export function LabDiscussionCard({
       ? spectrum.lambda_max_nm.map((n) => `${n}`).join(', ') + ' nm'
       : '—'
 
+  const flags = compoundFlags(compound)
   const techSummary = [
-    compound.availability.uvvis_abs ? 'UV–Vis' : null,
-    compound.availability.ir ? 'IR' : null,
-    compound.availability.raman ? 'Raman' : null,
+    flags.hasFullUvVis ? 'UV–Vis' : null,
+    flags.hasIr ? 'IR' : null,
+    flags.hasRaman ? 'Raman' : null,
   ]
     .filter(Boolean)
     .join(' · ')
@@ -99,10 +101,10 @@ export function LabDiscussionCard({
               {(['uvvis', 'ir', 'raman'] as const).map((t) => {
                 const on =
                   t === 'uvvis'
-                    ? compound.availability.uvvis_abs
+                    ? flags.hasFullUvVis
                     : t === 'ir'
-                      ? compound.availability.ir
-                      : compound.availability.raman
+                      ? flags.hasIr
+                      : flags.hasRaman
                 return (
                   <button
                     key={t}

@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.11.0] — 2026-07-16
+
+### Dataset backend (schema + validation)
+- **`tools/validate-dataset.mjs`** — compound / index / summary schema; `npm run dataset` fails on invalid records
+- **`npm run validate:dataset`** CLI
+- Compound records gain build-time **`flags`** (`hasFullUvVis`, `hasIr`, `hasRaman`), **`class_labels` / `classLabels`**, quality enum enforced (`teaching` | `experimental`)
+- Index exposes camelCase flag aliases (`hasFullUvVis`, `hasIr`, `hasRaman`, `labSet`) alongside snake_case
+- **`summary.json`**: `version`, `total`, `full_uvvis`, `ir`, `raman`, `lab_set`, `catalog_only`, **`generatedAt`** (+ aliases)
+- UI reads technique availability via **`compoundFlags` / `indexHasFullUvVis`** (build output only; no tier guessing)
+- Tests: `tests/schema.test.mjs` — schema unit tests, counts match summary, every labSet has full UV
+- **Full UV teaching curves: 103** (unchanged; already ≥80 credibility bar). Lab set: 35, all full UV.
+
+### Docs
+- [docs/ADD_SPECTRUM.md](docs/ADD_SPECTRUM.md) — 15-min seed path + schema validation note
+
 ## [0.10.0] — 2026-07-16
 
 ### Added

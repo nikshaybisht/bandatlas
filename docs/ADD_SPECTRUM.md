@@ -2,11 +2,13 @@
 
 BandAtlas UV curves are **teaching envelopes**: multi-Gaussian shapes constrained to literature λ<sub>max</sub>. They are **not** instrument digitizations. Do not label them experimental.
 
-For open experimental series, use [`data/experimental/`](../data/experimental/README.md) instead.
+**Forbidden:** inventing “experimental” instrument files or scraping copyrighted digitizations without redistribution rights. Real open experimental series use [`data/experimental/`](../data/experimental/README.md) only.
+
+The dataset under `public/dataset/` is the app **backend**: `npm run dataset` builds index/summary/compound JSON and **fails** if schema validation rejects a record (`tools/validate-dataset.mjs`).
 
 ---
 
-## Path A — additive JSON file (preferred)
+## 15-minute path (preferred)
 
 1. Copy the template:
 
@@ -16,19 +18,23 @@ For open experimental series, use [`data/experimental/`](../data/experimental/RE
 
    (`_template.json` is **not** loaded — only files that do **not** start with `_`.)
 
-2. Edit required fields (see below).
+2. Edit required fields (see below). Set real literature λ<sub>max</sub> in `abs.lambda_max_nm` and shape `abs.peaks` to match. Put a short source note in `abs.lit` or `abs.quality_note` (paper, handbook table, DOI).
 
-3. Validate + rebuild:
+3. Validate seeds + rebuild dataset (schema + flags):
 
    ```bash
    npm run validate:seeds
    npm run dataset
+   # optional explicit check:
+   npm run validate:dataset
    npm run dev
    ```
 
-4. Search your compound in the app → UV–Vis tab → check badge **Teaching envelope**.
+4. Search your compound in the app → UV–Vis tab → badge **Teaching envelope**. Index flags `hasFullUvVis` / `has_uvvis` must be true (computed at build — do not invent flags in React).
 
-5. Open a PR (one compound or a small batch).
+5. Optional lab companion: add the id to `LAB_SET` in `tools/build-dataset.mjs` **only if** it has full UV (validator enforces this).
+
+6. Open a PR (one compound or a small batch).
 
 ---
 

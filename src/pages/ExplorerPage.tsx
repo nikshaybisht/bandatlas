@@ -24,6 +24,7 @@ import type {
   Spectrum,
   TechniqueTab,
 } from '../types'
+import { compoundFlags, indexHasFullUvVis } from '../types'
 
 type Mode = 'simple' | 'advanced'
 type ExplorerPreset = 'default' | 'lab'
@@ -72,9 +73,9 @@ function resolveDefaultId(
   const hit =
     pool.find((c) => c.id === tryId) ||
     pool.find((c) => c.id === meta.lab?.compound_id) ||
-    pool.find((c) => c.has_uvvis) ||
+    pool.find((c) => indexHasFullUvVis(c)) ||
     pool[0] ||
-    data.compounds.find((c) => c.has_uvvis) ||
+    data.compounds.find((c) => indexHasFullUvVis(c)) ||
     data.compounds[0]
   return hit?.id ?? null
 }
@@ -217,21 +218,22 @@ export function ExplorerPage({ preset = 'default' }: Props) {
         if (!cancelled) {
           setCompound(c)
           setLoadingMol(false)
+          const flags = compoundFlags(c)
           if (!techLocked.current) {
-            if (c.availability.uvvis_abs) setTechnique('uvvis')
-            else if (c.availability.ir) setTechnique('ir')
-            else if (c.availability.raman) setTechnique('raman')
+            if (flags.hasFullUvVis) setTechnique('uvvis')
+            else if (flags.hasIr) setTechnique('ir')
+            else if (flags.hasRaman) setTechnique('raman')
           } else {
             // Honor deep-link tech if available; otherwise fall back
             const want = technique
             const ok =
-              (want === 'uvvis' && c.availability.uvvis_abs) ||
-              (want === 'ir' && c.availability.ir) ||
-              (want === 'raman' && c.availability.raman)
+              (want === 'uvvis' && flags.hasFullUvVis) ||
+              (want === 'ir' && flags.hasIr) ||
+              (want === 'raman' && flags.hasRaman)
             if (!ok) {
-              if (c.availability.uvvis_abs) setTechnique('uvvis')
-              else if (c.availability.ir) setTechnique('ir')
-              else if (c.availability.raman) setTechnique('raman')
+              if (flags.hasFullUvVis) setTechnique('uvvis')
+              else if (flags.hasIr) setTechnique('ir')
+              else if (flags.hasRaman) setTechnique('raman')
             }
           }
         }
@@ -293,7 +295,7 @@ export function ExplorerPage({ preset = 'default' }: Props) {
     if (labClass) {
       pool = pool.filter((c) => (c.lab_classes || []).includes(labClass))
     }
-    if (uvOnly) pool = pool.filter((c) => c.has_uvvis)
+    if (uvOnly) pool = pool.filter((c) => indexHasFullUvVis(c))
     if (experimentalOnly) pool = pool.filter((c) => c.has_experimental)
     if (!q) {
       if (labSetOnly || labClass || uvOnly || experimentalOnly) {
@@ -450,9 +452,10 @@ export function ExplorerPage({ preset = 'default' }: Props) {
 
   const tabAvailable = (tab: TechniqueTab) => {
     if (!compound) return false
-    if (tab === 'uvvis') return compound.availability.uvvis_abs
-    if (tab === 'ir') return compound.availability.ir
-    return compound.availability.raman
+    const flags = compoundFlags(compound)
+    if (tab === 'uvvis') return flags.hasFullUvVis
+    if (tab === 'ir') return flags.hasIr
+    return flags.hasRaman
   }
 
   return (
@@ -556,7 +559,7 @@ export function ExplorerPage({ preset = 'default' }: Props) {
                             Demo
                           </span>
                         ) : null}
-                        {c.has_uvvis ? (
+                        {indexHasFullUvVis(c) ? (
                           <span className="hit-badge uv" title="Full UV–Vis teaching curve">
                             UV
                           </span>
@@ -568,8 +571,8 @@ export function ExplorerPage({ preset = 'default' }: Props) {
                       </span>
                       <span className="hit-meta">
                         {c.formula}
-                        {c.lab_set ? ' · lab set' : ''}
-                        {c.has_uvvis ? ' · full UV' : ' · catalog'}
+                        {c.lab_set || c.labSet ? ' · lab set' : ''}
+                        {indexHasFullUvVis(c) ? ' · full UV' : ' · catalog'}
                       </span>
                     </button>
                     <button

@@ -131,10 +131,13 @@ test('CSV export markers (export contract)', () => {
   assert.ok(csvHasRequiredMarkers(buildSampleCsv({ unitX: 'cm-1', technique: 'ir' })))
 })
 
-test('hasFullUvVis helper', () => {
+test('hasFullUvVis helper (build flags only)', () => {
   assert.equal(hasFullUvVis({ has_uvvis: true }), true)
+  assert.equal(hasFullUvVis({ hasFullUvVis: true }), true)
   assert.equal(hasFullUvVis({ has_uvvis: false }), false)
-  assert.equal(hasFullUvVis({ tier: 'full' }), true)
+  // tier alone must not invent full UV
+  assert.equal(hasFullUvVis({ tier: 'full' }), false)
   assert.equal(hasFullUvVis({ availability: { uvvis_abs: true } }), true)
+  assert.equal(hasFullUvVis({ flags: { hasFullUvVis: true } }), true)
   assert.equal(hasFullUvVis(null), false)
 })
