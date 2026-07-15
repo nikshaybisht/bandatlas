@@ -19,7 +19,7 @@ import type {
 } from './types'
 import './App.css'
 
-const APP_VERSION = '0.7.0'
+const APP_VERSION = '0.7.1'
 
 function qualityLabel(s: Spectrum | null | undefined): string {
   if (!s) return ''
@@ -373,20 +373,22 @@ export default function App() {
                   })}
                 </div>
                 <div className="view-toggles">
-                  <div className="seg" role="group" aria-label="Display mode">
+                  <div className="seg" role="group" aria-label="Y-axis display scale">
                     <button
                       type="button"
                       className={mode === 'simple' ? 'active' : ''}
                       onClick={() => setMode('simple')}
+                      title="Normalize curves for shape comparison (teaching default)"
                     >
-                      Teaching
+                      Normalized
                     </button>
                     <button
                       type="button"
                       className={mode === 'advanced' ? 'active' : ''}
                       onClick={() => setMode('advanced')}
+                      title="Show ε (or raw intensity) where available — not a research-grade archive mode"
                     >
-                      Research
+                      Absolute scale
                     </button>
                   </div>
                   {technique === 'uvvis' && emission && (
@@ -437,9 +439,11 @@ export default function App() {
                     <div className="spectrum-empty-banner" role="status">
                       {technique === 'uvvis' ? (
                         <>
-                          No full UV–Vis teaching curve for <strong>{compound.name}</strong>.
-                          IR and Raman envelopes are available; use the technique tabs or filter
-                          search with <em>Has full UV–Vis</em>.
+                          <strong>No full UV–Vis teaching curve yet</strong> for{' '}
+                          <strong>{compound.name}</strong>. This catalog entry still has{' '}
+                          <strong>IR</strong> and <strong>Raman</strong> teaching envelopes — use
+                          those tabs. To browse only compounds with a full UV curve, enable{' '}
+                          <em>Has full UV–Vis</em> in the search bar.
                         </>
                       ) : (
                         <>
@@ -464,9 +468,12 @@ export default function App() {
                       {primary.solvent ? ` · solvent = ${primary.solvent}` : ''}
                       {primary.temperature_K != null ? ` · T = ${primary.temperature_K} K` : ''}
                       {primary.source?.note ? ` · ${primary.source.note}` : ''}
-                      {compareSpec
-                        ? ' · Overlay is qualitative — check quality badges on each series.'
-                        : ''}
+                    </p>
+                  )}
+                  {compareSpec && (
+                    <p className="overlay-disclaimer" role="note">
+                      Overlay is <strong>qualitative only</strong> — solvents, normalizations, and
+                      envelope construction may differ. Not for quantitative comparison.
                     </p>
                   )}
                   <div className="tool-row">

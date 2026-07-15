@@ -28,13 +28,7 @@ export function PropertyCard({ compound, activeSpectrum, technique }: Props) {
   const abs = compound.spectra.find((s) => s.technique === 'uvvis_abs')
   const em = compound.spectra.find((s) => s.technique === 'fluorescence')
   const solvent = activeSpectrum?.solvent || abs?.solvent
-  const qualityTarget = activeSpectrum || abs
-  const hasRealExperimental = compound.spectra.some(
-    (s) => s.quality === 'experimental' && !s.example_not_for_citation,
-  )
-  const hasExample = compound.spectra.some(
-    (s) => s.quality === 'experimental' && s.example_not_for_citation,
-  )
+  const qualityTarget = activeSpectrum ?? null
 
   return (
     <div className="property-card">
@@ -44,7 +38,7 @@ export function PropertyCard({ compound, activeSpectrum, technique }: Props) {
           <span className={`tier-badge ${spectrumQualityClass(qualityTarget)}`}>
             {spectrumQualityLabel(qualityTarget)}
           </span>
-          {compound.tier === 'full' && qualityTarget?.quality !== 'experimental' && (
+          {compound.tier === 'full' && qualityTarget?.quality === 'teaching' && (
             <span className="tier-badge full">Full UV–Vis</span>
           )}
           {compound.tier !== 'full' && !abs && (
@@ -54,24 +48,40 @@ export function PropertyCard({ compound, activeSpectrum, technique }: Props) {
       </div>
       <p className="family-badge">{compound.family_label}</p>
       <p className="summary">{compound.plain_summary}</p>
-      {hasRealExperimental ? (
-        <p className="quality-note">
-          This record includes an <strong>experimental</strong> series (open redistribution). Still
-          verify the primary DOI/URL before quantitative use.
-        </p>
-      ) : hasExample ? (
-        <p className="quality-note">
-          Schema <strong>example</strong> only — synthetic points for tooling. Not measured data;
-          do not cite as a spectrum.
-        </p>
-      ) : compound.tier === 'full' ? (
-        <p className="quality-note">
-          UV–Vis curve is a multi-Gaussian <strong>teaching envelope</strong> (literature λ
-          <sub>max</sub>), not a certified instrument trace.
-        </p>
+
+      {/* Active-spectrum quality + source (always for the selected technique) */}
+      {qualityTarget ? (
+        <div className="active-spectrum-quality">
+          <p className="quality-note">
+            <strong>Active series:</strong> {spectrumQualityLabel(qualityTarget)}
+            {technique !== 'uvvis' ? ` (${technique.toUpperCase()})` : ' (UV–Vis)'}
+            {qualityTarget.quality === 'teaching'
+              ? ' — multi-Gaussian / group-frequency model, not a raw instrument file.'
+              : qualityTarget.example_not_for_citation
+                ? ' — synthetic schema demo; do not cite as data.'
+                : ' — open experimental series; verify primary source before quantitative use.'}
+          </p>
+          {qualityTarget.source?.note && (
+            <p className="source-note-line">
+              <strong>Source note:</strong> {qualityTarget.source.note}
+            </p>
+          )}
+          {qualityTarget.source?.citation && (
+            <p className="source-note-line source-cite" title={qualityTarget.source.citation}>
+              <strong>Citation:</strong> {qualityTarget.source.citation}
+            </p>
+          )}
+        </div>
       ) : (
         <p className="quality-note">
-          No full UV–Vis curve yet. IR/Raman are group-frequency teaching envelopes.
+          {technique === 'uvvis' ? (
+            <>
+              <strong>No full UV–Vis teaching curve yet.</strong> IR and Raman teaching envelopes
+              are still available on those tabs.
+            </>
+          ) : (
+            <>No active series for this technique.</>
+          )}
         </p>
       )}
 

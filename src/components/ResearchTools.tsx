@@ -70,8 +70,8 @@ export function ResearchTools({ compound, spectrum, technique }: Props) {
       {open && (
         <div className="fold-body">
           <p className="rt-help">
-            Download the plotted series for notes. Headers include solvent and source text — keep
-            them if you paste into SI drafts.
+            Download the plotted series for lab notes. Headers include quality, solvent, and source
+            text — keep them. Teaching envelopes are not certified digitizations.
           </p>
           <div className="rt-actions">
             <button type="button" className="ghost" disabled={!spectrum} onClick={exportCsv}>

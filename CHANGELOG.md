@@ -1,14 +1,20 @@
 # Changelog
 
-## [Unreleased]
+## [0.7.1] — 2026-07-16
 
-### Added
-- **Local SDF structure cache** for top ~20 UV compounds + majors (`public/dataset/structures/`)
-- 3D viewer: local cache first, then PubChem 3D/2D; clear empty state if both fail
-- `npm run structures` (`tools/cache-structures.mjs`) + `tools/README-structures.md`
-- Tests: at least 5 known CID SDF files present; soft size budget
-- **Playwright e2e smoke** (`npm run test:e2e`): home, search, UV filter, technique tabs, CSV export
-- CI: unit+build always; e2e job on push/PR to `main` (Chromium, PubChem blocked)
+### Changed
+- Renamed overselling **Research** mode → **Absolute scale** (Y-axis only; not a research archive)
+- Former **Teaching** scale toggle → **Normalized**
+- Always-on plot disclaimer (teaching envelope / experimental / schema example)
+- Stronger empty UV copy for catalog-only compounds (IR/Raman still available)
+- Overlay disclaimer: qualitative only; solvents/normalizations may differ
+- Property card: quality tag + source note/citation for the **active** spectrum
+- Light-theme plot axis/peak label contrast improved
+
+### Added (from unreleased)
+- Local SDF structure cache; Playwright e2e smoke; CI e2e job
+
+## [Unreleased]
 
 ## [0.7.0] — 2026-07-16
 

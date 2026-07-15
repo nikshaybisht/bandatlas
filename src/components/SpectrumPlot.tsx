@@ -278,10 +278,18 @@ export function SpectrumPlot({
     const cmpPts = compare?.display_points ?? null
 
     if ((!absPts || absPts.length < 2) && (!emPts || emPts.length < 2)) {
+      const emptyTitle =
+        technique === 'uvvis'
+          ? 'No full UV–Vis teaching curve yet'
+          : `No ${technique.toUpperCase()} curve yet`
+      const emptyBody =
+        technique === 'uvvis'
+          ? 'This compound is catalog-only for UV–Vis. Open the <strong>IR</strong> or <strong>Raman</strong> tab for teaching envelopes, or filter search with <em>Has full UV–Vis</em>.'
+          : 'Try another technique tab, or pick a different compound.'
       el.innerHTML = `
         <div class="plot-empty">
-          <strong>No ${technique === 'uvvis' ? 'UV–Vis' : technique.toUpperCase()} curve yet</strong>
-          <p>Try another technique tab, or pick a different compound.</p>
+          <strong>${emptyTitle}</strong>
+          <p>${emptyBody}</p>
         </div>`
       return
     }
@@ -408,11 +416,12 @@ export function SpectrumPlot({
       mode === 'simple' || isWavenumber ? normalizeYs(mainYraw) : mainYraw
 
     const isLight = theme === 'light'
-    const axisStroke = isLight ? '#71717a' : '#a1a1aa'
-    const peakLabelFill = isLight ? '#18181b' : '#ffffff'
-    const peakLabelStroke = isLight ? 'rgba(255,255,255,0.95)' : 'rgba(0,0,0,0.92)'
+    // Light theme: darker axes/labels for WCAG-ish contrast on #fafafa plot bg
+    const axisStroke = isLight ? '#3f3f46' : '#a1a1aa'
+    const peakLabelFill = isLight ? '#09090b' : '#ffffff'
+    const peakLabelStroke = isLight ? 'rgba(255,255,255,0.98)' : 'rgba(0,0,0,0.92)'
     const peakMarkerEdge = isLight ? '#ffffff' : '#000000'
-    const gridStroke = isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)'
+    const gridStroke = isLight ? 'rgba(0,0,0,0.12)' : 'rgba(255,255,255,0.08)'
     const yPadTop = 0.28
     // Conventional IR: high → low cm⁻¹ left to right (uPlot scale dir -1)
     const xDir = technique === 'ir' ? -1 : 1
@@ -709,8 +718,21 @@ export function SpectrumPlot({
         ref={rootRef}
         className={`plot-root ${technique === 'ir' ? 'plot-ir' : ''} ${technique === 'raman' ? 'plot-raman' : ''}`}
       />
-      {/* Short teaching caption only — no long provenance/source dump under the plot */}
-      {mode === 'simple' && caption && (
+      {/* Always-on honesty line — not a certified spectral library */}
+      <p className="plot-disclaimer" role="note">
+        {primary?.quality === 'experimental' && !primary.example_not_for_citation
+          ? 'Experimental series (open source). Verify DOI/URL before quantitative use.'
+          : primary?.example_not_for_citation
+            ? 'Schema example only — synthetic points, not measured data.'
+            : primary
+              ? 'Teaching envelope (model curve) — not a certified instrument digitization. Cite primary literature for experimental numbers.'
+              : 'No series plotted for this technique.'}
+        {compare
+          ? ' Overlay is qualitative only (solvents / scales may differ).'
+          : ''}
+      </p>
+      {/* Short series note — shown in normalized view; absolute scale still has disclaimer above */}
+      {mode === 'simple' && caption && primary && (
         <p className="plain-caption">
           <strong>Notes. </strong>
           {caption}
