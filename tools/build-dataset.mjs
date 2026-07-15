@@ -1,11 +1,16 @@
 /**
  * Builds public/dataset: searchable index + full compound records with
- * educational UV–Vis curves (Gaussian peaks at literature λmax).
+ * educational UV–Vis, IR, and Raman curves.
  * Run: node tools/build-dataset.mjs
  */
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import {
+  EXTRA_STUBS,
+  buildIrSpectrum,
+  buildRamanSpectrum,
+} from './ir-raman-lib.mjs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const outRoot = path.join(__dirname, '..', 'public', 'dataset')
@@ -1099,9 +1104,30 @@ const STUBS = [
   ['benzene-gas', 'Benzene (gas reference)', 'aromatic-hydrocarbons', '71-43-2', 'C6H6', 78.11, 'c1ccccc1', 241],
 ]
 
+function attachVibrationalSpectra(compound) {
+  const ir = buildIrSpectrum(compound.id, compound.family, compound.formula)
+  const raman = buildRamanSpectrum(compound.id, compound.family)
+  compound.spectra = [...(compound.spectra || []), ir, raman]
+  compound.availability = {
+    ...compound.availability,
+    ir: true,
+    raman: true,
+  }
+  if (compound.tier === 'catalog' && compound.spectra.some((s) => s.technique === 'uvvis_abs')) {
+    compound.tier = 'full'
+  }
+  if (compound.tier === 'catalog') {
+    compound.tier = 'partial'
+    compound.plain_summary =
+      compound.plain_summary ||
+      `${compound.name}: searchable with teaching IR/Raman; UV–Vis curve may not be curated yet.`
+  }
+  return compound
+}
+
 function stubToEntry(row) {
   const [id, name, family, cas, formula, mw, smiles, cid] = row
-  return {
+  return attachVibrationalSpectra({
     id,
     name,
     synonyms: [],
@@ -1112,13 +1138,13 @@ function stubToEntry(row) {
     mw,
     smiles: smiles || '',
     pubchem_cid: cid,
-    plain_summary: `${name} is in the searchable catalog. Open it for structure and properties; full UV–Vis curve is not curated yet.`,
+    plain_summary: `${name} is in the searchable catalog with teaching IR/Raman. UV–Vis may not be curated yet.`,
     structure: { pubchem_3d: true },
     spectra: [],
     photophysics: {},
     availability: { uvvis_abs: false, fluorescence: false, ir: false, raman: false },
     tier: 'catalog',
-  }
+  })
 }
 
 function buildFullCompound(c) {
@@ -1146,7 +1172,6 @@ function buildFullCompound(c) {
   }
   if (c.em) {
     const raw = makeSpectrum(c.em.peaks, c.em.xMin, c.em.xMax)
-    // normalize emission heights already ~1
     const maxY = Math.max(...raw.map((p) => p[1]), 1e-9)
     const norm = raw.map(([x, y]) => [x, Math.round((y / maxY) * 1000) / 1000])
     spectra.push({
@@ -1168,7 +1193,7 @@ function buildFullCompound(c) {
     })
   }
 
-  return {
+  return attachVibrationalSpectra({
     id: c.id,
     name: c.name,
     synonyms: c.synonyms || [],
@@ -1193,7 +1218,7 @@ function buildFullCompound(c) {
       raman: false,
     },
     tier: 'full',
-  }
+  })
 }
 
 function toIndexEntry(c) {
@@ -1222,25 +1247,39 @@ function toIndexEntry(c) {
 ensureDir(compoundsDir)
 
 const fullCompounds = FULL.map(buildFullCompound)
-const stubCompounds = STUBS.map(stubToEntry)
+const stubCompounds = [...STUBS, ...EXTRA_STUBS].map(stubToEntry)
 
 // Avoid duplicate ids if stub overlaps full
 const fullIds = new Set(fullCompounds.map((c) => c.id))
 const stubsFiltered = stubCompounds.filter((c) => !fullIds.has(c.id))
+// de-dupe stubs by id
+const seen = new Set()
+const stubsUnique = []
+for (const c of stubsFiltered) {
+  if (seen.has(c.id)) continue
+  seen.add(c.id)
+  stubsUnique.push(c)
+}
 
-const all = [...fullCompounds, ...stubsFiltered]
+const all = [...fullCompounds, ...stubsUnique]
 
 for (const c of all) {
   fs.writeFileSync(path.join(compoundsDir, `${c.id}.json`), JSON.stringify(c))
 }
 
+const withUv = all.filter((c) => c.availability.uvvis_abs).length
+const withIr = all.filter((c) => c.availability.ir).length
+const withRaman = all.filter((c) => c.availability.raman).length
+
 const index = {
-  version: '0.1.0',
+  version: '0.3.0',
   generated_at: new Date().toISOString(),
   counts: {
     total: all.length,
-    full_spectra: fullCompounds.length,
-    catalog_only: stubsFiltered.length,
+    full_spectra: withUv,
+    with_ir: withIr,
+    with_raman: withRaman,
+    catalog_only: all.filter((c) => !c.availability.uvvis_abs).length,
   },
   families: Object.entries(FAMILIES).map(([id, label]) => ({
     id,
@@ -1253,5 +1292,5 @@ const index = {
 fs.writeFileSync(path.join(outRoot, 'index.json'), JSON.stringify(index))
 
 console.log(
-  `Dataset built: ${all.length} molecules (${fullCompounds.length} full UV–Vis, ${stubsFiltered.length} catalog) → public/dataset/`,
+  `Dataset built: ${all.length} molecules (UV ${withUv}, IR ${withIr}, Raman ${withRaman}) → public/dataset/`,
 )
