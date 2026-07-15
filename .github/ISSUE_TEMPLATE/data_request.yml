@@ -1,0 +1,42 @@
+name: Data request
+description: Request a compound, technique, or catalog expansion (not a ready seed yet).
+title: "[data] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this when you want BandAtlas to cover a molecule but do not yet have a full teaching seed.
+        For a ready multi-Gaussian proposal, use **UV teaching curve** instead.
+  - type: input
+    id: name
+    attributes:
+      label: Compound name
+      placeholder: e.g. Nile Red
+    validations:
+      required: true
+  - type: input
+    id: identifiers
+    attributes:
+      label: Identifiers (CAS / PubChem CID / SMILES if known)
+  - type: checkboxes
+    id: want
+    attributes:
+      label: What would help most?
+      options:
+        - label: Full UV–Vis teaching envelope
+        - label: IR / Raman teaching envelope (catalog is often enough)
+        - label: Lab set inclusion (requires full UV)
+        - label: Experimental open series (only with redistribution rights)
+  - type: textarea
+    id: why
+    attributes:
+      label: Teaching / lab context
+      description: Undergrad lab? Photochem course? Portfolio demo?
+    validations:
+      required: true
+  - type: textarea
+    id: refs
+    attributes:
+      label: λ_max or literature pointers (if any)
+      description: Handbooks, DOI, PhotochemCAD-style tables — optional but helpful

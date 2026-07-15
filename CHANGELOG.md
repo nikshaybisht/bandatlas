@@ -1,5 +1,12 @@
 # Changelog
 
+## [Unreleased]
+
+### Docs / contributors
+- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) — dataset → index → UI data flow
+- Issue templates: bug, data request, UV teaching curve; CODEOWNERS
+- CONTRIBUTING.md: `npm run ci` + seed workflow; README good-first-issue blurb + badge
+
 ## [0.13.0] — 2026-07-16
 
 ### Export for lab notes

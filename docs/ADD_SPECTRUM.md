@@ -2,9 +2,11 @@
 
 BandAtlas UV curves are **teaching envelopes**: multi-Gaussian shapes constrained to literature λ<sub>max</sub>. They are **not** instrument digitizations. Do not label them experimental.
 
+**You do not need to know the whole codebase.** This page is the complete path for a first UV seed PR.
+
 **Forbidden:** inventing “experimental” instrument files or scraping copyrighted digitizations without redistribution rights. Real open experimental series use [`data/experimental/`](../data/experimental/README.md) only.
 
-The dataset under `public/dataset/` is the app **backend**: `npm run dataset` builds index/summary/compound JSON and **fails** if schema validation rejects a record (`tools/validate-dataset.mjs`).
+The dataset under `public/dataset/` is the app **backend**: `npm run dataset` builds index/summary/compound JSON and **fails** if schema validation rejects a record (`tools/validate-dataset.mjs`). Data flow overview: [ARCHITECTURE.md](ARCHITECTURE.md).
 
 ---
 

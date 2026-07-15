@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Live demo
+    url: https://nikshaybisht.github.io/bandatlas/
+    about: Try the app before filing a data request.
+  - name: Add a UV teaching seed (docs)
+    url: https://github.com/nikshaybisht/bandatlas/blob/main/docs/ADD_SPECTRUM.md
+    about: 15-minute contributor guide for teaching envelopes.

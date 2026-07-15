@@ -12,6 +12,7 @@
 [![CI](https://github.com/nikshaybisht/bandatlas/actions/workflows/ci.yml/badge.svg)](https://github.com/nikshaybisht/bandatlas/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![Author](https://img.shields.io/badge/author-Nikshay%20Bisht-0B3D91.svg)](https://github.com/nikshaybisht)
+[![Good first issues](https://img.shields.io/github/issues/nikshaybisht/bandatlas/good%20first%20issue?label=good%20first%20issues)](https://github.com/nikshaybisht/bandatlas/labels/good%20first%20issue)
 
 <p align="center">
   <img src="docs/images/screenshot-uvvis.png" alt="BandAtlas — UV–Vis (dark) with emission and colour band" width="860" />
@@ -26,6 +27,22 @@
 <p align="center">
   <img src="docs/images/screenshot-light.png" alt="BandAtlas light theme" width="860" />
 </p>
+
+---
+
+## Contribute (good first issues)
+
+Outsiders can add a **UV teaching seed** or file a bug **without reading the whole repo**:
+
+| | |
+|---|---|
+| **15-min UV seed** | [docs/ADD_SPECTRUM.md](docs/ADD_SPECTRUM.md) |
+| **Architecture (data flow)** | [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) |
+| **How to open a PR** | [CONTRIBUTING.md](CONTRIBUTING.md) — always run `npm run ci` |
+| **Good first issues** | [github.com/nikshaybisht/bandatlas/labels/good first issue](https://github.com/nikshaybisht/bandatlas/labels/good%20first%20issue) |
+| **Issue templates** | Bug · Data request · UV teaching curve |
+
+Teaching envelopes only unless you have open redistribution rights for experimental series.
 
 ---
 
