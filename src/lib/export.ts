@@ -3,6 +3,7 @@ import type { Compound, Spectrum, TechniqueTab } from '../types'
 export function spectrumToCsv(spectrum: Spectrum, compound: Compound): string {
   const unitX =
     spectrum.technique === 'ir' || spectrum.technique === 'raman' ? 'cm-1' : 'nm'
+  const quality = spectrum.quality || 'teaching'
   const header = [
     `# BandAtlas export`,
     `# compound: ${compound.name}`,
@@ -10,10 +11,13 @@ export function spectrumToCsv(spectrum: Spectrum, compound: Compound): string {
     `# CAS: ${compound.cas || 'n/a'}`,
     `# formula: ${compound.formula || 'n/a'}`,
     `# technique: ${spectrum.technique}`,
+    `# quality: ${quality}${spectrum.example_not_for_citation ? ' (example-not-for-citation)' : ''}`,
     `# solvent_or_conditions: ${spectrum.solvent || 'n/a'}`,
+    `# temperature_K: ${spectrum.temperature_K ?? 'n/a'}`,
     `# y_unit: ${spectrum.y_unit_label}`,
     `# quality_note: ${spectrum.source?.note || 'see source'}`,
     `# source: ${(spectrum.source?.citation || '').replace(/\n/g, ' ')}`,
+    `# doi: ${spectrum.source?.doi || 'n/a'}`,
     `# exported: ${new Date().toISOString()}`,
     `x_${unitX},y`,
   ]

@@ -30,13 +30,15 @@ npm run build
 3. Spot-check the compound page (spectrum, provenance note, 3D).
 4. Document any new literature sources in `public/dataset/references.json`.
 
-## Experimental spectra (preferred long-term)
+## Experimental spectra
 
-If you have redistribution rights to a digitised series:
+If you have **clear redistribution rights** to a digitised series:
 
-- Store raw points under `data/raw/` (not necessarily in git if large; document the license).
-- Convert in the build pipeline to the compound JSON schema.
-- Set `source.note` to something like `experimental digitization` and include DOI/instrument/solvent/temperature.
+1. Add `data/experimental/<id>.json` with `quality: "experimental"`, solvent, citation, DOI or URL, and `display_points` (see `data/experimental/README.md` and [docs/methodology.md](docs/methodology.md)).
+2. Run `npm run dataset` and confirm the UI badge is **Experimental** (not Teaching).
+3. **Never** set `quality: "experimental"` on multi-Gaussian teaching envelopes.
+
+Schema tooling demo: `schema-example.json` uses `example_not_for_citation: true` and must not be cited as data.
 
 ## Code style
 

@@ -3119,7 +3119,9 @@ function buildFullCompound(c) {
       id: `${c.id}-abs`,
       technique: 'uvvis_abs',
       kind: 'absorption',
+      quality: 'teaching',
       solvent: c.abs.solvent,
+      ...(c.abs.temperature_K != null ? { temperature_K: c.abs.temperature_K } : {}),
       y_unit: 'epsilon',
       y_unit_label: 'ε / M⁻¹ cm⁻¹',
       lambda_max_nm: c.abs.lambda_max_nm,
@@ -3143,7 +3145,9 @@ function buildFullCompound(c) {
       id: `${c.id}-em`,
       technique: 'fluorescence',
       kind: 'emission',
+      quality: 'teaching',
       solvent: c.em.solvent,
+      ...(c.em.temperature_K != null ? { temperature_K: c.em.temperature_K } : {}),
       y_unit: 'normalized',
       y_unit_label: 'Relative intensity',
       lambda_max_nm: c.em.lambda_max_nm,
@@ -3190,8 +3194,18 @@ function buildFullCompound(c) {
   })
 }
 
+function isExperimentalSpectrum(s) {
+  return s && s.quality === 'experimental' && !s.example_not_for_citation
+}
+
+function isExperimentalExampleSpectrum(s) {
+  return s && s.quality === 'experimental' && !!s.example_not_for_citation
+}
+
 function toIndexEntry(c) {
-  const abs = c.spectra.find((s) => s.technique === 'uvvis_abs')
+  const abs =
+    c.spectra.find((s) => s.technique === 'uvvis_abs' && isExperimentalSpectrum(s)) ||
+    c.spectra.find((s) => s.technique === 'uvvis_abs')
   return {
     id: c.id,
     name: c.name,
@@ -3208,9 +3222,115 @@ function toIndexEntry(c) {
     has_fluorescence: !!c.availability.fluorescence,
     has_ir: !!c.availability.ir,
     has_raman: !!c.availability.raman,
+    has_experimental: c.spectra.some(isExperimentalSpectrum),
+    has_experimental_example: c.spectra.some(isExperimentalExampleSpectrum),
     lambda_max_nm: abs?.lambda_max_nm || [],
     solvents: [...new Set(c.spectra.map((s) => s.solvent).filter(Boolean))],
   }
+}
+
+/**
+ * Merge open experimental series from data/experimental/*.json
+ * (see docs/methodology.md). Never promotes teaching → experimental.
+ */
+function loadExperimentalOverlays() {
+  const expDir = path.join(__dirname, '..', 'data', 'experimental')
+  if (!fs.existsSync(expDir)) return []
+  const files = fs
+    .readdirSync(expDir)
+    .filter((f) => f.endsWith('.json') && !f.startsWith('_'))
+    .sort()
+  const overlays = []
+  for (const file of files) {
+    const raw = JSON.parse(fs.readFileSync(path.join(expDir, file), 'utf8'))
+    overlays.push({ file, ...raw })
+  }
+  return overlays
+}
+
+function applyExperimentalOverlay(allById, overlay) {
+  const sid = overlay.compound_id || overlay.compound?.id
+  if (!sid) throw new Error(`experimental overlay ${overlay.file}: missing compound_id`)
+  let compound = allById.get(sid)
+  if (!compound && overlay.create_if_missing && overlay.compound) {
+    compound = {
+      ...overlay.compound,
+      id: sid,
+      family_label: FAMILIES[overlay.compound.family] || overlay.compound.family_label || overlay.compound.family,
+      structure: overlay.compound.structure || { pubchem_3d: true },
+      spectra: [],
+      photophysics: overlay.compound.photophysics || {},
+      availability: {
+        uvvis_abs: false,
+        fluorescence: false,
+        ir: false,
+        raman: false,
+      },
+      tier: 'catalog',
+    }
+    compound = attachVibrationalSpectra(compound)
+    allById.set(sid, compound)
+  }
+  if (!compound) {
+    throw new Error(`experimental overlay ${overlay.file}: unknown compound_id ${sid}`)
+  }
+
+  const spectrum = overlay.spectrum
+  if (!spectrum || spectrum.quality !== 'experimental') {
+    throw new Error(
+      `experimental overlay ${overlay.file}: spectrum.quality must be "experimental" (never relabel teaching)`,
+    )
+  }
+  if (!spectrum.source?.citation) {
+    throw new Error(`experimental overlay ${overlay.file}: source.citation required`)
+  }
+  if (!spectrum.source?.doi && !spectrum.source?.url) {
+    throw new Error(`experimental overlay ${overlay.file}: source.doi or source.url required`)
+  }
+  if (!Array.isArray(spectrum.display_points) || spectrum.display_points.length < 5) {
+    throw new Error(`experimental overlay ${overlay.file}: display_points must have ≥5 points`)
+  }
+
+  const built = {
+    id: spectrum.id || `${sid}-${spectrum.technique || 'uvvis_abs'}-exp`,
+    technique: spectrum.technique || 'uvvis_abs',
+    kind: spectrum.kind || 'absorption',
+    quality: 'experimental',
+    ...(spectrum.example_not_for_citation ? { example_not_for_citation: true } : {}),
+    solvent: spectrum.solvent,
+    ...(spectrum.temperature_K != null ? { temperature_K: spectrum.temperature_K } : {}),
+    y_unit: spectrum.y_unit || 'normalized',
+    y_unit_label: spectrum.y_unit_label || 'Relative intensity',
+    lambda_max_nm: spectrum.lambda_max_nm,
+    epsilon_max: spectrum.epsilon_max,
+    plain_caption: spectrum.plain_caption || 'Experimental series (see source).',
+    display_points: spectrum.display_points,
+    source: {
+      citation: spectrum.source.citation,
+      license: spectrum.source.license || 'see source',
+      note: spectrum.source.note || (spectrum.example_not_for_citation ? 'example-not-for-citation' : 'experimental'),
+      ...(spectrum.source.doi ? { doi: spectrum.source.doi } : {}),
+      ...(spectrum.source.url ? { url: spectrum.source.url } : {}),
+    },
+  }
+
+  // Prefer experimental UV–Vis as the primary abs series when present (keep teaching IR/Raman).
+  if (built.technique === 'uvvis_abs') {
+    compound.spectra = compound.spectra.filter((s) => s.technique !== 'uvvis_abs')
+    compound.spectra.unshift(built)
+  } else {
+    compound.spectra = compound.spectra.filter((s) => s.id !== built.id)
+    compound.spectra.push(built)
+  }
+
+  compound.availability = {
+    uvvis_abs: compound.spectra.some((s) => s.technique === 'uvvis_abs'),
+    fluorescence: compound.spectra.some((s) => s.technique === 'fluorescence'),
+    ir: compound.spectra.some((s) => s.technique === 'ir'),
+    raman: compound.spectra.some((s) => s.technique === 'raman'),
+  }
+  if (compound.availability.uvvis_abs) compound.tier = 'full'
+  allById.set(sid, compound)
 }
 
 ensureDir(compoundsDir)
@@ -3230,7 +3350,13 @@ for (const c of stubsFiltered) {
   stubsUnique.push(c)
 }
 
-const all = [...fullCompounds, ...stubsUnique]
+const allById = new Map()
+for (const c of [...fullCompounds, ...stubsUnique]) allById.set(c.id, c)
+
+const experimentalOverlays = loadExperimentalOverlays()
+for (const ov of experimentalOverlays) applyExperimentalOverlay(allById, ov)
+
+const all = [...allById.values()]
 
 for (const c of all) {
   fs.writeFileSync(path.join(compoundsDir, `${c.id}.json`), JSON.stringify(c))
@@ -3239,9 +3365,11 @@ for (const c of all) {
 const withUv = all.filter((c) => c.availability.uvvis_abs).length
 const withIr = all.filter((c) => c.availability.ir).length
 const withRaman = all.filter((c) => c.availability.raman).length
+const withExperimental = all.filter((c) => c.spectra.some(isExperimentalSpectrum)).length
+const withExpExamples = all.filter((c) => c.spectra.some(isExperimentalExampleSpectrum)).length
 
 const index = {
-  version: '0.6.1',
+  version: '0.7.0',
   generated_at: new Date().toISOString(),
   counts: {
     total: all.length,
@@ -3249,6 +3377,8 @@ const index = {
     with_ir: withIr,
     with_raman: withRaman,
     catalog_only: all.filter((c) => !c.availability.uvvis_abs).length,
+    experimental: withExperimental,
+    experimental_examples: withExpExamples,
   },
   families: Object.entries(FAMILIES).map(([id, label]) => ({
     id,
@@ -3268,11 +3398,15 @@ const summary = {
   ir: withIr,
   raman: withRaman,
   catalog_only: index.counts.catalog_only,
+  experimental: withExperimental,
+  experimental_examples: withExpExamples,
 }
 fs.writeFileSync(path.join(outRoot, 'summary.json'), JSON.stringify(summary, null, 2) + '\n')
 
 console.log(
   `Dataset built: ${all.length} molecules (UV ${withUv}, IR ${withIr}, Raman ${withRaman}) → public/dataset/`,
 )
-console.log(`  full UV–Vis teaching curves: ${withUv}`)
+console.log(`  full UV–Vis curves: ${withUv} (teaching + any experimental overlays)`)
+console.log(`  experimental (real): ${withExperimental}`)
+console.log(`  experimental schema examples: ${withExpExamples}`)
 console.log(`  catalog / IR–Raman only: ${index.counts.catalog_only}`)

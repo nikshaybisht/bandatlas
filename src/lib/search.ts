@@ -15,6 +15,8 @@ export function buildSearchIndex(compounds: IndexCompound[]) {
       'tier',
       'has_uvvis',
       'has_fluorescence',
+      'has_experimental',
+      'has_experimental_example',
       'lambda_max_nm',
       'pubchem_cid',
     ],

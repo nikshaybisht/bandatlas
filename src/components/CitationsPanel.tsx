@@ -22,6 +22,16 @@ const BACKGROUND_IDS = [
   'braslavsky2007',
 ]
 
+function seriesQualityLine(s: Spectrum) {
+  if (s.quality === 'experimental' && s.example_not_for_citation) {
+    return 'Schema example (synthetic). Not measured — do not cite as experimental data.'
+  }
+  if (s.quality === 'experimental') {
+    return 'Experimental series (open redistribution). Prefer the DOI/URL below for publication SI.'
+  }
+  return 'Teaching / model series (not a raw instrument file). Use primary literature for experimental values.'
+}
+
 export function CitationsPanel({ compound, activeSpectrum }: Props) {
   const [open, setOpen] = useState(false)
   const [refs, setRefs] = useState<Reference[]>([])
@@ -49,22 +59,60 @@ export function CitationsPanel({ compound, activeSpectrum }: Props) {
           <p className="cite-lead">
             <strong>How to cite a spectrum.</strong> Prefer the{' '}
             <em>primary experimental source</em> (paper or database) for the numbers you report.
-            BandAtlas is a viewer / teaching packaging layer — if a series is a teaching envelope,
-            do not treat it as measured data in a paper.
+            BandAtlas is a viewer / packaging layer. Teaching envelopes must not be treated as
+            measured data.
           </p>
 
           {activeSpectrum?.source && (
             <div className="provenance-box">
               <div className="prov-label">This series</div>
               <p>
-                {/teaching|educational|multi-Gaussian|envelope/i.test(
-                  `${activeSpectrum.source.note || ''} ${activeSpectrum.source.citation || ''}`,
-                )
-                  ? 'Teaching / model series (not a raw instrument file). Use primary literature for experimental values.'
-                  : activeSpectrum.source.citation}
+                <span
+                  className={`inline-quality ${
+                    activeSpectrum.quality === 'experimental'
+                      ? activeSpectrum.example_not_for_citation
+                        ? 'example'
+                        : 'experimental'
+                      : 'teaching'
+                  }`}
+                >
+                  {activeSpectrum.quality === 'experimental' &&
+                  activeSpectrum.example_not_for_citation
+                    ? 'Schema example'
+                    : activeSpectrum.quality === 'experimental'
+                      ? 'Experimental'
+                      : 'Teaching envelope'}
+                </span>
               </p>
+              <p>{seriesQualityLine(activeSpectrum)}</p>
+              <p>{activeSpectrum.source.citation}</p>
+              {activeSpectrum.solvent && (
+                <p className="prov-note">Solvent / conditions: {activeSpectrum.solvent}</p>
+              )}
+              {activeSpectrum.temperature_K != null && (
+                <p className="prov-note">T = {activeSpectrum.temperature_K} K</p>
+              )}
+              {activeSpectrum.source.doi && (
+                <p className="prov-note">
+                  DOI:{' '}
+                  <a href={doiUrl(activeSpectrum.source.doi)} target="_blank" rel="noreferrer">
+                    {activeSpectrum.source.doi}
+                  </a>
+                </p>
+              )}
+              {activeSpectrum.source.url && (
+                <p className="prov-note">
+                  URL:{' '}
+                  <a href={activeSpectrum.source.url} target="_blank" rel="noreferrer">
+                    {activeSpectrum.source.url}
+                  </a>
+                </p>
+              )}
               {activeSpectrum.source.license && (
                 <p className="prov-note">License: {activeSpectrum.source.license}</p>
+              )}
+              {activeSpectrum.source.note && (
+                <p className="prov-note">Note: {activeSpectrum.source.note}</p>
               )}
             </div>
           )}

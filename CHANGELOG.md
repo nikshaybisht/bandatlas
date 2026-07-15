@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.7.0] — 2026-07-16
+
+### Added
+- Per-spectrum **`quality`**: `teaching` | `experimental` (plus optional `example_not_for_citation`, `temperature_K`)
+- UI badges: **Experimental** / **Teaching envelope** / **Schema example**
+- Filter: **Experimental only** (excludes schema demos)
+- Ingest path: `data/experimental/*.json` merged by `npm run dataset`
+- Schema demo compound `schema-example-uv` (synthetic, **not for citation**)
+- Tests: `tests/experimental.test.mjs` + fixture validating experimental schema
+- Methodology: how to add open experimental series; what is forbidden
+
+### Changed
+- Version **0.7.0**; teaching envelopes remain `quality: teaching` (never relabeled)
+- CSV export includes quality, temperature, DOI
+- Index/summary counts: `experimental`, `experimental_examples`
+
 ## [0.6.1] — 2026-07-16
 
 ### Added

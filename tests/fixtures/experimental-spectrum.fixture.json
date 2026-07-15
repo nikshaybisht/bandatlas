@@ -1,0 +1,26 @@
+{
+  "id": "fixture-exp-abs",
+  "technique": "uvvis_abs",
+  "kind": "absorption",
+  "quality": "experimental",
+  "solvent": "water",
+  "temperature_K": 298,
+  "y_unit": "normalized",
+  "y_unit_label": "Relative absorbance",
+  "lambda_max_nm": [500],
+  "plain_caption": "Test fixture experimental series.",
+  "display_points": [
+    [450, 0.1],
+    [480, 0.5],
+    [500, 1.0],
+    [520, 0.5],
+    [550, 0.1],
+    [580, 0.05]
+  ],
+  "source": {
+    "citation": "Fixture citation for schema tests only.",
+    "doi": "10.0000/bandatlas.fixture",
+    "license": "CC0-1.0",
+    "note": "experimental"
+  }
+}

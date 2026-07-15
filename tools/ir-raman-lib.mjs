@@ -254,6 +254,7 @@ export function buildIrSpectrum(id, family, formula) {
       ? `IR fingerprint: ${labels}. Peaks mark how bonds stretch and bend.`
       : 'IR spectrum shows which bond vibrations absorb infrared light (teaching envelope).',
     display_points: downsample(raw, 700),
+    quality: 'teaching',
     source: {
       citation:
         'Educational multi-Gaussian IR envelope from typical functional-group wavenumbers (not a raw FTIR file).',
@@ -285,6 +286,7 @@ export function buildRamanSpectrum(id, family) {
       ? `Raman shifts: ${labels}. Raman highlights polarizable bonds (teaching envelope).`
       : 'Raman spectrum is a vibrational fingerprint via light scattering (teaching envelope).',
     display_points: downsample(raw, 700),
+    quality: 'teaching',
     source: {
       citation:
         'Educational multi-Gaussian Raman envelope from typical shifts (not a raw spectrometer file).',

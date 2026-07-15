@@ -39,7 +39,8 @@ BandAtlas is a static web client for browsing common small molecules and their s
 | **Structures** | Ball-and-stick 3D via PubChem conformers |
 | **Compare** | Overlay a second compound on the same technique |
 | **Export** | CSV / JSON for notebooks; figure card PNG; BibTeX stub |
-| **Filters** | “Has full UV–Vis” — only compounds with a curated teaching curve |
+| **Filters** | “Has full UV–Vis”; “Experimental only” (open instrument series) |
+| **Quality** | Per-spectrum `teaching` vs `experimental` badges (never mixed up) |
 | **Provenance** | Source notes and core literature DOIs in the UI |
 
 Layout and photochemical metadata conventions are inspired by [PhotochemCAD](https://www.photochemcad.com/) (Lindsey *et al.*). BandAtlas is an **independent** project and is **not affiliated** with PhotochemCAD.
@@ -89,13 +90,15 @@ Counts come from `npm run dataset` (also written to `public/dataset/summary.json
 
 | Content | Count |
 |---------|------:|
-| Searchable compounds | ~494 |
-| Full UV–Vis teaching curves | **102** |
-| IR teaching envelopes | all majors (~494) |
-| Raman teaching envelopes | all majors (~494) |
+| Searchable compounds | ~496 |
+| Full UV–Vis curves | **~103** (mostly teaching) |
+| Real experimental series | **0** until open data is contributed |
+| Schema demo (not for citation) | 1 (`schema-example-uv`) |
+| IR / Raman teaching envelopes | all majors |
 
-- **Full UV–Vis:** multi-Gaussian teaching envelopes (Tier A) with literature λ<sub>max</sub>.  
-- **Catalog / partial:** searchable identity + teaching IR/Raman; no full UV curve yet.  
+- **Teaching UV–Vis:** multi-Gaussian envelopes (Tier A) with literature λ<sub>max</sub>.  
+- **Experimental:** open-redistribution instrument series via `data/experimental/` (see methodology).  
+- **Catalog / partial:** identity + teaching IR/Raman only.  
 
 Identities and 3D models: **PubChem**. Spectral construction: [docs/methodology.md](docs/methodology.md).
 
@@ -130,7 +133,7 @@ CHANGELOG.md
 If BandAtlas helped your teaching material or analysis workflow:
 
 ```
-Bisht, N. (2026). BandAtlas (v0.6.1) [Computer software].
+Bisht, N. (2026). BandAtlas (v0.7.0) [Computer software].
 https://github.com/nikshaybisht/bandatlas
 Live demo: https://nikshaybisht.github.io/bandatlas/
 ```

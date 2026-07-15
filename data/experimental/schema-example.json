@@ -1,0 +1,50 @@
+{
+  "compound_id": "schema-example-uv",
+  "create_if_missing": true,
+  "compound": {
+    "id": "schema-example-uv",
+    "name": "Schema example (not for citation)",
+    "synonyms": ["example-not-for-citation", "BandAtlas experimental schema demo"],
+    "family": "aromatic-hydrocarbons",
+    "cas": "",
+    "formula": "C6H6",
+    "mw": 78.11,
+    "smiles": "c1ccccc1",
+    "pubchem_cid": 241,
+    "plain_summary": "Synthetic UV–Vis series that exercises the experimental quality schema only. NOT measured laboratory data — do not cite as a spectrum source."
+  },
+  "spectrum": {
+    "id": "schema-example-uv-abs-exp",
+    "technique": "uvvis_abs",
+    "kind": "absorption",
+    "quality": "experimental",
+    "example_not_for_citation": true,
+    "solvent": "synthetic demo (not a real solvent condition)",
+    "temperature_K": 298,
+    "y_unit": "normalized",
+    "y_unit_label": "Relative absorbance (synthetic)",
+    "lambda_max_nm": [254, 204],
+    "plain_caption": "Schema demo curve (synthetic points). Example only — not for citation.",
+    "display_points": [
+      [200, 0.05],
+      [204, 0.85],
+      [210, 0.4],
+      [220, 0.15],
+      [230, 0.08],
+      [240, 0.12],
+      [250, 0.55],
+      [254, 1.0],
+      [260, 0.45],
+      [270, 0.12],
+      [280, 0.05],
+      [290, 0.03],
+      [300, 0.02]
+    ],
+    "source": {
+      "citation": "BandAtlas synthetic multi-point series for experimental-schema validation only. NOT an instrument digitization. Do not cite as experimental data.",
+      "url": "https://github.com/nikshaybisht/bandatlas/blob/main/data/experimental/schema-example.json",
+      "license": "CC0-1.0",
+      "note": "example-not-for-citation"
+    }
+  }
+}

@@ -1,7 +1,7 @@
 {
   "name": "bandatlas",
   "private": false,
-  "version": "0.6.1",
+  "version": "0.7.0",
   "description": "BandAtlas — working atlas of small-molecule UV–Vis, IR & Raman bands",
   "keywords": [
     "spectroscopy",
@@ -27,8 +27,8 @@
     "dataset": "node tools/build-dataset.mjs",
     "dev": "vite",
     "build": "npm run dataset && tsc -b && vite build",
-    "test": "npm run dataset && node --test tests/dataset.test.mjs",
-    "ci": "npm run dataset && node --test tests/dataset.test.mjs && tsc -b && vite build",
+    "test": "npm run dataset && node --test tests/dataset.test.mjs tests/experimental.test.mjs",
+    "ci": "npm run dataset && node --test tests/dataset.test.mjs tests/experimental.test.mjs && tsc -b && vite build",
     "lint": "oxlint",
     "preview": "vite preview",
     "screenshots": "node tools/capture-screenshots.mjs"

@@ -6,33 +6,72 @@ interface Props {
   technique: TechniqueTab
 }
 
+function spectrumQualityClass(s?: Spectrum | null) {
+  if (!s) return 'catalog'
+  if (s.quality === 'experimental' && s.example_not_for_citation) return 'example'
+  if (s.quality === 'experimental') return 'experimental'
+  return 'teaching'
+}
+
+function spectrumQualityLabel(s?: Spectrum | null) {
+  if (!s) {
+    return 'No curve'
+  }
+  if (s.quality === 'experimental' && s.example_not_for_citation) {
+    return 'Schema example'
+  }
+  if (s.quality === 'experimental') return 'Experimental'
+  return 'Teaching envelope'
+}
+
 export function PropertyCard({ compound, activeSpectrum, technique }: Props) {
   const abs = compound.spectra.find((s) => s.technique === 'uvvis_abs')
   const em = compound.spectra.find((s) => s.technique === 'fluorescence')
   const solvent = activeSpectrum?.solvent || abs?.solvent
+  const qualityTarget = activeSpectrum || abs
+  const hasRealExperimental = compound.spectra.some(
+    (s) => s.quality === 'experimental' && !s.example_not_for_citation,
+  )
+  const hasExample = compound.spectra.some(
+    (s) => s.quality === 'experimental' && s.example_not_for_citation,
+  )
 
   return (
     <div className="property-card">
       <div className="prop-header">
         <h2>{compound.name}</h2>
-        <span className={`tier-badge ${compound.tier === 'full' ? 'full' : 'catalog'}`}>
-          {compound.tier === 'full'
-            ? 'Full UV–Vis (teaching)'
-            : compound.tier === 'partial'
-              ? 'Catalog / partial'
-              : 'Catalog / partial'}
-        </span>
+        <div className="badge-stack">
+          <span className={`tier-badge ${spectrumQualityClass(qualityTarget)}`}>
+            {spectrumQualityLabel(qualityTarget)}
+          </span>
+          {compound.tier === 'full' && qualityTarget?.quality !== 'experimental' && (
+            <span className="tier-badge full">Full UV–Vis</span>
+          )}
+          {compound.tier !== 'full' && !abs && (
+            <span className="tier-badge catalog">Catalog / partial</span>
+          )}
+        </div>
       </div>
       <p className="family-badge">{compound.family_label}</p>
       <p className="summary">{compound.plain_summary}</p>
-      {compound.tier === 'full' ? (
+      {hasRealExperimental ? (
         <p className="quality-note">
-          UV–Vis curve is a multi-Gaussian teaching envelope (literature λ<sub>max</sub>), not a
-          certified instrument trace.
+          This record includes an <strong>experimental</strong> series (open redistribution). Still
+          verify the primary DOI/URL before quantitative use.
+        </p>
+      ) : hasExample ? (
+        <p className="quality-note">
+          Schema <strong>example</strong> only — synthetic points for tooling. Not measured data;
+          do not cite as a spectrum.
+        </p>
+      ) : compound.tier === 'full' ? (
+        <p className="quality-note">
+          UV–Vis curve is a multi-Gaussian <strong>teaching envelope</strong> (literature λ
+          <sub>max</sub>), not a certified instrument trace.
         </p>
       ) : (
         <p className="quality-note">
-          No full UV–Vis teaching curve yet. IR/Raman are group-frequency teaching envelopes.
+          No full UV–Vis curve yet. IR/Raman are group-frequency teaching envelopes.
         </p>
       )}
 
@@ -74,6 +113,12 @@ export function PropertyCard({ compound, activeSpectrum, technique }: Props) {
                 ? ` (${technique.toUpperCase()})`
                 : ''}
             </dd>
+          </div>
+        )}
+        {activeSpectrum?.temperature_K != null && (
+          <div>
+            <dt>T</dt>
+            <dd>{activeSpectrum.temperature_K} K</dd>
           </div>
         )}
         {abs?.lambda_max_nm?.length ? (

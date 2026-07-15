@@ -2,7 +2,7 @@
  * Pure helpers shared by tests (and documented contracts for the UI/export).
  */
 
-/** Index / compound entry has a full UV–Vis teaching curve. */
+/** Index / compound entry has a full UV–Vis curve (teaching or experimental). */
 export function hasFullUvVis(entry) {
   if (!entry || typeof entry !== 'object') return false
   if (typeof entry.has_uvvis === 'boolean') return entry.has_uvvis
@@ -25,8 +25,63 @@ export function hasSearchKeyFields(entry) {
 }
 
 /**
+ * Validate per-spectrum experimental quality schema.
+ * Teaching spectra must not claim quality experimental.
+ */
+export function validateExperimentalSpectrum(spectrum) {
+  const errors = []
+  if (!spectrum || typeof spectrum !== 'object') {
+    return { ok: false, errors: ['spectrum missing'] }
+  }
+  if (spectrum.quality !== 'experimental') {
+    errors.push(`quality must be "experimental", got ${JSON.stringify(spectrum.quality)}`)
+  }
+  if (!spectrum.source || typeof spectrum.source !== 'object') {
+    errors.push('source object required')
+  } else {
+    if (!spectrum.source.citation || typeof spectrum.source.citation !== 'string') {
+      errors.push('source.citation required')
+    }
+    if (!spectrum.source.doi && !spectrum.source.url) {
+      errors.push('source.doi or source.url required')
+    }
+  }
+  if (!spectrum.solvent || typeof spectrum.solvent !== 'string') {
+    errors.push('solvent required for experimental series')
+  }
+  if (spectrum.temperature_K != null && typeof spectrum.temperature_K !== 'number') {
+    errors.push('temperature_K must be a number when present')
+  }
+  if (!Array.isArray(spectrum.display_points) || spectrum.display_points.length < 5) {
+    errors.push('display_points must be an array with ≥5 [x,y] points')
+  } else {
+    for (const pt of spectrum.display_points.slice(0, 3)) {
+      if (!Array.isArray(pt) || pt.length < 2 || typeof pt[0] !== 'number' || typeof pt[1] !== 'number') {
+        errors.push('display_points entries must be [number, number]')
+        break
+      }
+    }
+  }
+  if (spectrum.example_not_for_citation != null && typeof spectrum.example_not_for_citation !== 'boolean') {
+    errors.push('example_not_for_citation must be boolean when set')
+  }
+  return { ok: errors.length === 0, errors }
+}
+
+/** Teaching spectra must never be labeled experimental. */
+export function assertTeachingNotExperimental(spectrum) {
+  if (!spectrum) return true
+  if (spectrum.quality === 'experimental' && !spectrum.example_not_for_citation) {
+    // real experimental is fine
+    return true
+  }
+  if (spectrum.quality === 'teaching') return true
+  if (spectrum.quality === 'experimental' && spectrum.example_not_for_citation) return true
+  return spectrum.quality === 'teaching' || spectrum.quality === 'experimental'
+}
+
+/**
  * CSV export contract (matches src/lib/export.ts spectrumToCsv).
- * Used so tests do not need a TS runtime.
  */
 export function csvHasRequiredMarkers(csv) {
   if (typeof csv !== 'string' || !csv.length) return false
@@ -39,7 +94,12 @@ export function csvHasRequiredMarkers(csv) {
 }
 
 /** Build a minimal CSV string matching export.ts shape (for unit tests). */
-export function buildSampleCsv({ name = 'Benzene', technique = 'uvvis_abs', unitX = 'nm' } = {}) {
+export function buildSampleCsv({
+  name = 'Benzene',
+  technique = 'uvvis_abs',
+  unitX = 'nm',
+  quality = 'teaching',
+} = {}) {
   return [
     `# BandAtlas export`,
     `# compound: ${name}`,
@@ -47,6 +107,7 @@ export function buildSampleCsv({ name = 'Benzene', technique = 'uvvis_abs', unit
     `# CAS: 71-43-2`,
     `# formula: C6H6`,
     `# technique: ${technique}`,
+    `# quality: ${quality}`,
     `# solvent_or_conditions: cyclohexane`,
     `# y_unit: ε / M⁻¹ cm⁻¹`,
     `# quality_note: Tier A teaching spectrum`,
@@ -56,4 +117,13 @@ export function buildSampleCsv({ name = 'Benzene', technique = 'uvvis_abs', unit
     `254,210`,
     `255,200`,
   ].join('\n')
+}
+
+export function qualityBadgeLabel(spectrum) {
+  if (!spectrum) return 'Unknown'
+  if (spectrum.quality === 'experimental' && spectrum.example_not_for_citation) {
+    return 'Schema example'
+  }
+  if (spectrum.quality === 'experimental') return 'Experimental'
+  return 'Teaching envelope'
 }

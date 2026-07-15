@@ -208,8 +208,64 @@ body {
   border-color: rgba(94, 234, 212, 0.4);
 }
 
+.hit-badge.experimental {
+  color: #fbbf24;
+  border-color: rgba(251, 191, 36, 0.45);
+}
+
+.hit-badge.example {
+  color: #a78bfa;
+  border-color: rgba(167, 139, 250, 0.45);
+}
+
 .hit-badge.catalog {
   color: var(--muted);
+}
+
+.badge-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.25rem;
+}
+
+.tier-badge.teaching {
+  color: var(--good);
+  border-color: rgba(94, 234, 212, 0.35);
+}
+
+.tier-badge.experimental {
+  color: #fbbf24;
+  border-color: rgba(251, 191, 36, 0.4);
+}
+
+.tier-badge.example {
+  color: #a78bfa;
+  border-color: rgba(167, 139, 250, 0.4);
+}
+
+.inline-quality {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  padding: 0.1rem 0.35rem;
+  border-radius: 3px;
+  border: 1px solid var(--border);
+  margin-right: 0.35rem;
+}
+
+.inline-quality.teaching {
+  color: var(--good);
+  border-color: rgba(94, 234, 212, 0.35);
+}
+
+.inline-quality.experimental {
+  color: #fbbf24;
+  border-color: rgba(251, 191, 36, 0.4);
+}
+
+.inline-quality.example {
+  color: #a78bfa;
+  border-color: rgba(167, 139, 250, 0.4);
 }
 
 .hit-meta {

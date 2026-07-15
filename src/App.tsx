@@ -19,7 +19,14 @@ import type {
 } from './types'
 import './App.css'
 
-const APP_VERSION = '0.6.1'
+const APP_VERSION = '0.7.0'
+
+function qualityLabel(s: Spectrum | null | undefined): string {
+  if (!s) return ''
+  if (s.quality === 'experimental' && s.example_not_for_citation) return 'Schema example'
+  if (s.quality === 'experimental') return 'Experimental'
+  return 'Teaching envelope'
+}
 
 type Mode = 'simple' | 'advanced'
 
@@ -48,6 +55,7 @@ export default function App() {
   const [technique, setTechnique] = useState<TechniqueTab>('uvvis')
   const [searchOpen, setSearchOpen] = useState(false)
   const [uvOnly, setUvOnly] = useState(false)
+  const [experimentalOnly, setExperimentalOnly] = useState(false)
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
     try {
       const saved = localStorage.getItem('bandatlas-theme')
@@ -146,12 +154,12 @@ export default function App() {
   const results = useMemo(() => {
     if (!index || !searcher) return [] as IndexCompound[]
     const q = query.trim()
-    const pool = uvOnly
-      ? index.compounds.filter((c) => c.has_uvvis)
-      : index.compounds
+    let pool = index.compounds
+    if (uvOnly) pool = pool.filter((c) => c.has_uvvis)
+    if (experimentalOnly) pool = pool.filter((c) => c.has_experimental)
     if (!q) {
-      // With UV filter on and empty query, show curated full-UV hits for discovery
-      if (uvOnly) return pool.slice(0, RESULT_CAP)
+      // Filters on + empty query → discovery list
+      if (uvOnly || experimentalOnly) return pool.slice(0, RESULT_CAP)
       return []
     }
     const hits = searcher.search(q)
@@ -160,7 +168,7 @@ export default function App() {
       .map((h) => byId.get(h.id))
       .filter((c): c is IndexCompound => Boolean(c))
       .slice(0, RESULT_CAP)
-  }, [index, query, searcher, uvOnly])
+  }, [index, query, searcher, uvOnly, experimentalOnly])
 
   const select = useCallback((id: string) => {
     setSelectedId(id)
@@ -205,11 +213,15 @@ export default function App() {
               aria-label="Search compounds"
               autoComplete="off"
             />
-            {searchOpen && (query.trim() || uvOnly) && (
+            {searchOpen && (query.trim() || uvOnly || experimentalOnly) && (
               <ul className="search-dropdown" role="listbox">
                 {results.length === 0 && (
                   <li className="search-empty">
-                    {uvOnly ? 'No full UV–Vis teaching curves match' : 'No matches'}
+                    {experimentalOnly
+                      ? 'No real experimental series yet (open data only)'
+                      : uvOnly
+                        ? 'No full UV–Vis curves match'
+                        : 'No matches'}
                   </li>
                 )}
                 {results.map((c) => (
@@ -221,8 +233,24 @@ export default function App() {
                     >
                       <span className="hit-name">
                         {c.name}
+                        {c.has_experimental ? (
+                          <span className="hit-badge experimental" title="Has experimental spectrum">
+                            Exp
+                          </span>
+                        ) : c.has_experimental_example ? (
+                          <span className="hit-badge example" title="Schema example only — not for citation">
+                            Demo
+                          </span>
+                        ) : null}
                         {c.has_uvvis ? (
-                          <span className="hit-badge uv" title="Full UV–Vis teaching curve">
+                          <span
+                            className="hit-badge uv"
+                            title={
+                              c.has_experimental
+                                ? 'Full UV–Vis (includes experimental)'
+                                : 'Full UV–Vis teaching curve'
+                            }
+                          >
                             UV
                           </span>
                         ) : (
@@ -233,7 +261,11 @@ export default function App() {
                       </span>
                       <span className="hit-meta">
                         {c.formula}
-                        {c.has_uvvis ? ' · full UV–Vis (teaching)' : ' · catalog'}
+                        {c.has_experimental
+                          ? ' · experimental'
+                          : c.has_uvvis
+                            ? ' · full UV–Vis (teaching)'
+                            : ' · catalog'}
                         {c.has_ir ? ' · IR' : ''}
                         {c.has_raman ? ' · Ra' : ''}
                       </span>
@@ -266,7 +298,7 @@ export default function App() {
                   : ''}
               </span>
             )}
-            <label className="filter-chip" title="Show only compounds with a full UV–Vis teaching curve">
+            <label className="filter-chip" title="Show only compounds with a full UV–Vis curve">
               <input
                 type="checkbox"
                 checked={uvOnly}
@@ -276,6 +308,20 @@ export default function App() {
                 }}
               />
               Has full UV–Vis
+            </label>
+            <label
+              className="filter-chip"
+              title="Show only compounds with real experimental series (excludes schema demos)"
+            >
+              <input
+                type="checkbox"
+                checked={experimentalOnly}
+                onChange={(e) => {
+                  setExperimentalOnly(e.target.checked)
+                  if (e.target.checked) setSearchOpen(true)
+                }}
+              />
+              Experimental only
             </label>
             <button
               type="button"
@@ -397,9 +443,22 @@ export default function App() {
                   )}
                   {primary && (
                     <p className="quality-line" title="Data quality">
-                      {primary.source?.note || 'Teaching envelope'}
+                      <span
+                        className={`inline-quality ${
+                          primary.quality === 'experimental'
+                            ? primary.example_not_for_citation
+                              ? 'example'
+                              : 'experimental'
+                            : 'teaching'
+                        }`}
+                      >
+                        {qualityLabel(primary)}
+                      </span>
+                      {primary.solvent ? ` · solvent = ${primary.solvent}` : ''}
+                      {primary.temperature_K != null ? ` · T = ${primary.temperature_K} K` : ''}
+                      {primary.source?.note ? ` · ${primary.source.note}` : ''}
                       {compareSpec
-                        ? ' · Overlay is qualitative (teaching envelopes, not certified traces).'
+                        ? ' · Overlay is qualitative — check quality badges on each series.'
                         : ''}
                     </p>
                   )}

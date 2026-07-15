@@ -1,8 +1,10 @@
 {
-  "version": "0.6.1",
-  "total": 495,
-  "full_uvvis": 102,
-  "ir": 495,
-  "raman": 495,
-  "catalog_only": 393
+  "version": "0.7.0",
+  "total": 496,
+  "full_uvvis": 103,
+  "ir": 496,
+  "raman": 496,
+  "catalog_only": 393,
+  "experimental": 0,
+  "experimental_examples": 1
 }
