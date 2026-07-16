@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.1.1
+
+Security / integrity hardening:
+
+- Allowlist **http(s) only** for spectrum and reference links (`tools/safe-url.mjs`, `src/lib/safeUrl.ts`)
+- Dataset build rejects `javascript:` / `data:` / bad DOIs on `source.url` / `source.doi`
+- Citations panel only renders safe hrefs
+- Plot empty state uses React nodes (no `innerHTML`)
+- Schema-example compounds hidden from search browse (still via `/c/schema-example-uv`)
+- Share URLs encode compound ids; `tests/safe-url.test.mjs`
+
 ## 1.1.0
 
 Instructor page + course docs under `docs/course/`. Same app otherwise.

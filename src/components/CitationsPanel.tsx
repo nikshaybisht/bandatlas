@@ -1,10 +1,6 @@
 import { useEffect, useState } from 'react'
-import {
-  formatCitation,
-  doiUrl,
-  loadReferences,
-  type Reference,
-} from '../lib/references'
+import { formatCitation, loadReferences, type Reference } from '../lib/references'
+import { safeDoiUrl, safeHttpUrl } from '../lib/safeUrl'
 import type { Compound, Spectrum } from '../types'
 
 interface Props {
@@ -110,22 +106,28 @@ export function CitationsPanel({ compound, activeSpectrum }: Props) {
               {activeSpectrum.temperature_K != null && (
                 <p className="prov-note">T = {activeSpectrum.temperature_K} K</p>
               )}
-              {activeSpectrum.source.doi && (
-                <p className="prov-note">
-                  DOI:{' '}
-                  <a href={doiUrl(activeSpectrum.source.doi)} target="_blank" rel="noreferrer">
-                    {activeSpectrum.source.doi}
-                  </a>
-                </p>
-              )}
-              {activeSpectrum.source.url && (
-                <p className="prov-note">
-                  URL:{' '}
-                  <a href={activeSpectrum.source.url} target="_blank" rel="noreferrer">
-                    {activeSpectrum.source.url}
-                  </a>
-                </p>
-              )}
+              {(() => {
+                const doiHref = safeDoiUrl(activeSpectrum.source.doi)
+                return doiHref ? (
+                  <p className="prov-note">
+                    DOI:{' '}
+                    <a href={doiHref} target="_blank" rel="noopener noreferrer">
+                      {activeSpectrum.source.doi}
+                    </a>
+                  </p>
+                ) : null
+              })()}
+              {(() => {
+                const href = safeHttpUrl(activeSpectrum.source.url)
+                return href ? (
+                  <p className="prov-note">
+                    URL:{' '}
+                    <a href={href} target="_blank" rel="noopener noreferrer">
+                      {href}
+                    </a>
+                  </p>
+                ) : null
+              })()}
               {activeSpectrum.source.license && (
                 <p className="prov-note">License: {activeSpectrum.source.license}</p>
               )}
@@ -157,18 +159,18 @@ export function CitationsPanel({ compound, activeSpectrum }: Props) {
             {background.map((r, i) => (
               <li key={r.id}>
                 <span className="ref-num">[{i + 1}]</span> {formatCitation(r)}
-                {r.doi && (
+                {safeDoiUrl(r.doi) && (
                   <>
                     {' '}
-                    <a href={doiUrl(r.doi)} target="_blank" rel="noreferrer">
+                    <a href={safeDoiUrl(r.doi)!} target="_blank" rel="noopener noreferrer">
                       doi:{r.doi}
                     </a>
                   </>
                 )}
-                {!r.doi && r.url && (
+                {!r.doi && safeHttpUrl(r.url) && (
                   <>
                     {' '}
-                    <a href={r.url} target="_blank" rel="noreferrer">
+                    <a href={safeHttpUrl(r.url)!} target="_blank" rel="noopener noreferrer">
                       link
                     </a>
                   </>

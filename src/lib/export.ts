@@ -82,7 +82,8 @@ export function parseTechniqueParam(raw: string | null | undefined): TechniqueTa
 /** Absolute share URL for a compound + technique (respects Vite base). */
 export function compoundShareUrl(compoundId: string, technique: TechniqueTab): string {
   const base = import.meta.env.BASE_URL || '/'
-  const path = `${base.replace(/\/?$/, '/') }c/${compoundId}?tech=${technique}`
+  const id = encodeURIComponent(compoundId)
+  const path = `${base.replace(/\/?$/, '/') }c/${id}?tech=${technique}`
   if (typeof window !== 'undefined' && window.location?.origin) {
     return new URL(path, window.location.origin).href
   }

@@ -268,35 +268,24 @@ export function SpectrumPlot({
     return primary.lambda_max_nm?.slice(0, 4) ?? []
   }, [primary, isWavenumber])
 
+  const absPts = primary?.display_points
+  const emPts =
+    technique === 'uvvis' && showEmission && emission ? emission.display_points : null
+  const cmpPts = compare?.display_points ?? null
+  const isEmpty =
+    (!absPts || absPts.length < 2) && (!emPts || emPts.length < 2)
+
   useEffect(() => {
     const el = rootRef.current
     if (!el) return
 
     plotRef.current?.destroy()
     plotRef.current = null
-    el.innerHTML = ''
+    // Clear any previous uPlot canvas nodes only (React owns empty-state JSX)
+    while (el.firstChild) el.removeChild(el.firstChild)
 
-    const absPts = primary?.display_points
-    const emPts =
-      technique === 'uvvis' && showEmission && emission ? emission.display_points : null
-    const cmpPts = compare?.display_points ?? null
-
-    if ((!absPts || absPts.length < 2) && (!emPts || emPts.length < 2)) {
-      const emptyTitle =
-        technique === 'uvvis'
-          ? 'No full UV–Vis teaching curve yet'
-          : `No ${technique.toUpperCase()} curve yet`
-      const emptyBody =
-        technique === 'uvvis'
-          ? 'This compound is catalog-only for UV–Vis. Open the <strong>IR</strong> or <strong>Raman</strong> tab for teaching envelopes, or filter search with <em>Has full UV–Vis</em>.'
-          : 'Try another technique tab, or pick a different compound.'
-      el.innerHTML = `
-        <div class="plot-empty">
-          <strong>${emptyTitle}</strong>
-          <p>${emptyBody}</p>
-        </div>`
-      return
-    }
+    // Empty state is rendered in React — do not use innerHTML (XSS-prone pattern)
+    if (isEmpty) return
 
     const series: uPlot.Series[] = [{}]
     const dataArrays: number[][] = []
@@ -654,6 +643,7 @@ export function SpectrumPlot({
       baseScalesRef.current = null
     }
   }, [
+    isEmpty,
     primary,
     emission,
     showEmission,
@@ -709,26 +699,51 @@ export function SpectrumPlot({
           </span>
         )}
       </div>
-      <div className="zoom-toolbar" role="toolbar" aria-label="Spectrum zoom">
-        <button type="button" className="ghost zoom-btn" onClick={() => zoomBy(0.6)} title="Zoom in">
-          Zoom in
-        </button>
-        <button type="button" className="ghost zoom-btn" onClick={() => zoomBy(1.65)} title="Zoom out">
-          Zoom out
-        </button>
-        <button type="button" className="ghost zoom-btn" onClick={resetZoom} title="Reset to full spectrum">
-          Reset view
-        </button>
-        <span className="zoom-hint">
-          {coarsePointer
-            ? 'Touch: use buttons (drag-zoom off)'
-            : 'Drag box to zoom · double-click reset'}
-        </span>
-      </div>
-      <div
-        ref={rootRef}
-        className={`plot-root ${technique === 'ir' ? 'plot-ir' : ''} ${technique === 'raman' ? 'plot-raman' : ''} ${coarsePointer ? 'plot-touch' : ''}`}
-      />
+      {!isEmpty && (
+        <div className="zoom-toolbar" role="toolbar" aria-label="Spectrum zoom">
+          <button type="button" className="ghost zoom-btn" onClick={() => zoomBy(0.6)} title="Zoom in">
+            Zoom in
+          </button>
+          <button type="button" className="ghost zoom-btn" onClick={() => zoomBy(1.65)} title="Zoom out">
+            Zoom out
+          </button>
+          <button type="button" className="ghost zoom-btn" onClick={resetZoom} title="Reset to full spectrum">
+            Reset view
+          </button>
+          <span className="zoom-hint">
+            {coarsePointer
+              ? 'Touch: use buttons (drag-zoom off)'
+              : 'Drag box to zoom · double-click reset'}
+          </span>
+        </div>
+      )}
+      {isEmpty ? (
+        <div className="plot-root plot-empty-wrap" role="status">
+          <div className="plot-empty">
+            <strong>
+              {technique === 'uvvis'
+                ? 'No full UV–Vis teaching curve yet'
+                : `No ${technique.toUpperCase()} curve yet`}
+            </strong>
+            <p>
+              {technique === 'uvvis' ? (
+                <>
+                  This compound is catalog-only for UV–Vis. Open the <strong>IR</strong> or{' '}
+                  <strong>Raman</strong> tab for teaching envelopes, or filter search with{' '}
+                  <em>Has full UV–Vis</em>.
+                </>
+              ) : (
+                'Try another technique tab, or pick a different compound.'
+              )}
+            </p>
+          </div>
+        </div>
+      ) : (
+        <div
+          ref={rootRef}
+          className={`plot-root ${technique === 'ir' ? 'plot-ir' : ''} ${technique === 'raman' ? 'plot-raman' : ''} ${coarsePointer ? 'plot-touch' : ''}`}
+        />
+      )}
       {primary &&
         (primary.quality === 'teaching' ||
           (primary.quality === 'experimental' && primary.example_not_for_citation)) && (

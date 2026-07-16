@@ -42,8 +42,9 @@ Add a UV teaching seed: [docs/ADD_SPECTRUM.md](docs/ADD_SPECTRUM.md). Course bit
 ## Cite
 
 ```
-Bisht, N. (2026). BandAtlas [Computer software].
+Bisht, N. (2026). BandAtlas (v1.1.1) [Computer software].
 https://github.com/nikshaybisht/bandatlas
+Live: https://nikshaybisht.github.io/bandatlas/
 ```
 
 `CITATION.cff` is in the repo. Always cite the original spectral paper for experimental values.

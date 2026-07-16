@@ -39,6 +39,5 @@ export function formatCitation(r: Reference): string {
   return parts.filter(Boolean).join(' ')
 }
 
-export function doiUrl(doi: string) {
-  return `https://doi.org/${doi}`
-}
+/** @deprecated Prefer safeDoiUrl from lib/safeUrl */
+export { safeDoiUrl as doiUrl } from './safeUrl'

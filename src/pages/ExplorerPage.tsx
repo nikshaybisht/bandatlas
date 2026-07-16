@@ -13,7 +13,7 @@ import { FeaturedStrip } from '../components/FeaturedStrip'
 import { RecentList } from '../components/RecentList'
 import { useAppTheme } from '../context/AppThemeContext'
 import { TOUR_FEATURED_ID, useDemoTour } from '../context/DemoTourContext'
-import { buildSearchIndex } from '../lib/search'
+import { buildSearchIndex, isSearchableCompound } from '../lib/search'
 import { loadCompound } from '../lib/loadCompound'
 import { datasetUrl } from '../lib/paths'
 import { parseTechniqueParam } from '../lib/export'
@@ -299,13 +299,16 @@ export function ExplorerPage({ preset = 'default' }: Props) {
   const results = useMemo(() => {
     if (!index || !searcher) return [] as IndexCompound[]
     const q = query.trim()
-    let pool = index.compounds
+    // Hide schema demos from browse/search (still openable via /c/schema-example-uv)
+    let pool = index.compounds.filter(isSearchableCompound)
     if (labSetOnly) pool = pool.filter((c) => c.lab_set)
     if (labClass) {
       pool = pool.filter((c) => (c.lab_classes || []).includes(labClass))
     }
     if (uvOnly) pool = pool.filter((c) => indexHasFullUvVis(c))
-    if (experimentalOnly) pool = pool.filter((c) => c.has_experimental)
+    if (experimentalOnly) {
+      pool = pool.filter((c) => c.has_experimental && !c.has_experimental_example)
+    }
     if (!q) {
       if (labSetOnly || labClass || uvOnly || experimentalOnly) {
         return pool.slice(0, isLab ? 24 : RESULT_CAP)

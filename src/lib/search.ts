@@ -1,6 +1,11 @@
 import MiniSearch from 'minisearch'
 import type { IndexCompound } from '../types'
 
+/** Schema demos stay loadable via direct /c/:id but not in casual search. */
+export function isSearchableCompound(c: IndexCompound): boolean {
+  return !c.has_experimental_example
+}
+
 export function buildSearchIndex(compounds: IndexCompound[]) {
   const ms = new MiniSearch<IndexCompound>({
     fields: ['name', 'synonyms', 'cas', 'formula', 'smiles', 'family_label', 'id'],
@@ -31,6 +36,7 @@ export function buildSearchIndex(compounds: IndexCompound[]) {
       return String(value ?? '')
     },
   })
-  ms.addAll(compounds)
+  // Exclude schema-example compounds from the index so they never appear in hits
+  ms.addAll(compounds.filter(isSearchableCompound))
   return ms
 }

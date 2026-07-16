@@ -11,6 +11,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { safeDoiUrl, safeHttpUrl } from './safe-url.mjs'
 
 const QUALITIES = new Set(['teaching', 'experimental'])
 const TECHNIQUES = new Set(['uvvis_abs', 'fluorescence', 'ir', 'raman'])
@@ -42,8 +43,26 @@ export function validateSpectrum(spectrum, label = 'spectrum') {
     if (typeof src.citation !== 'string' || !src.citation.trim()) {
       err('source.citation required')
     }
+    if (src.url != null && src.url !== '') {
+      if (typeof src.url !== 'string' || !safeHttpUrl(src.url)) {
+        err('source.url must be http(s) only (no javascript:/data:)')
+      }
+    }
+    if (src.doi != null && src.doi !== '') {
+      if (typeof src.doi !== 'string' || !safeDoiUrl(src.doi)) {
+        err('source.doi must look like 10.xxxx/suffix')
+      }
+    }
     if (s.quality === 'experimental' && !src.doi && !src.url) {
       err('experimental spectra require source.doi or source.url')
+    }
+    // After shape checks: experimental must resolve to a safe link
+    if (s.quality === 'experimental') {
+      const okUrl = src.url ? safeHttpUrl(src.url) : null
+      const okDoi = src.doi ? safeDoiUrl(src.doi) : null
+      if (!okUrl && !okDoi) {
+        err('experimental spectra need a valid http(s) url or DOI')
+      }
     }
   }
   if (!Array.isArray(s.display_points) || s.display_points.length < 5) {
