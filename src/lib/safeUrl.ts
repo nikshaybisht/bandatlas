@@ -32,8 +32,3 @@ export function safeDoiUrl(doi: string | null | undefined): string | null {
   if (/[<>"'`]/.test(d)) return null
   return `https://doi.org/${encodeURI(d)}`
 }
-
-/** Legacy name used by CitationsPanel — prefer safeDoiUrl. */
-export function doiUrl(doi: string): string {
-  return safeDoiUrl(doi) || `https://doi.org/${encodeURIComponent(doi.trim())}`
-}

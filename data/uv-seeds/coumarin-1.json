@@ -1,0 +1,53 @@
+{
+  "quality": "teaching",
+  "id": "coumarin-1",
+  "name": "Coumarin 1",
+  "synonyms": [
+    "7-Diethylamino-4-methylcoumarin"
+  ],
+  "family": "coumarins",
+  "cas": "91-44-1",
+  "formula": "C14H17NO2",
+  "mw": 231.29,
+  "smiles": "CCN(CC)c1ccc2c(c1)oc(=O)c(C)c2",
+  "pubchem_cid": 7050,
+  "plain_summary": "Blue laser dye from the coumarin family.",
+  "abs": {
+    "solvent": "ethanol",
+    "peaks": [
+      {
+        "lambda": 373,
+        "height": 23000,
+        "sigma": 18
+      }
+    ],
+    "xMin": 300,
+    "xMax": 450,
+    "lambda_max_nm": [
+      373
+    ],
+    "epsilon_max": [
+      23000
+    ],
+    "plain_caption": "Near-UV / violet absorption; solution often looks pale yellow.",
+    "lit": "Near-UV / violet absorption; solution often looks pale yellow.",
+    "quality_note": "Tier A teaching spectrum"
+  },
+  "em": {
+    "solvent": "ethanol",
+    "peaks": [
+      {
+        "lambda": 445,
+        "height": 1,
+        "sigma": 22
+      }
+    ],
+    "xMin": 400,
+    "xMax": 560,
+    "lambda_max_nm": [
+      445
+    ],
+    "quantum_yield": 0.73,
+    "plain_caption": "Blue fluorescence around 445 nm."
+  }
+}

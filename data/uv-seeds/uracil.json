@@ -1,0 +1,36 @@
+{
+  "quality": "teaching",
+  "id": "uracil",
+  "name": "Uracil",
+  "synonyms": [
+    "2,4-Dihydroxypyrimidine",
+    "U"
+  ],
+  "family": "biomolecules",
+  "cas": "66-22-8",
+  "formula": "C4H4N2O2",
+  "mw": 112.09,
+  "smiles": "O=c1cc[nH]c(=O)[nH]1",
+  "pubchem_cid": 1174,
+  "plain_summary": "RNA pyrimidine base. Classic ~260 nm nucleic-acid teaching chromophore.",
+  "abs": {
+    "solvent": "water, pH 7",
+    "peaks": [
+      {
+        "lambda": 259,
+        "height": 8200,
+        "sigma": 10
+      }
+    ],
+    "xMin": 220,
+    "xMax": 310,
+    "lambda_max_nm": [
+      259
+    ],
+    "epsilon_max": [
+      8200
+    ],
+    "plain_caption": "Free-base UV max ~259 nm in water.",
+    "lit": "λ_max after aqueous nucleobase tabulations (teaching envelope)."
+  }
+}

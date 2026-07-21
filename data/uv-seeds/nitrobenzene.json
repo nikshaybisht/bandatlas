@@ -1,0 +1,41 @@
+{
+  "quality": "teaching",
+  "id": "nitrobenzene",
+  "name": "Nitrobenzene",
+  "synonyms": [
+    "Oil of mirbane"
+  ],
+  "family": "aromatic-hydrocarbons",
+  "cas": "98-95-3",
+  "formula": "C6H5NO2",
+  "mw": 123.11,
+  "smiles": "O=[N+]([O-])c1ccccc1",
+  "pubchem_cid": 7416,
+  "plain_summary": "Pale yellow liquid; nitro group pushes absorption toward the visible edge.",
+  "abs": {
+    "solvent": "ethanol",
+    "peaks": [
+      {
+        "lambda": 252,
+        "height": 9000,
+        "sigma": 12
+      },
+      {
+        "lambda": 280,
+        "height": 1000,
+        "sigma": 16
+      }
+    ],
+    "xMin": 220,
+    "xMax": 360,
+    "lambda_max_nm": [
+      252
+    ],
+    "epsilon_max": [
+      9000
+    ],
+    "plain_caption": "Strong UV; faint yellow tint from long-wavelength tail.",
+    "lit": "Strong UV; faint yellow tint from long-wavelength tail.",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

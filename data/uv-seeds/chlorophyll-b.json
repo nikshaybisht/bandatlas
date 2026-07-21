@@ -1,0 +1,48 @@
+{
+  "quality": "teaching",
+  "id": "chlorophyll-b",
+  "name": "Chlorophyll b",
+  "synonyms": [
+    "Chl b"
+  ],
+  "family": "porphyrins",
+  "cas": "519-62-0",
+  "formula": "C55H70MgN4O6",
+  "mw": 907.47,
+  "smiles": "",
+  "pubchem_cid": 11593175,
+  "plain_summary": "Accessory chlorophyll. Formyl group shifts Q band vs chlorophyll a.",
+  "abs": {
+    "solvent": "diethyl ether",
+    "peaks": [
+      {
+        "lambda": 455,
+        "height": 150000,
+        "sigma": 10
+      },
+      {
+        "lambda": 644,
+        "height": 56000,
+        "sigma": 8
+      },
+      {
+        "lambda": 595,
+        "height": 10000,
+        "sigma": 8
+      }
+    ],
+    "xMin": 380,
+    "xMax": 720,
+    "lambda_max_nm": [
+      455,
+      644
+    ],
+    "epsilon_max": [
+      150000,
+      56000
+    ],
+    "plain_caption": "Soret ~455 nm + Q ~644 nm — slightly blue-shifted Q vs Chl a.",
+    "lit": "Soret ~455 nm + Q ~644 nm — slightly blue-shifted Q vs Chl a.",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

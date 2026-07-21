@@ -1,0 +1,37 @@
+{
+  "quality": "teaching",
+  "id": "histidine",
+  "name": "Histidine",
+  "synonyms": [
+    "L-Histidine",
+    "His",
+    "H"
+  ],
+  "family": "biomolecules",
+  "cas": "71-00-1",
+  "formula": "C6H9N3O2",
+  "mw": 155.15,
+  "smiles": "",
+  "pubchem_cid": 6274,
+  "plain_summary": "Imidazole amino acid; weak UV vs aromatic residues — contrast with Trp/Tyr/Phe.",
+  "abs": {
+    "solvent": "water, pH 7",
+    "peaks": [
+      {
+        "lambda": 211,
+        "height": 5800,
+        "sigma": 6
+      }
+    ],
+    "xMin": 190,
+    "xMax": 280,
+    "lambda_max_nm": [
+      211
+    ],
+    "epsilon_max": [
+      5800
+    ],
+    "plain_caption": "Mostly deep UV ~211 nm; negligible 280 nm protein contribution.",
+    "lit": "λ_max after amino-acid UV tables; teaching envelope."
+  }
+}

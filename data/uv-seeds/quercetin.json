@@ -1,0 +1,43 @@
+{
+  "quality": "teaching",
+  "id": "quercetin",
+  "name": "Quercetin",
+  "synonyms": [
+    "3,3′,4′,5,7-Pentahydroxyflavone"
+  ],
+  "family": "food",
+  "cas": "117-39-5",
+  "formula": "C15H10O7",
+  "mw": 302.24,
+  "smiles": "O=c1c(O)c(-c2ccc(O)c(O)c2)oc2cc(O)cc(O)c12",
+  "pubchem_cid": 5280343,
+  "plain_summary": "Dietary flavonoid with two major UV bands (Band I / Band II) used in natural-product teaching.",
+  "abs": {
+    "solvent": "methanol",
+    "peaks": [
+      {
+        "lambda": 255,
+        "height": 20000,
+        "sigma": 12
+      },
+      {
+        "lambda": 370,
+        "height": 22000,
+        "sigma": 16
+      }
+    ],
+    "xMin": 220,
+    "xMax": 450,
+    "lambda_max_nm": [
+      370,
+      255
+    ],
+    "epsilon_max": [
+      22000,
+      20000
+    ],
+    "plain_caption": "Flavonoid Band II ~255 nm and Band I ~370 nm in methanol.",
+    "lit": "Teaching multi-Gaussian for quercetin flavonoid UV bands (MeOH) after natural-product spectroscopy tables.",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

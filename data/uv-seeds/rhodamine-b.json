@@ -1,0 +1,54 @@
+{
+  "quality": "teaching",
+  "id": "rhodamine-b",
+  "name": "Rhodamine B",
+  "synonyms": [
+    "C.I. 45170",
+    "Basic Violet 10"
+  ],
+  "family": "xanthenes",
+  "cas": "81-88-9",
+  "formula": "C28H31ClN2O3",
+  "mw": 479.02,
+  "smiles": "CCN(CC)c1ccc2c(c1)Oc1cc(N(CC)CC)ccc1C21OC(=O)c2ccccc21",
+  "pubchem_cid": 6694,
+  "plain_summary": "Vivid pink-red fluorescent dye. Common laser dye and microscopy stain.",
+  "abs": {
+    "solvent": "ethanol",
+    "peaks": [
+      {
+        "lambda": 543,
+        "height": 106000,
+        "sigma": 14
+      }
+    ],
+    "xMin": 400,
+    "xMax": 650,
+    "lambda_max_nm": [
+      543
+    ],
+    "epsilon_max": [
+      106000
+    ],
+    "plain_caption": "Absorbs green-yellow light (~543 nm) → looks red-pink.",
+    "lit": "Absorbs green-yellow light (~543 nm) → looks red-pink.",
+    "quality_note": "Tier A teaching spectrum"
+  },
+  "em": {
+    "solvent": "ethanol",
+    "peaks": [
+      {
+        "lambda": 565,
+        "height": 1,
+        "sigma": 16
+      }
+    ],
+    "xMin": 520,
+    "xMax": 700,
+    "lambda_max_nm": [
+      565
+    ],
+    "quantum_yield": 0.7,
+    "plain_caption": "Orange-red glow near 565 nm."
+  }
+}

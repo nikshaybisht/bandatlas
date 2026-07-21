@@ -1,0 +1,37 @@
+{
+  "quality": "teaching",
+  "id": "tartrazine",
+  "name": "Tartrazine",
+  "synonyms": [
+    "FD&C Yellow 5",
+    "E102"
+  ],
+  "family": "food",
+  "cas": "1934-21-0",
+  "formula": "C16H9N4Na3O9S2",
+  "mw": 534.36,
+  "smiles": "",
+  "pubchem_cid": 164825,
+  "plain_summary": "Common food yellow azo dye. Strong visible absorption for colour-additive teaching.",
+  "abs": {
+    "solvent": "water",
+    "peaks": [
+      {
+        "lambda": 428,
+        "height": 25000,
+        "sigma": 22
+      }
+    ],
+    "xMin": 300,
+    "xMax": 550,
+    "lambda_max_nm": [
+      428
+    ],
+    "epsilon_max": [
+      25000
+    ],
+    "plain_caption": "Blue absorption ~428 nm → lemon-yellow soft-drink colour.",
+    "lit": "Blue absorption ~428 nm → lemon-yellow soft-drink colour.",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "quality": "teaching",
+  "id": "acridine",
+  "name": "Acridine",
+  "synonyms": [
+    "Dibenzo[b,e]pyridine"
+  ],
+  "family": "heterocycles",
+  "cas": "260-94-6",
+  "formula": "C13H9N",
+  "mw": 179.22,
+  "smiles": "c1ccc2nc3ccccc3cc2c1",
+  "pubchem_cid": 9215,
+  "plain_summary": "Nitrogen analogue of anthracene; base for many fluorescent dyes (e.g. acridine orange).",
+  "abs": {
+    "solvent": "ethanol",
+    "peaks": [
+      {
+        "lambda": 250,
+        "height": 80000,
+        "sigma": 8
+      },
+      {
+        "lambda": 355,
+        "height": 10000,
+        "sigma": 12
+      }
+    ],
+    "xMin": 220,
+    "xMax": 420,
+    "lambda_max_nm": [
+      355,
+      250
+    ],
+    "epsilon_max": [
+      10000,
+      80000
+    ],
+    "plain_caption": "Intense short-UV band plus longer acridine envelope ~350 nm.",
+    "lit": "Teaching multi-Gaussian for acridine UV (ethanol) after common spectroscopic tables.",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

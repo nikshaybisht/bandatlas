@@ -1,0 +1,36 @@
+{
+  "quality": "teaching",
+  "id": "brilliant-blue-fcf",
+  "name": "Brilliant Blue FCF",
+  "synonyms": [
+    "FD&C Blue 1",
+    "E133"
+  ],
+  "family": "food",
+  "cas": "3844-45-9",
+  "formula": "C37H34N2Na2O9S3",
+  "mw": 792.85,
+  "smiles": "",
+  "pubchem_cid": 19700,
+  "plain_summary": "Common food blue dye. Strong red absorption → vivid blue drinks.",
+  "abs": {
+    "solvent": "water",
+    "peaks": [
+      {
+        "lambda": 630,
+        "height": 130000,
+        "sigma": 18
+      }
+    ],
+    "xMin": 500,
+    "xMax": 750,
+    "lambda_max_nm": [
+      630
+    ],
+    "epsilon_max": [
+      130000
+    ],
+    "plain_caption": "λ_max ~630 nm (red) → Brilliant Blue soft-drink colour.",
+    "lit": "λ_max after food additive spectral tables (E133); teaching envelope."
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "quality": "teaching",
+  "id": "pyridine",
+  "name": "Pyridine",
+  "synonyms": [
+    "Azabenzene"
+  ],
+  "family": "heterocycles",
+  "cas": "110-86-1",
+  "formula": "C5H5N",
+  "mw": 79.1,
+  "smiles": "c1ccncc1",
+  "pubchem_cid": 1049,
+  "plain_summary": "Nitrogen heterocycle solvent/base. UV bands red-shifted vs benzene.",
+  "abs": {
+    "solvent": "hexane",
+    "peaks": [
+      {
+        "lambda": 251,
+        "height": 2000,
+        "sigma": 8
+      },
+      {
+        "lambda": 270,
+        "height": 450,
+        "sigma": 10
+      }
+    ],
+    "xMin": 210,
+    "xMax": 320,
+    "lambda_max_nm": [
+      251,
+      270
+    ],
+    "epsilon_max": [
+      2000,
+      450
+    ],
+    "plain_caption": "UV only; colorless liquid with characteristic odor.",
+    "lit": "UV only; colorless liquid with characteristic odor.",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

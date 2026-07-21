@@ -1,0 +1,44 @@
+{
+  "quality": "teaching",
+  "id": "methyl-orange",
+  "name": "Methyl Orange",
+  "synonyms": [
+    "Helianthin",
+    "C.I. Acid Orange 52"
+  ],
+  "family": "dyes",
+  "cas": "547-58-0",
+  "formula": "C14H14N3NaO3S",
+  "mw": 327.33,
+  "smiles": "CN(C)c1ccc(N=Nc2ccc(S(=O)(=O)[O-])cc2)cc1.[Na+]",
+  "pubchem_cid": 23673835,
+  "plain_summary": "Azo indicator dye; colour change with pH makes a vivid classroom UV–Vis demo.",
+  "abs": {
+    "solvent": "water (pH ~7)",
+    "peaks": [
+      {
+        "lambda": 270,
+        "height": 8000,
+        "sigma": 14
+      },
+      {
+        "lambda": 464,
+        "height": 26000,
+        "sigma": 20
+      }
+    ],
+    "xMin": 240,
+    "xMax": 600,
+    "lambda_max_nm": [
+      464,
+      270
+    ],
+    "epsilon_max": [
+      26000,
+      8000
+    ],
+    "plain_caption": "Azo band near ~464 nm in neutral water (pH-dependent).",
+    "lit": "Teaching multi-Gaussian for methyl orange in neutral aqueous solution (~460–470 nm). pH shifts the spectrum.",
+    "quality_note": "Tier A teaching spectrum — indicator demo"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "quality": "teaching",
+  "id": "chloroform",
+  "name": "Chloroform",
+  "synonyms": [
+    "Trichloromethane",
+    "CHCl3"
+  ],
+  "family": "solvents",
+  "cas": "67-66-3",
+  "formula": "CHCl3",
+  "mw": 119.38,
+  "smiles": "ClC(Cl)Cl",
+  "pubchem_cid": 6212,
+  "plain_summary": "Common NMR and IR solvent; UV window is limited compared with alcohols — teaching solvent choice.",
+  "abs": {
+    "solvent": "neat (pathlength schematic)",
+    "peaks": [
+      {
+        "lambda": 245,
+        "height": 60,
+        "sigma": 10
+      }
+    ],
+    "xMin": 220,
+    "xMax": 340,
+    "lambda_max_nm": [
+      245
+    ],
+    "epsilon_max": [
+      60
+    ],
+    "plain_caption": "Schematic UV cutoff for chloroform teaching.",
+    "lit": "Teaching solvent-cutoff schematic. Chloroform practical UV cutoff often near ~245 nm.",
+    "quality_note": "Solvent cutoff teaching model"
+  }
+}

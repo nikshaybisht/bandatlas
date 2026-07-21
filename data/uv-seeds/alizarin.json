@@ -1,0 +1,44 @@
+{
+  "quality": "teaching",
+  "id": "alizarin",
+  "name": "Alizarin",
+  "synonyms": [
+    "1,2-Dihydroxyanthraquinone",
+    "C.I. 58000"
+  ],
+  "family": "quinones",
+  "cas": "72-48-0",
+  "formula": "C14H8O4",
+  "mw": 240.21,
+  "smiles": "",
+  "pubchem_cid": 6293,
+  "plain_summary": "Historic madder-root red dye (anthraquinone). Metal lakes change colour.",
+  "abs": {
+    "solvent": "ethanol",
+    "peaks": [
+      {
+        "lambda": 430,
+        "height": 8000,
+        "sigma": 28
+      },
+      {
+        "lambda": 250,
+        "height": 30000,
+        "sigma": 10
+      }
+    ],
+    "xMin": 220,
+    "xMax": 580,
+    "lambda_max_nm": [
+      430,
+      250
+    ],
+    "epsilon_max": [
+      8000,
+      30000
+    ],
+    "plain_caption": "Visible band ~430 nm → orange-red free dye solutions.",
+    "lit": "Visible band ~430 nm → orange-red free dye solutions.",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

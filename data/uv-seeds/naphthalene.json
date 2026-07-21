@@ -1,0 +1,75 @@
+{
+  "quality": "teaching",
+  "id": "naphthalene",
+  "name": "Naphthalene",
+  "synonyms": [
+    "Tar camphor"
+  ],
+  "family": "pahs",
+  "cas": "91-20-3",
+  "formula": "C10H8",
+  "mw": 128.17,
+  "smiles": "c1ccc2ccccc2c1",
+  "pubchem_cid": 931,
+  "plain_summary": "Two fused benzene rings (mothball smell). Absorbs deeper into the UV than benzene.",
+  "abs": {
+    "solvent": "cyclohexane",
+    "peaks": [
+      {
+        "lambda": 221,
+        "height": 100000,
+        "sigma": 5
+      },
+      {
+        "lambda": 275,
+        "height": 5600,
+        "sigma": 6
+      },
+      {
+        "lambda": 286,
+        "height": 3900,
+        "sigma": 4
+      },
+      {
+        "lambda": 311,
+        "height": 280,
+        "sigma": 3
+      }
+    ],
+    "xMin": 200,
+    "xMax": 340,
+    "lambda_max_nm": [
+      275,
+      221
+    ],
+    "epsilon_max": [
+      5600,
+      100000
+    ],
+    "plain_caption": "Strong UV bands ~221–286 nm. Still mostly colorless as a solid film.",
+    "lit": "Strong UV bands ~221–286 nm. Still mostly colorless as a solid film.",
+    "quality_note": "Tier A teaching spectrum"
+  },
+  "em": {
+    "solvent": "cyclohexane",
+    "peaks": [
+      {
+        "lambda": 322,
+        "height": 0.7,
+        "sigma": 6
+      },
+      {
+        "lambda": 335,
+        "height": 1,
+        "sigma": 7
+      }
+    ],
+    "xMin": 300,
+    "xMax": 400,
+    "lambda_max_nm": [
+      335
+    ],
+    "quantum_yield": 0.23,
+    "plain_caption": "Blue-UV fluorescence near 320–340 nm."
+  }
+}

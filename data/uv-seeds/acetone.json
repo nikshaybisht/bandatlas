@@ -1,0 +1,37 @@
+{
+  "quality": "teaching",
+  "id": "acetone",
+  "name": "Acetone",
+  "synonyms": [
+    "Propanone",
+    "2-Propanone"
+  ],
+  "family": "solvents",
+  "cas": "67-64-1",
+  "formula": "C3H6O",
+  "mw": 58.08,
+  "smiles": "CC(=O)C",
+  "pubchem_cid": 180,
+  "plain_summary": "Common lab solvent. Weak n→π* carbonyl band in the near UV.",
+  "abs": {
+    "solvent": "hexane",
+    "peaks": [
+      {
+        "lambda": 279,
+        "height": 15,
+        "sigma": 14
+      }
+    ],
+    "xMin": 230,
+    "xMax": 340,
+    "lambda_max_nm": [
+      279
+    ],
+    "epsilon_max": [
+      15
+    ],
+    "plain_caption": "Very weak UV band (~279 nm). Good “blank” reminder: solvents can absorb too.",
+    "lit": "Very weak UV band (~279 nm). Good “blank” reminder: solvents can absorb too.",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

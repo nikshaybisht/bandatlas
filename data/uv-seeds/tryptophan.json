@@ -1,0 +1,62 @@
+{
+  "quality": "teaching",
+  "id": "tryptophan",
+  "name": "Tryptophan",
+  "synonyms": [
+    "L-Tryptophan",
+    "Trp",
+    "W"
+  ],
+  "family": "biomolecules",
+  "cas": "73-22-3",
+  "formula": "C11H12N2O2",
+  "mw": 204.23,
+  "smiles": "N[C@@H](Cc1c[nH]c2ccccc12)C(=O)O",
+  "pubchem_cid": 6305,
+  "plain_summary": "Amino acid that dominates protein UV absorbance near 280 nm.",
+  "abs": {
+    "solvent": "water, pH 7",
+    "peaks": [
+      {
+        "lambda": 218,
+        "height": 34000,
+        "sigma": 6
+      },
+      {
+        "lambda": 280,
+        "height": 5600,
+        "sigma": 8
+      }
+    ],
+    "xMin": 200,
+    "xMax": 320,
+    "lambda_max_nm": [
+      280,
+      218
+    ],
+    "epsilon_max": [
+      5600,
+      34000
+    ],
+    "plain_caption": "Protein “280 nm” band comes largely from tryptophan.",
+    "lit": "Protein “280 nm” band comes largely from tryptophan.",
+    "quality_note": "Tier A teaching spectrum"
+  },
+  "em": {
+    "solvent": "water, pH 7",
+    "peaks": [
+      {
+        "lambda": 350,
+        "height": 1,
+        "sigma": 25
+      }
+    ],
+    "xMin": 300,
+    "xMax": 450,
+    "lambda_max_nm": [
+      350
+    ],
+    "quantum_yield": 0.13,
+    "plain_caption": "Intrinsic protein fluorescence around 350 nm in water."
+  }
+}

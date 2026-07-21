@@ -38,6 +38,3 @@ export function formatCitation(r: Reference): string {
   if (r.edition) parts.push(`${r.edition} ed.`)
   return parts.filter(Boolean).join(' ')
 }
-
-/** @deprecated Prefer safeDoiUrl from lib/safeUrl */
-export { safeDoiUrl as doiUrl } from './safeUrl'

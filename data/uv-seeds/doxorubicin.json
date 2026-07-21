@@ -1,0 +1,48 @@
+{
+  "quality": "teaching",
+  "id": "doxorubicin",
+  "name": "Doxorubicin",
+  "synonyms": [
+    "Adriamycin"
+  ],
+  "family": "pharmaceuticals",
+  "cas": "23214-92-8",
+  "formula": "C27H29NO11",
+  "mw": 543.52,
+  "smiles": "",
+  "pubchem_cid": 31703,
+  "plain_summary": "Anthracycline anticancer drug; red chromophore useful in teaching pharma spectra.",
+  "abs": {
+    "solvent": "water / methanol",
+    "peaks": [
+      {
+        "lambda": 480,
+        "height": 11500,
+        "sigma": 22
+      },
+      {
+        "lambda": 233,
+        "height": 35000,
+        "sigma": 10
+      },
+      {
+        "lambda": 253,
+        "height": 28000,
+        "sigma": 10
+      }
+    ],
+    "xMin": 220,
+    "xMax": 600,
+    "lambda_max_nm": [
+      480,
+      233
+    ],
+    "epsilon_max": [
+      11500,
+      35000
+    ],
+    "plain_caption": "Visible max ~480 nm → characteristic orange-red solutions.",
+    "lit": "Visible max ~480 nm → characteristic orange-red solutions.",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

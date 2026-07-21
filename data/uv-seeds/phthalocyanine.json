@@ -1,0 +1,47 @@
+{
+  "quality": "teaching",
+  "id": "phthalocyanine",
+  "name": "Phthalocyanine",
+  "synonyms": [
+    "H2Pc"
+  ],
+  "family": "porphyrins",
+  "cas": "574-93-6",
+  "formula": "C32H18N8",
+  "mw": 514.54,
+  "smiles": "",
+  "pubchem_cid": 5282330,
+  "plain_summary": "Intense blue-green macrocycle; industrial pigment and photochemistry model.",
+  "abs": {
+    "solvent": "1-chloronaphthalene / DMSO (teaching)",
+    "peaks": [
+      {
+        "lambda": 350,
+        "height": 60000,
+        "sigma": 14
+      },
+      {
+        "lambda": 670,
+        "height": 150000,
+        "sigma": 12
+      },
+      {
+        "lambda": 700,
+        "height": 120000,
+        "sigma": 12
+      }
+    ],
+    "xMin": 300,
+    "xMax": 780,
+    "lambda_max_nm": [
+      670,
+      350
+    ],
+    "epsilon_max": [
+      150000,
+      60000
+    ],
+    "plain_caption": "Q band ~670–700 nm → deep blue-green phthalocyanine colour.",
+    "lit": "λ_max after phthalocyanine pigment/photochemistry tables; teaching envelope."
+  }
+}

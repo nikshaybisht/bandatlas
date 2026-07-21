@@ -1,0 +1,43 @@
+{
+  "quality": "teaching",
+  "id": "p-nitroaniline",
+  "name": "p-Nitroaniline",
+  "synonyms": [
+    "4-Nitroaniline"
+  ],
+  "family": "aromatic-hydrocarbons",
+  "cas": "100-01-6",
+  "formula": "C6H6N2O2",
+  "mw": 138.12,
+  "smiles": "Nc1ccc(cc1)[N+](=O)[O-]",
+  "pubchem_cid": 7475,
+  "plain_summary": "Push–pull aromatic for charge-transfer UV teaching; intense long-wavelength ICT band.",
+  "abs": {
+    "solvent": "ethanol",
+    "peaks": [
+      {
+        "lambda": 229,
+        "height": 8000,
+        "sigma": 10
+      },
+      {
+        "lambda": 375,
+        "height": 16000,
+        "sigma": 18
+      }
+    ],
+    "xMin": 210,
+    "xMax": 480,
+    "lambda_max_nm": [
+      375,
+      229
+    ],
+    "epsilon_max": [
+      16000,
+      8000
+    ],
+    "plain_caption": "Strong ICT band near ~375 nm (solvent-sensitive).",
+    "lit": "Teaching envelope for p-nitroaniline ICT absorption (~370–380 nm in ethanol).",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

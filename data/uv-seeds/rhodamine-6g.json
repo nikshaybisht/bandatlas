@@ -1,0 +1,54 @@
+{
+  "quality": "teaching",
+  "id": "rhodamine-6g",
+  "name": "Rhodamine 6G",
+  "synonyms": [
+    "Basic Red 1",
+    "R6G"
+  ],
+  "family": "xanthenes",
+  "cas": "989-38-8",
+  "formula": "C28H31ClN2O3",
+  "mw": 479.02,
+  "smiles": "",
+  "pubchem_cid": 13806,
+  "plain_summary": "Classic laser dye and microscopy fluorophore; orange-yellow fluorescence.",
+  "abs": {
+    "solvent": "ethanol",
+    "peaks": [
+      {
+        "lambda": 530,
+        "height": 116000,
+        "sigma": 14
+      }
+    ],
+    "xMin": 420,
+    "xMax": 620,
+    "lambda_max_nm": [
+      530
+    ],
+    "epsilon_max": [
+      116000
+    ],
+    "plain_caption": "λ_max ~530 nm → orange solutions; compare Rhodamine B (~543 nm).",
+    "lit": "λ_max after laser-dye / PhotochemCAD-style xanthene tables; teaching envelope."
+  },
+  "em": {
+    "solvent": "ethanol",
+    "peaks": [
+      {
+        "lambda": 552,
+        "height": 1,
+        "sigma": 16
+      }
+    ],
+    "xMin": 510,
+    "xMax": 680,
+    "lambda_max_nm": [
+      552
+    ],
+    "quantum_yield": 0.95,
+    "plain_caption": "Yellow-orange fluorescence ~552 nm (high Φ_f in alcohol).",
+    "lit": "Emission envelope for teaching (normalized)."
+  }
+}

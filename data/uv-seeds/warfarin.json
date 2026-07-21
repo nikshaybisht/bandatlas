@@ -1,0 +1,42 @@
+{
+  "quality": "teaching",
+  "id": "warfarin",
+  "name": "Warfarin",
+  "synonyms": [
+    "Coumadin"
+  ],
+  "family": "pharmaceuticals",
+  "cas": "81-81-2",
+  "formula": "C19H16O4",
+  "mw": 308.33,
+  "smiles": "",
+  "pubchem_cid": 54678486,
+  "plain_summary": "Coumarin anticoagulant; UV fluorescence methods in clinical teaching labs.",
+  "abs": {
+    "solvent": "methanol / alkaline methanol",
+    "peaks": [
+      {
+        "lambda": 272,
+        "height": 12000,
+        "sigma": 12
+      },
+      {
+        "lambda": 308,
+        "height": 11000,
+        "sigma": 14
+      }
+    ],
+    "xMin": 230,
+    "xMax": 380,
+    "lambda_max_nm": [
+      308,
+      272
+    ],
+    "epsilon_max": [
+      11000,
+      12000
+    ],
+    "plain_caption": "Coumarin-like UV near 308 nm; used in fluorescence assays.",
+    "lit": "λ_max after pharmaceutical / coumarin anticoagulant UV tables; teaching envelope."
+  }
+}

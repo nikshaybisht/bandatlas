@@ -1,0 +1,36 @@
+{
+  "quality": "teaching",
+  "id": "sudan-i",
+  "name": "Sudan I",
+  "synonyms": [
+    "1-Phenylazo-2-naphthol",
+    "Solvent Yellow 14"
+  ],
+  "family": "dyes",
+  "cas": "842-07-9",
+  "formula": "C16H12N2O",
+  "mw": 248.28,
+  "smiles": "",
+  "pubchem_cid": 13252,
+  "plain_summary": "Lipophilic azo dye (historically used in fats); orange teaching chromophore.",
+  "abs": {
+    "solvent": "ethanol / chloroform",
+    "peaks": [
+      {
+        "lambda": 476,
+        "height": 18000,
+        "sigma": 26
+      }
+    ],
+    "xMin": 350,
+    "xMax": 600,
+    "lambda_max_nm": [
+      476
+    ],
+    "epsilon_max": [
+      18000
+    ],
+    "plain_caption": "λ_max ~476 nm → orange azo colour in organic solvent.",
+    "lit": "λ_max after azo dye / solvent dye tables; teaching envelope."
+  }
+}

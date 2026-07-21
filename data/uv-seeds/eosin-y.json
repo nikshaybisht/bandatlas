@@ -1,0 +1,54 @@
+{
+  "quality": "teaching",
+  "id": "eosin-y",
+  "name": "Eosin Y",
+  "synonyms": [
+    "Eosin yellowish",
+    "C.I. 45380"
+  ],
+  "family": "xanthenes",
+  "cas": "17372-87-1",
+  "formula": "C20H6Br4Na2O5",
+  "mw": 691.85,
+  "smiles": "O=C([O-])c1ccccc1C1=c2cc(Br)c(=O)c(Br)c2Oc2c(Br)c([O-])c(Br)cc21.[Na+].[Na+]",
+  "pubchem_cid": 11048,
+  "plain_summary": "Red histology stain related to fluorescein, brominated.",
+  "abs": {
+    "solvent": "water",
+    "peaks": [
+      {
+        "lambda": 517,
+        "height": 99000,
+        "sigma": 14
+      }
+    ],
+    "xMin": 400,
+    "xMax": 600,
+    "lambda_max_nm": [
+      517
+    ],
+    "epsilon_max": [
+      99000
+    ],
+    "plain_caption": "Green absorption → red-pink stain color.",
+    "lit": "Green absorption → red-pink stain color.",
+    "quality_note": "Tier A teaching spectrum"
+  },
+  "em": {
+    "solvent": "water",
+    "peaks": [
+      {
+        "lambda": 540,
+        "height": 1,
+        "sigma": 16
+      }
+    ],
+    "xMin": 500,
+    "xMax": 650,
+    "lambda_max_nm": [
+      540
+    ],
+    "quantum_yield": 0.2,
+    "plain_caption": "Yellow-green fluorescence (weaker than fluorescein)."
+  }
+}

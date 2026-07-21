@@ -1,0 +1,47 @@
+{
+  "quality": "teaching",
+  "id": "anthraquinone",
+  "name": "Anthraquinone",
+  "synonyms": [
+    "9,10-Anthraquinone"
+  ],
+  "family": "quinones",
+  "cas": "84-65-1",
+  "formula": "C14H8O2",
+  "mw": 208.21,
+  "smiles": "",
+  "pubchem_cid": 6780,
+  "plain_summary": "Parent anthraquinone. Building block of many natural and synthetic dyes.",
+  "abs": {
+    "solvent": "ethanol",
+    "peaks": [
+      {
+        "lambda": 252,
+        "height": 45000,
+        "sigma": 8
+      },
+      {
+        "lambda": 272,
+        "height": 20000,
+        "sigma": 8
+      },
+      {
+        "lambda": 325,
+        "height": 5000,
+        "sigma": 14
+      }
+    ],
+    "xMin": 220,
+    "xMax": 400,
+    "lambda_max_nm": [
+      252,
+      325
+    ],
+    "epsilon_max": [
+      45000,
+      5000
+    ],
+    "plain_caption": "Strong UV; pale yellow solid from long-wavelength tail.",
+    "lit": "λ_max after quinone UV tables / dye intermediate handbooks; teaching envelope."
+  }
+}

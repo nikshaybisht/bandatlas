@@ -1,0 +1,42 @@
+{
+  "quality": "teaching",
+  "id": "dopamine",
+  "name": "Dopamine",
+  "synonyms": [
+    "3,4-Dihydroxyphenethylamine"
+  ],
+  "family": "biomolecules",
+  "cas": "51-61-6",
+  "formula": "C8H11NO2",
+  "mw": 153.18,
+  "smiles": "",
+  "pubchem_cid": 681,
+  "plain_summary": "Catecholamine neurotransmitter; catechol UV teaching chromophore.",
+  "abs": {
+    "solvent": "water, acidic (teaching)",
+    "peaks": [
+      {
+        "lambda": 220,
+        "height": 7000,
+        "sigma": 8
+      },
+      {
+        "lambda": 280,
+        "height": 2700,
+        "sigma": 10
+      }
+    ],
+    "xMin": 200,
+    "xMax": 330,
+    "lambda_max_nm": [
+      280,
+      220
+    ],
+    "epsilon_max": [
+      2700,
+      7000
+    ],
+    "plain_caption": "Catechol band ~280 nm; oxidizes easily (spectra change if brown).",
+    "lit": "λ_max after catecholamine analytical UV tables; teaching envelope."
+  }
+}

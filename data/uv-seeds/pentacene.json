@@ -1,0 +1,52 @@
+{
+  "quality": "teaching",
+  "id": "pentacene",
+  "name": "Pentacene",
+  "synonyms": [],
+  "family": "pahs",
+  "cas": "135-48-8",
+  "formula": "C22H14",
+  "mw": 278.35,
+  "smiles": "",
+  "pubchem_cid": 8671,
+  "plain_summary": "Five linear fused rings. Deep-red absorption vs shorter acenes.",
+  "abs": {
+    "solvent": "1,2,4-trichlorobenzene / thin film teaching",
+    "peaks": [
+      {
+        "lambda": 580,
+        "height": 12000,
+        "sigma": 8
+      },
+      {
+        "lambda": 540,
+        "height": 9000,
+        "sigma": 8
+      },
+      {
+        "lambda": 500,
+        "height": 6000,
+        "sigma": 8
+      },
+      {
+        "lambda": 300,
+        "height": 100000,
+        "sigma": 10
+      }
+    ],
+    "xMin": 280,
+    "xMax": 700,
+    "lambda_max_nm": [
+      580,
+      540,
+      300
+    ],
+    "epsilon_max": [
+      12000,
+      9000,
+      100000
+    ],
+    "plain_caption": "Long acene: vibronic visible bands push into orange-red.",
+    "lit": "λ_max after acene photophysics reviews / PhotochemCAD-style dye tables; teaching envelope."
+  }
+}

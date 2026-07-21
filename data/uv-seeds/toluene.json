@@ -1,0 +1,43 @@
+{
+  "quality": "teaching",
+  "id": "toluene",
+  "name": "Toluene",
+  "synonyms": [
+    "Methylbenzene"
+  ],
+  "family": "aromatic-hydrocarbons",
+  "cas": "108-88-3",
+  "formula": "C7H8",
+  "mw": 92.14,
+  "smiles": "Cc1ccccc1",
+  "pubchem_cid": 1140,
+  "plain_summary": "Common aromatic solvent. Methyl shift of benzene UV bands.",
+  "abs": {
+    "solvent": "hexane",
+    "peaks": [
+      {
+        "lambda": 208,
+        "height": 7900,
+        "sigma": 5
+      },
+      {
+        "lambda": 262,
+        "height": 270,
+        "sigma": 4
+      }
+    ],
+    "xMin": 190,
+    "xMax": 310,
+    "lambda_max_nm": [
+      262,
+      208
+    ],
+    "epsilon_max": [
+      270,
+      7900
+    ],
+    "plain_caption": "Weak band ~262 nm (like benzene, slightly red-shifted). Colorless.",
+    "lit": "Weak band ~262 nm (like benzene, slightly red-shifted). Colorless.",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

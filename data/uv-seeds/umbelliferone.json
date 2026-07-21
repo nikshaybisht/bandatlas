@@ -1,0 +1,60 @@
+{
+  "quality": "teaching",
+  "id": "umbelliferone",
+  "name": "Umbelliferone",
+  "synonyms": [
+    "7-Hydroxycoumarin"
+  ],
+  "family": "coumarins",
+  "cas": "93-35-6",
+  "formula": "C9H6O3",
+  "mw": 162.14,
+  "smiles": "O=c1ccc2ccc(O)cc2o1",
+  "pubchem_cid": 5281426,
+  "plain_summary": "Natural 7-hydroxycoumarin; pH-sensitive fluorescence teaching dye.",
+  "abs": {
+    "solvent": "ethanol",
+    "peaks": [
+      {
+        "lambda": 325,
+        "height": 14000,
+        "sigma": 14
+      },
+      {
+        "lambda": 255,
+        "height": 9000,
+        "sigma": 10
+      }
+    ],
+    "xMin": 230,
+    "xMax": 400,
+    "lambda_max_nm": [
+      325,
+      255
+    ],
+    "epsilon_max": [
+      14000,
+      9000
+    ],
+    "plain_caption": "UV absorption; phenolate form red-shifts and fluoresces more.",
+    "lit": "UV absorption; phenolate form red-shifts and fluoresces more.",
+    "quality_note": "Tier A teaching spectrum"
+  },
+  "em": {
+    "solvent": "ethanol",
+    "peaks": [
+      {
+        "lambda": 455,
+        "height": 1,
+        "sigma": 28
+      }
+    ],
+    "xMin": 380,
+    "xMax": 560,
+    "lambda_max_nm": [
+      455
+    ],
+    "quantum_yield": 0.2,
+    "plain_caption": "Blue fluorescence (teaching average; pH-dependent in water)."
+  }
+}

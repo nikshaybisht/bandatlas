@@ -1,0 +1,37 @@
+{
+  "quality": "teaching",
+  "id": "methanol",
+  "name": "Methanol",
+  "synonyms": [
+    "Methyl alcohol",
+    "MeOH"
+  ],
+  "family": "solvents",
+  "cas": "67-56-1",
+  "formula": "CH4O",
+  "mw": 32.04,
+  "smiles": "CO",
+  "pubchem_cid": 887,
+  "plain_summary": "Common polar spectroscopic solvent with a short UV cutoff; used as a blank more than as an analyte.",
+  "abs": {
+    "solvent": "neat (pathlength schematic)",
+    "peaks": [
+      {
+        "lambda": 205,
+        "height": 40,
+        "sigma": 7
+      }
+    ],
+    "xMin": 190,
+    "xMax": 320,
+    "lambda_max_nm": [
+      205
+    ],
+    "epsilon_max": [
+      40
+    ],
+    "plain_caption": "Schematic deep-UV cutoff for methanol teaching (transparent for most near-UV work).",
+    "lit": "Teaching solvent-cutoff schematic. Methanol practical UV cutoff often cited near ~205 nm.",
+    "quality_note": "Solvent cutoff teaching model"
+  }
+}

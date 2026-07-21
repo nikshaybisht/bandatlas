@@ -1,8 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
+import type { Viewer } from '3dmol'
 import { loadStructureSdf, type StructureSource } from '../lib/structures'
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-type Viewer = any
 
 interface Props {
   pubchemCid: number
@@ -49,8 +47,7 @@ export function MoleculeViewer({ pubchemCid, name }: Props) {
     ;(async () => {
       try {
         const mod = await import('3dmol')
-        // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        const api: any = (mod as any).default ?? mod
+        const api = mod.default ?? mod
         if (cancelled || !hostRef.current) return
 
         const isLight =
@@ -165,13 +162,22 @@ export function MoleculeViewer({ pubchemCid, name }: Props) {
       : source === 'pubchem-3d'
         ? 'PubChem 3D'
         : source === 'pubchem-2d'
-          ? 'PubChem 2D'
+          ? 'PubChem 2D (flat)'
           : null
+  const is2dOnly = source === 'pubchem-2d'
 
   return (
     <div className="mol-viewer">
       <div className="mol-toolbar">
-        <span className="mol-title">3D · {name}</span>
+        <span className="mol-title">
+          3D · {name}
+          {is2dOnly ? (
+            <span className="mol-2d-badge" title="Only a 2D conformer was available — structure may look flat">
+              {' '}
+              2D only
+            </span>
+          ) : null}
+        </span>
         <div className="mol-actions">
           <button
             type="button"
@@ -211,6 +217,7 @@ export function MoleculeViewer({ pubchemCid, name }: Props) {
         <div className="mol-status mol-source" title="Where the SDF was loaded from">
           Structure: {sourceLabel}
           {source === 'local' ? ' · offline-safe' : ''}
+          {is2dOnly ? ' · no 3D conformer from PubChem' : ''}
         </div>
       )}
       {status === 'error' && (
@@ -230,8 +237,7 @@ export function MoleculeViewer({ pubchemCid, name }: Props) {
   )
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function applyStyle(viewer: any, style: 'ballstick' | 'stick' | 'sphere') {
+function applyStyle(viewer: Viewer, style: 'ballstick' | 'stick' | 'sphere') {
   viewer.setStyle({}, {})
   if (style === 'ballstick') {
     viewer.setStyle({}, { stick: { radius: 0.12 }, sphere: { scale: 0.22 } })

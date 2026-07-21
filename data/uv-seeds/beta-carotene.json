@@ -1,0 +1,51 @@
+{
+  "quality": "teaching",
+  "id": "beta-carotene",
+  "name": "β-Carotene",
+  "synonyms": [
+    "beta-Carotene",
+    "Provitamin A"
+  ],
+  "family": "food",
+  "cas": "7235-40-7",
+  "formula": "C40H56",
+  "mw": 536.87,
+  "smiles": "CC1=C(/C=C/C(C)=C/C=C/C(C)=C/C=C/C=C(C)/C=C/C=C(C)/C=C/C2=C(C)CCCC2(C)C)C(C)(C)CCC1",
+  "pubchem_cid": 5280489,
+  "plain_summary": "Orange pigment in carrots. Long conjugated chain shifts absorption into the blue-green.",
+  "abs": {
+    "solvent": "hexane",
+    "peaks": [
+      {
+        "lambda": 450,
+        "height": 139000,
+        "sigma": 14
+      },
+      {
+        "lambda": 477,
+        "height": 122000,
+        "sigma": 12
+      },
+      {
+        "lambda": 425,
+        "height": 100000,
+        "sigma": 14
+      }
+    ],
+    "xMin": 350,
+    "xMax": 550,
+    "lambda_max_nm": [
+      450,
+      477,
+      425
+    ],
+    "epsilon_max": [
+      139000,
+      122000,
+      100000
+    ],
+    "plain_caption": "Absorbs blue-green light → carrots look orange.",
+    "lit": "Absorbs blue-green light → carrots look orange.",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

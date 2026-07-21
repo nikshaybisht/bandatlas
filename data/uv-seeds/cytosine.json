@@ -1,0 +1,36 @@
+{
+  "quality": "teaching",
+  "id": "cytosine",
+  "name": "Cytosine",
+  "synonyms": [
+    "4-Amino-2-hydroxypyrimidine",
+    "C"
+  ],
+  "family": "biomolecules",
+  "cas": "71-30-7",
+  "formula": "C4H5N3O",
+  "mw": 111.1,
+  "smiles": "Nc1cc[nH]c(=O)n1",
+  "pubchem_cid": 597,
+  "plain_summary": "DNA/RNA pyrimidine. UV max slightly red of uracil in free base tables.",
+  "abs": {
+    "solvent": "water, pH 7",
+    "peaks": [
+      {
+        "lambda": 267,
+        "height": 6100,
+        "sigma": 10
+      }
+    ],
+    "xMin": 220,
+    "xMax": 310,
+    "lambda_max_nm": [
+      267
+    ],
+    "epsilon_max": [
+      6100
+    ],
+    "plain_caption": "Pyrimidine UV max ~267 nm (free base).",
+    "lit": "λ_max after aqueous nucleobase tabulations (teaching envelope)."
+  }
+}

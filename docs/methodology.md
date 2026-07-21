@@ -21,7 +21,7 @@ Never relabel a teaching envelope as experimental.
 
 ## Teaching UV–Vis
 
-Seeds live in `tools/build-dataset.mjs` (`FULL`) and/or `data/uv-seeds/*.json`. How to add one: [ADD_SPECTRUM.md](ADD_SPECTRUM.md).
+Seeds live in `data/uv-seeds/*.json` (one file per compound). How to add one: [ADD_SPECTRUM.md](ADD_SPECTRUM.md).
 
 Catalog-only compounds have no UV series — empty state in the UI, not a blank chart pretending to be data.
 
@@ -36,6 +36,8 @@ Characteristic frequencies from standard tables (Pretsch, Socrates, etc.). Alway
 3. `npm run dataset`, check badge.
 
 Forbidden: copyrighted plot scrapes without a license; calling Gaussians “experimental”; shipping NIST-looking curves without checking terms.
+
+Database research and package (offline) strategy: [DATA_SOURCES.md](DATA_SOURCES.md). NMR design: [NMR_PLAN.md](NMR_PLAN.md).
 
 ## Overlay / export
 

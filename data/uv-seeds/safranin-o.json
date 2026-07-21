@@ -1,0 +1,36 @@
+{
+  "quality": "teaching",
+  "id": "safranin-o",
+  "name": "Safranin O",
+  "synonyms": [
+    "Basic Red 2",
+    "Safranin T"
+  ],
+  "family": "dyes",
+  "cas": "477-73-6",
+  "formula": "C20H19ClN4",
+  "mw": 350.84,
+  "smiles": "",
+  "pubchem_cid": 2723801,
+  "plain_summary": "Red histology counterstain (Gram stain). Cationic phenazine dye.",
+  "abs": {
+    "solvent": "water / ethanol",
+    "peaks": [
+      {
+        "lambda": 530,
+        "height": 40000,
+        "sigma": 20
+      }
+    ],
+    "xMin": 400,
+    "xMax": 650,
+    "lambda_max_nm": [
+      530
+    ],
+    "epsilon_max": [
+      40000
+    ],
+    "plain_caption": "Green absorption ~530 nm → red-pink stain.",
+    "lit": "λ_max after biological stain / dye index teaching tables; envelope only."
+  }
+}

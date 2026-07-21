@@ -1,0 +1,46 @@
+{
+  "quality": "teaching",
+  "id": "azulene",
+  "name": "Azulene",
+  "synonyms": [],
+  "family": "pahs",
+  "cas": "275-51-4",
+  "formula": "C10H8",
+  "mw": 128.17,
+  "smiles": "c1ccc2cccc-2cc1",
+  "pubchem_cid": 9231,
+  "plain_summary": "Blue non-benzenoid isomer of naphthalene — famous teaching colour puzzle.",
+  "abs": {
+    "solvent": "cyclohexane",
+    "peaks": [
+      {
+        "lambda": 580,
+        "height": 300,
+        "sigma": 40
+      },
+      {
+        "lambda": 340,
+        "height": 4000,
+        "sigma": 12
+      },
+      {
+        "lambda": 280,
+        "height": 50000,
+        "sigma": 8
+      }
+    ],
+    "xMin": 250,
+    "xMax": 700,
+    "lambda_max_nm": [
+      580,
+      340
+    ],
+    "epsilon_max": [
+      300,
+      4000
+    ],
+    "plain_caption": "Weak visible band ~580 nm → deep blue solid/solution (not a dye chromophore).",
+    "lit": "Weak visible band ~580 nm → deep blue solid/solution (not a dye chromophore).",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

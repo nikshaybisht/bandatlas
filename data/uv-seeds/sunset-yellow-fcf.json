@@ -1,0 +1,36 @@
+{
+  "quality": "teaching",
+  "id": "sunset-yellow-fcf",
+  "name": "Sunset Yellow FCF",
+  "synonyms": [
+    "FD&C Yellow 6",
+    "E110"
+  ],
+  "family": "food",
+  "cas": "2783-94-0",
+  "formula": "C16H10N2Na2O7S2",
+  "mw": 452.37,
+  "smiles": "",
+  "pubchem_cid": 17730,
+  "plain_summary": "Orange azo food dye; pairs with tartrazine in many beverages.",
+  "abs": {
+    "solvent": "water",
+    "peaks": [
+      {
+        "lambda": 480,
+        "height": 22000,
+        "sigma": 24
+      }
+    ],
+    "xMin": 350,
+    "xMax": 600,
+    "lambda_max_nm": [
+      480
+    ],
+    "epsilon_max": [
+      22000
+    ],
+    "plain_caption": "λ_max ~480 nm → sunset-orange food colour.",
+    "lit": "λ_max after food-dye spectral tables (Yellow 6); teaching envelope."
+  }
+}

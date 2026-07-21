@@ -1,0 +1,54 @@
+{
+  "quality": "teaching",
+  "id": "chrysene",
+  "name": "Chrysene",
+  "synonyms": [],
+  "family": "pahs",
+  "cas": "218-01-9",
+  "formula": "C18H12",
+  "mw": 228.29,
+  "smiles": "",
+  "pubchem_cid": 9171,
+  "plain_summary": "Four-ring PAH. Structured UV bands used in environmental PAH teaching sets.",
+  "abs": {
+    "solvent": "ethanol / cyclohexane",
+    "peaks": [
+      {
+        "lambda": 267,
+        "height": 120000,
+        "sigma": 5
+      },
+      {
+        "lambda": 306,
+        "height": 14000,
+        "sigma": 4
+      },
+      {
+        "lambda": 320,
+        "height": 12000,
+        "sigma": 4
+      },
+      {
+        "lambda": 360,
+        "height": 800,
+        "sigma": 4
+      }
+    ],
+    "xMin": 240,
+    "xMax": 400,
+    "lambda_max_nm": [
+      267,
+      306,
+      320,
+      360
+    ],
+    "epsilon_max": [
+      120000,
+      14000,
+      12000,
+      800
+    ],
+    "plain_caption": "Sharp PAH vibronic structure; compare with pyrene/phenanthrene.",
+    "lit": "λ_max after PAH UV tables (e.g. Clar / environmental PAH compilations); teaching envelope."
+  }
+}

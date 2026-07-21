@@ -1,0 +1,70 @@
+{
+  "quality": "teaching",
+  "id": "chlorophyll-a",
+  "name": "Chlorophyll a",
+  "synonyms": [
+    "Chl a"
+  ],
+  "family": "porphyrins",
+  "cas": "479-61-8",
+  "formula": "C55H72MgN4O5",
+  "mw": 893.49,
+  "smiles": "CCC1=C(C)C2=Cc3c(C=C)c(C)c4C=C5C(C)=C(C=O)C6=[N+]5[Mg-2]5(n34)n3c(c(C)c(C=C)c3C=C1[N+]25)=CC1=[N+]5C(=C6)C(C)C1CCC(=O)OC/C=C(\\C)CCC[C@H](C)CCC[C@H](C)CCCC(C)C",
+  "pubchem_cid": 6433192,
+  "plain_summary": "Main green pigment of plants. Absorbs red and blue, reflects green.",
+  "abs": {
+    "solvent": "diethyl ether",
+    "peaks": [
+      {
+        "lambda": 430,
+        "height": 111000,
+        "sigma": 10
+      },
+      {
+        "lambda": 662,
+        "height": 90000,
+        "sigma": 8
+      },
+      {
+        "lambda": 578,
+        "height": 8000,
+        "sigma": 10
+      },
+      {
+        "lambda": 615,
+        "height": 14000,
+        "sigma": 8
+      }
+    ],
+    "xMin": 380,
+    "xMax": 720,
+    "lambda_max_nm": [
+      430,
+      662
+    ],
+    "epsilon_max": [
+      111000,
+      90000
+    ],
+    "plain_caption": "Blue (Soret ~430 nm) + red (Q ~662 nm) absorption → leaves look green.",
+    "lit": "Blue (Soret ~430 nm) + red (Q ~662 nm) absorption → leaves look green.",
+    "quality_note": "Tier A teaching spectrum"
+  },
+  "em": {
+    "solvent": "diethyl ether",
+    "peaks": [
+      {
+        "lambda": 668,
+        "height": 1,
+        "sigma": 10
+      }
+    ],
+    "xMin": 640,
+    "xMax": 760,
+    "lambda_max_nm": [
+      668
+    ],
+    "quantum_yield": 0.32,
+    "plain_caption": "Deep red fluorescence near 668 nm."
+  }
+}

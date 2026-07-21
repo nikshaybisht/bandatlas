@@ -1,0 +1,53 @@
+{
+  "quality": "teaching",
+  "id": "hoechst-33342",
+  "name": "Hoechst 33342",
+  "synonyms": [
+    "Hoechst 33342 trihydrochloride"
+  ],
+  "family": "dyes",
+  "cas": "23491-52-3",
+  "formula": "C27H28N6O",
+  "mw": 452.55,
+  "smiles": "",
+  "pubchem_cid": 1464,
+  "plain_summary": "Cell-permeant DNA stain; blue nuclear fluorescence teaching dye.",
+  "abs": {
+    "solvent": "water / buffer",
+    "peaks": [
+      {
+        "lambda": 350,
+        "height": 45000,
+        "sigma": 16
+      }
+    ],
+    "xMin": 300,
+    "xMax": 440,
+    "lambda_max_nm": [
+      350
+    ],
+    "epsilon_max": [
+      45000
+    ],
+    "plain_caption": "Near-UV ~350 nm; binds AT-rich DNA minor groove.",
+    "lit": "λ_max after Hoechst stain technical tables; teaching envelope."
+  },
+  "em": {
+    "solvent": "DNA-bound teaching average",
+    "peaks": [
+      {
+        "lambda": 461,
+        "height": 1,
+        "sigma": 28
+      }
+    ],
+    "xMin": 400,
+    "xMax": 560,
+    "lambda_max_nm": [
+      461
+    ],
+    "quantum_yield": 0.4,
+    "plain_caption": "Blue nuclear emission ~461 nm (DNA-bound teaching average).",
+    "lit": "Emission envelope for teaching (normalized)."
+  }
+}

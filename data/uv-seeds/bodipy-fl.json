@@ -1,0 +1,54 @@
+{
+  "quality": "teaching",
+  "id": "bodipy-fl",
+  "name": "BODIPY FL",
+  "synonyms": [
+    "BODIPY-FL",
+    "Boron-dipyrromethene FL"
+  ],
+  "family": "dyes",
+  "cas": "165599-63-3",
+  "formula": "C14H17BF2N2",
+  "mw": 262.11,
+  "smiles": "",
+  "pubchem_cid": 16218639,
+  "plain_summary": "Bright green BODIPY fluorophore scaffold used in bioimaging teaching.",
+  "abs": {
+    "solvent": "methanol / PBS",
+    "peaks": [
+      {
+        "lambda": 503,
+        "height": 80000,
+        "sigma": 12
+      }
+    ],
+    "xMin": 420,
+    "xMax": 580,
+    "lambda_max_nm": [
+      503
+    ],
+    "epsilon_max": [
+      80000
+    ],
+    "plain_caption": "Sharp BODIPY band ~503 nm; small Stokes shift to green emission.",
+    "lit": "λ_max after BODIPY dye vendor/PhotochemCAD-style tables; teaching envelope."
+  },
+  "em": {
+    "solvent": "methanol",
+    "peaks": [
+      {
+        "lambda": 512,
+        "height": 1,
+        "sigma": 12
+      }
+    ],
+    "xMin": 480,
+    "xMax": 600,
+    "lambda_max_nm": [
+      512
+    ],
+    "quantum_yield": 0.9,
+    "plain_caption": "Narrow green emission (~512 nm) typical of BODIPY FL.",
+    "lit": "Emission envelope for teaching (normalized)."
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "quality": "teaching",
+  "id": "aniline",
+  "name": "Aniline",
+  "synonyms": [
+    "Phenylamine",
+    "Aminobenzene"
+  ],
+  "family": "aromatic-hydrocarbons",
+  "cas": "62-53-3",
+  "formula": "C6H7N",
+  "mw": 93.13,
+  "smiles": "Nc1ccccc1",
+  "pubchem_cid": 6115,
+  "plain_summary": "Amino-benzene; building block for dyes. UV bands red-shift vs benzene.",
+  "abs": {
+    "solvent": "ethanol",
+    "peaks": [
+      {
+        "lambda": 230,
+        "height": 8600,
+        "sigma": 8
+      },
+      {
+        "lambda": 280,
+        "height": 1430,
+        "sigma": 10
+      }
+    ],
+    "xMin": 200,
+    "xMax": 340,
+    "lambda_max_nm": [
+      280,
+      230
+    ],
+    "epsilon_max": [
+      1430,
+      8600
+    ],
+    "plain_caption": "UV absorption; pure aniline is pale — dyes made from it are colorful.",
+    "lit": "UV absorption; pure aniline is pale — dyes made from it are colorful.",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

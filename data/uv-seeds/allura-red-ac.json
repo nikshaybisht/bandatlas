@@ -1,0 +1,36 @@
+{
+  "quality": "teaching",
+  "id": "allura-red-ac",
+  "name": "Allura Red AC",
+  "synonyms": [
+    "FD&C Red 40",
+    "E129"
+  ],
+  "family": "food",
+  "cas": "25956-17-6",
+  "formula": "C18H14N2Na2O8S2",
+  "mw": 496.42,
+  "smiles": "",
+  "pubchem_cid": 33258,
+  "plain_summary": "Azo food red. Teaching example of azo chromophores in consumer products.",
+  "abs": {
+    "solvent": "water",
+    "peaks": [
+      {
+        "lambda": 504,
+        "height": 25000,
+        "sigma": 24
+      }
+    ],
+    "xMin": 380,
+    "xMax": 620,
+    "lambda_max_nm": [
+      504
+    ],
+    "epsilon_max": [
+      25000
+    ],
+    "plain_caption": "λ_max ~504 nm → red-orange soft-drink / candy colour.",
+    "lit": "λ_max after food-dye spectral tables (Red 40); teaching envelope."
+  }
+}

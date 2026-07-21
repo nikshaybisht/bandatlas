@@ -1,0 +1,50 @@
+{
+  "quality": "teaching",
+  "id": "fluorene",
+  "name": "Fluorene",
+  "synonyms": [
+    "9H-Fluorene"
+  ],
+  "family": "pahs",
+  "cas": "86-73-7",
+  "formula": "C13H10",
+  "mw": 166.22,
+  "smiles": "c1ccc2c(c1)Cc1ccccc1-2",
+  "pubchem_cid": 6853,
+  "plain_summary": "Rigid aromatic PAH used in organic electronics teaching; structured UV bands like other PAHs.",
+  "abs": {
+    "solvent": "cyclohexane",
+    "peaks": [
+      {
+        "lambda": 261,
+        "height": 18000,
+        "sigma": 6
+      },
+      {
+        "lambda": 289,
+        "height": 10000,
+        "sigma": 5
+      },
+      {
+        "lambda": 301,
+        "height": 9000,
+        "sigma": 4
+      }
+    ],
+    "xMin": 230,
+    "xMax": 340,
+    "lambda_max_nm": [
+      301,
+      289,
+      261
+    ],
+    "epsilon_max": [
+      9000,
+      10000,
+      18000
+    ],
+    "plain_caption": "Structured near-UV bands typical of rigid PAHs (~260–300 nm).",
+    "lit": "Teaching envelope shaped to classic fluorene UV band positions in hydrocarbon solvents.",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

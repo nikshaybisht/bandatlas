@@ -1,0 +1,42 @@
+{
+  "quality": "teaching",
+  "id": "ibuprofen",
+  "name": "Ibuprofen",
+  "synonyms": [
+    "(±)-2-(4-Isobutylphenyl)propionic acid"
+  ],
+  "family": "pharmaceuticals",
+  "cas": "15687-27-1",
+  "formula": "C13H18O2",
+  "mw": 206.28,
+  "smiles": "CC(C)Cc1ccc(C(C)C(=O)O)cc1",
+  "pubchem_cid": 3672,
+  "plain_summary": "NSAID with phenyl chromophore; UV assay used in pharmacy teaching labs.",
+  "abs": {
+    "solvent": "methanol / 0.1 M NaOH",
+    "peaks": [
+      {
+        "lambda": 222,
+        "height": 9000,
+        "sigma": 8
+      },
+      {
+        "lambda": 264,
+        "height": 400,
+        "sigma": 8
+      }
+    ],
+    "xMin": 200,
+    "xMax": 300,
+    "lambda_max_nm": [
+      264,
+      222
+    ],
+    "epsilon_max": [
+      400,
+      9000
+    ],
+    "plain_caption": "Weak phenyl band ~264 nm; colorless API.",
+    "lit": "λ_max after pharmaceutical UV assay tables; teaching envelope."
+  }
+}

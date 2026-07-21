@@ -1,0 +1,42 @@
+{
+  "quality": "teaching",
+  "id": "nadh",
+  "name": "NADH",
+  "synonyms": [
+    "Reduced nicotinamide adenine dinucleotide"
+  ],
+  "family": "biomolecules",
+  "cas": "58-68-4",
+  "formula": "C21H29N7O14P2",
+  "mw": 663.43,
+  "smiles": "",
+  "pubchem_cid": 439153,
+  "plain_summary": "Reduced cofactor; 340 nm band is the classic enzyme-assay teaching signal.",
+  "abs": {
+    "solvent": "water, pH 7",
+    "peaks": [
+      {
+        "lambda": 260,
+        "height": 15000,
+        "sigma": 10
+      },
+      {
+        "lambda": 340,
+        "height": 6200,
+        "sigma": 14
+      }
+    ],
+    "xMin": 230,
+    "xMax": 420,
+    "lambda_max_nm": [
+      340,
+      260
+    ],
+    "epsilon_max": [
+      6200,
+      15000
+    ],
+    "plain_caption": "NADH-specific band ~340 nm (NAD⁺ lacks it) — enzyme kinetics classic.",
+    "lit": "λ_max after biochemistry cofactor tables (ε_340 ≈ 6220 M⁻¹ cm⁻¹ teaching value); envelope only."
+  }
+}

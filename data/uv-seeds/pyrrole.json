@@ -1,0 +1,35 @@
+{
+  "quality": "teaching",
+  "id": "pyrrole",
+  "name": "Pyrrole",
+  "synonyms": [
+    "Azole"
+  ],
+  "family": "heterocycles",
+  "cas": "109-97-7",
+  "formula": "C4H5N",
+  "mw": 67.09,
+  "smiles": "c1cc[nH]c1",
+  "pubchem_cid": 8027,
+  "plain_summary": "Five-membered N-heterocycle; building block of porphyrins; UV only.",
+  "abs": {
+    "solvent": "hexane / ethanol",
+    "peaks": [
+      {
+        "lambda": 210,
+        "height": 7000,
+        "sigma": 8
+      }
+    ],
+    "xMin": 190,
+    "xMax": 280,
+    "lambda_max_nm": [
+      210
+    ],
+    "epsilon_max": [
+      7000
+    ],
+    "plain_caption": "Deep UV ~210 nm; colorless liquid.",
+    "lit": "λ_max after heterocyclic UV tables; teaching envelope."
+  }
+}

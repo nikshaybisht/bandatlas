@@ -1,0 +1,36 @@
+{
+  "quality": "teaching",
+  "id": "bromothymol-blue",
+  "name": "Bromothymol Blue",
+  "synonyms": [
+    "BTB"
+  ],
+  "family": "dyes",
+  "cas": "76-59-5",
+  "formula": "C27H28Br2O5S",
+  "mw": 624.38,
+  "smiles": "Cc1c(Br)c(O)c(C(C)C)cc1C1(OS(=O)(=O)c2ccccc12)c1cc(C(C)C)c(O)c(Br)c1C",
+  "pubchem_cid": 6450,
+  "plain_summary": "Common pH indicator (yellow↔blue); teaching tool for acid–base colour and λ_max shift.",
+  "abs": {
+    "solvent": "water (pH ~7)",
+    "peaks": [
+      {
+        "lambda": 430,
+        "height": 18000,
+        "sigma": 22
+      }
+    ],
+    "xMin": 350,
+    "xMax": 700,
+    "lambda_max_nm": [
+      430
+    ],
+    "epsilon_max": [
+      18000
+    ],
+    "plain_caption": "Visible band near ~430 nm near neutral pH (shifts with acid/base form).",
+    "lit": "Teaching envelope for bromothymol blue near-neutral aqueous form (~430 nm region). Acid/base forms differ.",
+    "quality_note": "Tier A teaching spectrum — indicator demo"
+  }
+}

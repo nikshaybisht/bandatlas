@@ -1,14 +1,14 @@
 {
-  "version": "1.1.0",
-  "total": 496,
-  "full_uvvis": 103,
-  "ir": 496,
-  "raman": 496,
+  "version": "1.2.0",
+  "total": 505,
+  "full_uvvis": 126,
+  "ir": 505,
+  "raman": 505,
   "lab_set": 35,
   "lab_set_count": 35,
-  "catalog_only": 393,
+  "catalog_only": 379,
   "experimental": 0,
   "experimental_examples": 1,
-  "generatedAt": "2026-07-16T01:23:24.050Z",
-  "generated_at": "2026-07-16T01:23:24.050Z"
+  "generatedAt": "2026-07-21T18:22:44.479Z",
+  "generated_at": "2026-07-21T18:22:44.479Z"
 }

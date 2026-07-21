@@ -1,0 +1,50 @@
+{
+  "quality": "teaching",
+  "id": "graphene-flake",
+  "name": "Coronene",
+  "synonyms": [
+    "Superbenzene",
+    "Hexabenzobenzene"
+  ],
+  "family": "pahs",
+  "cas": "191-07-1",
+  "formula": "C24H12",
+  "mw": 300.35,
+  "smiles": "",
+  "pubchem_cid": 9115,
+  "plain_summary": "Six peri-fused rings (“superbenzene”). Sharp UV–Vis PAH fingerprint.",
+  "abs": {
+    "solvent": "benzene / cyclohexane",
+    "peaks": [
+      {
+        "lambda": 305,
+        "height": 180000,
+        "sigma": 5
+      },
+      {
+        "lambda": 342,
+        "height": 50000,
+        "sigma": 4
+      },
+      {
+        "lambda": 380,
+        "height": 8000,
+        "sigma": 4
+      }
+    ],
+    "xMin": 280,
+    "xMax": 420,
+    "lambda_max_nm": [
+      305,
+      342,
+      380
+    ],
+    "epsilon_max": [
+      180000,
+      50000,
+      8000
+    ],
+    "plain_caption": "Intense UV bands with fine structure (coronene teaching shape).",
+    "lit": "λ_max after PAH UV compilations (Clar); multi-Gaussian teaching envelope."
+  }
+}

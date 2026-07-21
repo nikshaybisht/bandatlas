@@ -1,0 +1,44 @@
+{
+  "quality": "teaching",
+  "id": "trans-stilbene",
+  "name": "trans-Stilbene",
+  "synonyms": [
+    "(E)-Stilbene",
+    "Stilbene"
+  ],
+  "family": "aromatic-hydrocarbons",
+  "cas": "103-30-0",
+  "formula": "C14H12",
+  "mw": 180.25,
+  "smiles": "c1ccc(cc1)/C=C/c1ccccc1",
+  "pubchem_cid": 638088,
+  "plain_summary": "Classic stilbene for cis–trans photochemistry teaching; intense UV absorption from the conjugated stilbene chromophore.",
+  "abs": {
+    "solvent": "ethanol",
+    "peaks": [
+      {
+        "lambda": 295,
+        "height": 28000,
+        "sigma": 14
+      },
+      {
+        "lambda": 307,
+        "height": 25000,
+        "sigma": 12
+      }
+    ],
+    "xMin": 240,
+    "xMax": 360,
+    "lambda_max_nm": [
+      295,
+      307
+    ],
+    "epsilon_max": [
+      28000,
+      25000
+    ],
+    "plain_caption": "Strong stilbene π→π* envelope near ~295–310 nm.",
+    "lit": "Teaching multi-Gaussian near literature trans-stilbene λ_max (~295 nm region in ethanol).",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "quality": "teaching",
+  "id": "indigo",
+  "name": "Indigo",
+  "synonyms": [
+    "Indigo blue",
+    "C.I. 73000"
+  ],
+  "family": "dyes",
+  "cas": "482-89-3",
+  "formula": "C16H10N2O2",
+  "mw": 262.27,
+  "smiles": "O=C1C(=Cc2ccccc12)C1=Nc2ccccc2C1=O",
+  "pubchem_cid": 10215,
+  "plain_summary": "Historic blue dye of denim. Absorbs orange-red light.",
+  "abs": {
+    "solvent": "DMSO",
+    "peaks": [
+      {
+        "lambda": 610,
+        "height": 22000,
+        "sigma": 28
+      }
+    ],
+    "xMin": 450,
+    "xMax": 750,
+    "lambda_max_nm": [
+      610
+    ],
+    "epsilon_max": [
+      22000
+    ],
+    "plain_caption": "Absorbs ~610 nm (orange-red) → jeans look blue.",
+    "lit": "Absorbs ~610 nm (orange-red) → jeans look blue.",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

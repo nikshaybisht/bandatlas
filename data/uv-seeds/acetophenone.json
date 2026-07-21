@@ -1,0 +1,51 @@
+{
+  "quality": "teaching",
+  "id": "acetophenone",
+  "name": "Acetophenone",
+  "synonyms": [
+    "Methyl phenyl ketone",
+    "1-Phenylethanone"
+  ],
+  "family": "aromatic-hydrocarbons",
+  "cas": "98-86-2",
+  "formula": "C8H8O",
+  "mw": 120.15,
+  "smiles": "CC(=O)c1ccccc1",
+  "pubchem_cid": 7410,
+  "plain_summary": "Simplest aromatic ketone for n→π* vs π→π* teaching comparisons.",
+  "abs": {
+    "solvent": "ethanol",
+    "peaks": [
+      {
+        "lambda": 242,
+        "height": 12000,
+        "sigma": 10
+      },
+      {
+        "lambda": 279,
+        "height": 1000,
+        "sigma": 8
+      },
+      {
+        "lambda": 320,
+        "height": 50,
+        "sigma": 14
+      }
+    ],
+    "xMin": 220,
+    "xMax": 380,
+    "lambda_max_nm": [
+      242,
+      279,
+      320
+    ],
+    "epsilon_max": [
+      12000,
+      1000,
+      50
+    ],
+    "plain_caption": "π→π* ~242 nm; weaker bands into the near-UV including n→π*.",
+    "lit": "Teaching multi-Gaussian for acetophenone UV bands (ethanol) after standard organic spectroscopy tables.",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

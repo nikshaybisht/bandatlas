@@ -1,0 +1,36 @@
+{
+  "quality": "teaching",
+  "id": "neutral-red",
+  "name": "Neutral red",
+  "synonyms": [
+    "Basic Red 5",
+    "Toluylene red"
+  ],
+  "family": "dyes",
+  "cas": "553-24-2",
+  "formula": "C15H17ClN4",
+  "mw": 288.78,
+  "smiles": "",
+  "pubchem_cid": 11105,
+  "plain_summary": "Lysosomal / viability stain and pH indicator (red↔yellow).",
+  "abs": {
+    "solvent": "water, acidic form (teaching)",
+    "peaks": [
+      {
+        "lambda": 540,
+        "height": 25000,
+        "sigma": 22
+      }
+    ],
+    "xMin": 400,
+    "xMax": 650,
+    "lambda_max_nm": [
+      540
+    ],
+    "epsilon_max": [
+      25000
+    ],
+    "plain_caption": "Acid form ~540 nm → red; used in vital staining demos.",
+    "lit": "λ_max after biological stain tables; teaching envelope."
+  }
+}

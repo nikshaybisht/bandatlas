@@ -1,0 +1,45 @@
+{
+  "quality": "teaching",
+  "id": "phenylalanine",
+  "name": "Phenylalanine",
+  "synonyms": [
+    "L-Phenylalanine",
+    "Phe",
+    "F"
+  ],
+  "family": "biomolecules",
+  "cas": "63-91-2",
+  "formula": "C9H11NO2",
+  "mw": 165.19,
+  "smiles": "N[C@@H](Cc1ccccc1)C(=O)O",
+  "pubchem_cid": 6140,
+  "plain_summary": "Amino acid with benzene side chain — weak UV like toluene.",
+  "abs": {
+    "solvent": "water, pH 7",
+    "peaks": [
+      {
+        "lambda": 206,
+        "height": 9000,
+        "sigma": 5
+      },
+      {
+        "lambda": 258,
+        "height": 200,
+        "sigma": 4
+      }
+    ],
+    "xMin": 190,
+    "xMax": 300,
+    "lambda_max_nm": [
+      258,
+      206
+    ],
+    "epsilon_max": [
+      200,
+      9000
+    ],
+    "plain_caption": "Weak phenyl band ~258 nm; usually minor in protein spectra vs Trp/Tyr.",
+    "lit": "Weak phenyl band ~258 nm; usually minor in protein spectra vs Trp/Tyr.",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

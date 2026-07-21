@@ -1,0 +1,37 @@
+{
+  "quality": "teaching",
+  "id": "retinal",
+  "name": "Retinal",
+  "synonyms": [
+    "Vitamin A aldehyde",
+    "Retinene"
+  ],
+  "family": "biomolecules",
+  "cas": "116-31-4",
+  "formula": "C20H28O",
+  "mw": 284.44,
+  "smiles": "CC1=C(/C=C/C(C)=C/C=C/C(C)=C/C=O)C(C)(C)CCC1",
+  "pubchem_cid": 638015,
+  "plain_summary": "Vision chromophore. Polyene chain sets visible absorption in rhodopsin.",
+  "abs": {
+    "solvent": "ethanol",
+    "peaks": [
+      {
+        "lambda": 380,
+        "height": 43000,
+        "sigma": 20
+      }
+    ],
+    "xMin": 280,
+    "xMax": 480,
+    "lambda_max_nm": [
+      380
+    ],
+    "epsilon_max": [
+      43000
+    ],
+    "plain_caption": "Near-UV/violet absorption; protein binding shifts it in the eye.",
+    "lit": "Near-UV/violet absorption; protein binding shifts it in the eye.",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

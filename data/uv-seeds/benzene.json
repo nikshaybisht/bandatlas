@@ -1,0 +1,66 @@
+{
+  "quality": "teaching",
+  "id": "benzene",
+  "name": "Benzene",
+  "synonyms": [
+    "Benzol",
+    "Cyclohexatriene"
+  ],
+  "family": "aromatic-hydrocarbons",
+  "cas": "71-43-2",
+  "formula": "C6H6",
+  "mw": 78.11,
+  "smiles": "c1ccccc1",
+  "pubchem_cid": 241,
+  "plain_summary": "The simplest aromatic ring. Absorbs only deep ultraviolet light, so pure benzene looks colorless to the eye.",
+  "abs": {
+    "solvent": "cyclohexane",
+    "peaks": [
+      {
+        "lambda": 184,
+        "height": 60000,
+        "sigma": 6
+      },
+      {
+        "lambda": 204,
+        "height": 7900,
+        "sigma": 5
+      },
+      {
+        "lambda": 254,
+        "height": 210,
+        "sigma": 4
+      }
+    ],
+    "xMin": 180,
+    "xMax": 300,
+    "lambda_max_nm": [
+      254,
+      204
+    ],
+    "epsilon_max": [
+      210,
+      7900
+    ],
+    "plain_caption": "Main weak band near 254 nm (UV). No absorption in the visible range → colorless.",
+    "lit": "Main weak band near 254 nm (UV). No absorption in the visible range → colorless.",
+    "quality_note": "Tier A teaching spectrum"
+  },
+  "em": {
+    "solvent": "cyclohexane",
+    "peaks": [
+      {
+        "lambda": 280,
+        "height": 1,
+        "sigma": 12
+      }
+    ],
+    "xMin": 250,
+    "xMax": 360,
+    "lambda_max_nm": [
+      280
+    ],
+    "quantum_yield": 0.05,
+    "plain_caption": "Weak UV fluorescence around 280 nm (teaching shape)."
+  }
+}

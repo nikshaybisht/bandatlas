@@ -1,5 +1,26 @@
 # Changelog
 
+## 1.2.0
+
+Library expansion + packaging research:
+
+- **+23 UV teaching seeds** (Nile Red, Coumarin 153, fluorene, stilbene, ketones, naphthols, indicators, solvents cutoffs, …) → ~126 full UV envelopes / ~505 compounds
+- UV seeds remain the only source of truth under `data/uv-seeds/`
+- Docs: [DATA_SOURCES.md](docs/DATA_SOURCES.md) (open databases, what not to scrape, **local-first package** recommendation)
+- Docs: [NMR_PLAN.md](docs/NMR_PLAN.md) + `data/nmr-seeds/_template.json` (¹H/¹³C, 60 vs 500 MHz design — not wired in UI yet)
+- CONTRIBUTING trimmed (no command-dump contribution path)
+
+## 1.1.2
+
+Maintainability and review follow-ups:
+
+- UV teaching seeds moved entirely to `data/uv-seeds/*.json` (build script no longer embeds the FULL array)
+- Dataset `version` stamp aligned with app (**1.1.1**+)
+- Lint (`oxlint --deny-warnings`) is part of `npm run ci`
+- Safer DOI handling only via `safeDoiUrl` (no unsafe fallback)
+- Peak-label collision avoidance; 2D-only structure badge; explorer helpers extracted
+- Docs: `docs/PWA.md`, `docs/A11Y_MOBILE_CHECKLIST.md`
+
 ## 1.1.1
 
 Security / integrity hardening:

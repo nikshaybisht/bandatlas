@@ -1,0 +1,47 @@
+{
+  "compound_id": "your-compound-id",
+  "quality": "teaching",
+  "spectra": [
+    {
+      "id": "your-compound-id-1h",
+      "nucleus": "1H",
+      "solvent": "CDCl3",
+      "reference": "TMS",
+      "temperature_K": 298,
+      "plain_caption": "Short teaching caption for the ¹H spectrum.",
+      "source": {
+        "citation": "Author / handbook table / DOI — teaching peak list, not a raw FID.",
+        "license": "CC-BY-4.0 packaging; verify primary literature for research numbers",
+        "note": "Tier A teaching NMR"
+      },
+      "peaks": [
+        {
+          "delta_ppm": 7.26,
+          "multiplicity": "s",
+          "integration": 1,
+          "j_hz": [],
+          "label": "optional assignment"
+        }
+      ]
+    },
+    {
+      "id": "your-compound-id-13c",
+      "nucleus": "13C",
+      "solvent": "CDCl3",
+      "reference": "TMS",
+      "plain_caption": "Short teaching caption for the ¹³C spectrum.",
+      "source": {
+        "citation": "Author / handbook table / DOI",
+        "license": "CC-BY-4.0 packaging",
+        "note": "Tier A teaching NMR"
+      },
+      "peaks": [
+        {
+          "delta_ppm": 128.0,
+          "multiplicity": "s",
+          "integration": 1
+        }
+      ]
+    }
+  ]
+}

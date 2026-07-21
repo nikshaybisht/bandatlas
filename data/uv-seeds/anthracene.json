@@ -1,0 +1,80 @@
+{
+  "quality": "teaching",
+  "id": "anthracene",
+  "name": "Anthracene",
+  "synonyms": [],
+  "family": "pahs",
+  "cas": "120-12-7",
+  "formula": "C14H10",
+  "mw": 178.23,
+  "smiles": "c1ccc2cc3ccccc3cc2c1",
+  "pubchem_cid": 8418,
+  "plain_summary": "Three fused rings. Famous teaching fluorophore with structured UV–Vis bands.",
+  "abs": {
+    "solvent": "cyclohexane",
+    "peaks": [
+      {
+        "lambda": 340,
+        "height": 6300,
+        "sigma": 3
+      },
+      {
+        "lambda": 356,
+        "height": 8500,
+        "sigma": 3
+      },
+      {
+        "lambda": 375,
+        "height": 9000,
+        "sigma": 3
+      },
+      {
+        "lambda": 252,
+        "height": 160000,
+        "sigma": 5
+      }
+    ],
+    "xMin": 220,
+    "xMax": 420,
+    "lambda_max_nm": [
+      375,
+      356,
+      340
+    ],
+    "epsilon_max": [
+      9000,
+      8500,
+      6300
+    ],
+    "plain_caption": "Finger-like vibronic peaks near 340–375 nm — a classic PAH pattern.",
+    "lit": "Finger-like vibronic peaks near 340–375 nm — a classic PAH pattern.",
+    "quality_note": "Tier A teaching spectrum"
+  },
+  "em": {
+    "solvent": "cyclohexane",
+    "peaks": [
+      {
+        "lambda": 380,
+        "height": 0.6,
+        "sigma": 4
+      },
+      {
+        "lambda": 400,
+        "height": 1,
+        "sigma": 5
+      },
+      {
+        "lambda": 420,
+        "height": 0.7,
+        "sigma": 6
+      }
+    ],
+    "xMin": 360,
+    "xMax": 480,
+    "lambda_max_nm": [
+      400
+    ],
+    "quantum_yield": 0.36,
+    "plain_caption": "Blue fluorescence with mirror-image vibronic structure."
+  }
+}

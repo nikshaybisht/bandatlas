@@ -1,0 +1,37 @@
+{
+  "quality": "teaching",
+  "id": "crystal-violet",
+  "name": "Crystal violet",
+  "synonyms": [
+    "Gentian violet",
+    "Basic Violet 3"
+  ],
+  "family": "dyes",
+  "cas": "548-62-9",
+  "formula": "C25H30ClN3",
+  "mw": 407.99,
+  "smiles": "CN(C)c1ccc(C(=C2C=CC(=[N+](C)C)C=C2)c2ccc(N(C)C)cc2)cc1.[Cl-]",
+  "pubchem_cid": 11057,
+  "plain_summary": "Intense purple triarylmethane dye (Gram stain).",
+  "abs": {
+    "solvent": "water",
+    "peaks": [
+      {
+        "lambda": 590,
+        "height": 100000,
+        "sigma": 16
+      }
+    ],
+    "xMin": 450,
+    "xMax": 700,
+    "lambda_max_nm": [
+      590
+    ],
+    "epsilon_max": [
+      100000
+    ],
+    "plain_caption": "Absorbs yellow-orange (~590 nm) → deep violet color.",
+    "lit": "Absorbs yellow-orange (~590 nm) → deep violet color.",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

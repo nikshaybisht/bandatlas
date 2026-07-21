@@ -78,7 +78,6 @@ async function tryLocal(url: string): Promise<string | null> {
 }
 
 // local cache → PubChem 3D → 2D. Callers should isolate errors so search/spectrum keep working.
-// TODO: surface "2D only" more clearly when 3D conformer missing — flat models look weird in the viewer
 export async function loadStructureSdf(pubchemCid: number): Promise<{
   sdf: string
   source: StructureSource

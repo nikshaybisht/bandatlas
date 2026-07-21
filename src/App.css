@@ -1717,6 +1717,17 @@ input:focus-visible,
   background: var(--bg-elev);
 }
 
+.mol-2d-badge {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--muted, #a1a1aa);
+  border: 1px solid color-mix(in srgb, var(--muted, #a1a1aa) 45%, transparent);
+  border-radius: 999px;
+  padding: 0.05rem 0.4rem;
+  vertical-align: middle;
+}
+
 .mol-title {
   color: var(--muted);
   font-size: 0.75rem;

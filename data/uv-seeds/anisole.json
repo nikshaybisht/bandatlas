@@ -1,0 +1,44 @@
+{
+  "quality": "teaching",
+  "id": "anisole",
+  "name": "Anisole",
+  "synonyms": [
+    "Methoxybenzene",
+    "Methyl phenyl ether"
+  ],
+  "family": "aromatic-hydrocarbons",
+  "cas": "100-66-3",
+  "formula": "C7H8O",
+  "mw": 108.14,
+  "smiles": "COc1ccccc1",
+  "pubchem_cid": 7519,
+  "plain_summary": "Methoxybenzene; donor-substituted arene for substituent-effect teaching on UV bands.",
+  "abs": {
+    "solvent": "ethanol",
+    "peaks": [
+      {
+        "lambda": 220,
+        "height": 8000,
+        "sigma": 8
+      },
+      {
+        "lambda": 269,
+        "height": 1600,
+        "sigma": 8
+      }
+    ],
+    "xMin": 200,
+    "xMax": 320,
+    "lambda_max_nm": [
+      269,
+      220
+    ],
+    "epsilon_max": [
+      1600,
+      8000
+    ],
+    "plain_caption": "Benzene-like bands red-shifted by the methoxy donor (~269 nm).",
+    "lit": "Teaching envelope for anisole UV maxima in ethanol.",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

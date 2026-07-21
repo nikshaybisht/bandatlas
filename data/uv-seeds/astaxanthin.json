@@ -1,0 +1,33 @@
+{
+  "quality": "teaching",
+  "id": "astaxanthin",
+  "name": "Astaxanthin",
+  "synonyms": [],
+  "family": "food",
+  "cas": "472-61-7",
+  "formula": "C40H52O4",
+  "mw": 596.84,
+  "smiles": "",
+  "pubchem_cid": 5281224,
+  "plain_summary": "Red keto-carotenoid (salmon, shrimp, Haematococcus). Longer conjugation → redder.",
+  "abs": {
+    "solvent": "acetone / hexane",
+    "peaks": [
+      {
+        "lambda": 478,
+        "height": 125000,
+        "sigma": 22
+      }
+    ],
+    "xMin": 380,
+    "xMax": 600,
+    "lambda_max_nm": [
+      478
+    ],
+    "epsilon_max": [
+      125000
+    ],
+    "plain_caption": "Broad visible max ~478 nm → deep orange-red food colour.",
+    "lit": "λ_max after carotenoid food-chemistry tables; multi-Gaussian teaching envelope."
+  }
+}

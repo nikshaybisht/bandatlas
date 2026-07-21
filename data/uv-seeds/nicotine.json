@@ -1,0 +1,40 @@
+{
+  "quality": "teaching",
+  "id": "nicotine",
+  "name": "Nicotine",
+  "synonyms": [
+    "(S)-3-(1-Methylpyrrolidin-2-yl)pyridine"
+  ],
+  "family": "pharmaceuticals",
+  "cas": "54-11-5",
+  "formula": "C10H14N2",
+  "mw": 162.23,
+  "smiles": "",
+  "pubchem_cid": 89594,
+  "plain_summary": "Tobacco alkaloid; pyridine chromophore dominates UV.",
+  "abs": {
+    "solvent": "water / ethanol",
+    "peaks": [
+      {
+        "lambda": 260,
+        "height": 5000,
+        "sigma": 10
+      },
+      {
+        "lambda": 262,
+        "height": 4800,
+        "sigma": 10
+      }
+    ],
+    "xMin": 220,
+    "xMax": 320,
+    "lambda_max_nm": [
+      260
+    ],
+    "epsilon_max": [
+      5000
+    ],
+    "plain_caption": "Pyridine-like UV ~260 nm; colorless pure liquid.",
+    "lit": "λ_max after alkaloid UV tables; teaching envelope."
+  }
+}

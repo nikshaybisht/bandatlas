@@ -1,0 +1,55 @@
+{
+  "quality": "teaching",
+  "id": "fullerene-c60",
+  "name": "Fullerene C60",
+  "synonyms": [
+    "Buckminsterfullerene",
+    "C60"
+  ],
+  "family": "pahs",
+  "cas": "99685-96-8",
+  "formula": "C60",
+  "mw": 720.64,
+  "smiles": "",
+  "pubchem_cid": 123591,
+  "plain_summary": "Soccer-ball carbon allotrope. Magenta solutions with weak visible bands.",
+  "abs": {
+    "solvent": "toluene / hexane",
+    "peaks": [
+      {
+        "lambda": 330,
+        "height": 50000,
+        "sigma": 12
+      },
+      {
+        "lambda": 404,
+        "height": 3000,
+        "sigma": 10
+      },
+      {
+        "lambda": 540,
+        "height": 700,
+        "sigma": 25
+      },
+      {
+        "lambda": 600,
+        "height": 500,
+        "sigma": 25
+      }
+    ],
+    "xMin": 280,
+    "xMax": 700,
+    "lambda_max_nm": [
+      330,
+      404,
+      540
+    ],
+    "epsilon_max": [
+      50000,
+      3000,
+      700
+    ],
+    "plain_caption": "Strong UV + weak visible bands → purple-magenta C60 solutions.",
+    "lit": "λ_max after C60 solution spectra tables (toluene/hexane teaching values); envelope only."
+  }
+}

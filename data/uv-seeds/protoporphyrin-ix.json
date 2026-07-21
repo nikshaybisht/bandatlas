@@ -1,0 +1,81 @@
+{
+  "quality": "teaching",
+  "id": "protoporphyrin-ix",
+  "name": "Protoporphyrin IX",
+  "synonyms": [
+    "PPIX"
+  ],
+  "family": "porphyrins",
+  "cas": "553-12-8",
+  "formula": "C34H34N4O4",
+  "mw": 562.66,
+  "smiles": "",
+  "pubchem_cid": 4971,
+  "plain_summary": "Heme precursor porphyrin; Soret + Q bands and red fluorescence teaching classic.",
+  "abs": {
+    "solvent": "DMSO / acid methanol (teaching)",
+    "peaks": [
+      {
+        "lambda": 408,
+        "height": 170000,
+        "sigma": 8
+      },
+      {
+        "lambda": 505,
+        "height": 12000,
+        "sigma": 8
+      },
+      {
+        "lambda": 540,
+        "height": 10000,
+        "sigma": 8
+      },
+      {
+        "lambda": 575,
+        "height": 7000,
+        "sigma": 8
+      },
+      {
+        "lambda": 630,
+        "height": 5000,
+        "sigma": 8
+      }
+    ],
+    "xMin": 360,
+    "xMax": 700,
+    "lambda_max_nm": [
+      408,
+      505,
+      540,
+      575,
+      630
+    ],
+    "epsilon_max": [
+      170000,
+      12000,
+      10000,
+      7000,
+      5000
+    ],
+    "plain_caption": "Huge Soret ~408 nm + four Q bands — free-base porphyrin fingerprint.",
+    "lit": "λ_max after porphyrin photochemistry tables (PPIX); teaching envelope."
+  },
+  "em": {
+    "solvent": "DMSO",
+    "peaks": [
+      {
+        "lambda": 633,
+        "height": 1,
+        "sigma": 12
+      }
+    ],
+    "xMin": 590,
+    "xMax": 750,
+    "lambda_max_nm": [
+      633
+    ],
+    "quantum_yield": 0.1,
+    "plain_caption": "Deep red fluorescence ~633 nm (teaching average).",
+    "lit": "Emission envelope for teaching (normalized)."
+  }
+}

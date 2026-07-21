@@ -1,0 +1,36 @@
+{
+  "quality": "teaching",
+  "id": "erythrosine",
+  "name": "Erythrosine",
+  "synonyms": [
+    "FD&C Red 3",
+    "Erythrosine B"
+  ],
+  "family": "xanthenes",
+  "cas": "16423-68-0",
+  "formula": "C20H6I4Na2O5",
+  "mw": 879.86,
+  "smiles": "",
+  "pubchem_cid": 3255,
+  "plain_summary": "Iodinated fluorescein food/medical red dye.",
+  "abs": {
+    "solvent": "water",
+    "peaks": [
+      {
+        "lambda": 526,
+        "height": 90000,
+        "sigma": 16
+      }
+    ],
+    "xMin": 400,
+    "xMax": 620,
+    "lambda_max_nm": [
+      526
+    ],
+    "epsilon_max": [
+      90000
+    ],
+    "plain_caption": "λ_max ~526 nm → cherry-red food colour (related to eosin).",
+    "lit": "λ_max after food-dye / xanthene tables; teaching envelope."
+  }
+}

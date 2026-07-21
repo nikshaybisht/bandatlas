@@ -1,0 +1,37 @@
+{
+  "quality": "teaching",
+  "id": "adenine",
+  "name": "Adenine",
+  "synonyms": [
+    "6-Aminopurine",
+    "A"
+  ],
+  "family": "biomolecules",
+  "cas": "73-24-5",
+  "formula": "C5H5N5",
+  "mw": 135.13,
+  "smiles": "n1cnc2c(ncnc12)N",
+  "pubchem_cid": 190,
+  "plain_summary": "DNA/RNA base. Nucleobases drive ~260 nm nucleic-acid absorbance.",
+  "abs": {
+    "solvent": "water, pH 7",
+    "peaks": [
+      {
+        "lambda": 261,
+        "height": 13400,
+        "sigma": 10
+      }
+    ],
+    "xMin": 220,
+    "xMax": 310,
+    "lambda_max_nm": [
+      261
+    ],
+    "epsilon_max": [
+      13400
+    ],
+    "plain_caption": "Classic ~260 nm nucleobase band (teaching free-base envelope).",
+    "lit": "Classic ~260 nm nucleobase band (teaching free-base envelope).",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

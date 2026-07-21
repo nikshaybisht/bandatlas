@@ -1,0 +1,36 @@
+{
+  "quality": "teaching",
+  "id": "vitamin-c",
+  "name": "Ascorbic acid",
+  "synonyms": [
+    "Vitamin C",
+    "L-Ascorbate"
+  ],
+  "family": "biomolecules",
+  "cas": "50-81-7",
+  "formula": "C6H8O6",
+  "mw": 176.12,
+  "smiles": "",
+  "pubchem_cid": 54670067,
+  "plain_summary": "Antioxidant vitamin; UV assay classic; colorless but oxidizes to UV-active products.",
+  "abs": {
+    "solvent": "water, pH ~2–3 (teaching)",
+    "peaks": [
+      {
+        "lambda": 265,
+        "height": 14000,
+        "sigma": 12
+      }
+    ],
+    "xMin": 220,
+    "xMax": 320,
+    "lambda_max_nm": [
+      265
+    ],
+    "epsilon_max": [
+      14000
+    ],
+    "plain_caption": "λ_max ~265 nm (pH-dependent); pure solid is colorless.",
+    "lit": "λ_max after ascorbic acid analytical UV tables; teaching envelope."
+  }
+}

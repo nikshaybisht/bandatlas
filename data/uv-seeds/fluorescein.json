@@ -1,0 +1,53 @@
+{
+  "quality": "teaching",
+  "id": "fluorescein",
+  "name": "Fluorescein",
+  "synonyms": [
+    "C.I. 45350"
+  ],
+  "family": "xanthenes",
+  "cas": "2321-07-5",
+  "formula": "C20H12O5",
+  "mw": 332.31,
+  "smiles": "O=C1OC2(c3ccc(O)cc3Oc3cc(O)ccc32)c2ccccc12",
+  "pubchem_cid": 16850,
+  "plain_summary": "Classic green-glowing dye used in eye exams and leak tracing. Looks yellow-orange in solution.",
+  "abs": {
+    "solvent": "0.1 M NaOH (aq)",
+    "peaks": [
+      {
+        "lambda": 490,
+        "height": 76900,
+        "sigma": 14
+      }
+    ],
+    "xMin": 350,
+    "xMax": 600,
+    "lambda_max_nm": [
+      490
+    ],
+    "epsilon_max": [
+      76900
+    ],
+    "plain_caption": "Strong absorption ~490 nm (blue-green) → solution looks yellow-orange.",
+    "lit": "Strong absorption ~490 nm (blue-green) → solution looks yellow-orange.",
+    "quality_note": "Tier A teaching spectrum"
+  },
+  "em": {
+    "solvent": "0.1 M NaOH (aq)",
+    "peaks": [
+      {
+        "lambda": 514,
+        "height": 1,
+        "sigma": 16
+      }
+    ],
+    "xMin": 480,
+    "xMax": 620,
+    "lambda_max_nm": [
+      514
+    ],
+    "quantum_yield": 0.93,
+    "plain_caption": "Bright green fluorescence peaking near 514 nm."
+  }
+}

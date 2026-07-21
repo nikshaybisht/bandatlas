@@ -1,0 +1,53 @@
+{
+  "quality": "teaching",
+  "id": "cy3",
+  "name": "Cyanine Cy3",
+  "synonyms": [
+    "Cy3"
+  ],
+  "family": "dyes",
+  "cas": "146368-14-1",
+  "formula": "C31H38ClN2O",
+  "mw": 490.1,
+  "smiles": "",
+  "pubchem_cid": 102166754,
+  "plain_summary": "Orange-red cyanine label ubiquitous in microarray / microscopy teaching.",
+  "abs": {
+    "solvent": "water / PBS",
+    "peaks": [
+      {
+        "lambda": 550,
+        "height": 150000,
+        "sigma": 14
+      }
+    ],
+    "xMin": 450,
+    "xMax": 650,
+    "lambda_max_nm": [
+      550
+    ],
+    "epsilon_max": [
+      150000
+    ],
+    "plain_caption": "Sharp cyanine band ~550 nm; intense orange absorption.",
+    "lit": "λ_max after cyanine dye labeling tables (Cy3); teaching envelope — structure variants exist."
+  },
+  "em": {
+    "solvent": "water / PBS",
+    "peaks": [
+      {
+        "lambda": 570,
+        "height": 1,
+        "sigma": 16
+      }
+    ],
+    "xMin": 530,
+    "xMax": 680,
+    "lambda_max_nm": [
+      570
+    ],
+    "quantum_yield": 0.15,
+    "plain_caption": "Orange emission ~570 nm (teaching average).",
+    "lit": "Emission envelope for teaching (normalized)."
+  }
+}

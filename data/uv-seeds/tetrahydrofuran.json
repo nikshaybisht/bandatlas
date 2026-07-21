@@ -1,0 +1,37 @@
+{
+  "quality": "teaching",
+  "id": "tetrahydrofuran",
+  "name": "Tetrahydrofuran",
+  "synonyms": [
+    "THF",
+    "Oxolane"
+  ],
+  "family": "solvents",
+  "cas": "109-99-9",
+  "formula": "C4H8O",
+  "mw": 72.11,
+  "smiles": "C1CCOC1",
+  "pubchem_cid": 8028,
+  "plain_summary": "Cyclic ether solvent used in organometallic and polymer work; moderate UV cutoff for spectroscopy teaching.",
+  "abs": {
+    "solvent": "neat (pathlength schematic)",
+    "peaks": [
+      {
+        "lambda": 220,
+        "height": 50,
+        "sigma": 9
+      }
+    ],
+    "xMin": 200,
+    "xMax": 320,
+    "lambda_max_nm": [
+      220
+    ],
+    "epsilon_max": [
+      50
+    ],
+    "plain_caption": "Schematic UV cutoff for THF teaching.",
+    "lit": "Teaching solvent-cutoff schematic. THF practical UV cutoff often near ~210–220 nm (stabilizer-dependent).",
+    "quality_note": "Solvent cutoff teaching model"
+  }
+}

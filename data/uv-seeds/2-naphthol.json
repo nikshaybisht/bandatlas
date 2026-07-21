@@ -1,0 +1,51 @@
+{
+  "quality": "teaching",
+  "id": "2-naphthol",
+  "name": "2-Naphthol",
+  "synonyms": [
+    "β-Naphthol",
+    "Naphthalen-2-ol"
+  ],
+  "family": "pahs",
+  "cas": "135-19-3",
+  "formula": "C10H8O",
+  "mw": 144.17,
+  "smiles": "Oc1ccc2ccccc2c1",
+  "pubchem_cid": 8663,
+  "plain_summary": "Isomeric naphthol; useful contrast with 1-naphthol for substitution effects on UV.",
+  "abs": {
+    "solvent": "ethanol",
+    "peaks": [
+      {
+        "lambda": 226,
+        "height": 50000,
+        "sigma": 8
+      },
+      {
+        "lambda": 274,
+        "height": 4500,
+        "sigma": 10
+      },
+      {
+        "lambda": 330,
+        "height": 2000,
+        "sigma": 10
+      }
+    ],
+    "xMin": 210,
+    "xMax": 370,
+    "lambda_max_nm": [
+      330,
+      274,
+      226
+    ],
+    "epsilon_max": [
+      2000,
+      4500,
+      50000
+    ],
+    "plain_caption": "2-Naphthol UV envelope with longer-wavelength phenolic band.",
+    "lit": "Teaching multi-Gaussian for 2-naphthol UV in ethanol.",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

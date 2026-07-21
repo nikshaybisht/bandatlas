@@ -1,0 +1,50 @@
+{
+  "quality": "teaching",
+  "id": "benzaldehyde",
+  "name": "Benzaldehyde",
+  "synonyms": [
+    "Benzenecarbaldehyde"
+  ],
+  "family": "aromatic-hydrocarbons",
+  "cas": "100-52-7",
+  "formula": "C7H6O",
+  "mw": 106.12,
+  "smiles": "O=Cc1ccccc1",
+  "pubchem_cid": 240,
+  "plain_summary": "Simplest aromatic aldehyde; useful for n→π* teaching next to acetophenone/benzophenone.",
+  "abs": {
+    "solvent": "ethanol",
+    "peaks": [
+      {
+        "lambda": 244,
+        "height": 14000,
+        "sigma": 10
+      },
+      {
+        "lambda": 280,
+        "height": 1400,
+        "sigma": 10
+      },
+      {
+        "lambda": 328,
+        "height": 50,
+        "sigma": 14
+      }
+    ],
+    "xMin": 220,
+    "xMax": 380,
+    "lambda_max_nm": [
+      244,
+      280,
+      328
+    ],
+    "epsilon_max": [
+      14000,
+      1400,
+      50
+    ],
+    "plain_caption": "π→π* ~244 nm with weaker near-UV / n→π* features.",
+    "lit": "Teaching multi-Gaussian for benzaldehyde UV (ethanol) after standard tables.",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

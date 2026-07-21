@@ -1,0 +1,48 @@
+{
+  "quality": "teaching",
+  "id": "lawsone",
+  "name": "Lawsone",
+  "synonyms": [
+    "2-Hydroxy-1,4-naphthoquinone",
+    "Henna"
+  ],
+  "family": "quinones",
+  "cas": "83-72-7",
+  "formula": "C10H6O3",
+  "mw": 174.15,
+  "smiles": "",
+  "pubchem_cid": 6755,
+  "plain_summary": "Orange-red henna dye quinone. Visible band drives natural dye colour.",
+  "abs": {
+    "solvent": "ethanol / methanol",
+    "peaks": [
+      {
+        "lambda": 249,
+        "height": 20000,
+        "sigma": 10
+      },
+      {
+        "lambda": 278,
+        "height": 8000,
+        "sigma": 10
+      },
+      {
+        "lambda": 452,
+        "height": 2500,
+        "sigma": 28
+      }
+    ],
+    "xMin": 220,
+    "xMax": 560,
+    "lambda_max_nm": [
+      452,
+      249
+    ],
+    "epsilon_max": [
+      2500,
+      20000
+    ],
+    "plain_caption": "Visible max ~452 nm → orange-brown henna colour.",
+    "lit": "λ_max after natural-product / henna dye UV tables; teaching envelope."
+  }
+}

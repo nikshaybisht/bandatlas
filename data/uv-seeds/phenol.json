@@ -1,0 +1,44 @@
+{
+  "quality": "teaching",
+  "id": "phenol",
+  "name": "Phenol",
+  "synonyms": [
+    "Carbolic acid",
+    "Hydroxybenzene"
+  ],
+  "family": "aromatic-hydrocarbons",
+  "cas": "108-95-2",
+  "formula": "C6H6O",
+  "mw": 94.11,
+  "smiles": "Oc1ccccc1",
+  "pubchem_cid": 996,
+  "plain_summary": "Hydroxy-benzene. UV shifts with pH (phenolate vs phenol).",
+  "abs": {
+    "solvent": "water",
+    "peaks": [
+      {
+        "lambda": 210,
+        "height": 6000,
+        "sigma": 6
+      },
+      {
+        "lambda": 270,
+        "height": 1450,
+        "sigma": 8
+      }
+    ],
+    "xMin": 190,
+    "xMax": 320,
+    "lambda_max_nm": [
+      270,
+      210
+    ],
+    "epsilon_max": [
+      1450,
+      6000
+    ],
+    "plain_caption": "UV only; colorless unless oxidized/impure.",
+    "lit": "UV only; colorless unless oxidized/impure.",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

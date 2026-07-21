@@ -512,6 +512,18 @@ export function SpectrumPlot({
             ctx.rect(left, top, w, h)
             ctx.clip()
 
+            // Track placed labels so peak tags don't stack on top of each other
+            const placedLabels: { x: number; y: number; w: number; h: number }[] = []
+            const labelH = 16
+            const overlaps = (x: number, y: number, tw: number) =>
+              placedLabels.some(
+                (r) =>
+                  x < r.x + r.w + 4 &&
+                  x + tw + 4 > r.x &&
+                  y - labelH < r.y + 4 &&
+                  y + 4 > r.y - labelH,
+              )
+
             const drawPeakLabel = (
               _pk: number,
               xPx: number,
@@ -535,7 +547,15 @@ export function SpectrumPlot({
               tx = Math.min(Math.max(left + 3, tx), left + w - tw - 3)
               let ty = yPx - 12
               if (ty < top + 16) ty = yPx + 20
+              // Nudge up/down when labels would collide
+              let tries = 0
+              while (overlaps(tx, ty, tw) && tries < 8) {
+                ty += tries % 2 === 0 ? -14 : 18
+                tries++
+              }
+              if (ty < top + 16) ty = top + 16
               if (ty > top + h - 8) ty = top + h - 8
+              placedLabels.push({ x: tx, y: ty, w: tw, h: labelH })
 
               ctx.lineWidth = 3.5
               ctx.strokeStyle = peakLabelStroke
@@ -659,6 +679,9 @@ export function SpectrumPlot({
     emPeak,
     theme,
     coarsePointer,
+    absPts,
+    emPts,
+    cmpPts,
   ])
 
   return (

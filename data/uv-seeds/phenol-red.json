@@ -1,0 +1,42 @@
+{
+  "quality": "teaching",
+  "id": "phenol-red",
+  "name": "Phenol red",
+  "synonyms": [
+    "Phenolsulfonphthalein"
+  ],
+  "family": "dyes",
+  "cas": "143-74-8",
+  "formula": "C19H14O5S",
+  "mw": 354.38,
+  "smiles": "",
+  "pubchem_cid": 4766,
+  "plain_summary": "pH indicator (yellow↔red). Alkaline form absorbs green-yellow light.",
+  "abs": {
+    "solvent": "water, alkaline form (teaching)",
+    "peaks": [
+      {
+        "lambda": 430,
+        "height": 20000,
+        "sigma": 20
+      },
+      {
+        "lambda": 558,
+        "height": 55000,
+        "sigma": 18
+      }
+    ],
+    "xMin": 350,
+    "xMax": 650,
+    "lambda_max_nm": [
+      558,
+      430
+    ],
+    "epsilon_max": [
+      55000,
+      20000
+    ],
+    "plain_caption": "Alkaline λ_max ~558 nm (red); acid form near 430 nm (yellow).",
+    "lit": "λ_max after indicator dye tables (acid/base forms); teaching envelope for alkaline form emphasis."
+  }
+}

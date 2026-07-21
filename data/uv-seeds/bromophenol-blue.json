@@ -1,0 +1,35 @@
+{
+  "quality": "teaching",
+  "id": "bromophenol-blue",
+  "name": "Bromophenol blue",
+  "synonyms": [
+    "3′,3″,5′,5″-Tetrabromophenolsulfonphthalein"
+  ],
+  "family": "dyes",
+  "cas": "115-39-9",
+  "formula": "C19H10Br4O5S",
+  "mw": 669.96,
+  "smiles": "",
+  "pubchem_cid": 8272,
+  "plain_summary": "Common electrophoresis tracking dye / pH indicator (yellow↔blue).",
+  "abs": {
+    "solvent": "water, alkaline form (teaching)",
+    "peaks": [
+      {
+        "lambda": 590,
+        "height": 70000,
+        "sigma": 20
+      }
+    ],
+    "xMin": 450,
+    "xMax": 700,
+    "lambda_max_nm": [
+      590
+    ],
+    "epsilon_max": [
+      70000
+    ],
+    "plain_caption": "Alkaline form ~590 nm → blue-violet gel loading dye colour.",
+    "lit": "λ_max after sulfonphthalein indicator tables; teaching envelope."
+  }
+}

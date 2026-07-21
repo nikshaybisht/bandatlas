@@ -1,0 +1,45 @@
+{
+  "quality": "teaching",
+  "id": "paracetamol",
+  "name": "Paracetamol",
+  "synonyms": [
+    "Acetaminophen",
+    "APAP",
+    "4-Acetamidophenol"
+  ],
+  "family": "pharmaceuticals",
+  "cas": "103-90-2",
+  "formula": "C8H9NO2",
+  "mw": 151.16,
+  "smiles": "CC(=O)Nc1ccc(O)cc1",
+  "pubchem_cid": 1983,
+  "plain_summary": "Analgesic with strong UV band used in dissolution / assay teaching.",
+  "abs": {
+    "solvent": "0.1 M NaOH or methanol",
+    "peaks": [
+      {
+        "lambda": 243,
+        "height": 10000,
+        "sigma": 10
+      },
+      {
+        "lambda": 280,
+        "height": 1500,
+        "sigma": 12
+      }
+    ],
+    "xMin": 210,
+    "xMax": 330,
+    "lambda_max_nm": [
+      243,
+      280
+    ],
+    "epsilon_max": [
+      10000,
+      1500
+    ],
+    "plain_caption": "Strong ~243 nm band (pH-dependent); colorless pure solid.",
+    "lit": "Strong ~243 nm band (pH-dependent); colorless pure solid.",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "quality": "teaching",
+  "id": "tetraphenylporphyrin",
+  "name": "5,10,15,20-Tetraphenylporphyrin",
+  "synonyms": [
+    "TPP",
+    "H2TPP"
+  ],
+  "family": "porphyrins",
+  "cas": "917-23-7",
+  "formula": "C44H30N4",
+  "mw": 614.74,
+  "smiles": "c1ccc(C2=c3ccc(=C(c4ccccc4)c4ccc([nH]4)C(c4ccccc4)=c4ccc(n4)C(c4ccccc4)=c4ccc2[nH]4)[nH]3)cc1",
+  "pubchem_cid": 70186,
+  "plain_summary": "Model porphyrin for photochemistry teaching — intense Soret band in the blue-violet.",
+  "abs": {
+    "solvent": "dichloromethane",
+    "peaks": [
+      {
+        "lambda": 418,
+        "height": 470000,
+        "sigma": 6
+      },
+      {
+        "lambda": 515,
+        "height": 18000,
+        "sigma": 8
+      },
+      {
+        "lambda": 550,
+        "height": 8000,
+        "sigma": 8
+      },
+      {
+        "lambda": 590,
+        "height": 6000,
+        "sigma": 8
+      },
+      {
+        "lambda": 645,
+        "height": 5000,
+        "sigma": 8
+      }
+    ],
+    "xMin": 380,
+    "xMax": 700,
+    "lambda_max_nm": [
+      418,
+      515,
+      550,
+      590,
+      645
+    ],
+    "epsilon_max": [
+      470000,
+      18000,
+      8000,
+      6000,
+      5000
+    ],
+    "plain_caption": "Huge Soret peak ~418 nm + weaker Q bands — classic porphyrin fingerprint.",
+    "lit": "Huge Soret peak ~418 nm + weaker Q bands — classic porphyrin fingerprint.",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

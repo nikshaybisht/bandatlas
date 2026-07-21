@@ -26,8 +26,6 @@ Teaching envelopes only — multi-Gaussian shapes constrained to literature λ_m
 
 5. Optional: add id to `LAB_SET` in `tools/build-dataset.mjs` only if it has full UV (build enforces this).
 
-You can also append to the `FULL` array in `tools/build-dataset.mjs` instead of a seed file. Same schema.
-
 ## Required fields (quick)
 
 | Field | Notes |

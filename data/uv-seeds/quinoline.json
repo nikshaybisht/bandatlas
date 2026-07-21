@@ -1,0 +1,43 @@
+{
+  "quality": "teaching",
+  "id": "quinoline",
+  "name": "Quinoline",
+  "synonyms": [
+    "1-Azanaphthalene"
+  ],
+  "family": "heterocycles",
+  "cas": "91-22-5",
+  "formula": "C9H7N",
+  "mw": 129.16,
+  "smiles": "c1ccc2ncccc2c1",
+  "pubchem_cid": 7047,
+  "plain_summary": "Benzopyridine heterocycle. UV intermediate between naphthalene and pyridine.",
+  "abs": {
+    "solvent": "ethanol",
+    "peaks": [
+      {
+        "lambda": 275,
+        "height": 3500,
+        "sigma": 8
+      },
+      {
+        "lambda": 313,
+        "height": 2500,
+        "sigma": 8
+      }
+    ],
+    "xMin": 220,
+    "xMax": 360,
+    "lambda_max_nm": [
+      275,
+      313
+    ],
+    "epsilon_max": [
+      3500,
+      2500
+    ],
+    "plain_caption": "Near-UV bands; colorless to pale liquid.",
+    "lit": "Near-UV bands; colorless to pale liquid.",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

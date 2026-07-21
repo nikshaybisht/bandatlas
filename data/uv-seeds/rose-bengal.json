@@ -1,0 +1,35 @@
+{
+  "quality": "teaching",
+  "id": "rose-bengal",
+  "name": "Rose Bengal",
+  "synonyms": [
+    "Acid Red 94"
+  ],
+  "family": "xanthenes",
+  "cas": "632-69-9",
+  "formula": "C20H2Cl4I4Na2O5",
+  "mw": 1017.64,
+  "smiles": "",
+  "pubchem_cid": 32343,
+  "plain_summary": "Halogenated fluorescein; ophthalmic stain and singlet-oxygen photosensitizer.",
+  "abs": {
+    "solvent": "water / ethanol",
+    "peaks": [
+      {
+        "lambda": 549,
+        "height": 90000,
+        "sigma": 16
+      }
+    ],
+    "xMin": 420,
+    "xMax": 650,
+    "lambda_max_nm": [
+      549
+    ],
+    "epsilon_max": [
+      90000
+    ],
+    "plain_caption": "λ_max ~549 nm → rose-red solutions; heavy-atom effect quenches Φ_f vs fluorescein.",
+    "lit": "λ_max after xanthene dye / photosensitizer tables; teaching envelope."
+  }
+}

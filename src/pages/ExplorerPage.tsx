@@ -13,7 +13,7 @@ import { FeaturedStrip } from '../components/FeaturedStrip'
 import { RecentList } from '../components/RecentList'
 import { useAppTheme } from '../context/AppThemeContext'
 import { TOUR_FEATURED_ID, useDemoTour } from '../context/DemoTourContext'
-import { buildSearchIndex, isSearchableCompound } from '../lib/search'
+import { buildSearchIndex } from '../lib/search'
 import { loadCompound } from '../lib/loadCompound'
 import { datasetUrl } from '../lib/paths'
 import { parseTechniqueParam } from '../lib/export'
@@ -24,77 +24,25 @@ import {
   type RecentEntry,
 } from '../lib/history'
 import { isWelcomeDismissed } from '../lib/theme'
-import type {
-  Compound,
-  DatasetIndex,
-  IndexCompound,
-  Spectrum,
-  TechniqueTab,
-} from '../types'
+import {
+  emptySearchMessage,
+  FALLBACK_META,
+  filterSearchResults,
+  qualityLabel,
+  resolveDefaultId,
+  RESULT_CAP,
+  sleep,
+  spectrumForTab,
+  type ExplorerMode,
+} from '../lib/explorerHelpers'
+import type { Compound, DatasetIndex, IndexCompound, TechniqueTab } from '../types'
 import { compoundFlags, indexHasFullUvVis } from '../types'
 
-type Mode = 'simple' | 'advanced'
+type Mode = ExplorerMode
 type ExplorerPreset = 'default' | 'lab'
-
-const RESULT_CAP = 12
-
-const FALLBACK_META = {
-  default_compound_id: 'rhodamine-b',
-  lab: {
-    compound_id: 'benzene',
-    technique: 'uvvis' as TechniqueTab,
-    lab_set_only: true,
-    mode: 'simple' as Mode,
-  },
-  lab_classes: [
-    { id: 'dyes', label: 'UV dyes' },
-    { id: 'solvents', label: 'Solvents' },
-    { id: 'aromatics', label: 'Aromatics' },
-    { id: 'porphyrins', label: 'Porphyrins' },
-    { id: 'biomolecules', label: 'Biomolecules' },
-  ],
-}
-
-function qualityLabel(s: Spectrum | null | undefined): string {
-  if (!s) return ''
-  if (s.quality === 'experimental' && s.example_not_for_citation) return 'Schema example'
-  if (s.quality === 'experimental') return 'Experimental'
-  return 'Teaching envelope'
-}
-
-function spectrumForTab(c: Compound | null, tab: TechniqueTab): Spectrum | null {
-  if (!c) return null
-  if (tab === 'uvvis') return c.spectra.find((s) => s.technique === 'uvvis_abs') ?? null
-  if (tab === 'ir') return c.spectra.find((s) => s.technique === 'ir') ?? null
-  return c.spectra.find((s) => s.technique === 'raman') ?? null
-}
-
-function resolveDefaultId(
-  data: DatasetIndex,
-  preferred: string | null | undefined,
-  labOnly: boolean,
-): string | null {
-  const meta = data.app_meta ?? FALLBACK_META
-  const tryId = preferred || meta.default_compound_id
-  const pool = labOnly ? data.compounds.filter((c) => c.lab_set) : data.compounds
-  const hit =
-    pool.find((c) => c.id === tryId) ||
-    pool.find((c) => c.id === meta.lab?.compound_id) ||
-    pool.find((c) => indexHasFullUvVis(c)) ||
-    pool[0] ||
-    data.compounds.find((c) => indexHasFullUvVis(c)) ||
-    data.compounds[0]
-  return hit?.id ?? null
-}
 
 type Props = {
   preset?: ExplorerPreset
-}
-
-function sleep(ms: number) {
-  return new Promise<void>((resolve) => {
-    window.setTimeout(resolve, ms)
-  })
 }
 
 export function ExplorerPage({ preset = 'default' }: Props) {
@@ -298,29 +246,14 @@ export function ExplorerPage({ preset = 'default' }: Props) {
 
   const results = useMemo(() => {
     if (!index || !searcher) return [] as IndexCompound[]
-    const q = query.trim()
-    // Hide schema demos from browse/search (still openable via /c/schema-example-uv)
-    let pool = index.compounds.filter(isSearchableCompound)
-    if (labSetOnly) pool = pool.filter((c) => c.lab_set)
-    if (labClass) {
-      pool = pool.filter((c) => (c.lab_classes || []).includes(labClass))
-    }
-    if (uvOnly) pool = pool.filter((c) => indexHasFullUvVis(c))
-    if (experimentalOnly) {
-      pool = pool.filter((c) => c.has_experimental && !c.has_experimental_example)
-    }
-    if (!q) {
-      if (labSetOnly || labClass || uvOnly || experimentalOnly) {
-        return pool.slice(0, isLab ? 24 : RESULT_CAP)
-      }
-      return []
-    }
-    const hits = searcher.search(q)
-    const byId = new Map(pool.map((c) => [c.id, c]))
-    return hits
-      .map((h) => byId.get(h.id))
-      .filter((c): c is IndexCompound => Boolean(c))
-      .slice(0, isLab ? 24 : RESULT_CAP)
+    return filterSearchResults(index.compounds, searcher, {
+      query,
+      uvOnly,
+      experimentalOnly,
+      labSetOnly,
+      labClass,
+      resultCap: isLab ? 24 : RESULT_CAP,
+    })
   }, [index, query, searcher, uvOnly, experimentalOnly, labSetOnly, labClass, isLab])
 
   const exampleName = useMemo(() => {
@@ -534,13 +467,12 @@ export function ExplorerPage({ preset = 'default' }: Props) {
               >
                 {results.length === 0 && (
                   <li className="search-empty">
-                    {experimentalOnly
-                      ? 'No real experimental series yet (open data only)'
-                      : labSetOnly || labClass
-                        ? 'No lab-set matches'
-                        : uvOnly
-                          ? 'No full UV–Vis curves match'
-                          : 'No matches'}
+                    {emptySearchMessage({
+                      experimentalOnly,
+                      labSetOnly,
+                      labClass,
+                      uvOnly,
+                    })}
                   </li>
                 )}
                 {results.map((c) => (

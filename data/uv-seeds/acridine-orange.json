@@ -1,0 +1,53 @@
+{
+  "quality": "teaching",
+  "id": "acridine-orange",
+  "name": "Acridine orange",
+  "synonyms": [
+    "Basic Orange 14"
+  ],
+  "family": "heterocycles",
+  "cas": "65-61-2",
+  "formula": "C17H19N3",
+  "mw": 265.35,
+  "smiles": "CN(C)c1ccc2cc3ccc(N(C)C)cc3nc2c1",
+  "pubchem_cid": 62344,
+  "plain_summary": "Nucleic-acid stain; color and fluorescence depend on DNA/RNA binding.",
+  "abs": {
+    "solvent": "ethanol",
+    "peaks": [
+      {
+        "lambda": 489,
+        "height": 55000,
+        "sigma": 16
+      }
+    ],
+    "xMin": 380,
+    "xMax": 580,
+    "lambda_max_nm": [
+      489
+    ],
+    "epsilon_max": [
+      55000
+    ],
+    "plain_caption": "Blue-green absorption; appears orange as a free dye solution.",
+    "lit": "Blue-green absorption; appears orange as a free dye solution.",
+    "quality_note": "Tier A teaching spectrum"
+  },
+  "em": {
+    "solvent": "ethanol",
+    "peaks": [
+      {
+        "lambda": 525,
+        "height": 1,
+        "sigma": 20
+      }
+    ],
+    "xMin": 480,
+    "xMax": 640,
+    "lambda_max_nm": [
+      525
+    ],
+    "quantum_yield": 0.2,
+    "plain_caption": "Green fluorescence when free / DNA-bound (teaching average)."
+  }
+}

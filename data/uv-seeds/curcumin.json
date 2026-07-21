@@ -1,0 +1,37 @@
+{
+  "quality": "teaching",
+  "id": "curcumin",
+  "name": "Curcumin",
+  "synonyms": [
+    "Turmeric yellow",
+    "Diferuloylmethane"
+  ],
+  "family": "food",
+  "cas": "458-37-7",
+  "formula": "C21H20O6",
+  "mw": 368.38,
+  "smiles": "COc1cc(/C=C/C(=O)CC(=O)/C=C/c2ccc(O)c(OC)c2)ccc1O",
+  "pubchem_cid": 969516,
+  "plain_summary": "Yellow pigment of turmeric. Conjugated diketone absorbs blue light.",
+  "abs": {
+    "solvent": "ethanol",
+    "peaks": [
+      {
+        "lambda": 425,
+        "height": 55000,
+        "sigma": 22
+      }
+    ],
+    "xMin": 300,
+    "xMax": 550,
+    "lambda_max_nm": [
+      425
+    ],
+    "epsilon_max": [
+      55000
+    ],
+    "plain_caption": "Blue absorption (~425 nm) → bright yellow turmeric color.",
+    "lit": "Blue absorption (~425 nm) → bright yellow turmeric color.",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "quality": "teaching",
+  "id": "toluidine-blue",
+  "name": "Toluidine blue",
+  "synonyms": [
+    "Toluidine Blue O",
+    "Basic Blue 17"
+  ],
+  "family": "dyes",
+  "cas": "92-31-9",
+  "formula": "C15H16ClN3S",
+  "mw": 305.83,
+  "smiles": "",
+  "pubchem_cid": 7083,
+  "plain_summary": "Metachromatic thiazine stain for histology teaching labs.",
+  "abs": {
+    "solvent": "water",
+    "peaks": [
+      {
+        "lambda": 630,
+        "height": 40000,
+        "sigma": 16
+      },
+      {
+        "lambda": 590,
+        "height": 25000,
+        "sigma": 16
+      }
+    ],
+    "xMin": 480,
+    "xMax": 720,
+    "lambda_max_nm": [
+      630,
+      590
+    ],
+    "epsilon_max": [
+      40000,
+      25000
+    ],
+    "plain_caption": "Strong red absorption → blue metachromatic stain.",
+    "lit": "λ_max after histology stain spectral notes; teaching envelope."
+  }
+}

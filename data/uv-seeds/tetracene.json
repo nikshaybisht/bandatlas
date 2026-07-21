@@ -1,0 +1,55 @@
+{
+  "quality": "teaching",
+  "id": "tetracene",
+  "name": "Tetracene",
+  "synonyms": [
+    "Naphthacene"
+  ],
+  "family": "pahs",
+  "cas": "92-24-0",
+  "formula": "C18H12",
+  "mw": 228.29,
+  "smiles": "c1ccc2cc3cc4ccccc4cc3cc2c1",
+  "pubchem_cid": 7080,
+  "plain_summary": "Four linear fused rings. Orange organic semiconductor / teaching fluorophore.",
+  "abs": {
+    "solvent": "benzene",
+    "peaks": [
+      {
+        "lambda": 474,
+        "height": 12000,
+        "sigma": 6
+      },
+      {
+        "lambda": 444,
+        "height": 10000,
+        "sigma": 6
+      },
+      {
+        "lambda": 415,
+        "height": 7000,
+        "sigma": 6
+      },
+      {
+        "lambda": 274,
+        "height": 180000,
+        "sigma": 6
+      }
+    ],
+    "xMin": 250,
+    "xMax": 520,
+    "lambda_max_nm": [
+      474,
+      444,
+      274
+    ],
+    "epsilon_max": [
+      12000,
+      10000,
+      180000
+    ],
+    "plain_caption": "Vibronic visible bands; longer acene → redder absorption than anthracene.",
+    "lit": "Vibronic visible bands; longer acene → redder absorption than anthracene.",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

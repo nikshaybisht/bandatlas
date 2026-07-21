@@ -1,0 +1,43 @@
+{
+  "quality": "teaching",
+  "id": "benzophenone",
+  "name": "Benzophenone",
+  "synonyms": [
+    "Diphenylmethanone"
+  ],
+  "family": "aromatic-hydrocarbons",
+  "cas": "119-61-9",
+  "formula": "C13H10O",
+  "mw": 182.22,
+  "smiles": "O=C(c1ccccc1)c1ccccc1",
+  "pubchem_cid": 3102,
+  "plain_summary": "Aromatic ketone famous for n→π* photochemistry and triplet sensitization teaching.",
+  "abs": {
+    "solvent": "ethanol",
+    "peaks": [
+      {
+        "lambda": 252,
+        "height": 18000,
+        "sigma": 10
+      },
+      {
+        "lambda": 333,
+        "height": 150,
+        "sigma": 18
+      }
+    ],
+    "xMin": 220,
+    "xMax": 400,
+    "lambda_max_nm": [
+      252,
+      333
+    ],
+    "epsilon_max": [
+      18000,
+      150
+    ],
+    "plain_caption": "Strong π→π* near 252 nm; weak n→π* near ~330 nm (teaching contrast of band strengths).",
+    "lit": "Teaching envelope: benzophenone π→π* ~250 nm and weak n→π* ~330 nm in ethanol (classic textbook values).",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

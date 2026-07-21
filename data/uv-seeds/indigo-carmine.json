@@ -1,0 +1,36 @@
+{
+  "quality": "teaching",
+  "id": "indigo-carmine",
+  "name": "Indigo carmine",
+  "synonyms": [
+    "Indigo-5,5′-disulfonic acid disodium",
+    "FD&C Blue 2"
+  ],
+  "family": "dyes",
+  "cas": "860-22-0",
+  "formula": "C16H8N2Na2O8S2",
+  "mw": 466.35,
+  "smiles": "",
+  "pubchem_cid": 5284351,
+  "plain_summary": "Water-soluble indigo sulfonate food/medical blue dye.",
+  "abs": {
+    "solvent": "water",
+    "peaks": [
+      {
+        "lambda": 610,
+        "height": 22000,
+        "sigma": 28
+      }
+    ],
+    "xMin": 450,
+    "xMax": 750,
+    "lambda_max_nm": [
+      610
+    ],
+    "epsilon_max": [
+      22000
+    ],
+    "plain_caption": "Absorbs ~610 nm → blue food colour (compare insoluble indigo).",
+    "lit": "λ_max after food-dye UV–Vis tables; teaching envelope."
+  }
+}

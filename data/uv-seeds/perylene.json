@@ -1,0 +1,68 @@
+{
+  "quality": "teaching",
+  "id": "perylene",
+  "name": "Perylene",
+  "synonyms": [],
+  "family": "pahs",
+  "cas": "198-55-0",
+  "formula": "C20H12",
+  "mw": 252.31,
+  "smiles": "c1cc2ccc3cccc4ccc(c1)c2c34",
+  "pubchem_cid": 9142,
+  "plain_summary": "Five-ring PAH with intense visible absorption and strong fluorescence.",
+  "abs": {
+    "solvent": "benzene",
+    "peaks": [
+      {
+        "lambda": 436,
+        "height": 40000,
+        "sigma": 8
+      },
+      {
+        "lambda": 410,
+        "height": 28000,
+        "sigma": 8
+      },
+      {
+        "lambda": 388,
+        "height": 15000,
+        "sigma": 8
+      }
+    ],
+    "xMin": 350,
+    "xMax": 500,
+    "lambda_max_nm": [
+      436,
+      410
+    ],
+    "epsilon_max": [
+      40000,
+      28000
+    ],
+    "plain_caption": "Structured visible bands; solutions can look yellow-orange.",
+    "lit": "Structured visible bands; solutions can look yellow-orange.",
+    "quality_note": "Tier A teaching spectrum"
+  },
+  "em": {
+    "solvent": "benzene",
+    "peaks": [
+      {
+        "lambda": 445,
+        "height": 0.8,
+        "sigma": 8
+      },
+      {
+        "lambda": 470,
+        "height": 1,
+        "sigma": 10
+      }
+    ],
+    "xMin": 420,
+    "xMax": 560,
+    "lambda_max_nm": [
+      470
+    ],
+    "quantum_yield": 0.94,
+    "plain_caption": "Bright blue-green fluorescence (high Φ_f in nonpolar solvent)."
+  }
+}

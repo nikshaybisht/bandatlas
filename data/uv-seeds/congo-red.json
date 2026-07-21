@@ -1,0 +1,36 @@
+{
+  "quality": "teaching",
+  "id": "congo-red",
+  "name": "Congo red",
+  "synonyms": [
+    "Direct Red 28"
+  ],
+  "family": "dyes",
+  "cas": "573-58-0",
+  "formula": "C32H22N6Na2O6S2",
+  "mw": 696.66,
+  "smiles": "",
+  "pubchem_cid": 11313,
+  "plain_summary": "Azo dye and amyloid stain. pH-sensitive colour changes in teaching demos.",
+  "abs": {
+    "solvent": "water",
+    "peaks": [
+      {
+        "lambda": 498,
+        "height": 45000,
+        "sigma": 28
+      }
+    ],
+    "xMin": 350,
+    "xMax": 650,
+    "lambda_max_nm": [
+      498
+    ],
+    "epsilon_max": [
+      45000
+    ],
+    "plain_caption": "Broad visible band ~498 nm → red-orange aqueous solutions.",
+    "lit": "Broad visible band ~498 nm → red-orange aqueous solutions.",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

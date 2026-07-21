@@ -1,0 +1,49 @@
+{
+  "quality": "teaching",
+  "id": "fad",
+  "name": "FAD",
+  "synonyms": [
+    "Flavin adenine dinucleotide"
+  ],
+  "family": "biomolecules",
+  "cas": "146-14-5",
+  "formula": "C27H33N9O15P2",
+  "mw": 785.55,
+  "smiles": "",
+  "pubchem_cid": 643975,
+  "plain_summary": "Oxidized flavin cofactor; yellow like riboflavin with similar visible bands.",
+  "abs": {
+    "solvent": "water, pH 7",
+    "peaks": [
+      {
+        "lambda": 265,
+        "height": 38000,
+        "sigma": 10
+      },
+      {
+        "lambda": 375,
+        "height": 10000,
+        "sigma": 14
+      },
+      {
+        "lambda": 450,
+        "height": 11300,
+        "sigma": 16
+      }
+    ],
+    "xMin": 240,
+    "xMax": 540,
+    "lambda_max_nm": [
+      450,
+      375,
+      265
+    ],
+    "epsilon_max": [
+      11300,
+      10000,
+      38000
+    ],
+    "plain_caption": "Flavin bands ~375/450 nm → yellow FAD solutions (compare riboflavin).",
+    "lit": "λ_max after flavin cofactor tables; teaching envelope."
+  }
+}

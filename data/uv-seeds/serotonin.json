@@ -1,0 +1,43 @@
+{
+  "quality": "teaching",
+  "id": "serotonin",
+  "name": "Serotonin",
+  "synonyms": [
+    "5-Hydroxytryptamine",
+    "5-HT"
+  ],
+  "family": "biomolecules",
+  "cas": "50-67-9",
+  "formula": "C10H12N2O",
+  "mw": 176.22,
+  "smiles": "",
+  "pubchem_cid": 5202,
+  "plain_summary": "Indole neurotransmitter; UV similar to tryptophan/indole with OH perturbation.",
+  "abs": {
+    "solvent": "water, pH 7",
+    "peaks": [
+      {
+        "lambda": 275,
+        "height": 5500,
+        "sigma": 10
+      },
+      {
+        "lambda": 295,
+        "height": 4500,
+        "sigma": 10
+      }
+    ],
+    "xMin": 230,
+    "xMax": 340,
+    "lambda_max_nm": [
+      275,
+      295
+    ],
+    "epsilon_max": [
+      5500,
+      4500
+    ],
+    "plain_caption": "Indole-like UV near 275–295 nm.",
+    "lit": "λ_max after monoamine neurotransmitter UV tables; teaching envelope."
+  }
+}

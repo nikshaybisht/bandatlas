@@ -1,0 +1,68 @@
+{
+  "quality": "teaching",
+  "id": "riboflavin",
+  "name": "Riboflavin",
+  "synonyms": [
+    "Vitamin B2",
+    "Lactoflavin"
+  ],
+  "family": "biomolecules",
+  "cas": "83-88-5",
+  "formula": "C17H20N4O6",
+  "mw": 376.36,
+  "smiles": "Cc1cc2nc3c(=O)[nH]c(=O)nc3n(C[C@H](O)[C@H](O)[C@H](O)CO)c2cc1C",
+  "pubchem_cid": 493570,
+  "plain_summary": "Vitamin B2 — yellow, fluorescent. Makes urine glow under UV after supplements.",
+  "abs": {
+    "solvent": "water",
+    "peaks": [
+      {
+        "lambda": 266,
+        "height": 32000,
+        "sigma": 10
+      },
+      {
+        "lambda": 373,
+        "height": 10600,
+        "sigma": 14
+      },
+      {
+        "lambda": 445,
+        "height": 12500,
+        "sigma": 16
+      }
+    ],
+    "xMin": 240,
+    "xMax": 520,
+    "lambda_max_nm": [
+      445,
+      373,
+      266
+    ],
+    "epsilon_max": [
+      12500,
+      10600,
+      32000
+    ],
+    "plain_caption": "Blue absorption (~445 nm) → yellow color of B2 solutions.",
+    "lit": "Blue absorption (~445 nm) → yellow color of B2 solutions.",
+    "quality_note": "Tier A teaching spectrum"
+  },
+  "em": {
+    "solvent": "water",
+    "peaks": [
+      {
+        "lambda": 530,
+        "height": 1,
+        "sigma": 28
+      }
+    ],
+    "xMin": 480,
+    "xMax": 650,
+    "lambda_max_nm": [
+      530
+    ],
+    "quantum_yield": 0.26,
+    "plain_caption": "Yellow-green fluorescence ~530 nm."
+  }
+}

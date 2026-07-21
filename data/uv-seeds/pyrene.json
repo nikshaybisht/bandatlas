@@ -1,0 +1,78 @@
+{
+  "quality": "teaching",
+  "id": "pyrene",
+  "name": "Pyrene",
+  "synonyms": [],
+  "family": "pahs",
+  "cas": "129-00-0",
+  "formula": "C16H10",
+  "mw": 202.25,
+  "smiles": "c1cc2ccc3cccc4ccc(c1)c2c34",
+  "pubchem_cid": 31423,
+  "plain_summary": "Four-ring PAH used as an environment-sensitive fluorescent probe.",
+  "abs": {
+    "solvent": "cyclohexane",
+    "peaks": [
+      {
+        "lambda": 272,
+        "height": 50000,
+        "sigma": 4
+      },
+      {
+        "lambda": 306,
+        "height": 12000,
+        "sigma": 3
+      },
+      {
+        "lambda": 320,
+        "height": 28000,
+        "sigma": 3
+      },
+      {
+        "lambda": 335,
+        "height": 50000,
+        "sigma": 3
+      }
+    ],
+    "xMin": 240,
+    "xMax": 380,
+    "lambda_max_nm": [
+      335,
+      272
+    ],
+    "epsilon_max": [
+      50000,
+      50000
+    ],
+    "plain_caption": "Sharp UV peaks; solvent polarity changes fine structure in real samples.",
+    "lit": "Sharp UV peaks; solvent polarity changes fine structure in real samples.",
+    "quality_note": "Tier A teaching spectrum"
+  },
+  "em": {
+    "solvent": "cyclohexane",
+    "peaks": [
+      {
+        "lambda": 372,
+        "height": 0.9,
+        "sigma": 3
+      },
+      {
+        "lambda": 383,
+        "height": 1,
+        "sigma": 3
+      },
+      {
+        "lambda": 392,
+        "height": 0.6,
+        "sigma": 4
+      }
+    ],
+    "xMin": 360,
+    "xMax": 450,
+    "lambda_max_nm": [
+      383
+    ],
+    "quantum_yield": 0.65,
+    "plain_caption": "Violet-blue emission with sharp lines."
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "quality": "teaching",
+  "id": "juglone",
+  "name": "Juglone",
+  "synonyms": [
+    "5-Hydroxy-1,4-naphthoquinone"
+  ],
+  "family": "quinones",
+  "cas": "481-39-0",
+  "formula": "C10H6O3",
+  "mw": 174.15,
+  "smiles": "",
+  "pubchem_cid": 3806,
+  "plain_summary": "Walnut allelochemical naphthoquinone; yellow-brown teaching chromophore.",
+  "abs": {
+    "solvent": "ethanol",
+    "peaks": [
+      {
+        "lambda": 249,
+        "height": 18000,
+        "sigma": 10
+      },
+      {
+        "lambda": 422,
+        "height": 3000,
+        "sigma": 26
+      }
+    ],
+    "xMin": 220,
+    "xMax": 540,
+    "lambda_max_nm": [
+      422,
+      249
+    ],
+    "epsilon_max": [
+      3000,
+      18000
+    ],
+    "plain_caption": "Visible band ~422 nm → yellow-orange juglone solutions.",
+    "lit": "λ_max after naphthoquinone natural-product tables; teaching envelope."
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "quality": "teaching",
+  "id": "guanine",
+  "name": "Guanine",
+  "synonyms": [
+    "2-Amino-6-hydroxypurine",
+    "G"
+  ],
+  "family": "biomolecules",
+  "cas": "73-40-5",
+  "formula": "C5H5N5O",
+  "mw": 151.13,
+  "smiles": "Nc1nc2[nH]cnc2c(=O)[nH]1",
+  "pubchem_cid": 764,
+  "plain_summary": "DNA/RNA purine base. Contributes to nucleic-acid absorbance near 260 nm.",
+  "abs": {
+    "solvent": "water, pH 7",
+    "peaks": [
+      {
+        "lambda": 246,
+        "height": 10000,
+        "sigma": 8
+      },
+      {
+        "lambda": 275,
+        "height": 8100,
+        "sigma": 10
+      }
+    ],
+    "xMin": 220,
+    "xMax": 320,
+    "lambda_max_nm": [
+      275,
+      246
+    ],
+    "epsilon_max": [
+      8100,
+      10000
+    ],
+    "plain_caption": "Purine UV bands ~246/275 nm (free base, aqueous teaching values).",
+    "lit": "λ_max after common aqueous nucleobase tables (e.g. Fasman / biochemistry handbooks); multi-Gaussian teaching envelope, not a digitization."
+  }
+}

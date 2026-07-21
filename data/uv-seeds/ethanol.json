@@ -1,0 +1,37 @@
+{
+  "quality": "teaching",
+  "id": "ethanol",
+  "name": "Ethanol",
+  "synonyms": [
+    "Ethyl alcohol",
+    "EtOH"
+  ],
+  "family": "solvents",
+  "cas": "64-17-5",
+  "formula": "C2H6O",
+  "mw": 46.07,
+  "smiles": "CCO",
+  "pubchem_cid": 702,
+  "plain_summary": "Common spectroscopic solvent. Essentially transparent through most of the near-UV; teaching focus is solvent cutoff, not a chromophore band.",
+  "abs": {
+    "solvent": "neat (pathlength schematic)",
+    "peaks": [
+      {
+        "lambda": 205,
+        "height": 50,
+        "sigma": 8
+      }
+    ],
+    "xMin": 190,
+    "xMax": 320,
+    "lambda_max_nm": [
+      205
+    ],
+    "epsilon_max": [
+      50
+    ],
+    "plain_caption": "Schematic deep-UV edge / cutoff teaching curve — ethanol is UV-transparent above ~210–220 nm for most work.",
+    "lit": "Teaching solvent-cutoff schematic (not a chromophore SI). Practical UV cutoff for ethanol is often listed near ~205–210 nm.",
+    "quality_note": "Solvent cutoff teaching model"
+  }
+}

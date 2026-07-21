@@ -1,0 +1,42 @@
+{
+  "quality": "teaching",
+  "id": "ferrocene",
+  "name": "Ferrocene",
+  "synonyms": [
+    "Bis(cyclopentadienyl)iron"
+  ],
+  "family": "aromatic-hydrocarbons",
+  "cas": "102-54-5",
+  "formula": "C10H10Fe",
+  "mw": 186.03,
+  "smiles": "",
+  "pubchem_cid": 7611,
+  "plain_summary": "Iconic sandwich complex. Orange crystals; d–d and CT bands in UV–Vis teaching.",
+  "abs": {
+    "solvent": "ethanol / hexane",
+    "peaks": [
+      {
+        "lambda": 325,
+        "height": 50,
+        "sigma": 20
+      },
+      {
+        "lambda": 440,
+        "height": 90,
+        "sigma": 30
+      }
+    ],
+    "xMin": 280,
+    "xMax": 560,
+    "lambda_max_nm": [
+      440,
+      325
+    ],
+    "epsilon_max": [
+      90,
+      50
+    ],
+    "plain_caption": "Weak visible band ~440 nm → pale orange solutions (low ε).",
+    "lit": "λ_max after organometallic teaching tables (ferrocene UV–Vis); envelope not a raw trace."
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "quality": "teaching",
+  "id": "methylene-blue",
+  "name": "Methylene blue",
+  "synonyms": [
+    "Basic Blue 9",
+    "Methylthioninium chloride"
+  ],
+  "family": "dyes",
+  "cas": "61-73-4",
+  "formula": "C16H18ClN3S",
+  "mw": 319.85,
+  "smiles": "CN(C)c1ccc2nc3ccc(N(C)C)cc3[s+]c2c1.[Cl-]",
+  "pubchem_cid": 6099,
+  "plain_summary": "Deep blue redox dye used as a stain and sometimes as a medication.",
+  "abs": {
+    "solvent": "water",
+    "peaks": [
+      {
+        "lambda": 664,
+        "height": 95000,
+        "sigma": 12
+      },
+      {
+        "lambda": 610,
+        "height": 45000,
+        "sigma": 14
+      }
+    ],
+    "xMin": 500,
+    "xMax": 750,
+    "lambda_max_nm": [
+      664,
+      610
+    ],
+    "epsilon_max": [
+      95000,
+      45000
+    ],
+    "plain_caption": "Strong red absorption (~664 nm) → solution looks blue.",
+    "lit": "Strong red absorption (~664 nm) → solution looks blue.",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

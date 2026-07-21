@@ -1,0 +1,53 @@
+{
+  "quality": "teaching",
+  "id": "dapi",
+  "name": "DAPI",
+  "synonyms": [
+    "4′,6-Diamidino-2-phenylindole"
+  ],
+  "family": "dyes",
+  "cas": "28718-90-3",
+  "formula": "C16H15N5",
+  "mw": 277.32,
+  "smiles": "",
+  "pubchem_cid": 2954,
+  "plain_summary": "DNA minor-groove stain; blue fluorescence in fluorescence microscopy courses.",
+  "abs": {
+    "solvent": "water / buffer (free dye teaching)",
+    "peaks": [
+      {
+        "lambda": 358,
+        "height": 27000,
+        "sigma": 16
+      }
+    ],
+    "xMin": 300,
+    "xMax": 450,
+    "lambda_max_nm": [
+      358
+    ],
+    "epsilon_max": [
+      27000
+    ],
+    "plain_caption": "Near-UV absorption ~358 nm; DNA binding shifts emission strongly.",
+    "lit": "λ_max after nucleic-acid stain tables (free dye); teaching envelope."
+  },
+  "em": {
+    "solvent": "DNA-bound teaching average",
+    "peaks": [
+      {
+        "lambda": 461,
+        "height": 1,
+        "sigma": 30
+      }
+    ],
+    "xMin": 400,
+    "xMax": 560,
+    "lambda_max_nm": [
+      461
+    ],
+    "quantum_yield": 0.2,
+    "plain_caption": "Blue emission ~461 nm when DNA-bound (teaching average).",
+    "lit": "Emission envelope for teaching (normalized)."
+  }
+}

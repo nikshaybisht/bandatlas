@@ -5,25 +5,24 @@ Keep it small and honest.
 - Teaching envelopes stay labeled `teaching`. Never call them experimental.
 - Cite sources on every spectrum. Experimental files need redistribution rights + DOI/URL.
 - One concern per PR when you can (data vs UI vs docs).
-- Before PR: `npm run ci`
+- Before opening a PR, ensure `npm run ci` passes.
 
 ## Add a UV teaching curve
 
-See [docs/ADD_SPECTRUM.md](docs/ADD_SPECTRUM.md). Short version:
+Full path: [docs/ADD_SPECTRUM.md](docs/ADD_SPECTRUM.md).
 
-1. Copy `data/uv-seeds/_template.json` → `data/uv-seeds/<id>.json`
-2. Fill name, CID/SMILES, λ_max, solvent, peaks, source note
-3. `npm run validate:seeds && npm run dataset && npm run ci`
-4. Check in the UI that the badge says teaching envelope
+Copy `data/uv-seeds/_template.json` to `data/uv-seeds/<id>.json`, fill identity + λ_max peaks + literature note, then rebuild with the project’s dataset scripts. The UI badge must say **Teaching envelope**.
+
+All full-UV teaching compounds live under `data/uv-seeds/` (not in the build script).
 
 ## Experimental series
 
-Only if you can redistribute the digitization. Put JSON under `data/experimental/` — see that folder’s README and [docs/methodology.md](docs/methodology.md).
+Only if you can redistribute the digitization. Put JSON under `data/experimental/` — see that folder’s README and [docs/methodology.md](docs/methodology.md). External databases and license notes: [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md).
 
-## Dev
+## NMR (planned)
 
-```bash
-npm ci
-npm run dataset
-npm run dev
-```
+Templates under `data/nmr-seeds/` and design notes in [docs/NMR_PLAN.md](docs/NMR_PLAN.md). Do not open PRs that scrape SDBS/NIST/SpectraBase.
+
+## Local dev
+
+Install dependencies, build the dataset, start the Vite dev server (see README “Run it”).

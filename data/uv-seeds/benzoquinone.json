@@ -1,0 +1,49 @@
+{
+  "quality": "teaching",
+  "id": "benzoquinone",
+  "name": "1,4-Benzoquinone",
+  "synonyms": [
+    "p-Quinone",
+    "Quinone"
+  ],
+  "family": "quinones",
+  "cas": "106-51-4",
+  "formula": "C6H4O2",
+  "mw": 108.09,
+  "smiles": "O=C1C=CC(=O)C=C1",
+  "pubchem_cid": 4650,
+  "plain_summary": "Parent quinone. Yellow; n→π* and π→π* teaching chromophore.",
+  "abs": {
+    "solvent": "hexane",
+    "peaks": [
+      {
+        "lambda": 240,
+        "height": 20000,
+        "sigma": 10
+      },
+      {
+        "lambda": 280,
+        "height": 400,
+        "sigma": 14
+      },
+      {
+        "lambda": 430,
+        "height": 20,
+        "sigma": 30
+      }
+    ],
+    "xMin": 210,
+    "xMax": 520,
+    "lambda_max_nm": [
+      240,
+      430
+    ],
+    "epsilon_max": [
+      20000,
+      20
+    ],
+    "plain_caption": "Strong UV + weak visible n→π* tail → pale yellow crystals.",
+    "lit": "Strong UV + weak visible n→π* tail → pale yellow crystals.",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

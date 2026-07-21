@@ -52,7 +52,9 @@ export interface Compound {
   formula: string
   mw: number
   smiles: string
+  /** Canonical PubChem CID (snake_case is source of truth in JSON). */
   pubchem_cid: number
+  /** @deprecated Alias of pubchem_cid — prefer pubchem_cid */
   pubchemCid?: number
   plain_summary: string
   structure: { pubchem_3d?: boolean; sdf?: string }
@@ -70,9 +72,11 @@ export interface Compound {
   flags?: CompoundFlags
   tier: 'full' | 'catalog' | 'partial'
   lab_set?: boolean
+  /** @deprecated Alias of lab_set */
   labSet?: boolean
   lab_classes?: string[]
   class_labels?: string[]
+  /** @deprecated Alias of class_labels */
   classLabels?: string[]
   tags?: string[]
 }
@@ -88,40 +92,45 @@ export interface IndexCompound {
   mw: number
   smiles: string
   pubchem_cid: number
+  /** @deprecated Alias of pubchem_cid */
   pubchemCid?: number
   tier: 'full' | 'catalog' | 'partial'
+  /** Canonical full-UV flag from dataset build */
   has_uvvis: boolean
+  /** @deprecated Alias of has_uvvis */
   hasFullUvVis?: boolean
   has_fluorescence: boolean
   has_ir: boolean
+  /** @deprecated Alias of has_ir */
   hasIr?: boolean
   has_raman: boolean
+  /** @deprecated Alias of has_raman */
   hasRaman?: boolean
   has_experimental: boolean
   has_experimental_example: boolean
   lab_set?: boolean
+  /** @deprecated Alias of lab_set */
   labSet?: boolean
   lab_classes?: string[]
   class_labels?: string[]
+  /** @deprecated Alias of class_labels */
   classLabels?: string[]
   tags?: string[]
   lambda_max_nm: number[]
   solvents: string[]
 }
 
+/** Prefer snake_case index fields; camelCase aliases still accepted. */
 export function indexHasFullUvVis(c: IndexCompound): boolean {
-  if (typeof c.hasFullUvVis === 'boolean') return c.hasFullUvVis
-  return !!c.has_uvvis
+  return !!(c.has_uvvis ?? c.hasFullUvVis)
 }
 
 export function indexHasIr(c: IndexCompound): boolean {
-  if (typeof c.hasIr === 'boolean') return c.hasIr
-  return !!c.has_ir
+  return !!(c.has_ir ?? c.hasIr)
 }
 
 export function indexHasRaman(c: IndexCompound): boolean {
-  if (typeof c.hasRaman === 'boolean') return c.hasRaman
-  return !!c.has_raman
+  return !!(c.has_raman ?? c.hasRaman)
 }
 
 export function compoundFlags(c: Compound): CompoundFlags {

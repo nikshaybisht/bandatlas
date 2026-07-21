@@ -1,0 +1,43 @@
+{
+  "quality": "teaching",
+  "id": "copper-phthalocyanine",
+  "name": "Copper phthalocyanine",
+  "synonyms": [
+    "CuPc",
+    "Pigment Blue 15"
+  ],
+  "family": "porphyrins",
+  "cas": "147-14-8",
+  "formula": "C32H16CuN8",
+  "mw": 576.07,
+  "smiles": "",
+  "pubchem_cid": 14833,
+  "plain_summary": "Most common blue industrial pigment (inks, plastics). Metal shifts Q band vs free base.",
+  "abs": {
+    "solvent": "1-chloronaphthalene (teaching)",
+    "peaks": [
+      {
+        "lambda": 350,
+        "height": 50000,
+        "sigma": 14
+      },
+      {
+        "lambda": 678,
+        "height": 200000,
+        "sigma": 12
+      }
+    ],
+    "xMin": 300,
+    "xMax": 780,
+    "lambda_max_nm": [
+      678,
+      350
+    ],
+    "epsilon_max": [
+      200000,
+      50000
+    ],
+    "plain_caption": "Intense Q ~678 nm — textbook “phthalocyanine blue” absorption.",
+    "lit": "λ_max after pigment Blue 15 / CuPc spectral tables; teaching envelope."
+  }
+}

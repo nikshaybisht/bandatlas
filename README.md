@@ -70,13 +70,16 @@ GitHub Pages uses base `/bandatlas/` (set via `GITHUB_ACTIONS` or `VITE_BASE`). 
 
 ## Dataset (rough)
 
-From `npm run dataset` → `public/dataset/summary.json`:
+From `npm run dataset` → `public/dataset/summary.json` (counts refresh each build):
 
-- ~496 searchable compounds
-- ~103 full UV–Vis curves (teaching)
-- IR/Raman teaching models on the majors
-- experimental open series: 0 so far
+- ~505 searchable compounds (identity + IR/Raman teaching models)
+- ~126 full UV–Vis teaching envelopes (`data/uv-seeds/`)
+- ~379 catalog-only for UV (searchable; no full UV curve yet)
+- real open experimental series: **0** so far (schema path ready under `data/experimental/`)
+- NMR: planned (¹H / ¹³C, 60 & 500 MHz) — see [docs/NMR_PLAN.md](docs/NMR_PLAN.md)
 
+IR/Raman curves are group-frequency teaching models, not instrument SI.  
+External databases & package strategy: [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md).  
 Add a UV teaching seed: [docs/ADD_SPECTRUM.md](docs/ADD_SPECTRUM.md). Course bits under `docs/course/` if useful.
 
 ## Docs
@@ -84,12 +87,14 @@ Add a UV teaching seed: [docs/ADD_SPECTRUM.md](docs/ADD_SPECTRUM.md). Course bit
 - [Methodology](docs/methodology.md) — how the teaching curves are built
 - [Add a spectrum](docs/ADD_SPECTRUM.md) — contributor path for UV seeds
 - [Course materials](docs/course/) — Top 50 worksheet + instructor notes
+- [PWA status](docs/PWA.md) · [A11y / mobile checklist](docs/A11Y_MOBILE_CHECKLIST.md)
+- [Data sources & packaging](docs/DATA_SOURCES.md) · [NMR plan](docs/NMR_PLAN.md)
 - [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) · [Changelog](CHANGELOG.md)
 
 ## Cite
 
 ```
-Bisht, N. (2026). BandAtlas (v1.1.1) [Computer software].
+Bisht, N. (2026). BandAtlas (v1.2.0) [Computer software].
 https://github.com/nikshaybisht/bandatlas
 Live: https://nikshaybisht.github.io/bandatlas/
 ```

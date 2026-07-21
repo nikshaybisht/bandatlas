@@ -1,0 +1,51 @@
+{
+  "quality": "teaching",
+  "id": "1-naphthol",
+  "name": "1-Naphthol",
+  "synonyms": [
+    "α-Naphthol",
+    "Naphthalen-1-ol"
+  ],
+  "family": "pahs",
+  "cas": "90-15-3",
+  "formula": "C10H8O",
+  "mw": 144.17,
+  "smiles": "Oc1cccc2ccccc12",
+  "pubchem_cid": 7005,
+  "plain_summary": "Hydroxylated PAH used in dye chemistry; UV shows naphthalene-like structure with phenolic shift.",
+  "abs": {
+    "solvent": "ethanol",
+    "peaks": [
+      {
+        "lambda": 232,
+        "height": 45000,
+        "sigma": 8
+      },
+      {
+        "lambda": 295,
+        "height": 5000,
+        "sigma": 10
+      },
+      {
+        "lambda": 322,
+        "height": 2500,
+        "sigma": 8
+      }
+    ],
+    "xMin": 210,
+    "xMax": 360,
+    "lambda_max_nm": [
+      322,
+      295,
+      232
+    ],
+    "epsilon_max": [
+      2500,
+      5000,
+      45000
+    ],
+    "plain_caption": "Naphthalene-like bands with phenolic red-shift features.",
+    "lit": "Teaching multi-Gaussian for 1-naphthol UV in ethanol.",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

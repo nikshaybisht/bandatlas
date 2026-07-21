@@ -1,0 +1,44 @@
+{
+  "quality": "teaching",
+  "id": "coumarin",
+  "name": "Coumarin",
+  "synonyms": [
+    "1,2-Benzopyrone",
+    "2H-Chromen-2-one"
+  ],
+  "family": "coumarins",
+  "cas": "91-64-5",
+  "formula": "C9H6O2",
+  "mw": 146.14,
+  "smiles": "O=c1ccc2ccccc2o1",
+  "pubchem_cid": 323,
+  "plain_summary": "Parent coumarin scaffold. Sweet-scented; UV chromophore of many laser dyes.",
+  "abs": {
+    "solvent": "ethanol",
+    "peaks": [
+      {
+        "lambda": 275,
+        "height": 11000,
+        "sigma": 10
+      },
+      {
+        "lambda": 312,
+        "height": 6000,
+        "sigma": 12
+      }
+    ],
+    "xMin": 230,
+    "xMax": 380,
+    "lambda_max_nm": [
+      275,
+      312
+    ],
+    "epsilon_max": [
+      11000,
+      6000
+    ],
+    "plain_caption": "Near-UV absorption; many substituted coumarins fluoresce blue.",
+    "lit": "Near-UV absorption; many substituted coumarins fluoresce blue.",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

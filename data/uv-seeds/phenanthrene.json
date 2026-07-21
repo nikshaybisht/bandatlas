@@ -1,0 +1,53 @@
+{
+  "quality": "teaching",
+  "id": "phenanthrene",
+  "name": "Phenanthrene",
+  "synonyms": [],
+  "family": "pahs",
+  "cas": "85-01-8",
+  "formula": "C14H10",
+  "mw": 178.23,
+  "smiles": "c1ccc2c(c1)ccc1ccccc12",
+  "pubchem_cid": 995,
+  "plain_summary": "Bent three-ring PAH isomer of anthracene — different UV fingerprint.",
+  "abs": {
+    "solvent": "ethanol",
+    "peaks": [
+      {
+        "lambda": 252,
+        "height": 65000,
+        "sigma": 5
+      },
+      {
+        "lambda": 293,
+        "height": 14000,
+        "sigma": 4
+      },
+      {
+        "lambda": 330,
+        "height": 300,
+        "sigma": 4
+      },
+      {
+        "lambda": 346,
+        "height": 250,
+        "sigma": 3
+      }
+    ],
+    "xMin": 220,
+    "xMax": 380,
+    "lambda_max_nm": [
+      252,
+      293,
+      346
+    ],
+    "epsilon_max": [
+      65000,
+      14000,
+      250
+    ],
+    "plain_caption": "Compare with anthracene: phenanthrene bands sit at different λ.",
+    "lit": "Compare with anthracene: phenanthrene bands sit at different λ.",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

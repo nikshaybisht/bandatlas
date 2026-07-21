@@ -1,5 +1,5 @@
 /**
- * Validate UV teaching seeds (FULL array + data/uv-seeds/*.json).
+ * Validate UV teaching seeds in data/uv-seeds/*.json.
  *
  * CLI:  npm run validate:seeds
  * API:  import { validateUvSeed, assertValidSeeds, loadUvSeedFiles } from './validate-seeds.mjs'
@@ -32,8 +32,7 @@ const KNOWN_FAMILIES = new Set([
 /**
  * @param {object} seed
  * @param {{ label?: string, requireSourceNote?: boolean }} [opts]
- *   requireSourceNote defaults true (new seeds / data/uv-seeds).
- *   Built-in FULL entries may pass requireSourceNote: false (legacy plain_caption only).
+ *   requireSourceNote defaults true for data/uv-seeds.
  * @returns {{ ok: boolean, errors: string[] }}
  */
 export function validateUvSeed(seed, opts = {}) {
@@ -223,17 +222,6 @@ export function assertValidSeeds(seeds, context = 'UV seeds', opts = {}) {
     console.error('\nSee docs/ADD_SPECTRUM.md for the seed format.\n')
     process.exit(1)
   }
-}
-
-/** Merge base FULL seeds with external JSON seeds (external wins on same id). */
-export function mergeUvSeeds(baseSeeds, extraSeeds) {
-  const map = new Map()
-  for (const s of baseSeeds) map.set(s.id, s)
-  for (const s of extraSeeds) {
-    const { _sourceFile, ...rest } = s
-    map.set(rest.id, rest)
-  }
-  return [...map.values()]
 }
 
 // CLI

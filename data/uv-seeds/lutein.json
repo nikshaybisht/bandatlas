@@ -1,0 +1,49 @@
+{
+  "quality": "teaching",
+  "id": "lutein",
+  "name": "Lutein",
+  "synonyms": [
+    "Xanthophyll"
+  ],
+  "family": "food",
+  "cas": "127-40-2",
+  "formula": "C40H56O2",
+  "mw": 568.87,
+  "smiles": "",
+  "pubchem_cid": 5281243,
+  "plain_summary": "Yellow leaf xanthophyll. Carotenoid triple-peak pattern like β-carotene.",
+  "abs": {
+    "solvent": "ethanol / hexane",
+    "peaks": [
+      {
+        "lambda": 445,
+        "height": 130000,
+        "sigma": 12
+      },
+      {
+        "lambda": 474,
+        "height": 145000,
+        "sigma": 12
+      },
+      {
+        "lambda": 505,
+        "height": 120000,
+        "sigma": 12
+      }
+    ],
+    "xMin": 380,
+    "xMax": 560,
+    "lambda_max_nm": [
+      474,
+      445,
+      505
+    ],
+    "epsilon_max": [
+      145000,
+      130000,
+      120000
+    ],
+    "plain_caption": "Carotenoid vibronic trio; yellow macular pigment colour.",
+    "lit": "λ_max after food carotenoid / PhotochemCAD-style tables; teaching envelope."
+  }
+}

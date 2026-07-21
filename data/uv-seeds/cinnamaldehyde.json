@@ -1,0 +1,42 @@
+{
+  "quality": "teaching",
+  "id": "cinnamaldehyde",
+  "name": "Cinnamaldehyde",
+  "synonyms": [
+    "(E)-3-Phenylprop-2-enal"
+  ],
+  "family": "food",
+  "cas": "104-55-2",
+  "formula": "C9H8O",
+  "mw": 132.16,
+  "smiles": "",
+  "pubchem_cid": 637511,
+  "plain_summary": "Cinnamon oil aldehyde. Conjugated enal extends UV vs benzaldehyde.",
+  "abs": {
+    "solvent": "ethanol",
+    "peaks": [
+      {
+        "lambda": 222,
+        "height": 15000,
+        "sigma": 8
+      },
+      {
+        "lambda": 286,
+        "height": 20000,
+        "sigma": 12
+      }
+    ],
+    "xMin": 200,
+    "xMax": 360,
+    "lambda_max_nm": [
+      286,
+      222
+    ],
+    "epsilon_max": [
+      20000,
+      15000
+    ],
+    "plain_caption": "Strong ~286 nm band from cinnamyl conjugation.",
+    "lit": "λ_max after essential-oil / enal UV tables; teaching envelope."
+  }
+}

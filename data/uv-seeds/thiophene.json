@@ -1,0 +1,38 @@
+{
+  "quality": "teaching",
+  "id": "thiophene",
+  "name": "Thiophene",
+  "synonyms": [],
+  "family": "heterocycles",
+  "cas": "110-02-1",
+  "formula": "C4H4S",
+  "mw": 84.14,
+  "smiles": "c1ccsc1",
+  "pubchem_cid": 8030,
+  "plain_summary": "Sulfur heterocycle; slightly red-shifted UV vs furan/pyrrole.",
+  "abs": {
+    "solvent": "hexane",
+    "peaks": [
+      {
+        "lambda": 231,
+        "height": 5500,
+        "sigma": 8
+      },
+      {
+        "lambda": 215,
+        "height": 7000,
+        "sigma": 6
+      }
+    ],
+    "xMin": 190,
+    "xMax": 290,
+    "lambda_max_nm": [
+      231
+    ],
+    "epsilon_max": [
+      5500
+    ],
+    "plain_caption": "UV max ~231 nm; colorless.",
+    "lit": "λ_max after heterocyclic UV tables; teaching envelope."
+  }
+}

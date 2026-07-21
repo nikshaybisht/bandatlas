@@ -1,0 +1,37 @@
+{
+  "quality": "teaching",
+  "id": "thymine",
+  "name": "Thymine",
+  "synonyms": [
+    "5-Methyluracil",
+    "T"
+  ],
+  "family": "biomolecules",
+  "cas": "65-71-4",
+  "formula": "C5H6N2O2",
+  "mw": 126.11,
+  "smiles": "Cc1c[nH]c(=O)[nH]c1=O",
+  "pubchem_cid": 1135,
+  "plain_summary": "DNA pyrimidine base. UV damage chemistry starts from excited states here.",
+  "abs": {
+    "solvent": "water, pH 7",
+    "peaks": [
+      {
+        "lambda": 265,
+        "height": 7900,
+        "sigma": 10
+      }
+    ],
+    "xMin": 220,
+    "xMax": 310,
+    "lambda_max_nm": [
+      265
+    ],
+    "epsilon_max": [
+      7900
+    ],
+    "plain_caption": "Pyrimidine UV max near 265 nm (free base, aqueous).",
+    "lit": "Pyrimidine UV max near 265 nm (free base, aqueous).",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

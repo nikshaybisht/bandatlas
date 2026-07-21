@@ -1,0 +1,57 @@
+{
+  "quality": "teaching",
+  "id": "carbazole",
+  "name": "Carbazole",
+  "synonyms": [
+    "9H-Carbazole"
+  ],
+  "family": "heterocycles",
+  "cas": "86-74-8",
+  "formula": "C12H9N",
+  "mw": 167.21,
+  "smiles": "c1ccc2c(c1)[nH]c1ccccc12",
+  "pubchem_cid": 6854,
+  "plain_summary": "Nitrogen heterocycle / OLED building block with structured UV absorption.",
+  "abs": {
+    "solvent": "ethanol",
+    "peaks": [
+      {
+        "lambda": 233,
+        "height": 40000,
+        "sigma": 8
+      },
+      {
+        "lambda": 291,
+        "height": 16000,
+        "sigma": 6
+      },
+      {
+        "lambda": 323,
+        "height": 4000,
+        "sigma": 5
+      },
+      {
+        "lambda": 336,
+        "height": 3500,
+        "sigma": 4
+      }
+    ],
+    "xMin": 210,
+    "xMax": 370,
+    "lambda_max_nm": [
+      336,
+      323,
+      291,
+      233
+    ],
+    "epsilon_max": [
+      3500,
+      4000,
+      16000,
+      40000
+    ],
+    "plain_caption": "Structured carbazole UV with long-wavelength vibronic features ~320–340 nm.",
+    "lit": "Teaching envelope near literature carbazole UV band positions in ethanol.",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

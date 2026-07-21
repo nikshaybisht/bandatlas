@@ -1,0 +1,63 @@
+{
+  "quality": "teaching",
+  "id": "indole",
+  "name": "Indole",
+  "synonyms": [],
+  "family": "heterocycles",
+  "cas": "120-72-9",
+  "formula": "C8H7N",
+  "mw": 117.15,
+  "smiles": "c1ccc2[nH]ccc2c1",
+  "pubchem_cid": 798,
+  "plain_summary": "Tryptophan side-chain core. Strong UV and intrinsic fluorescence.",
+  "abs": {
+    "solvent": "ethanol",
+    "peaks": [
+      {
+        "lambda": 270,
+        "height": 6000,
+        "sigma": 8
+      },
+      {
+        "lambda": 287,
+        "height": 4500,
+        "sigma": 6
+      },
+      {
+        "lambda": 217,
+        "height": 25000,
+        "sigma": 6
+      }
+    ],
+    "xMin": 200,
+    "xMax": 330,
+    "lambda_max_nm": [
+      270,
+      287
+    ],
+    "epsilon_max": [
+      6000,
+      4500
+    ],
+    "plain_caption": "Indole UV near 270–290 nm — parent of Trp protein absorbance.",
+    "lit": "Indole UV near 270–290 nm — parent of Trp protein absorbance.",
+    "quality_note": "Tier A teaching spectrum"
+  },
+  "em": {
+    "solvent": "ethanol",
+    "peaks": [
+      {
+        "lambda": 330,
+        "height": 1,
+        "sigma": 22
+      }
+    ],
+    "xMin": 290,
+    "xMax": 420,
+    "lambda_max_nm": [
+      330
+    ],
+    "quantum_yield": 0.3,
+    "plain_caption": "UV fluorescence; solvent polarity shifts emission (like Trp)."
+  }
+}

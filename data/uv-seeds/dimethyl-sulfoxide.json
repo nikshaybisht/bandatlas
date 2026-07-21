@@ -1,0 +1,37 @@
+{
+  "quality": "teaching",
+  "id": "dimethyl-sulfoxide",
+  "name": "Dimethyl sulfoxide",
+  "synonyms": [
+    "DMSO",
+    "Methylsulfinylmethane"
+  ],
+  "family": "solvents",
+  "cas": "67-68-5",
+  "formula": "C2H6OS",
+  "mw": 78.13,
+  "smiles": "CS(=O)C",
+  "pubchem_cid": 679,
+  "plain_summary": "Aprotic polar solvent with a longer UV cutoff than alcohols — important when choosing a blank for deep-UV work.",
+  "abs": {
+    "solvent": "neat (pathlength schematic)",
+    "peaks": [
+      {
+        "lambda": 265,
+        "height": 80,
+        "sigma": 12
+      }
+    ],
+    "xMin": 230,
+    "xMax": 360,
+    "lambda_max_nm": [
+      265
+    ],
+    "epsilon_max": [
+      80
+    ],
+    "plain_caption": "Schematic UV cutoff / edge for DMSO teaching (poorer deep-UV window than MeOH/EtOH).",
+    "lit": "Teaching solvent-cutoff schematic. DMSO practical UV cutoff often listed near ~265–270 nm.",
+    "quality_note": "Solvent cutoff teaching model"
+  }
+}

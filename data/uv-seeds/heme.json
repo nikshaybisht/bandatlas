@@ -1,0 +1,50 @@
+{
+  "quality": "teaching",
+  "id": "heme",
+  "name": "Heme b",
+  "synonyms": [
+    "Protoheme IX",
+    "Heme B"
+  ],
+  "family": "porphyrins",
+  "cas": "14875-96-8",
+  "formula": "C34H32FeN4O4",
+  "mw": 616.49,
+  "smiles": "",
+  "pubchem_cid": 26945,
+  "plain_summary": "Iron protoporphyrin of hemoglobin/myoglobin. Soret band dominates UV–Vis teaching.",
+  "abs": {
+    "solvent": "aqueous buffer / pyridine hemochrome teaching",
+    "peaks": [
+      {
+        "lambda": 400,
+        "height": 120000,
+        "sigma": 10
+      },
+      {
+        "lambda": 500,
+        "height": 12000,
+        "sigma": 12
+      },
+      {
+        "lambda": 630,
+        "height": 5000,
+        "sigma": 14
+      }
+    ],
+    "xMin": 350,
+    "xMax": 700,
+    "lambda_max_nm": [
+      400,
+      500,
+      630
+    ],
+    "epsilon_max": [
+      120000,
+      12000,
+      5000
+    ],
+    "plain_caption": "Soret ~400 nm (ligand-dependent); blood-red colour from visible bands.",
+    "lit": "λ_max after heme protein / pyridine hemochrome teaching tables (simplified free heme envelope)."
+  }
+}

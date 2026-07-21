@@ -1,0 +1,49 @@
+{
+  "quality": "teaching",
+  "id": "bacteriochlorophyll-a",
+  "name": "Bacteriochlorophyll a",
+  "synonyms": [
+    "BChl a"
+  ],
+  "family": "porphyrins",
+  "cas": "17499-98-8",
+  "formula": "C55H74MgN4O6",
+  "mw": 911.5,
+  "smiles": "",
+  "pubchem_cid": 5479520,
+  "plain_summary": "Bacterial photosynthetic pigment; Qy band deep in the near-IR vs plant Chl a.",
+  "abs": {
+    "solvent": "diethyl ether / acetone",
+    "peaks": [
+      {
+        "lambda": 360,
+        "height": 80000,
+        "sigma": 12
+      },
+      {
+        "lambda": 580,
+        "height": 20000,
+        "sigma": 12
+      },
+      {
+        "lambda": 770,
+        "height": 90000,
+        "sigma": 12
+      }
+    ],
+    "xMin": 320,
+    "xMax": 850,
+    "lambda_max_nm": [
+      770,
+      360,
+      580
+    ],
+    "epsilon_max": [
+      90000,
+      80000,
+      20000
+    ],
+    "plain_caption": "Qy ~770 nm — far-red/NIR bacterial photosynthesis teaching marker.",
+    "lit": "λ_max after bacteriochlorophyll photochemistry tables; teaching envelope."
+  }
+}

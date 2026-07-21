@@ -1,0 +1,42 @@
+{
+  "quality": "teaching",
+  "id": "biphenyl",
+  "name": "Biphenyl",
+  "synonyms": [
+    "Diphenyl",
+    "Phenylbenzene"
+  ],
+  "family": "aromatic-hydrocarbons",
+  "cas": "92-52-4",
+  "formula": "C12H10",
+  "mw": 154.21,
+  "smiles": "c1ccc(-c2ccccc2)cc1",
+  "pubchem_cid": 7095,
+  "plain_summary": "Two linked phenyl rings. Classic conjugation teaching example.",
+  "abs": {
+    "solvent": "ethanol",
+    "peaks": [
+      {
+        "lambda": 248,
+        "height": 18000,
+        "sigma": 10
+      },
+      {
+        "lambda": 200,
+        "height": 45000,
+        "sigma": 6
+      }
+    ],
+    "xMin": 190,
+    "xMax": 320,
+    "lambda_max_nm": [
+      248
+    ],
+    "epsilon_max": [
+      18000
+    ],
+    "plain_caption": "UV max ~248 nm; conjugation between rings (twisted in solution).",
+    "lit": "UV max ~248 nm; conjugation between rings (twisted in solution).",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

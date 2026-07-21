@@ -1,0 +1,65 @@
+{
+  "quality": "teaching",
+  "id": "scopoletin",
+  "name": "Scopoletin",
+  "synonyms": [
+    "7-Hydroxy-6-methoxycoumarin"
+  ],
+  "family": "coumarins",
+  "cas": "92-61-5",
+  "formula": "C10H8O4",
+  "mw": 192.17,
+  "smiles": "",
+  "pubchem_cid": 5280460,
+  "plain_summary": "Natural coumarin; blue-fluorescent under UV in plant extracts.",
+  "abs": {
+    "solvent": "ethanol / methanol",
+    "peaks": [
+      {
+        "lambda": 230,
+        "height": 15000,
+        "sigma": 10
+      },
+      {
+        "lambda": 297,
+        "height": 8000,
+        "sigma": 10
+      },
+      {
+        "lambda": 344,
+        "height": 12000,
+        "sigma": 14
+      }
+    ],
+    "xMin": 210,
+    "xMax": 420,
+    "lambda_max_nm": [
+      344,
+      297
+    ],
+    "epsilon_max": [
+      12000,
+      8000
+    ],
+    "plain_caption": "Near-UV max ~344 nm; often used as a fluorescent plant marker.",
+    "lit": "λ_max after natural coumarin UV tables; teaching envelope."
+  },
+  "em": {
+    "solvent": "ethanol",
+    "peaks": [
+      {
+        "lambda": 430,
+        "height": 1,
+        "sigma": 28
+      }
+    ],
+    "xMin": 380,
+    "xMax": 540,
+    "lambda_max_nm": [
+      430
+    ],
+    "quantum_yield": 0.1,
+    "plain_caption": "Blue fluorescence (teaching average).",
+    "lit": "Emission envelope for teaching (normalized)."
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "quality": "teaching",
+  "id": "styrene",
+  "name": "Styrene",
+  "synonyms": [
+    "Vinylbenzene",
+    "Phenylethene"
+  ],
+  "family": "aromatic-hydrocarbons",
+  "cas": "100-42-5",
+  "formula": "C8H8",
+  "mw": 104.15,
+  "smiles": "C=Cc1ccccc1",
+  "pubchem_cid": 7501,
+  "plain_summary": "Vinyl-benzene monomer. Conjugation extends UV absorption vs benzene.",
+  "abs": {
+    "solvent": "ethanol",
+    "peaks": [
+      {
+        "lambda": 248,
+        "height": 15000,
+        "sigma": 8
+      },
+      {
+        "lambda": 282,
+        "height": 700,
+        "sigma": 6
+      }
+    ],
+    "xMin": 210,
+    "xMax": 340,
+    "lambda_max_nm": [
+      248,
+      282
+    ],
+    "epsilon_max": [
+      15000,
+      700
+    ],
+    "plain_caption": "Stronger UV than benzene from styrene conjugation; still colorless liquid.",
+    "lit": "Stronger UV than benzene from styrene conjugation; still colorless liquid.",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

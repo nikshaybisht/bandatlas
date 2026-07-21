@@ -1,0 +1,48 @@
+{
+  "quality": "teaching",
+  "id": "lycopene",
+  "name": "Lycopene",
+  "synonyms": [],
+  "family": "food",
+  "cas": "502-65-8",
+  "formula": "C40H56",
+  "mw": 536.87,
+  "smiles": "",
+  "pubchem_cid": 446925,
+  "plain_summary": "Red tomato carotenoid. Longer conjugation than β-carotene → redder colour.",
+  "abs": {
+    "solvent": "hexane",
+    "peaks": [
+      {
+        "lambda": 444,
+        "height": 120000,
+        "sigma": 12
+      },
+      {
+        "lambda": 472,
+        "height": 185000,
+        "sigma": 12
+      },
+      {
+        "lambda": 502,
+        "height": 160000,
+        "sigma": 12
+      }
+    ],
+    "xMin": 380,
+    "xMax": 560,
+    "lambda_max_nm": [
+      472,
+      502,
+      444
+    ],
+    "epsilon_max": [
+      185000,
+      160000,
+      120000
+    ],
+    "plain_caption": "Triple-peak carotenoid pattern; absorbs blue-green → tomatoes look red.",
+    "lit": "Triple-peak carotenoid pattern; absorbs blue-green → tomatoes look red.",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

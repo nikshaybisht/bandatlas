@@ -1,0 +1,44 @@
+{
+  "quality": "teaching",
+  "id": "nile-red",
+  "name": "Nile Red",
+  "synonyms": [
+    "Nile red",
+    "9-diethylamino-5H-benzo[a]phenoxazin-5-one"
+  ],
+  "family": "dyes",
+  "cas": "7385-67-3",
+  "formula": "C20H18N2O2",
+  "mw": 318.37,
+  "smiles": "CCN(CC)c1ccc2c(c1)oc1cc(=O)c3ccccc3c1n2",
+  "pubchem_cid": 65182,
+  "plain_summary": "Solvatochromic phenoxazone dye used to stain lipids; colour and λ_max shift strongly with solvent polarity — classic teaching example.",
+  "abs": {
+    "solvent": "methanol",
+    "peaks": [
+      {
+        "lambda": 270,
+        "height": 12000,
+        "sigma": 14
+      },
+      {
+        "lambda": 550,
+        "height": 38000,
+        "sigma": 22
+      }
+    ],
+    "xMin": 240,
+    "xMax": 700,
+    "lambda_max_nm": [
+      550,
+      270
+    ],
+    "epsilon_max": [
+      38000,
+      12000
+    ],
+    "plain_caption": "Strong visible band near ~550 nm in methanol (solvatochromic; shifts with solvent).",
+    "lit": "Teaching envelope pinned to tabulated Nile Red λ_max in polar solvents (~520–560 nm depending on solvent). Verify primary dye tables before quantitative use.",
+    "quality_note": "Tier A teaching spectrum — solvatochromism demo"
+  }
+}

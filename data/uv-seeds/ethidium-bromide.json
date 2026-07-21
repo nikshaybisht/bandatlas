@@ -1,0 +1,44 @@
+{
+  "quality": "teaching",
+  "id": "ethidium-bromide",
+  "name": "Ethidium Bromide",
+  "synonyms": [
+    "EtBr",
+    "Homidium bromide"
+  ],
+  "family": "dyes",
+  "cas": "1239-45-8",
+  "formula": "C21H20BrN3",
+  "mw": 394.31,
+  "smiles": "CC[n+]1c2cc(N)ccc2c2ccc(N)cc2c1-c1ccccc1.[Br-]",
+  "pubchem_cid": 14710,
+  "plain_summary": "DNA intercalator dye (historical gel stain); orange fluorescence teaching example — handle as hazardous.",
+  "abs": {
+    "solvent": "water",
+    "peaks": [
+      {
+        "lambda": 285,
+        "height": 50000,
+        "sigma": 14
+      },
+      {
+        "lambda": 480,
+        "height": 5600,
+        "sigma": 22
+      }
+    ],
+    "xMin": 240,
+    "xMax": 620,
+    "lambda_max_nm": [
+      480,
+      285
+    ],
+    "epsilon_max": [
+      5600,
+      50000
+    ],
+    "plain_caption": "Visible band near ~480 nm in water (DNA binding shifts optical properties).",
+    "lit": "Teaching multi-Gaussian for ethidium bromide aqueous absorption (~480 nm visible band). Hazardous intercalator — teaching only.",
+    "quality_note": "Tier A teaching spectrum"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "quality": "teaching",
+  "id": "furan",
+  "name": "Furan",
+  "synonyms": [],
+  "family": "heterocycles",
+  "cas": "110-00-9",
+  "formula": "C4H4O",
+  "mw": 68.07,
+  "smiles": "c1ccoc1",
+  "pubchem_cid": 8029,
+  "plain_summary": "Oxygen heterocycle; deep-UV chromophore in simple heterocycle teaching sets.",
+  "abs": {
+    "solvent": "hexane",
+    "peaks": [
+      {
+        "lambda": 208,
+        "height": 6000,
+        "sigma": 6
+      }
+    ],
+    "xMin": 190,
+    "xMax": 270,
+    "lambda_max_nm": [
+      208
+    ],
+    "epsilon_max": [
+      6000
+    ],
+    "plain_caption": "Deep UV ~208 nm; colorless.",
+    "lit": "λ_max after heterocyclic UV tables; teaching envelope."
+  }
+}

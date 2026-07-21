@@ -1,0 +1,53 @@
+{
+  "quality": "teaching",
+  "id": "cy5",
+  "name": "Cyanine Cy5",
+  "synonyms": [
+    "Cy5"
+  ],
+  "family": "dyes",
+  "cas": "146368-13-0",
+  "formula": "C33H40ClN2O",
+  "mw": 516.14,
+  "smiles": "",
+  "pubchem_cid": 102166753,
+  "plain_summary": "Far-red cyanine label; pairs with Cy3 in two-colour fluorescence teaching.",
+  "abs": {
+    "solvent": "water / PBS",
+    "peaks": [
+      {
+        "lambda": 649,
+        "height": 250000,
+        "sigma": 14
+      }
+    ],
+    "xMin": 550,
+    "xMax": 750,
+    "lambda_max_nm": [
+      649
+    ],
+    "epsilon_max": [
+      250000
+    ],
+    "plain_caption": "Far-red absorption ~649 nm; very high ε typical of cyanines.",
+    "lit": "λ_max after cyanine dye labeling tables (Cy5); teaching envelope — structure variants exist."
+  },
+  "em": {
+    "solvent": "water / PBS",
+    "peaks": [
+      {
+        "lambda": 670,
+        "height": 1,
+        "sigma": 16
+      }
+    ],
+    "xMin": 620,
+    "xMax": 780,
+    "lambda_max_nm": [
+      670
+    ],
+    "quantum_yield": 0.2,
+    "plain_caption": "Far-red emission ~670 nm (teaching average).",
+    "lit": "Emission envelope for teaching (normalized)."
+  }
+}
