@@ -12,5 +12,4 @@ about: Something broken in the UI, build, or data
 **Compound id / technique** (if relevant)
 
 
-**Browser or command** (e.g. Chrome, `npm run ci`)
-
+**Browser** (e.g. Chrome, Firefox, Safari)

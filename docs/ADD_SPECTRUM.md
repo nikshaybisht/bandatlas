@@ -4,27 +4,14 @@ Teaching envelopes only — multi-Gaussian shapes constrained to literature λ_m
 
 ## Steps
 
-1. Copy template:
-
-   ```bash
-   cp data/uv-seeds/_template.json data/uv-seeds/my-dye.json
-   ```
-
-   Files starting with `_` are ignored.
+1. Copy `data/uv-seeds/_template.json` to `data/uv-seeds/<your-id>.json`.  
+   Files starting with `_` are templates only and are ignored by the build.
 
 2. Fill in `id`, `name`, family, formula, PubChem CID or SMILES, solvent, `lambda_max_nm`, peaks (`lambda` / `height` / `sigma`), plot window, and a source note (`abs.lit` or `abs.quality_note`). Real λ_max from a paper or handbook, not vibes.
 
-3. Check + rebuild:
+3. Validate seeds and rebuild the dataset using the project scripts in the README, then open the app and confirm the badge says **Teaching envelope**.
 
-   ```bash
-   npm run validate:seeds
-   npm run dataset
-   npm run dev
-   ```
-
-4. Search your id → UV–Vis → should show **Teaching envelope**.
-
-5. Optional: add id to `LAB_SET` in `tools/build-dataset.mjs` only if it has full UV (build enforces this).
+4. Optional: add the id to `LAB_SET` in `tools/build-dataset.mjs` only if it has full UV (the build enforces this).
 
 ## Required fields (quick)
 

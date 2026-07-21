@@ -1,7 +1,7 @@
 # Experimental spectral series
 
 Drop open-redistributable instrument series here as `*.json` files (not starting with `_`).  
-They are merged by `npm run dataset` into `public/dataset/compounds/`.
+They are merged into `public/dataset/compounds/` when the dataset is rebuilt (see README).
 
 ## Required shape
 

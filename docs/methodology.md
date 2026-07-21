@@ -4,7 +4,7 @@ Notes on how BandAtlas spectra are built. Not a paper.
 
 ## Identity
 
-Names, formula, CAS when I have it, SMILES, PubChem CID. 3D: local SDF cache first (`public/structures/` or `public/dataset/structures/`), then PubChem 3D → 2D. Rebuild cache with `npm run structures`.
+Names, formula, CAS when I have it, SMILES, PubChem CID. 3D: local SDF cache first (`public/structures/` or `public/dataset/structures/`), then PubChem 3D → 2D. Rebuild the structure cache with the project’s structures script (see README / `tools/README-structures.md`).
 
 Class labels are teaching tags (dyes, solvents, PAHs…), not a formal ontology.
 
@@ -33,7 +33,7 @@ Characteristic frequencies from standard tables (Pretsch, Socrates, etc.). Alway
 
 1. Confirm you can redistribute the series.
 2. Drop JSON in `data/experimental/` (see README there).
-3. `npm run dataset`, check badge.
+3. Rebuild the dataset and check that the UI badge says **Experimental**.
 
 Forbidden: copyrighted plot scrapes without a license; calling Gaussians “experimental”; shipping NIST-looking curves without checking terms.
 
