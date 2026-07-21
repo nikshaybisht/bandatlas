@@ -29,11 +29,11 @@ PhotochemCAD-style layout ideas; not affiliated with PhotochemCAD.
 
 ## Screenshots
 
-| UV–Vis + emission (dark) | IR (dark) |
+| UV–Vis + emission (dark) | IR |
 |:---:|:---:|
 | ![UV–Vis](docs/images/screenshot-uvvis.png) | ![IR](docs/images/screenshot-ir.png) |
 
-| Raman (dark) | Overlay / compare |
+| Raman | Overlay / compare |
 |:---:|:---:|
 | ![Raman](docs/images/screenshot-raman.png) | ![Compare](docs/images/screenshot-compare.png) |
 
