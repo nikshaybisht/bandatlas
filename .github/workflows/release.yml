@@ -1,0 +1,53 @@
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Existing tag to publish (build + attach artifact)'
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    name: Build + publish release artifact
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.tag || github.ref }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build dataset + production app
+        env:
+          VITE_BASE: /
+        run: npm run build
+
+      - name: Zip dist artifact
+        id: zip
+        run: |
+          TAG="${{ github.event.inputs.tag || github.ref_name }}"
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          ( cd dist && zip -r "../bandatlas-${TAG}-dist.zip" . )
+
+      - name: Create release + upload artifact (or upload if release exists)
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          TAG="${{ github.event.inputs.tag || github.ref_name }}"
+          gh release create "$TAG" \
+            --title "$TAG" \
+            --generate-notes \
+            --latest \
+            "bandatlas-${TAG}-dist.zip" \
+            || gh release upload "$TAG" "bandatlas-${TAG}-dist.zip" --clobber
