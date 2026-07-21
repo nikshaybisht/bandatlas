@@ -31,7 +31,11 @@ jobs:
       - name: Build dataset + production app
         env:
           VITE_BASE: /
-        run: npm run build
+        run: >
+          node tools/build-dataset.mjs
+          && tsc -b
+          && vite build
+          && node tools/spa-fallback.mjs
 
       - name: Zip dist artifact
         id: zip

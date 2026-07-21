@@ -1,6 +1,5 @@
 /**
  * Validate data/ms-seeds/*.json
- * package.json script: "validate:ms"
  */
 import fs from 'node:fs'
 import path from 'node:path'

@@ -8,7 +8,7 @@
  *   public/dataset/structures/manifest.json
  *
  * Run manually (network required), then commit artifacts:
- *   Rebuild dataset first, then run the package.json "structures" script
+ *   Rebuild dataset first, then run this file with Node
  *
  * Targets: all labSet compounds + featured strip IDs (≈20–40).
  */

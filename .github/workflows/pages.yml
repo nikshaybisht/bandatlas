@@ -29,7 +29,11 @@ jobs:
           # Project site: https://nikshaybisht.github.io/bandatlas/
           GITHUB_ACTIONS: 'true'
           VITE_BASE: /bandatlas/
-        run: npm run build
+        run: >
+          node tools/build-dataset.mjs
+          && tsc -b
+          && vite build
+          && node tools/spa-fallback.mjs
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist

@@ -62,12 +62,9 @@ Screenshots under `docs/images/` are refreshed with the project’s Playwright c
 
 ## Run it
 
-1. Clone this repository and install dependencies with the lockfile (`package.json` / `package-lock.json`).
-2. Build the static dataset (scripts in `package.json` under `dataset` / related names).
-3. Start the Vite development server (`dev` script). The app is usually at `http://127.0.0.1:5173`.
-4. For a full check before a pull request, use the `ci` script. End-to-end smokes use Playwright after a production build (`test:e2e`).
+Clone the repository, install dependencies from the lockfile, rebuild the static dataset under `public/dataset/`, then start the Vite development server. The app is usually at `http://127.0.0.1:5173`. Maintainer automation lives in `package.json` and `.github/workflows/` (not documented as a command list here).
 
-GitHub Pages uses base `/bandatlas/` (set via `GITHUB_ACTIONS` or `VITE_BASE`). Locally the base is `/`.
+GitHub Pages uses base `/bandatlas/` (via the Pages workflow / `VITE_BASE`). Locally the base is `/`.
 
 ## Dataset (rough)
 

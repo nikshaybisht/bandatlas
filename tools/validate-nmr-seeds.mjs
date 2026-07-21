@@ -1,6 +1,5 @@
 /**
  * Validate data/nmr-seeds/*.json teaching (and experimental) NMR peak lists.
- * package.json script: "validate:nmr"
  */
 import fs from 'node:fs'
 import path from 'node:path'

@@ -1,6 +1,5 @@
 /**
  * Minimal integrity suite for BandAtlas dataset + export contracts.
- * Invoked by the package.json "test" / "ci" scripts.
  */
 import test from 'node:test'
 import assert from 'node:assert/strict'

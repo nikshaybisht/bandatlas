@@ -1,7 +1,6 @@
 /**
  * Validate UV teaching seeds in data/uv-seeds/*.json.
  *
- * package.json script: "validate:seeds"
  * API:  import { validateUvSeed, assertValidSeeds, loadUvSeedFiles } from './validate-seeds.mjs'
  *
  * See docs/ADD_SPECTRUM.md for the contributor path.

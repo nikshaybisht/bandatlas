@@ -17,7 +17,7 @@ public/dataset/structures/
 ## Rebuild (maintainers only — network)
 
 1. Rebuild the compound dataset first so the index lists lab-set / featured CIDs.
-2. Run the structure-cache script (`tools/cache-structures.mjs`; also exposed as the `structures` script in `package.json`).
+2. Run `tools/cache-structures.mjs` with Node so SDF files are fetched and written.
 3. Commit the resulting SDF artifacts under `public/structures/` (and the legacy mirror if updated).
 
 - Targets **all labSet** compounds + **featured strip** IDs (~20–40).

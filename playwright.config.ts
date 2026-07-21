@@ -21,7 +21,7 @@ export default defineConfig({
   },
   webServer: {
     // Force base=/ so preview matches a root build (Pages uses VITE_BASE separately).
-    command: 'npx vite preview --host 127.0.0.1 --port 4173 --strictPort',
+    command: 'vite preview --host 127.0.0.1 --port 4173 --strictPort',
     url: 'http://127.0.0.1:4173/',
     reuseExistingServer: !process.env.CI,
     timeout: 180_000,

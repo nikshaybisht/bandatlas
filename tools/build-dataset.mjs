@@ -1,6 +1,6 @@
 /**
  * Build public/dataset (index + compound JSON).
- * Invoked via the package.json "dataset" script.
+ * Dataset builder for public/dataset/.
  *
  * UV teaching seeds: data/uv-seeds/*.json (see docs/ADD_SPECTRUM.md)
  * NMR teaching seeds: data/nmr-seeds/*.json (see docs/NMR_PLAN.md)

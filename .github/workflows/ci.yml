@@ -21,11 +21,27 @@ jobs:
       - name: Dataset + unit tests + production build
         env:
           VITE_BASE: /
-        run: npm run ci
+        run: >
+          oxlint --deny-warnings
+          && node tools/validate-seeds.mjs
+          && node tools/validate-nmr-seeds.mjs
+          && node tools/validate-ms-seeds.mjs
+          && node tools/build-dataset.mjs
+          && node --test
+          tests/dataset.test.mjs
+          tests/experimental.test.mjs
+          tests/structures.test.mjs
+          tests/seeds.test.mjs
+          tests/export-labnote.test.mjs
+          tests/schema.test.mjs
+          tests/safe-url.test.mjs
+          tests/nmr.test.mjs
+          tests/ms.test.mjs
+          && tsc -b
+          && vite build
 
   e2e:
     name: Playwright smoke
-    # PRs and main pushes (unit stays independent so e2e can still signal UI breaks)
     if: github.event_name == 'push' || github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
@@ -38,14 +54,18 @@ jobs:
       - name: Dataset + production build
         env:
           VITE_BASE: /
-        run: npm run build
+        run: >
+          node tools/build-dataset.mjs
+          && tsc -b
+          && vite build
+          && node tools/spa-fallback.mjs
       - name: Install Playwright Chromium
-        run: npx playwright install chromium --with-deps
+        run: node node_modules/playwright/cli.js install chromium --with-deps
       - name: E2E smoke
         env:
           CI: true
           E2E_BASE_URL: http://127.0.0.1:4173
-        run: npm run test:e2e
+        run: node node_modules/@playwright/test/cli.js test
       - name: Upload Playwright report on failure
         if: failure()
         uses: actions/upload-artifact@v4
