@@ -45,6 +45,7 @@ export function LabDiscussionCard({
     flags.hasFullUvVis ? 'UV–Vis' : null,
     flags.hasNmr1h ? '¹H NMR' : null,
     flags.hasNmr13c ? '¹³C NMR' : null,
+    flags.hasMs ? 'MS' : null,
     flags.hasIr ? 'IR' : null,
     flags.hasRaman ? 'Raman' : null,
   ]

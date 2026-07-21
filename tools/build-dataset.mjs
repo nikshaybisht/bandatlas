@@ -4,6 +4,7 @@
  *
  * UV teaching seeds: data/uv-seeds/*.json (see docs/ADD_SPECTRUM.md)
  * NMR teaching seeds: data/nmr-seeds/*.json (see docs/NMR_PLAN.md)
+ * MS teaching seeds: data/ms-seeds/*.json (see docs/MS_PLAN.md)
  */
 import fs from 'node:fs'
 import path from 'node:path'
@@ -14,6 +15,7 @@ import {
   buildRamanSpectrum,
 } from './ir-raman-lib.mjs'
 import { buildNmrSpectrumRecord } from './nmr-lib.mjs'
+import { buildMsSpectrumRecord } from './ms-lib.mjs'
 import {
   assertValidSeeds,
   loadUvSeedFiles,
@@ -22,6 +24,10 @@ import {
   assertValidNmrSeeds,
   loadNmrSeedFiles,
 } from './validate-nmr-seeds.mjs'
+import {
+  assertValidMsSeeds,
+  loadMsSeedFiles,
+} from './validate-ms-seeds.mjs'
 import { validateDatasetTree } from './validate-dataset.mjs'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -447,6 +453,7 @@ function stubToEntry(row) {
       raman: false,
       nmr_1h: false,
       nmr_13c: false,
+      ms: false,
     },
     tier: 'catalog',
   })
@@ -535,6 +542,7 @@ function buildFullCompound(c) {
       raman: false,
       nmr_1h: false,
       nmr_13c: false,
+      ms: false,
     },
     tier: 'full',
   })
@@ -556,6 +564,7 @@ function attachBuildFlags(c) {
   const hasFluorescence = c.spectra.some((s) => s.technique === 'fluorescence')
   const hasNmr1h = c.spectra.some((s) => s.technique === 'nmr_1h')
   const hasNmr13c = c.spectra.some((s) => s.technique === 'nmr_13c')
+  const hasMs = c.spectra.some((s) => s.technique === 'ms')
   c.availability = {
     uvvis_abs: hasFullUvVis,
     fluorescence: hasFluorescence,
@@ -563,6 +572,7 @@ function attachBuildFlags(c) {
     raman: hasRaman,
     nmr_1h: hasNmr1h,
     nmr_13c: hasNmr13c,
+    ms: hasMs,
   }
   c.flags = {
     hasFullUvVis,
@@ -571,6 +581,7 @@ function attachBuildFlags(c) {
     hasFluorescence,
     hasNmr1h,
     hasNmr13c,
+    hasMs,
   }
   // classLabels: family + lab class chips
   const classLabels = []
@@ -601,6 +612,7 @@ function toIndexEntry(c) {
   const hasRaman = !!c.flags?.hasRaman
   const hasNmr1h = !!c.flags?.hasNmr1h
   const hasNmr13c = !!c.flags?.hasNmr13c
+  const hasMs = !!c.flags?.hasMs
   return {
     id: c.id,
     name: c.name,
@@ -626,6 +638,8 @@ function toIndexEntry(c) {
     hasNmr1h,
     has_nmr_13c: hasNmr13c,
     hasNmr13c,
+    has_ms: hasMs,
+    hasMs,
     has_experimental: c.spectra.some(isExperimentalSpectrum),
     has_experimental_example: c.spectra.some(isExperimentalExampleSpectrum),
     lab_set: !!c.lab_set,
@@ -636,6 +650,28 @@ function toIndexEntry(c) {
     tags: c.tags || [],
     lambda_max_nm: abs?.lambda_max_nm || [],
     solvents: [...new Set(c.spectra.map((s) => s.solvent).filter(Boolean))],
+  }
+}
+
+/** Merge teaching MS peak lists from data/ms-seeds/*.json */
+function applyMsSeeds(allById, seeds) {
+  for (const seed of seeds) {
+    const sid = seed.compound_id || seed.id
+    const compound = allById.get(sid)
+    if (!compound) {
+      console.warn(`  MS seed ${seed._sourceFile || sid}: compound "${sid}" not in catalog — skipped`)
+      continue
+    }
+    const quality = seed.quality === 'experimental' ? 'experimental' : 'teaching'
+    for (const sp of seed.spectra || []) {
+      const built = buildMsSpectrumRecord(sid, sp, quality)
+      // Replace same method if re-run
+      compound.spectra = compound.spectra.filter(
+        (s) => !(s.technique === 'ms' && s.ms_method === built.ms_method),
+      )
+      compound.spectra.push(built)
+    }
+    allById.set(sid, compound)
   }
 }
 
@@ -759,6 +795,7 @@ function applyExperimentalOverlay(allById, overlay) {
     raman: compound.spectra.some((s) => s.technique === 'raman'),
     nmr_1h: compound.spectra.some((s) => s.technique === 'nmr_1h'),
     nmr_13c: compound.spectra.some((s) => s.technique === 'nmr_13c'),
+    ms: compound.spectra.some((s) => s.technique === 'ms'),
   }
   if (compound.availability.uvvis_abs) compound.tier = 'full'
   allById.set(sid, compound)
@@ -801,6 +838,14 @@ if (nmrSeeds.length) {
   assertValidNmrSeeds(nmrSeeds, 'NMR teaching seeds (data/nmr-seeds)')
   applyNmrSeeds(allById, nmrSeeds)
   console.log(`  NMR seeds: ${nmrSeeds.length} from data/nmr-seeds/`)
+}
+
+// MS teaching peak lists (EI / ESI / HRMS / MALDI) — local data/ms-seeds
+const msSeeds = loadMsSeedFiles()
+if (msSeeds.length) {
+  assertValidMsSeeds(msSeeds, 'MS teaching seeds (data/ms-seeds)')
+  applyMsSeeds(allById, msSeeds)
+  console.log(`  MS seeds: ${msSeeds.length} from data/ms-seeds/`)
 }
 
 /**
@@ -878,6 +923,7 @@ const withIr = all.filter((c) => c.flags.hasIr).length
 const withRaman = all.filter((c) => c.flags.hasRaman).length
 const withNmr1h = all.filter((c) => c.flags.hasNmr1h).length
 const withNmr13c = all.filter((c) => c.flags.hasNmr13c).length
+const withMs = all.filter((c) => c.flags.hasMs).length
 const withExperimental = all.filter((c) => c.spectra.some(isExperimentalSpectrum)).length
 const withExpExamples = all.filter((c) => c.spectra.some(isExperimentalExampleSpectrum)).length
 
@@ -905,7 +951,7 @@ const generatedAt = new Date().toISOString()
 const catalogOnly = all.filter((c) => !c.flags.hasFullUvVis).length
 
 const index = {
-  version: '1.3.0',
+  version: '1.4.0',
   generated_at: generatedAt,
   generatedAt,
   app_meta: APP_META,
@@ -919,6 +965,7 @@ const index = {
     raman: withRaman,
     nmr_1h: withNmr1h,
     nmr_13c: withNmr13c,
+    ms: withMs,
     catalog_only: catalogOnly,
     experimental: withExperimental,
     experimental_examples: withExpExamples,
@@ -943,6 +990,7 @@ const summary = {
   raman: withRaman,
   nmr_1h: withNmr1h,
   nmr_13c: withNmr13c,
+  ms: withMs,
   lab_set: labSetCount,
   lab_set_count: labSetCount,
   catalog_only: catalogOnly,
@@ -979,10 +1027,11 @@ if (!validation.ok) {
 }
 
 console.log(
-  `Dataset built: ${all.length} molecules (UV ${withUv}, IR ${withIr}, Raman ${withRaman}, ¹H ${withNmr1h}, ¹³C ${withNmr13c}) → public/dataset/`,
+  `Dataset built: ${all.length} molecules (UV ${withUv}, IR ${withIr}, Raman ${withRaman}, ¹H ${withNmr1h}, ¹³C ${withNmr13c}, MS ${withMs}) → public/dataset/`,
 )
 console.log(`  full UV–Vis curves: ${withUv} (teaching + any experimental overlays)`)
 console.log(`  NMR teaching: ¹H ${withNmr1h}, ¹³C ${withNmr13c}`)
+console.log(`  MS teaching: ${withMs} compounds`)
 console.log(`  lab set: ${labSetCount}`)
 console.log(`  experimental (real): ${withExperimental}`)
 console.log(`  experimental schema examples: ${withExpExamples}`)

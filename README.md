@@ -2,7 +2,7 @@
 
 # BandAtlas
 
-**A browser atlas of small-molecule UV–Vis, IR, Raman, and teaching ¹H/¹³C NMR bands.**
+**A browser atlas of small-molecule UV–Vis, IR, Raman, teaching ¹H/¹³C NMR, and MS bands.**
 
 Structures via PubChem · quality tags on every curve · CSV/JSON export for lab notes
 
@@ -44,7 +44,7 @@ PhotochemCAD-style layout ideas; not affiliated with PhotochemCAD.
 ## Features
 
 - **Search & browse** ~496 compounds by name, CAS, formula, or SMILES
-- **Five techniques** — UV–Vis, IR, Raman, plus teaching **¹H / ¹³C NMR** (60 & 500 MHz multiplet views on the pilot set)
+- **Six techniques** — UV–Vis, IR, Raman, teaching **¹H / ¹³C NMR** (60 & 500 MHz), and **MS** (EI / ESI / HRMS / MALDI teaching sticks on the pilot set)
 - **Overlay mode** — drop a second spectrum on the same axes for comparison
 - **3D structures** via 3Dmol, with local SDF → PubChem fallback
 - **Quality tags** on every curve, plus availability pills (full UV vs catalog-only)
@@ -77,6 +77,7 @@ From `npm run dataset` → `public/dataset/summary.json` (counts refresh each bu
 - ~379 catalog-only for UV (searchable; no full UV curve yet)
 - real open experimental series: **0** so far (schema path ready under `data/experimental/`)
 - teaching NMR pilot: **15** compounds with ¹H + ¹³C peak lists (`data/nmr-seeds/`) — see [docs/NMR_PLAN.md](docs/NMR_PLAN.md)
+- teaching MS pilot: **15** compounds (`data/ms-seeds/`) — see [docs/MS_PLAN.md](docs/MS_PLAN.md); literature intensities often disagree across papers
 
 IR/Raman curves are group-frequency teaching models, not instrument SI.  
 External databases & package strategy: [docs/DATA_SOURCES.md](docs/DATA_SOURCES.md).  
@@ -88,13 +89,13 @@ Add a UV teaching seed: [docs/ADD_SPECTRUM.md](docs/ADD_SPECTRUM.md). Course bit
 - [Add a spectrum](docs/ADD_SPECTRUM.md) — contributor path for UV seeds
 - [Course materials](docs/course/) — Top 50 worksheet + instructor notes
 - [PWA status](docs/PWA.md) · [A11y / mobile checklist](docs/A11Y_MOBILE_CHECKLIST.md)
-- [Data sources & packaging](docs/DATA_SOURCES.md) · [NMR plan](docs/NMR_PLAN.md)
+- [Data sources & packaging](docs/DATA_SOURCES.md) · [NMR plan](docs/NMR_PLAN.md) · [MS plan](docs/MS_PLAN.md)
 - [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) · [Changelog](CHANGELOG.md)
 
 ## Cite
 
 ```
-Bisht, N. (2026). BandAtlas (v1.3.0) [Computer software].
+Bisht, N. (2026). BandAtlas (v1.4.0) [Computer software].
 https://github.com/nikshaybisht/bandatlas
 Live: https://nikshaybisht.github.io/bandatlas/
 ```

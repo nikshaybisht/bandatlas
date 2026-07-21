@@ -1,0 +1,44 @@
+{
+  "compound_id": "ethanol",
+  "quality": "teaching",
+  "spectra": [
+    {
+      "id": "ethanol-ms-ei",
+      "method": "ei",
+      "ionization": "EI ~70 eV (teaching)",
+      "polarity": "positive",
+      "molecular_ion_mz": 46,
+      "plain_caption": "Ethanol EI: weak M+•; base peak often m/z 31 (CH2OH+).",
+      "source": {
+        "citation": "Teaching MS peak lists after common organic mass spectrometry tables (McLafferty-style / textbook EI patterns). Relative intensities and even some fragment assignments vary across papers and instruments — verify primary literature for research. Not vendor raw files.",
+        "license": "CC-BY-4.0 packaging; teaching peak list",
+        "note": "Tier A teaching MS — consolidated schematic, not multi-paper consensus"
+      },
+      "peaks": [
+        {
+          "mz": 46,
+          "intensity": 20,
+          "label": "M+•"
+        },
+        {
+          "mz": 45,
+          "intensity": 40,
+          "label": "[M−H]+"
+        },
+        {
+          "mz": 31,
+          "intensity": 100,
+          "label": "CH2OH+"
+        },
+        {
+          "mz": 29,
+          "intensity": 25
+        },
+        {
+          "mz": 27,
+          "intensity": 18
+        }
+      ]
+    }
+  ]
+}

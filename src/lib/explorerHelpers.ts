@@ -38,7 +38,21 @@ export function spectrumForTab(c: Compound | null, tab: TechniqueTab): Spectrum 
   if (tab === 'raman') return c.spectra.find((s) => s.technique === 'raman') ?? null
   if (tab === 'nmr1h') return c.spectra.find((s) => s.technique === 'nmr_1h') ?? null
   if (tab === 'nmr13c') return c.spectra.find((s) => s.technique === 'nmr_13c') ?? null
+  if (tab === 'ms') {
+    // Prefer EI teaching, then any MS method
+    return (
+      c.spectra.find((s) => s.technique === 'ms' && s.ms_method === 'ei') ??
+      c.spectra.find((s) => s.technique === 'ms') ??
+      null
+    )
+  }
   return null
+}
+
+/** All MS method spectra for a compound (for method toggle). */
+export function msSpectraForCompound(c: Compound | null): Spectrum[] {
+  if (!c) return []
+  return c.spectra.filter((s) => s.technique === 'ms')
 }
 
 export function resolveDefaultId(

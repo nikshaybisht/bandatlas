@@ -81,7 +81,7 @@ test.describe('BandAtlas smoke', () => {
     await page.locator('.search-hit', { hasText: /Benzene/i }).first().click()
     await expect(page.locator('.property-card h2')).toContainText(/Benzene/i)
 
-    for (const name of ['IR', 'Raman', 'UV–Vis', '¹H NMR', '¹³C NMR'] as const) {
+    for (const name of ['IR', 'Raman', 'UV–Vis', '¹H NMR', '¹³C NMR', 'MS'] as const) {
       const tab = page.getByRole('tab', { name })
       await tab.click()
       await expect(tab).toHaveAttribute('aria-selected', 'true')
@@ -90,6 +90,20 @@ test.describe('BandAtlas smoke', () => {
       await expect(page.locator('.spectrum-wrap')).toBeVisible()
       await expect(page.locator('.banner.error')).toHaveCount(0)
     }
+  })
+
+  test('MS tab shows EI method for benzene', async ({ page }) => {
+    const search = page.getByLabel('Search compounds')
+    await search.fill('benzene')
+    await page.locator('.search-hit', { hasText: /Benzene/i }).first().click()
+    await expect(page.locator('.property-card h2')).toContainText(/Benzene/i)
+    const msTab = page.getByRole('tab', { name: 'MS', exact: true })
+    await msTab.click()
+    await expect(msTab).toHaveAttribute('aria-selected', 'true')
+    await expect(page.locator('.spectrum-wrap')).toBeVisible()
+    await expect(page.getByRole('button', { name: 'EI' })).toBeVisible()
+    await expect(page.getByText(/Literature note/i)).toBeVisible()
+    await expect(page.getByTestId('error-boundary')).toHaveCount(0)
   })
 
   test('NMR field toggle switches 60 vs 500 MHz without crash', async ({ page }) => {

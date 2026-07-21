@@ -64,13 +64,18 @@ Network at **build time** (your machine / CI) is fine: pull allowed data → val
 
 ---
 
+## Literature disagreement (why AI often fails here)
+
+Masters/PhD literature surveys frequently find that **IR, NMR, UV–Vis, and MS/HRMS/MALDI** values **do not match cleanly** across 2–3 papers (solvent, instrument, calibration, relative intensity conventions, assignment errors). Generative models rarely “know” which source is right; they average or invent. BandAtlas teaching tables are **one explicit schematic** with a citation note — they are **not** a multi-paper consensus. For thesis work: open 2–3 primaries, tabulate disagreements yourself, then decide. Future experimental series must carry DOI/URL and license.
+
 ## Practical upgrade path (next milestone)
 
-1. **Schema** — `data/nmr-seeds/` + experimental NMR JSON (see [NMR_PLAN.md](NMR_PLAN.md)).
+1. **Schema** — `data/nmr-seeds/` + `data/ms-seeds/` (shipped as teaching pilots) + experimental JSON (see [NMR_PLAN.md](NMR_PLAN.md), [MS_PLAN.md](MS_PLAN.md)).
 2. **Import pipeline** — manual curated JSON first; later a script that only accepts files with `source.license` + DOI/URL.
 3. **nmrshiftdb2 pilot** — 10–20 lab-set molecules: export peak lists if license allows; otherwise teaching shifts from textbooks with full citation.
 4. **Package mode** — flag `VITE_OFFLINE=1`: no PubChem, no external images; only local SDF + dataset.
 5. **Credits page** — list every external database with link + what we reused (tables vs full series).
+6. Optional later: **literature variance** fields (min/max/n papers) without claiming a single “true” intensity.
 
 ---
 

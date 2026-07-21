@@ -111,6 +111,7 @@ test('validateCompoundRecord requires flags and consistency', () => {
       hasFluorescence: false,
       hasNmr1h: false,
       hasNmr13c: false,
+      hasMs: false,
     },
   }
   const ok = validateCompoundRecord(base)
@@ -124,6 +125,7 @@ test('validateCompoundRecord requires flags and consistency', () => {
       hasRaman: true,
       hasNmr1h: false,
       hasNmr13c: false,
+      hasMs: false,
     },
   })
   assert.equal(badFlags.ok, false)

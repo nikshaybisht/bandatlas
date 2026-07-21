@@ -1,0 +1,65 @@
+{
+  "compound_id": "ibuprofen",
+  "quality": "teaching",
+  "spectra": [
+    {
+      "id": "ibuprofen-ms-ei",
+      "method": "ei",
+      "ionization": "EI ~70 eV (teaching)",
+      "polarity": "positive",
+      "molecular_ion_mz": 206,
+      "plain_caption": "Ibuprofen EI: M+• 206; tropylium-related and side-chain fragments (teaching).",
+      "source": {
+        "citation": "Teaching MS peak lists after common organic mass spectrometry tables (McLafferty-style / textbook EI patterns). Relative intensities and even some fragment assignments vary across papers and instruments — verify primary literature for research. Not vendor raw files.",
+        "license": "CC-BY-4.0 packaging; teaching peak list",
+        "note": "Tier A teaching MS — consolidated schematic, not multi-paper consensus"
+      },
+      "peaks": [
+        {
+          "mz": 206,
+          "intensity": 25,
+          "label": "M+•"
+        },
+        {
+          "mz": 161,
+          "intensity": 100,
+          "label": "major fragment"
+        },
+        {
+          "mz": 119,
+          "intensity": 40
+        },
+        {
+          "mz": 91,
+          "intensity": 55,
+          "label": "C7H7+"
+        }
+      ]
+    },
+    {
+      "id": "ibuprofen-ms-esi",
+      "method": "esi",
+      "ionization": "ESI− / ESI+ teaching",
+      "polarity": "negative",
+      "molecular_ion_mz": 205,
+      "plain_caption": "ESI teaching: [M−H]− near m/z 205 for ibuprofen.",
+      "source": {
+        "citation": "Teaching MS peak lists after common organic mass spectrometry tables (McLafferty-style / textbook EI patterns). Relative intensities and even some fragment assignments vary across papers and instruments — verify primary literature for research. Not vendor raw files.",
+        "license": "CC-BY-4.0 packaging; teaching peak list",
+        "note": "Tier A teaching MS — consolidated schematic, not multi-paper consensus"
+      },
+      "peaks": [
+        {
+          "mz": 205,
+          "intensity": 100,
+          "label": "[M−H]−"
+        },
+        {
+          "mz": 161,
+          "intensity": 30,
+          "label": "fragment (schematic)"
+        }
+      ]
+    }
+  ]
+}

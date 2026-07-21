@@ -9,6 +9,7 @@ export function techniqueLabel(tab: string) {
   if (tab === 'raman') return 'Raman'
   if (tab === 'nmr1h' || tab === 'nmr_1h') return '1H NMR'
   if (tab === 'nmr13c' || tab === 'nmr_13c') return '13C NMR'
+  if (tab === 'ms') return 'MS'
   return tab
 }
 
@@ -26,7 +27,9 @@ export function spectrumToCsv(spectrum: any, compound: any, opts: any = {}) {
       ? 'cm-1'
       : spectrum.technique === 'nmr_1h' || spectrum.technique === 'nmr_13c'
         ? 'ppm'
-        : 'nm'
+        : spectrum.technique === 'ms'
+          ? 'm/z'
+          : 'nm'
   const quality = spectrum.quality || 'teaching'
   const appVersion = opts.appVersion || '0.0.0'
   const permalink = opts.permalink || ''

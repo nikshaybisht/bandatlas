@@ -53,6 +53,11 @@ export function PropertyCard({ compound, activeSpectrum, technique }: Props) {
               ¹³C NMR
             </span>
           )}
+          {flags.hasMs && (
+            <span className="tier-badge full" title="Teaching mass spectrometry peak list">
+              MS
+            </span>
+          )}
           {!flags.hasFullUvVis && !abs && (
             <span className="tier-badge catalog">Catalog / partial</span>
           )}
@@ -72,11 +77,15 @@ export function PropertyCard({ compound, activeSpectrum, technique }: Props) {
                 ? ' (¹H NMR)'
                 : technique === 'nmr13c'
                   ? ' (¹³C NMR)'
-                  : ` (${technique.toUpperCase()})`}
+                  : technique === 'ms'
+                    ? ' (MS)'
+                    : ` (${technique.toUpperCase()})`}
             {qualityTarget.quality === 'teaching'
               ? technique === 'nmr1h' || technique === 'nmr13c'
                 ? ' — teaching multiplet sketch from δ/J tables, not a raw FID.'
-                : ' — multi-Gaussian / group-frequency model, not a raw instrument file.'
+                : technique === 'ms'
+                  ? ' — teaching stick spectrum; literature intensities often disagree across papers.'
+                  : ' — multi-Gaussian / group-frequency model, not a raw instrument file.'
               : qualityTarget.example_not_for_citation
                 ? ' — synthetic schema demo; do not cite as data.'
                 : ' — open experimental series; verify primary source before quantitative use.'}

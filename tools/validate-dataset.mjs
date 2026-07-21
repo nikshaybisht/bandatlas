@@ -3,7 +3,7 @@
  * Enforced at end of `npm run dataset`. Pure API for unit tests.
  *
  * Wire format notes:
- * - Spectra are a technique-tagged array (uvvis_abs | fluorescence | ir | raman | nmr_1h | nmr_13c).
+ * - Spectra are a technique-tagged array (uvvis_abs | fluorescence | ir | raman | nmr_1h | nmr_13c | ms).
  * - Conceptual map: series → display_points, classLabels → class_labels / family + lab_classes,
  *   hasFullUvVis → flags.hasFullUvVis / has_uvvis.
  * - quality enum: teaching | experimental only.
@@ -21,6 +21,7 @@ const TECHNIQUES = new Set([
   'raman',
   'nmr_1h',
   'nmr_13c',
+  'ms',
 ])
 
 /**
@@ -152,9 +153,9 @@ export function validateCompoundRecord(compound, opts = {}) {
   // flags (computed at build — required on new builds)
   const flags = c.flags
   if (!flags || typeof flags !== 'object') {
-    err('flags { hasFullUvVis, hasIr, hasRaman, hasNmr1h, hasNmr13c } required (computed at build)')
+    err('flags { hasFullUvVis, hasIr, hasRaman, hasNmr1h, hasNmr13c, hasMs } required (computed at build)')
   } else {
-    for (const k of ['hasFullUvVis', 'hasIr', 'hasRaman', 'hasNmr1h', 'hasNmr13c']) {
+    for (const k of ['hasFullUvVis', 'hasIr', 'hasRaman', 'hasNmr1h', 'hasNmr13c', 'hasMs']) {
       if (typeof flags[k] !== 'boolean') err(`flags.${k} must be boolean`)
     }
     // Consistency with series presence
@@ -163,6 +164,7 @@ export function validateCompoundRecord(compound, opts = {}) {
     const hasRa = c.spectra?.some((s) => s.technique === 'raman')
     const hasH = c.spectra?.some((s) => s.technique === 'nmr_1h')
     const hasC = c.spectra?.some((s) => s.technique === 'nmr_13c')
+    const hasMs = c.spectra?.some((s) => s.technique === 'ms')
     if (flags.hasFullUvVis !== !!hasUv) {
       err(`flags.hasFullUvVis (${flags.hasFullUvVis}) ≠ presence of uvvis_abs series`)
     }
@@ -170,6 +172,7 @@ export function validateCompoundRecord(compound, opts = {}) {
     if (flags.hasRaman !== !!hasRa) err(`flags.hasRaman inconsistent with raman series`)
     if (flags.hasNmr1h !== !!hasH) err(`flags.hasNmr1h inconsistent with nmr_1h series`)
     if (flags.hasNmr13c !== !!hasC) err(`flags.hasNmr13c inconsistent with nmr_13c series`)
+    if (flags.hasMs !== !!hasMs) err(`flags.hasMs inconsistent with ms series`)
   }
 
   // labSet requires full UV
@@ -191,6 +194,9 @@ export function validateCompoundRecord(compound, opts = {}) {
     }
     if (c.availability.nmr_13c != null && c.availability.nmr_13c !== flags.hasNmr13c) {
       err('availability.nmr_13c must match flags.hasNmr13c')
+    }
+    if (c.availability.ms != null && c.availability.ms !== flags.hasMs) {
+      err('availability.ms must match flags.hasMs')
     }
   }
 

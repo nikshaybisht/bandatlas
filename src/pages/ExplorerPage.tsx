@@ -28,6 +28,7 @@ import {
   emptySearchMessage,
   FALLBACK_META,
   filterSearchResults,
+  msSpectraForCompound,
   qualityLabel,
   resolveDefaultId,
   RESULT_CAP,
@@ -35,7 +36,7 @@ import {
   spectrumForTab,
   type ExplorerMode,
 } from '../lib/explorerHelpers'
-import type { Compound, DatasetIndex, IndexCompound, TechniqueTab } from '../types'
+import type { Compound, DatasetIndex, IndexCompound, MsMethod, Spectrum, TechniqueTab } from '../types'
 import { compoundFlags, indexHasFullUvVis } from '../types'
 
 type Mode = ExplorerMode
@@ -74,6 +75,8 @@ export function ExplorerPage({ preset = 'default' }: Props) {
   )
   /** Teaching NMR multiplet simulation field (MHz). */
   const [nmrFieldMhz, setNmrFieldMhz] = useState<60 | 500>(500)
+  /** Preferred MS method when multiple teaching series exist. */
+  const [msMethod, setMsMethod] = useState<MsMethod | null>(null)
   const [searchOpen, setSearchOpen] = useState(false)
   const [uvOnly, setUvOnly] = useState(false)
   const [labSetOnly, setLabSetOnly] = useState(isLab)
@@ -181,6 +184,7 @@ export function ExplorerPage({ preset = 'default' }: Props) {
           const pickTech = (): TechniqueTab => {
             if (flags.hasFullUvVis) return 'uvvis'
             if (flags.hasNmr1h) return 'nmr1h'
+            if (flags.hasMs) return 'ms'
             if (flags.hasIr) return 'ir'
             if (flags.hasRaman) return 'raman'
             if (flags.hasNmr13c) return 'nmr13c'
@@ -191,7 +195,8 @@ export function ExplorerPage({ preset = 'default' }: Props) {
             (want === 'ir' && flags.hasIr) ||
             (want === 'raman' && flags.hasRaman) ||
             (want === 'nmr1h' && !!flags.hasNmr1h) ||
-            (want === 'nmr13c' && !!flags.hasNmr13c)
+            (want === 'nmr13c' && !!flags.hasNmr13c) ||
+            (want === 'ms' && !!flags.hasMs)
           if (!techLocked.current) {
             setTechnique(pickTech())
           } else if (!techOk(technique)) {
@@ -390,12 +395,33 @@ export function ExplorerPage({ preset = 'default' }: Props) {
   const tourTarget = (id: string) =>
     tourRunning && tourStep === id ? 'tour-active' : ''
 
-  const primary = spectrumForTab(compound, technique)
+  const msList = msSpectraForCompound(compound)
+  const primary: Spectrum | null = (() => {
+    if (technique === 'ms' && msList.length) {
+      if (msMethod) {
+        const hit = msList.find((s) => s.ms_method === msMethod)
+        if (hit) return hit
+      }
+      return msList.find((s) => s.ms_method === 'ei') ?? msList[0]
+    }
+    return spectrumForTab(compound, technique)
+  })()
   const emission =
     technique === 'uvvis'
       ? compound?.spectra.find((s) => s.technique === 'fluorescence')
       : undefined
-  const compareSpec = spectrumForTab(compareCompound, technique)
+  const compareMsList = msSpectraForCompound(compareCompound)
+  const compareSpec: Spectrum | null = (() => {
+    if (technique === 'ms' && compareMsList.length) {
+      const method = primary?.ms_method
+      if (method) {
+        const hit = compareMsList.find((s) => s.ms_method === method)
+        if (hit) return hit
+      }
+      return compareMsList[0]
+    }
+    return spectrumForTab(compareCompound, technique)
+  })()
 
   const tabAvailable = (tab: TechniqueTab) => {
     if (!compound) return false
@@ -405,10 +431,20 @@ export function ExplorerPage({ preset = 'default' }: Props) {
     if (tab === 'raman') return flags.hasRaman
     if (tab === 'nmr1h') return !!flags.hasNmr1h
     if (tab === 'nmr13c') return !!flags.hasNmr13c
+    if (tab === 'ms') return !!flags.hasMs
     return false
   }
 
   const isNmrTab = technique === 'nmr1h' || technique === 'nmr13c'
+  const isMsTab = technique === 'ms'
+
+  const msMethodLabel = (m: string | undefined) => {
+    if (m === 'ei') return 'EI'
+    if (m === 'esi') return 'ESI'
+    if (m === 'hrms') return 'HRMS'
+    if (m === 'maldi_tof') return 'MALDI-TOF'
+    return m || 'MS'
+  }
 
   return (
     <>
@@ -673,6 +709,7 @@ export function ExplorerPage({ preset = 'default' }: Props) {
                     ['uvvis', 'UV–Vis'],
                     ['nmr1h', '¹H NMR'],
                     ['nmr13c', '¹³C NMR'],
+                    ['ms', 'MS'],
                     ['ir', 'IR'],
                     ['raman', 'Raman'],
                   ] as const
@@ -715,6 +752,24 @@ export function ExplorerPage({ preset = 'default' }: Props) {
                     >
                       500 MHz
                     </button>
+                  </div>
+                ) : isMsTab && msList.length > 0 ? (
+                  <div className="seg" role="group" aria-label="MS ionization method">
+                    {msList.map((s) => {
+                      const m = (s.ms_method || 'ei') as MsMethod
+                      const active = (primary?.ms_method || msMethod) === m
+                      return (
+                        <button
+                          key={s.id}
+                          type="button"
+                          className={active ? 'active' : ''}
+                          onClick={() => setMsMethod(m)}
+                          title={`${msMethodLabel(m)} teaching stick spectrum`}
+                        >
+                          {msMethodLabel(m)}
+                        </button>
+                      )
+                    })}
                   </div>
                 ) : (
                   <div className="seg" role="group" aria-label="Y-axis display scale">
@@ -768,7 +823,9 @@ export function ExplorerPage({ preset = 'default' }: Props) {
                         ? 'Raman spectrum'
                         : technique === 'nmr1h'
                           ? '¹H NMR (teaching)'
-                          : '¹³C NMR (teaching)'}
+                          : technique === 'nmr13c'
+                            ? '¹³C NMR (teaching)'
+                            : `Mass spectrum (teaching · ${msMethodLabel(primary?.ms_method)})`}
                   {compareCompound ? ` · vs ${compareCompound.name}` : ''}
                   {isNmrTab ? ` · ${nmrFieldMhz} MHz` : ''}
                 </h2>
@@ -801,6 +858,12 @@ export function ExplorerPage({ preset = 'default' }: Props) {
                         <strong>{compound.name}</strong> yet. Pilot set includes benzene, acetone,
                         ethanol, and other lab staples — see <code>data/nmr-seeds/</code>.
                       </>
+                    ) : isMsTab ? (
+                      <>
+                        No teaching MS peak list for <strong>{compound.name}</strong> yet. Pilot
+                        EI/ESI/HRMS/MALDI lists live under <code>data/ms-seeds/</code>. Literature
+                        intensities often disagree across papers — compare primaries yourself.
+                      </>
                     ) : (
                       <>
                         No {technique === 'ir' ? 'IR' : 'Raman'} series for this compound yet. Never
@@ -823,8 +886,21 @@ export function ExplorerPage({ preset = 'default' }: Props) {
                       {qualityLabel(primary)}
                     </span>
                     {primary.solvent ? ` · solvent = ${primary.solvent}` : ''}
+                    {primary.ionization ? ` · ${primary.ionization}` : ''}
+                    {primary.matrix ? ` · matrix = ${primary.matrix}` : ''}
+                    {primary.molecular_ion_mz != null
+                      ? ` · M / [M±H] ≈ ${primary.molecular_ion_mz}`
+                      : ''}
                     {primary.temperature_K != null ? ` · T = ${primary.temperature_K} K` : ''}
                     {primary.source?.note ? ` · ${primary.source.note}` : ''}
+                  </p>
+                )}
+                {isMsTab && primary && (
+                  <p className="overlay-disclaimer" role="note">
+                    <strong>Literature note:</strong> published MS fragment intensities (and sometimes
+                    m/z assignments) often differ between papers and instruments. These sticks are a{' '}
+                    <em>teaching schematic</em>, not a multi-paper consensus or HRMS SI. For a thesis,
+                    always re-check 2–3 primary sources.
                   </p>
                 )}
                 {compareSpec && (

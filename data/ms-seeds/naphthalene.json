@@ -1,0 +1,38 @@
+{
+  "compound_id": "naphthalene",
+  "quality": "teaching",
+  "spectra": [
+    {
+      "id": "naphthalene-ms-ei",
+      "method": "ei",
+      "ionization": "EI ~70 eV (teaching)",
+      "polarity": "positive",
+      "molecular_ion_mz": 128,
+      "plain_caption": "Naphthalene EI: very strong M+• 128 (stable aromatic).",
+      "source": {
+        "citation": "Teaching MS peak lists after common organic mass spectrometry tables (McLafferty-style / textbook EI patterns). Relative intensities and even some fragment assignments vary across papers and instruments — verify primary literature for research. Not vendor raw files.",
+        "license": "CC-BY-4.0 packaging; teaching peak list",
+        "note": "Tier A teaching MS — consolidated schematic, not multi-paper consensus"
+      },
+      "peaks": [
+        {
+          "mz": 128,
+          "intensity": 100,
+          "label": "M+•"
+        },
+        {
+          "mz": 102,
+          "intensity": 12
+        },
+        {
+          "mz": 64,
+          "intensity": 8
+        },
+        {
+          "mz": 51,
+          "intensity": 10
+        }
+      ]
+    }
+  ]
+}

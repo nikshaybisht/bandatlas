@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.4.0
+
+**Mass spectrometry teaching tab** (local library):
+
+- Pilot **15 compounds** under `data/ms-seeds/` (EI; some ESI / HRMS / MALDI-TOF)
+- Explorer **MS** tab with method toggle (EI / ESI / HRMS / MALDI-TOF when present)
+- Explicit UI note: literature m/z intensities often disagree across papers — teaching schematic only
+- Validators, unit tests, e2e; docs `docs/MS_PLAN.md`
+
 ## 1.3.0
 
 **¹H / ¹³C NMR teaching upgrade** (local library, package-ready):

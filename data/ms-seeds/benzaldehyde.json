@@ -1,0 +1,40 @@
+{
+  "compound_id": "benzaldehyde",
+  "quality": "teaching",
+  "spectra": [
+    {
+      "id": "benzaldehyde-ms-ei",
+      "method": "ei",
+      "ionization": "EI ~70 eV (teaching)",
+      "polarity": "positive",
+      "molecular_ion_mz": 106,
+      "plain_caption": "Benzaldehyde EI: M+• 106; benzoyl 105; phenyl 77.",
+      "source": {
+        "citation": "Teaching MS peak lists after common organic mass spectrometry tables (McLafferty-style / textbook EI patterns). Relative intensities and even some fragment assignments vary across papers and instruments — verify primary literature for research. Not vendor raw files.",
+        "license": "CC-BY-4.0 packaging; teaching peak list",
+        "note": "Tier A teaching MS — consolidated schematic, not multi-paper consensus"
+      },
+      "peaks": [
+        {
+          "mz": 106,
+          "intensity": 80,
+          "label": "M+•"
+        },
+        {
+          "mz": 105,
+          "intensity": 100,
+          "label": "PhCO+"
+        },
+        {
+          "mz": 77,
+          "intensity": 75,
+          "label": "Ph+"
+        },
+        {
+          "mz": 51,
+          "intensity": 35
+        }
+      ]
+    }
+  ]
+}
