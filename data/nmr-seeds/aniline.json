@@ -1,0 +1,73 @@
+{
+  "compound_id": "aniline",
+  "quality": "teaching",
+  "spectra": [
+    {
+      "id": "aniline-1h",
+      "nucleus": "1H",
+      "solvent": "CDCl3",
+      "reference": "TMS",
+      "plain_caption": "Aromatic multiplet + NH₂ (broad, exchangeable).",
+      "source": {
+        "citation": "Teaching ¹H/¹³C chemical shifts after standard organic spectroscopy tables (Pretsch / Pavia-style compilations). Multiplet envelopes are simulated from δ and J — not raw FIDs or instrument SI.",
+        "license": "CC-BY-4.0 packaging; teaching peak list",
+        "note": "Tier A teaching NMR"
+      },
+      "peaks": [
+        {
+          "delta_ppm": 7.15,
+          "multiplicity": "m",
+          "integration": 2,
+          "label": "Ar–H"
+        },
+        {
+          "delta_ppm": 6.75,
+          "multiplicity": "m",
+          "integration": 3,
+          "label": "Ar–H"
+        },
+        {
+          "delta_ppm": 3.6,
+          "multiplicity": "s",
+          "integration": 2,
+          "label": "NH₂"
+        }
+      ],
+      "xMin": 3,
+      "xMax": 7.8
+    },
+    {
+      "id": "aniline-13c",
+      "nucleus": "13C",
+      "solvent": "CDCl3",
+      "reference": "TMS",
+      "plain_caption": "C–NH₂ near 146 ppm; aromatic CH carbons.",
+      "source": {
+        "citation": "Teaching ¹H/¹³C chemical shifts after standard organic spectroscopy tables (Pretsch / Pavia-style compilations). Multiplet envelopes are simulated from δ and J — not raw FIDs or instrument SI.",
+        "license": "CC-BY-4.0 packaging; teaching peak list",
+        "note": "Tier A teaching NMR"
+      },
+      "peaks": [
+        {
+          "delta_ppm": 146.5,
+          "multiplicity": "s",
+          "label": "C–N"
+        },
+        {
+          "delta_ppm": 129.2,
+          "multiplicity": "s"
+        },
+        {
+          "delta_ppm": 118.4,
+          "multiplicity": "s"
+        },
+        {
+          "delta_ppm": 115,
+          "multiplicity": "s"
+        }
+      ],
+      "xMin": 100,
+      "xMax": 160
+    }
+  ]
+}

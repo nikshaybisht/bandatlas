@@ -6,7 +6,10 @@ export const TEACHING_DISCLAIMER =
 export function techniqueLabel(tab: string) {
   if (tab === 'uvvis') return 'UV-Vis'
   if (tab === 'ir') return 'IR'
-  return 'Raman'
+  if (tab === 'raman') return 'Raman'
+  if (tab === 'nmr1h' || tab === 'nmr_1h') return '1H NMR'
+  if (tab === 'nmr13c' || tab === 'nmr_13c') return '13C NMR'
+  return tab
 }
 
 export function qualityWord(spectrum: any) {
@@ -19,7 +22,11 @@ export function qualityWord(spectrum: any) {
 
 export function spectrumToCsv(spectrum: any, compound: any, opts: any = {}) {
   const unitX =
-    spectrum.technique === 'ir' || spectrum.technique === 'raman' ? 'cm-1' : 'nm'
+    spectrum.technique === 'ir' || spectrum.technique === 'raman'
+      ? 'cm-1'
+      : spectrum.technique === 'nmr_1h' || spectrum.technique === 'nmr_13c'
+        ? 'ppm'
+        : 'nm'
   const quality = spectrum.quality || 'teaching'
   const appVersion = opts.appVersion || '0.0.0'
   const permalink = opts.permalink || ''

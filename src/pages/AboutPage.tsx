@@ -10,6 +10,8 @@ type Summary = {
   full_uvvis: number
   ir: number
   raman: number
+  nmr_1h?: number
+  nmr_13c?: number
   catalog_only: number
   lab_set?: number
   lab_set_count?: number
@@ -62,6 +64,14 @@ export function AboutPage() {
             <li>
               <span className="metric-val">{summary?.full_uvvis ?? '—'}</span>
               <span className="metric-label">full UV curves</span>
+            </li>
+            <li>
+              <span className="metric-val">{summary?.nmr_1h ?? '—'}</span>
+              <span className="metric-label">¹H NMR teaching</span>
+            </li>
+            <li>
+              <span className="metric-val">{summary?.nmr_13c ?? '—'}</span>
+              <span className="metric-label">¹³C NMR teaching</span>
             </li>
             <li>
               <span className="metric-val">

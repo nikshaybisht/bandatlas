@@ -1,0 +1,141 @@
+{
+  "compound_id": "ibuprofen",
+  "quality": "teaching",
+  "spectra": [
+    {
+      "id": "ibuprofen-1h",
+      "nucleus": "1H",
+      "solvent": "CDCl3",
+      "reference": "TMS",
+      "plain_caption": "Aromatic AA′BB′, methine quartet, isobutyl pattern (simplified teaching).",
+      "source": {
+        "citation": "Teaching ¹H/¹³C chemical shifts after standard organic spectroscopy tables (Pretsch / Pavia-style compilations). Multiplet envelopes are simulated from δ and J — not raw FIDs or instrument SI.",
+        "license": "CC-BY-4.0 packaging; teaching peak list",
+        "note": "Tier A teaching NMR"
+      },
+      "peaks": [
+        {
+          "delta_ppm": 11.5,
+          "multiplicity": "s",
+          "integration": 1,
+          "label": "COOH (broad)"
+        },
+        {
+          "delta_ppm": 7.2,
+          "multiplicity": "d",
+          "integration": 2,
+          "j_hz": [
+            8
+          ],
+          "label": "Ar–H"
+        },
+        {
+          "delta_ppm": 7.1,
+          "multiplicity": "d",
+          "integration": 2,
+          "j_hz": [
+            8
+          ],
+          "label": "Ar–H"
+        },
+        {
+          "delta_ppm": 3.72,
+          "multiplicity": "q",
+          "integration": 1,
+          "j_hz": [
+            7
+          ],
+          "label": "CH–CO"
+        },
+        {
+          "delta_ppm": 2.45,
+          "multiplicity": "d",
+          "integration": 2,
+          "j_hz": [
+            7
+          ],
+          "label": "Ar–CH₂"
+        },
+        {
+          "delta_ppm": 1.85,
+          "multiplicity": "m",
+          "integration": 1,
+          "label": "CH(CH₃)₂"
+        },
+        {
+          "delta_ppm": 1.5,
+          "multiplicity": "d",
+          "integration": 3,
+          "j_hz": [
+            7
+          ],
+          "label": "CH–CH₃"
+        },
+        {
+          "delta_ppm": 0.9,
+          "multiplicity": "d",
+          "integration": 6,
+          "j_hz": [
+            7
+          ],
+          "label": "iPr CH₃"
+        }
+      ],
+      "xMin": 0.5,
+      "xMax": 12
+    },
+    {
+      "id": "ibuprofen-13c",
+      "nucleus": "13C",
+      "solvent": "CDCl3",
+      "reference": "TMS",
+      "plain_caption": "Carboxyl ~181 ppm plus aromatic and aliphatic carbons (teaching subset).",
+      "source": {
+        "citation": "Teaching ¹H/¹³C chemical shifts after standard organic spectroscopy tables (Pretsch / Pavia-style compilations). Multiplet envelopes are simulated from δ and J — not raw FIDs or instrument SI.",
+        "license": "CC-BY-4.0 packaging; teaching peak list",
+        "note": "Tier A teaching NMR"
+      },
+      "peaks": [
+        {
+          "delta_ppm": 181,
+          "multiplicity": "s",
+          "label": "COOH"
+        },
+        {
+          "delta_ppm": 140.8,
+          "multiplicity": "s"
+        },
+        {
+          "delta_ppm": 137,
+          "multiplicity": "s"
+        },
+        {
+          "delta_ppm": 129.4,
+          "multiplicity": "s"
+        },
+        {
+          "delta_ppm": 127.3,
+          "multiplicity": "s"
+        },
+        {
+          "delta_ppm": 45,
+          "multiplicity": "s"
+        },
+        {
+          "delta_ppm": 30.1,
+          "multiplicity": "s"
+        },
+        {
+          "delta_ppm": 22.3,
+          "multiplicity": "s"
+        },
+        {
+          "delta_ppm": 18,
+          "multiplicity": "s"
+        }
+      ],
+      "xMin": 10,
+      "xMax": 190
+    }
+  ]
+}

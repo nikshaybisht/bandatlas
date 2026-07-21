@@ -1,0 +1,72 @@
+{
+  "compound_id": "ethanol",
+  "quality": "teaching",
+  "spectra": [
+    {
+      "id": "ethanol-1h",
+      "nucleus": "1H",
+      "solvent": "CDCl3",
+      "reference": "TMS",
+      "plain_caption": "Classic A₃X₂ pattern: CH₃ triplet, CH₂ quartet; OH variable.",
+      "source": {
+        "citation": "Teaching ¹H/¹³C chemical shifts after standard organic spectroscopy tables (Pretsch / Pavia-style compilations). Multiplet envelopes are simulated from δ and J — not raw FIDs or instrument SI.",
+        "license": "CC-BY-4.0 packaging; teaching peak list",
+        "note": "Tier A teaching NMR"
+      },
+      "peaks": [
+        {
+          "delta_ppm": 3.7,
+          "multiplicity": "q",
+          "integration": 2,
+          "j_hz": [
+            7
+          ],
+          "label": "CH₂"
+        },
+        {
+          "delta_ppm": 2.2,
+          "multiplicity": "s",
+          "integration": 1,
+          "label": "OH (variable)"
+        },
+        {
+          "delta_ppm": 1.22,
+          "multiplicity": "t",
+          "integration": 3,
+          "j_hz": [
+            7
+          ],
+          "label": "CH₃"
+        }
+      ],
+      "xMin": 0.5,
+      "xMax": 4.5
+    },
+    {
+      "id": "ethanol-13c",
+      "nucleus": "13C",
+      "solvent": "CDCl3",
+      "reference": "TMS",
+      "plain_caption": "CH₂–OH near 58 ppm; CH₃ near 18 ppm.",
+      "source": {
+        "citation": "Teaching ¹H/¹³C chemical shifts after standard organic spectroscopy tables (Pretsch / Pavia-style compilations). Multiplet envelopes are simulated from δ and J — not raw FIDs or instrument SI.",
+        "license": "CC-BY-4.0 packaging; teaching peak list",
+        "note": "Tier A teaching NMR"
+      },
+      "peaks": [
+        {
+          "delta_ppm": 57.8,
+          "multiplicity": "s",
+          "label": "CH₂"
+        },
+        {
+          "delta_ppm": 18.2,
+          "multiplicity": "s",
+          "label": "CH₃"
+        }
+      ],
+      "xMin": 10,
+      "xMax": 70
+    }
+  ]
+}

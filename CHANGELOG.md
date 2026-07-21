@@ -1,5 +1,16 @@
 # Changelog
 
+## 1.3.0
+
+**¹H / ¹³C NMR teaching upgrade** (local library, package-ready):
+
+- Pilot **15 compounds** with teaching ¹H + ¹³C peak lists under `data/nmr-seeds/`
+- Dataset techniques `nmr_1h` / `nmr_13c`; index flags + summary counts
+- Explorer tabs **¹H NMR** / **¹³C NMR** with **60 MHz | 500 MHz** multiplet simulation
+- Client + build simulators (`src/lib/nmrSimulate.ts`, `tools/nmr-lib.mjs`)
+- Validators, unit tests, e2e smoke for NMR field toggle
+- Deep links: `?tech=nmr1h` / `?tech=nmr13c`
+
 ## 1.2.0
 
 Library expansion + packaging research:

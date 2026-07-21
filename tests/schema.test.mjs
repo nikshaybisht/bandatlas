@@ -104,14 +104,27 @@ test('validateCompoundRecord requires flags and consistency', () => {
       },
     ],
     availability: { uvvis_abs: true, fluorescence: false, ir: true, raman: true },
-    flags: { hasFullUvVis: true, hasIr: true, hasRaman: true, hasFluorescence: false },
+    flags: {
+      hasFullUvVis: true,
+      hasIr: true,
+      hasRaman: true,
+      hasFluorescence: false,
+      hasNmr1h: false,
+      hasNmr13c: false,
+    },
   }
   const ok = validateCompoundRecord(base)
   assert.equal(ok.ok, true, ok.errors.join('; '))
 
   const badFlags = validateCompoundRecord({
     ...base,
-    flags: { hasFullUvVis: false, hasIr: true, hasRaman: true },
+    flags: {
+      hasFullUvVis: false,
+      hasIr: true,
+      hasRaman: true,
+      hasNmr1h: false,
+      hasNmr13c: false,
+    },
   })
   assert.equal(badFlags.ok, false)
 })

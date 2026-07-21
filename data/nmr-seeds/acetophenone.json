@@ -1,0 +1,88 @@
+{
+  "compound_id": "acetophenone",
+  "quality": "teaching",
+  "spectra": [
+    {
+      "id": "acetophenone-1h",
+      "nucleus": "1H",
+      "solvent": "CDCl3",
+      "reference": "TMS",
+      "plain_caption": "Aromatic multiplet + acetyl methyl singlet ~2.6 ppm.",
+      "source": {
+        "citation": "Teaching ¹H/¹³C chemical shifts after standard organic spectroscopy tables (Pretsch / Pavia-style compilations). Multiplet envelopes are simulated from δ and J — not raw FIDs or instrument SI.",
+        "license": "CC-BY-4.0 packaging; teaching peak list",
+        "note": "Tier A teaching NMR"
+      },
+      "peaks": [
+        {
+          "delta_ppm": 7.95,
+          "multiplicity": "m",
+          "integration": 2,
+          "label": "Ar–H o"
+        },
+        {
+          "delta_ppm": 7.55,
+          "multiplicity": "m",
+          "integration": 1,
+          "label": "Ar–H p"
+        },
+        {
+          "delta_ppm": 7.45,
+          "multiplicity": "m",
+          "integration": 2,
+          "label": "Ar–H m"
+        },
+        {
+          "delta_ppm": 2.6,
+          "multiplicity": "s",
+          "integration": 3,
+          "label": "COCH₃"
+        }
+      ],
+      "xMin": 2,
+      "xMax": 8.5
+    },
+    {
+      "id": "acetophenone-13c",
+      "nucleus": "13C",
+      "solvent": "CDCl3",
+      "reference": "TMS",
+      "plain_caption": "Ketone carbonyl ~198 ppm; methyl ~26.5 ppm.",
+      "source": {
+        "citation": "Teaching ¹H/¹³C chemical shifts after standard organic spectroscopy tables (Pretsch / Pavia-style compilations). Multiplet envelopes are simulated from δ and J — not raw FIDs or instrument SI.",
+        "license": "CC-BY-4.0 packaging; teaching peak list",
+        "note": "Tier A teaching NMR"
+      },
+      "peaks": [
+        {
+          "delta_ppm": 198.1,
+          "multiplicity": "s",
+          "label": "C=O"
+        },
+        {
+          "delta_ppm": 137.1,
+          "multiplicity": "s"
+        },
+        {
+          "delta_ppm": 133,
+          "multiplicity": "s"
+        },
+        {
+          "delta_ppm": 128.5,
+          "multiplicity": "s"
+        },
+        {
+          "delta_ppm": 128.2,
+          "multiplicity": "s"
+        },
+        {
+          "delta_ppm": 26.5,
+          "multiplicity": "s",
+          "label": "CH₃"
+        }
+      ],
+      "xMin": 20,
+      "xMax": 210
+    }
+  ]
+}

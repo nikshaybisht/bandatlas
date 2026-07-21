@@ -1,0 +1,83 @@
+{
+  "compound_id": "benzaldehyde",
+  "quality": "teaching",
+  "spectra": [
+    {
+      "id": "benzaldehyde-1h",
+      "nucleus": "1H",
+      "solvent": "CDCl3",
+      "reference": "TMS",
+      "plain_caption": "Aldehyde singlet ~10.0 ppm + aromatic multiplet.",
+      "source": {
+        "citation": "Teaching ¹H/¹³C chemical shifts after standard organic spectroscopy tables (Pretsch / Pavia-style compilations). Multiplet envelopes are simulated from δ and J — not raw FIDs or instrument SI.",
+        "license": "CC-BY-4.0 packaging; teaching peak list",
+        "note": "Tier A teaching NMR"
+      },
+      "peaks": [
+        {
+          "delta_ppm": 10.02,
+          "multiplicity": "s",
+          "integration": 1,
+          "label": "CHO"
+        },
+        {
+          "delta_ppm": 7.88,
+          "multiplicity": "m",
+          "integration": 2,
+          "label": "Ar–H o"
+        },
+        {
+          "delta_ppm": 7.62,
+          "multiplicity": "m",
+          "integration": 1,
+          "label": "Ar–H p"
+        },
+        {
+          "delta_ppm": 7.52,
+          "multiplicity": "m",
+          "integration": 2,
+          "label": "Ar–H m"
+        }
+      ],
+      "xMin": 7,
+      "xMax": 10.5
+    },
+    {
+      "id": "benzaldehyde-13c",
+      "nucleus": "13C",
+      "solvent": "CDCl3",
+      "reference": "TMS",
+      "plain_caption": "Aldehyde carbon ~192 ppm; aromatic carbons 129–136 ppm.",
+      "source": {
+        "citation": "Teaching ¹H/¹³C chemical shifts after standard organic spectroscopy tables (Pretsch / Pavia-style compilations). Multiplet envelopes are simulated from δ and J — not raw FIDs or instrument SI.",
+        "license": "CC-BY-4.0 packaging; teaching peak list",
+        "note": "Tier A teaching NMR"
+      },
+      "peaks": [
+        {
+          "delta_ppm": 192.4,
+          "multiplicity": "s",
+          "label": "CHO"
+        },
+        {
+          "delta_ppm": 136.4,
+          "multiplicity": "s"
+        },
+        {
+          "delta_ppm": 134.4,
+          "multiplicity": "s"
+        },
+        {
+          "delta_ppm": 129.7,
+          "multiplicity": "s"
+        },
+        {
+          "delta_ppm": 129,
+          "multiplicity": "s"
+        }
+      ],
+      "xMin": 120,
+      "xMax": 200
+    }
+  ]
+}

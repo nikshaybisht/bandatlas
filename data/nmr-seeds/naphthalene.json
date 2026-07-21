@@ -1,0 +1,65 @@
+{
+  "compound_id": "naphthalene",
+  "quality": "teaching",
+  "spectra": [
+    {
+      "id": "naphthalene-1h",
+      "nucleus": "1H",
+      "solvent": "CDCl3",
+      "reference": "TMS",
+      "plain_caption": "AA′BB′ aromatic system — two multiplets near 7.5 and 7.8 ppm.",
+      "source": {
+        "citation": "Teaching ¹H/¹³C chemical shifts after standard organic spectroscopy tables (Pretsch / Pavia-style compilations). Multiplet envelopes are simulated from δ and J — not raw FIDs or instrument SI.",
+        "license": "CC-BY-4.0 packaging; teaching peak list",
+        "note": "Tier A teaching NMR"
+      },
+      "peaks": [
+        {
+          "delta_ppm": 7.84,
+          "multiplicity": "m",
+          "integration": 4,
+          "label": "α-H"
+        },
+        {
+          "delta_ppm": 7.48,
+          "multiplicity": "m",
+          "integration": 4,
+          "label": "β-H"
+        }
+      ],
+      "xMin": 7,
+      "xMax": 8.3
+    },
+    {
+      "id": "naphthalene-13c",
+      "nucleus": "13C",
+      "solvent": "CDCl3",
+      "reference": "TMS",
+      "plain_caption": "Three ¹³C environments for unsubstituted naphthalene.",
+      "source": {
+        "citation": "Teaching ¹H/¹³C chemical shifts after standard organic spectroscopy tables (Pretsch / Pavia-style compilations). Multiplet envelopes are simulated from δ and J — not raw FIDs or instrument SI.",
+        "license": "CC-BY-4.0 packaging; teaching peak list",
+        "note": "Tier A teaching NMR"
+      },
+      "peaks": [
+        {
+          "delta_ppm": 133.5,
+          "multiplicity": "s",
+          "label": "C-4a/8a"
+        },
+        {
+          "delta_ppm": 127.9,
+          "multiplicity": "s",
+          "label": "C-α"
+        },
+        {
+          "delta_ppm": 125.8,
+          "multiplicity": "s",
+          "label": "C-β"
+        }
+      ],
+      "xMin": 120,
+      "xMax": 140
+    }
+  ]
+}
