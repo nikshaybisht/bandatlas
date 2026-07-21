@@ -1,0 +1,45 @@
+{
+  "compound_id": "aspirin",
+  "quality": "teaching",
+  "spectra": [
+    {
+      "id": "aspirin-ms-ei",
+      "method": "ei",
+      "ionization": "EI ~70 eV (teaching)",
+      "polarity": "positive",
+      "molecular_ion_mz": 180,
+      "plain_caption": "Aspirin EI: M+• 180; ketene / phenolic fragment patterns (teaching).",
+      "source": {
+        "citation": "Teaching MS peak lists after common organic mass spectrometry tables (McLafferty-style / textbook EI patterns). Relative intensities and even some fragment assignments vary across papers and instruments — verify primary literature for research. Not vendor raw files.",
+        "license": "CC-BY-4.0 packaging; teaching peak list",
+        "note": "Tier A teaching MS — consolidated schematic, not multi-paper consensus"
+      },
+      "peaks": [
+        {
+          "mz": 180,
+          "intensity": 15,
+          "label": "M+•"
+        },
+        {
+          "mz": 138,
+          "intensity": 55,
+          "label": "[M−CH2CO]+"
+        },
+        {
+          "mz": 120,
+          "intensity": 100,
+          "label": "base"
+        },
+        {
+          "mz": 92,
+          "intensity": 40
+        },
+        {
+          "mz": 43,
+          "intensity": 35,
+          "label": "CH3CO+"
+        }
+      ]
+    }
+  ]
+}

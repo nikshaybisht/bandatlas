@@ -5,8 +5,18 @@ export type Technique =
   | 'raman'
   | 'nmr_1h'
   | 'nmr_13c'
+  | 'ms'
 
-export type TechniqueTab = 'uvvis' | 'ir' | 'raman' | 'nmr1h' | 'nmr13c'
+export type TechniqueTab = 'uvvis' | 'ir' | 'raman' | 'nmr1h' | 'nmr13c' | 'ms'
+
+export type MsMethod = 'ei' | 'esi' | 'hrms' | 'maldi_tof'
+
+export interface MsPeak {
+  mz: number
+  intensity: number
+  formula?: string
+  label?: string
+}
 
 // teaching envelopes must stay "teaching" — never relabel as experimental
 export type SpectrumQuality = 'teaching' | 'experimental'
@@ -53,6 +63,14 @@ export interface Spectrum {
   reference?: string
   field_mhz_default?: number
   nmr_peaks?: NmrPeak[]
+  /** MS-only fields */
+  ms_method?: MsMethod
+  ionization?: string
+  polarity?: string
+  matrix?: string
+  exact_mass?: number
+  molecular_ion_mz?: number
+  ms_peaks?: MsPeak[]
 }
 
 // flags come from the dataset build — don't re-derive in the UI
@@ -63,6 +81,7 @@ export interface CompoundFlags {
   hasFluorescence?: boolean
   hasNmr1h?: boolean
   hasNmr13c?: boolean
+  hasMs?: boolean
 }
 
 export interface Compound {
@@ -93,6 +112,7 @@ export interface Compound {
     raman: boolean
     nmr_1h?: boolean
     nmr_13c?: boolean
+    ms?: boolean
   }
   flags?: CompoundFlags
   tier: 'full' | 'catalog' | 'partial'
@@ -135,6 +155,8 @@ export interface IndexCompound {
   hasNmr1h?: boolean
   has_nmr_13c?: boolean
   hasNmr13c?: boolean
+  has_ms?: boolean
+  hasMs?: boolean
   has_experimental: boolean
   has_experimental_example: boolean
   lab_set?: boolean
@@ -177,6 +199,10 @@ export function compoundFlags(c: Compound): CompoundFlags {
         typeof c.flags.hasNmr13c === 'boolean'
           ? c.flags.hasNmr13c
           : !!c.availability?.nmr_13c || c.spectra.some((s) => s.technique === 'nmr_13c'),
+      hasMs:
+        typeof c.flags.hasMs === 'boolean'
+          ? c.flags.hasMs
+          : !!c.availability?.ms || c.spectra.some((s) => s.technique === 'ms'),
     }
   }
   return {
@@ -186,6 +212,7 @@ export function compoundFlags(c: Compound): CompoundFlags {
     hasFluorescence: !!c.availability?.fluorescence,
     hasNmr1h: !!c.availability?.nmr_1h || c.spectra.some((s) => s.technique === 'nmr_1h'),
     hasNmr13c: !!c.availability?.nmr_13c || c.spectra.some((s) => s.technique === 'nmr_13c'),
+    hasMs: !!c.availability?.ms || c.spectra.some((s) => s.technique === 'ms'),
   }
 }
 

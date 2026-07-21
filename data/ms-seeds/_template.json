@@ -1,0 +1,24 @@
+{
+  "compound_id": "your-compound-id",
+  "quality": "teaching",
+  "spectra": [
+    {
+      "id": "your-compound-id-ms-ei",
+      "method": "ei",
+      "ionization": "EI (70 eV teaching)",
+      "polarity": "positive",
+      "molecular_ion_mz": 100,
+      "plain_caption": "Teaching EI stick spectrum — base peak and key fragments.",
+      "source": {
+        "citation": "Teaching MS peak list after organic MS tables / NIST-style teaching compilations. Literature m/z and relative intensities often disagree across papers — verify primary sources for research.",
+        "license": "CC-BY-4.0 packaging",
+        "note": "Tier A teaching MS — not a multi-paper average or instrument file"
+      },
+      "peaks": [
+        { "mz": 100, "intensity": 40, "label": "M+" },
+        { "mz": 85, "intensity": 100, "label": "base" },
+        { "mz": 57, "intensity": 60 }
+      ]
+    }
+  ]
+}

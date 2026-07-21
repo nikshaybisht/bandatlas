@@ -79,6 +79,8 @@ export function parseTechniqueParam(raw: string | null | undefined): TechniqueTa
   if (v === 'nmr1h' || v === 'nmr-1h' || v === '1h' || v === 'hnmr' || v === '1hnmr') return 'nmr1h'
   if (v === 'nmr13c' || v === 'nmr-13c' || v === '13c' || v === 'cnmr' || v === '13cnmr')
     return 'nmr13c'
+  if (v === 'ms' || v === 'mass' || v === 'ei' || v === 'hrms' || v === 'maldi' || v === 'esi')
+    return 'ms'
   return null
 }
 

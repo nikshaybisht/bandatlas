@@ -12,6 +12,7 @@ type Summary = {
   raman: number
   nmr_1h?: number
   nmr_13c?: number
+  ms?: number
   catalog_only: number
   lab_set?: number
   lab_set_count?: number
@@ -72,6 +73,10 @@ export function AboutPage() {
             <li>
               <span className="metric-val">{summary?.nmr_13c ?? '—'}</span>
               <span className="metric-label">¹³C NMR teaching</span>
+            </li>
+            <li>
+              <span className="metric-val">{summary?.ms ?? '—'}</span>
+              <span className="metric-label">MS teaching</span>
             </li>
             <li>
               <span className="metric-val">

@@ -203,6 +203,7 @@ export function SpectrumPlot({
   } | null>(null)
 
   const isNmr = technique === 'nmr1h' || technique === 'nmr13c'
+  const isMs = technique === 'ms'
   const primary = useMemo(
     () => (isNmr ? spectrumAtField(primaryIn, nmrFieldMhz) : primaryIn) ?? null,
     [isNmr, primaryIn, nmrFieldMhz],
@@ -214,7 +215,8 @@ export function SpectrumPlot({
 
   const isWavenumber = technique === 'ir' || technique === 'raman'
   const isPpm = isNmr
-  const maxDist = isWavenumber ? 40 : isPpm ? 0.15 : 8
+  const isMz = isMs
+  const maxDist = isWavenumber ? 40 : isPpm ? 0.15 : isMz ? 2 : 8
   /** Touch / coarse pointer: drag-zoom fights scrolling — use toolbar buttons instead */
   const coarsePointer =
     typeof window !== 'undefined' &&
@@ -258,6 +260,7 @@ export function SpectrumPlot({
       if (technique === 'raman') return '#e879f9'
       if (technique === 'nmr1h') return '#38bdf8'
       if (technique === 'nmr13c') return '#a78bfa'
+      if (technique === 'ms') return '#f97316'
       return '#e5e5e5'
     }
     return appearanceFromAbsorption(absPeak)
@@ -277,6 +280,7 @@ export function SpectrumPlot({
       raman: 'No Raman curve for this molecule yet.',
       nmr1h: 'No ¹H NMR teaching peak list yet.',
       nmr13c: 'No ¹³C NMR teaching peak list yet.',
+      ms: 'No mass spectrometry teaching peak list yet.',
     }
     return labels[technique]
   }, [primary, emission, technique])
@@ -284,9 +288,24 @@ export function SpectrumPlot({
   const peaks = useMemo(() => {
     if (!primary) return [] as number[]
     if (isWavenumber) return primary.peak_positions?.slice(0, 4) ?? []
-    if (isPpm) return primary.nmr_peaks?.map((p) => p.delta_ppm).slice(0, 6) ?? primary.peak_positions?.slice(0, 6) ?? []
+    if (isPpm)
+      return (
+        primary.nmr_peaks?.map((p) => p.delta_ppm).slice(0, 6) ??
+        primary.peak_positions?.slice(0, 6) ??
+        []
+      )
+    if (isMz)
+      return (
+        primary.ms_peaks
+          ?.slice()
+          .sort((a, b) => b.intensity - a.intensity)
+          .map((p) => p.mz)
+          .slice(0, 6) ??
+        primary.peak_positions?.slice(0, 6) ??
+        []
+      )
     return primary.lambda_max_nm?.slice(0, 4) ?? []
-  }, [primary, isWavenumber, isPpm])
+  }, [primary, isWavenumber, isPpm, isMz])
 
   const absPts = primary?.display_points
   const emPts =
@@ -412,7 +431,7 @@ export function SpectrumPlot({
     }
 
     // Axis labels kept minimal — no "Relative absorbance" / Value clutter
-    const xLabel = isWavenumber ? 'cm⁻¹' : isPpm ? 'δ / ppm' : 'nm'
+    const xLabel = isWavenumber ? 'cm⁻¹' : isPpm ? 'δ / ppm' : isMz ? 'm/z' : 'nm'
 
     const width = Math.max(el.clientWidth || 640, 280)
     // Extra height so the visible-light band can sit below the x-axis
@@ -422,7 +441,7 @@ export function SpectrumPlot({
     const mainX = sortedAbs.map((p) => p[0])
     const mainYraw = sortedAbs.map((p) => p[1])
     const mainY =
-      mode === 'simple' || isWavenumber || isPpm ? normalizeYs(mainYraw) : mainYraw
+      mode === 'simple' || isWavenumber || isPpm || isMz ? normalizeYs(mainYraw) : mainYraw
 
     const isLight = theme === 'light'
     // Light theme: darker axes/labels for WCAG-ish contrast on #fafafa plot bg
@@ -601,7 +620,9 @@ export function SpectrumPlot({
                   ? `${Math.round(pk)}`
                   : isPpm
                     ? `${Number(pk).toFixed(2)}`
-                    : `${pk}`
+                    : isMz
+                      ? `${Number(pk) % 1 === 0 ? Math.round(pk) : Number(pk).toFixed(2)}`
+                      : `${pk}`
                 drawPeakLabel(pk, xPx, yPx, col, label)
               })
             }
@@ -703,6 +724,7 @@ export function SpectrumPlot({
     emPts,
     cmpPts,
     isPpm,
+    isMz,
     nmrFieldMhz,
   ])
 
@@ -738,14 +760,18 @@ export function SpectrumPlot({
                 ? irZoneLabel(pk)
                 : isPpm
                   ? `Chemical shift ${Number(pk).toFixed(2)} ppm`
-                  : `Absorbs ${peakHintNm(pk)}; curve tint = apparent solution colour`
+                  : isMz
+                    ? `m/z ${pk}`
+                    : `Absorbs ${peakHintNm(pk)}; curve tint = apparent solution colour`
             }
           >
             {isWavenumber
               ? `${Math.round(pk)} cm⁻¹`
               : isPpm
                 ? `δ ${Number(pk).toFixed(2)}`
-                : `λ_max ${pk} nm`}
+                : isMz
+                  ? `m/z ${Number(pk) % 1 === 0 ? Math.round(pk) : Number(pk).toFixed(2)}`
+                  : `λ_max ${pk} nm`}
           </span>
         ))}
         {technique === 'uvvis' && showEmission && emPeak != null && (
@@ -786,7 +812,9 @@ export function SpectrumPlot({
                   ? 'No ¹H NMR teaching peak list yet'
                   : technique === 'nmr13c'
                     ? 'No ¹³C NMR teaching peak list yet'
-                    : `No ${technique.toUpperCase()} curve yet`}
+                    : technique === 'ms'
+                      ? 'No MS teaching peak list yet'
+                      : `No ${technique.toUpperCase()} curve yet`}
             </strong>
             <p>
               {technique === 'uvvis' ? (
@@ -799,6 +827,12 @@ export function SpectrumPlot({
                 <>
                   Teaching NMR is available for a pilot set (benzene, acetone, ethanol, …). Pick a
                   lab-set aromatic or open <code>data/nmr-seeds/</code> to add peak lists.
+                </>
+              ) : isMs ? (
+                <>
+                  Teaching MS (EI / ESI / HRMS / MALDI) is on a pilot set. Literature intensities often
+                  disagree across papers — treat these as schematic, not SI. Add lists under{' '}
+                  <code>data/ms-seeds/</code>.
                 </>
               ) : (
                 'Try another technique tab, or pick a different compound.'

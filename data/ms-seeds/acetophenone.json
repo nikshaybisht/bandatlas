@@ -1,0 +1,45 @@
+{
+  "compound_id": "acetophenone",
+  "quality": "teaching",
+  "spectra": [
+    {
+      "id": "acetophenone-ms-ei",
+      "method": "ei",
+      "ionization": "EI ~70 eV (teaching)",
+      "polarity": "positive",
+      "molecular_ion_mz": 120,
+      "plain_caption": "Acetophenone EI: M+• 120; benzoyl base peak 105.",
+      "source": {
+        "citation": "Teaching MS peak lists after common organic mass spectrometry tables (McLafferty-style / textbook EI patterns). Relative intensities and even some fragment assignments vary across papers and instruments — verify primary literature for research. Not vendor raw files.",
+        "license": "CC-BY-4.0 packaging; teaching peak list",
+        "note": "Tier A teaching MS — consolidated schematic, not multi-paper consensus"
+      },
+      "peaks": [
+        {
+          "mz": 120,
+          "intensity": 45,
+          "label": "M+•"
+        },
+        {
+          "mz": 105,
+          "intensity": 100,
+          "label": "PhCO+"
+        },
+        {
+          "mz": 77,
+          "intensity": 70,
+          "label": "Ph+"
+        },
+        {
+          "mz": 51,
+          "intensity": 30
+        },
+        {
+          "mz": 43,
+          "intensity": 20,
+          "label": "CH3CO+"
+        }
+      ]
+    }
+  ]
+}

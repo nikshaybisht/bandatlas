@@ -1,0 +1,68 @@
+{
+  "compound_id": "benzene",
+  "quality": "teaching",
+  "spectra": [
+    {
+      "id": "benzene-ms-ei",
+      "method": "ei",
+      "ionization": "EI ~70 eV (teaching)",
+      "polarity": "positive",
+      "molecular_ion_mz": 78,
+      "plain_caption": "EI: M+• 78; strong loss of H / C₂H₂ fragments (teaching sticks).",
+      "source": {
+        "citation": "Teaching MS peak lists after common organic mass spectrometry tables (McLafferty-style / textbook EI patterns). Relative intensities and even some fragment assignments vary across papers and instruments — verify primary literature for research. Not vendor raw files.",
+        "license": "CC-BY-4.0 packaging; teaching peak list",
+        "note": "Tier A teaching MS — consolidated schematic, not multi-paper consensus"
+      },
+      "peaks": [
+        {
+          "mz": 78,
+          "intensity": 100,
+          "label": "M+•",
+          "formula": "C6H6"
+        },
+        {
+          "mz": 77,
+          "intensity": 28,
+          "label": "[M−H]+"
+        },
+        {
+          "mz": 52,
+          "intensity": 18,
+          "label": "C4H4+"
+        },
+        {
+          "mz": 51,
+          "intensity": 22
+        },
+        {
+          "mz": 39,
+          "intensity": 15,
+          "label": "C3H3+"
+        }
+      ]
+    },
+    {
+      "id": "benzene-ms-hrms",
+      "method": "hrms",
+      "ionization": "EI / HRMS teaching exact mass",
+      "polarity": "positive",
+      "exact_mass": 78.04695,
+      "molecular_ion_mz": 78.04695,
+      "plain_caption": "HRMS teaching: exact mass of C6H6•+ (schematic single-ion focus).",
+      "source": {
+        "citation": "Teaching MS peak lists after common organic mass spectrometry tables (McLafferty-style / textbook EI patterns). Relative intensities and even some fragment assignments vary across papers and instruments — verify primary literature for research. Not vendor raw files.",
+        "license": "CC-BY-4.0 packaging; teaching peak list",
+        "note": "Tier A teaching MS — consolidated schematic, not multi-paper consensus"
+      },
+      "peaks": [
+        {
+          "mz": 78.04695,
+          "intensity": 100,
+          "label": "M+• exact",
+          "formula": "C6H6"
+        }
+      ]
+    }
+  ]
+}
