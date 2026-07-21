@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.4.1
+
+Docs & marketing assets for latest techniques:
+
+- Regenerated README screenshots (UV–Vis, IR, Raman, **¹H NMR**, **MS**, compare, export, light theme)
+- Guide step images + `og-cover.png` under `public/images/`
+- Capture script covers NMR/MS tabs (`npm run screenshots`)
+- `index.html` / README / Guide copy updated for UV–Vis · NMR · MS · IR · Raman
+
 ## 1.4.0
 
 **Mass spectrometry teaching tab** (local library):

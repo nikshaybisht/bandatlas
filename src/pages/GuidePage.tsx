@@ -21,6 +21,22 @@ const STEPS = [
     anchor: '/c/rhodamine-b?tech=uvvis',
   },
   {
+    id: 'nmr',
+    title: '¹H / ¹³C NMR',
+    body: 'Pilot teaching multiplet lists with 60 & 500 MHz simulation. Not a raw FID.',
+    img: 'images/step-nmr.png',
+    alt: '¹H NMR teaching spectrum',
+    anchor: '/c/benzene?tech=nmr1h',
+  },
+  {
+    id: 'ms',
+    title: 'Mass spectrometry',
+    body: 'EI / ESI / HRMS / MALDI teaching sticks. Literature intensities often disagree across papers.',
+    img: 'images/step-ms.png',
+    alt: 'MS teaching stick spectrum',
+    anchor: '/c/benzene?tech=ms',
+  },
+  {
     id: 'ir',
     title: 'IR',
     body: 'Same molecule, IR teaching bands. Raman is the next tab.',

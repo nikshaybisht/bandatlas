@@ -19,9 +19,9 @@ Structures via PubChem · quality tags on every curve · CSV/JSON export for lab
 
 ## What it is
 
-A static React app for browsing ~500 small-molecule spectra. Search a compound, open its UV–Vis / IR / Raman curve, overlay a second structure for comparison, and export a note pack for lab write-ups. There’s a curated **Lab** set (~35 full-UV compounds) and an optional quick tour on the explorer.
+A static React app for browsing ~505 small-molecule records. Search a compound, open UV–Vis / IR / Raman / teaching **¹H·¹³C NMR** / **MS**, overlay a second structure, and export a note pack for lab write-ups. There’s a curated **Lab** set (~35 full-UV compounds) and an optional quick tour on the explorer.
 
-Most UV/IR/Raman curves are **teaching envelopes** — multi-Gaussian / group-frequency shapes pinned to literature λ_max or textbook cm⁻¹. A few slots exist for real open experimental series (`data/experimental/`). Right now that count is basically zero; the schema is ready if you have redistribution rights.
+Most UV/IR/Raman curves are **teaching envelopes** — multi-Gaussian / group-frequency shapes pinned to literature λ_max or textbook cm⁻¹. NMR and MS pilots are teaching multiplet/stick schematics (literature values often disagree across papers). A few slots exist for real open experimental series (`data/experimental/`); that count is basically zero for now.
 
 **Don’t cite teaching curves as instrument SI.** Use primary literature for research numbers. See [docs/methodology.md](docs/methodology.md).
 
@@ -33,17 +33,23 @@ PhotochemCAD-style layout ideas; not affiliated with PhotochemCAD.
 |:---:|:---:|
 | ![UV–Vis](docs/images/screenshot-uvvis.png) | ![IR](docs/images/screenshot-ir.png) |
 
-| Raman | Overlay / compare |
+| Raman | ¹H NMR (teaching) |
 |:---:|:---:|
-| ![Raman](docs/images/screenshot-raman.png) | ![Compare](docs/images/screenshot-compare.png) |
+| ![Raman](docs/images/screenshot-raman.png) | ![NMR](docs/images/screenshot-nmr.png) |
 
-| Light theme |
-|:---:|
-| ![Light theme](docs/images/screenshot-light.png) |
+| MS (EI teaching) | Overlay / compare |
+|:---:|:---:|
+| ![MS](docs/images/screenshot-ms.png) | ![Compare](docs/images/screenshot-compare.png) |
+
+| Light theme | Lab / export |
+|:---:|:---:|
+| ![Light theme](docs/images/screenshot-light.png) | ![Export](docs/images/screenshot-export.png) |
+
+Screenshots are regenerated with `npm run build && npm run preview` then `npm run screenshots` (Playwright).
 
 ## Features
 
-- **Search & browse** ~496 compounds by name, CAS, formula, or SMILES
+- **Search & browse** ~505 compounds by name, CAS, formula, or SMILES
 - **Six techniques** — UV–Vis, IR, Raman, teaching **¹H / ¹³C NMR** (60 & 500 MHz), and **MS** (EI / ESI / HRMS / MALDI teaching sticks on the pilot set)
 - **Overlay mode** — drop a second spectrum on the same axes for comparison
 - **3D structures** via 3Dmol, with local SDF → PubChem fallback
@@ -95,7 +101,7 @@ Add a UV teaching seed: [docs/ADD_SPECTRUM.md](docs/ADD_SPECTRUM.md). Course bit
 ## Cite
 
 ```
-Bisht, N. (2026). BandAtlas (v1.4.0) [Computer software].
+Bisht, N. (2026). BandAtlas (v1.4.1) [Computer software].
 https://github.com/nikshaybisht/bandatlas
 Live: https://nikshaybisht.github.io/bandatlas/
 ```
