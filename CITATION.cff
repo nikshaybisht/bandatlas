@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If BandAtlas was useful, cite it as below."
 type: software
 title: "BandAtlas"
-version: "1.2.0"
+version: "1.3.0"
 date-released: "2026-07-16"
 authors:
   - family-names: Bisht
@@ -11,9 +11,9 @@ repository-code: "https://github.com/nikshaybisht/bandatlas"
 url: "https://nikshaybisht.github.io/bandatlas/"
 license: MIT
 abstract: >
-  Static web app for browsing small-molecule UV–Vis, IR, and Raman records
-  with structures and export. Mostly teaching envelopes; not a certified
-  spectral library.
+  Static web app for browsing small-molecule UV–Vis, IR, Raman, and teaching
+  1H/13C NMR records with structures and export. Mostly teaching envelopes;
+  not a certified spectral library.
 keywords:
   - UV-Vis
   - infrared spectroscopy

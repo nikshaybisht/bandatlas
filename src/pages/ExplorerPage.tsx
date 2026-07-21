@@ -72,6 +72,8 @@ export function ExplorerPage({ preset = 'default' }: Props) {
   const [technique, setTechnique] = useState<TechniqueTab>(
     techFromUrl || (isLab ? FALLBACK_META.lab.technique : 'uvvis'),
   )
+  /** Teaching NMR multiplet simulation field (MHz). */
+  const [nmrFieldMhz, setNmrFieldMhz] = useState<60 | 500>(500)
   const [searchOpen, setSearchOpen] = useState(false)
   const [uvOnly, setUvOnly] = useState(false)
   const [labSetOnly, setLabSetOnly] = useState(isLab)
@@ -176,22 +178,24 @@ export function ExplorerPage({ preset = 'default' }: Props) {
           setLoadingMol(false)
           setRecent(pushRecent({ id: c.id, name: c.name, formula: c.formula }))
           const flags = compoundFlags(c)
+          const pickTech = (): TechniqueTab => {
+            if (flags.hasFullUvVis) return 'uvvis'
+            if (flags.hasNmr1h) return 'nmr1h'
+            if (flags.hasIr) return 'ir'
+            if (flags.hasRaman) return 'raman'
+            if (flags.hasNmr13c) return 'nmr13c'
+            return 'uvvis'
+          }
+          const techOk = (want: TechniqueTab) =>
+            (want === 'uvvis' && flags.hasFullUvVis) ||
+            (want === 'ir' && flags.hasIr) ||
+            (want === 'raman' && flags.hasRaman) ||
+            (want === 'nmr1h' && !!flags.hasNmr1h) ||
+            (want === 'nmr13c' && !!flags.hasNmr13c)
           if (!techLocked.current) {
-            if (flags.hasFullUvVis) setTechnique('uvvis')
-            else if (flags.hasIr) setTechnique('ir')
-            else if (flags.hasRaman) setTechnique('raman')
-          } else {
-            // Honor deep-link tech if available; otherwise fall back
-            const want = technique
-            const ok =
-              (want === 'uvvis' && flags.hasFullUvVis) ||
-              (want === 'ir' && flags.hasIr) ||
-              (want === 'raman' && flags.hasRaman)
-            if (!ok) {
-              if (flags.hasFullUvVis) setTechnique('uvvis')
-              else if (flags.hasIr) setTechnique('ir')
-              else if (flags.hasRaman) setTechnique('raman')
-            }
+            setTechnique(pickTech())
+          } else if (!techOk(technique)) {
+            setTechnique(pickTech())
           }
         }
       })
@@ -398,8 +402,13 @@ export function ExplorerPage({ preset = 'default' }: Props) {
     const flags = compoundFlags(compound)
     if (tab === 'uvvis') return flags.hasFullUvVis
     if (tab === 'ir') return flags.hasIr
-    return flags.hasRaman
+    if (tab === 'raman') return flags.hasRaman
+    if (tab === 'nmr1h') return !!flags.hasNmr1h
+    if (tab === 'nmr13c') return !!flags.hasNmr13c
+    return false
   }
+
+  const isNmrTab = technique === 'nmr1h' || technique === 'nmr13c'
 
   return (
     <>
@@ -662,6 +671,8 @@ export function ExplorerPage({ preset = 'default' }: Props) {
                 {(
                   [
                     ['uvvis', 'UV–Vis'],
+                    ['nmr1h', '¹H NMR'],
+                    ['nmr13c', '¹³C NMR'],
                     ['ir', 'IR'],
                     ['raman', 'Raman'],
                   ] as const
@@ -686,24 +697,45 @@ export function ExplorerPage({ preset = 'default' }: Props) {
                 })}
               </div>
               <div className="view-toggles">
-                <div className="seg" role="group" aria-label="Y-axis display scale">
-                  <button
-                    type="button"
-                    className={mode === 'simple' ? 'active' : ''}
-                    onClick={() => setMode('simple')}
-                    title="Normalize curves for shape comparison (teaching default)"
-                  >
-                    Normalized
-                  </button>
-                  <button
-                    type="button"
-                    className={mode === 'advanced' ? 'active' : ''}
-                    onClick={() => setMode('advanced')}
-                    title="Show ε (or raw intensity) where available — not a research-grade archive mode"
-                  >
-                    Absolute scale
-                  </button>
-                </div>
+                {isNmrTab ? (
+                  <div className="seg" role="group" aria-label="NMR spectrometer field">
+                    <button
+                      type="button"
+                      className={nmrFieldMhz === 60 ? 'active' : ''}
+                      onClick={() => setNmrFieldMhz(60)}
+                      title="Simulate multiplet width at 60 MHz (teaching)"
+                    >
+                      60 MHz
+                    </button>
+                    <button
+                      type="button"
+                      className={nmrFieldMhz === 500 ? 'active' : ''}
+                      onClick={() => setNmrFieldMhz(500)}
+                      title="Simulate multiplet width at 500 MHz (teaching)"
+                    >
+                      500 MHz
+                    </button>
+                  </div>
+                ) : (
+                  <div className="seg" role="group" aria-label="Y-axis display scale">
+                    <button
+                      type="button"
+                      className={mode === 'simple' ? 'active' : ''}
+                      onClick={() => setMode('simple')}
+                      title="Normalize curves for shape comparison (teaching default)"
+                    >
+                      Normalized
+                    </button>
+                    <button
+                      type="button"
+                      className={mode === 'advanced' ? 'active' : ''}
+                      onClick={() => setMode('advanced')}
+                      title="Show ε (or raw intensity) where available — not a research-grade archive mode"
+                    >
+                      Absolute scale
+                    </button>
+                  </div>
+                )}
                 {technique === 'uvvis' && emission && (
                   <button
                     type="button"
@@ -732,12 +764,17 @@ export function ExplorerPage({ preset = 'default' }: Props) {
                     ? 'Electronic spectrum'
                     : technique === 'ir'
                       ? 'Infrared spectrum'
-                      : 'Raman spectrum'}
+                      : technique === 'raman'
+                        ? 'Raman spectrum'
+                        : technique === 'nmr1h'
+                          ? '¹H NMR (teaching)'
+                          : '¹³C NMR (teaching)'}
                   {compareCompound ? ` · vs ${compareCompound.name}` : ''}
+                  {isNmrTab ? ` · ${nmrFieldMhz} MHz` : ''}
                 </h2>
                 {primary ? (
                   <SpectrumPlot
-                    key={`${compound.id}-${technique}-${mode}-${theme}`}
+                    key={`${compound.id}-${technique}-${mode}-${theme}-${nmrFieldMhz}`}
                     primary={primary}
                     emission={emission}
                     showEmission={showEmission}
@@ -747,15 +784,22 @@ export function ExplorerPage({ preset = 'default' }: Props) {
                     compare={compareSpec}
                     compareName={compareCompound?.name}
                     theme={theme}
+                    nmrFieldMhz={nmrFieldMhz}
                   />
                 ) : (
                   <div className="spectrum-empty-banner spectrum-empty-cta" role="status">
                     {technique === 'uvvis' ? (
                       <>
                         <strong>No full UV teaching curve</strong> for{' '}
-                        <strong>{compound.name}</strong>. IR/Raman may still be available — use those
-                        tabs. Enable <em>Has full UV–Vis</em> or open the{' '}
-                        <strong>Lab</strong> set for compounds curated with full UV envelopes.
+                        <strong>{compound.name}</strong>. IR/Raman/NMR may still be available — use
+                        those tabs. Enable <em>Has full UV–Vis</em> or open the <strong>Lab</strong>{' '}
+                        set for compounds curated with full UV envelopes.
+                      </>
+                    ) : isNmrTab ? (
+                      <>
+                        No teaching {technique === 'nmr1h' ? '¹H' : '¹³C'} NMR peak list for{' '}
+                        <strong>{compound.name}</strong> yet. Pilot set includes benzene, acetone,
+                        ethanol, and other lab staples — see <code>data/nmr-seeds/</code>.
                       </>
                     ) : (
                       <>

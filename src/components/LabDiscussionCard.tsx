@@ -34,13 +34,17 @@ export function LabDiscussionCard({
 
   const shareUrl = compoundShareUrl(compound.id, technique)
   const lambda =
-    spectrum?.lambda_max_nm && spectrum.lambda_max_nm.length
-      ? spectrum.lambda_max_nm.map((n) => `${n}`).join(', ') + ' nm'
-      : '—'
+    spectrum?.nmr_peaks && spectrum.nmr_peaks.length
+      ? spectrum.nmr_peaks.map((p) => `${p.delta_ppm} ppm`).join(', ')
+      : spectrum?.lambda_max_nm && spectrum.lambda_max_nm.length
+        ? spectrum.lambda_max_nm.map((n) => `${n}`).join(', ') + ' nm'
+        : '—'
 
   const flags = compoundFlags(compound)
   const techSummary = [
     flags.hasFullUvVis ? 'UV–Vis' : null,
+    flags.hasNmr1h ? '¹H NMR' : null,
+    flags.hasNmr13c ? '¹³C NMR' : null,
     flags.hasIr ? 'IR' : null,
     flags.hasRaman ? 'Raman' : null,
   ]

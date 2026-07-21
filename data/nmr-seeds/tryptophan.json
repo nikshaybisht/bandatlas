@@ -1,0 +1,107 @@
+{
+  "compound_id": "tryptophan",
+  "quality": "teaching",
+  "spectra": [
+    {
+      "id": "tryptophan-1h",
+      "nucleus": "1H",
+      "solvent": "D2O",
+      "reference": "DSS / teaching",
+      "plain_caption": "Indole + aromatic multiplet; α-CH and β-CH₂ (simplified aqueous teaching).",
+      "source": {
+        "citation": "Teaching ¹H/¹³C chemical shifts after standard organic spectroscopy tables (Pretsch / Pavia-style compilations). Multiplet envelopes are simulated from δ and J — not raw FIDs or instrument SI.",
+        "license": "CC-BY-4.0 packaging; teaching peak list",
+        "note": "Tier A teaching NMR"
+      },
+      "peaks": [
+        {
+          "delta_ppm": 7.7,
+          "multiplicity": "m",
+          "integration": 1,
+          "label": "indole"
+        },
+        {
+          "delta_ppm": 7.5,
+          "multiplicity": "m",
+          "integration": 1,
+          "label": "indole"
+        },
+        {
+          "delta_ppm": 7.25,
+          "multiplicity": "m",
+          "integration": 3,
+          "label": "Ar/indole"
+        },
+        {
+          "delta_ppm": 4,
+          "multiplicity": "m",
+          "integration": 1,
+          "label": "α-CH"
+        },
+        {
+          "delta_ppm": 3.35,
+          "multiplicity": "m",
+          "integration": 2,
+          "label": "β-CH₂"
+        }
+      ],
+      "xMin": 2.8,
+      "xMax": 8.2
+    },
+    {
+      "id": "tryptophan-13c",
+      "nucleus": "13C",
+      "solvent": "D2O",
+      "reference": "DSS / teaching",
+      "plain_caption": "Carboxylate + aromatic/indole carbons + aliphatic carbons (teaching subset).",
+      "source": {
+        "citation": "Teaching ¹H/¹³C chemical shifts after standard organic spectroscopy tables (Pretsch / Pavia-style compilations). Multiplet envelopes are simulated from δ and J — not raw FIDs or instrument SI.",
+        "license": "CC-BY-4.0 packaging; teaching peak list",
+        "note": "Tier A teaching NMR"
+      },
+      "peaks": [
+        {
+          "delta_ppm": 175,
+          "multiplicity": "s",
+          "label": "COO"
+        },
+        {
+          "delta_ppm": 136.5,
+          "multiplicity": "s"
+        },
+        {
+          "delta_ppm": 127.5,
+          "multiplicity": "s"
+        },
+        {
+          "delta_ppm": 124.5,
+          "multiplicity": "s"
+        },
+        {
+          "delta_ppm": 122,
+          "multiplicity": "s"
+        },
+        {
+          "delta_ppm": 119.5,
+          "multiplicity": "s"
+        },
+        {
+          "delta_ppm": 112,
+          "multiplicity": "s"
+        },
+        {
+          "delta_ppm": 55.5,
+          "multiplicity": "s",
+          "label": "α-C"
+        },
+        {
+          "delta_ppm": 27.5,
+          "multiplicity": "s",
+          "label": "β-C"
+        }
+      ],
+      "xMin": 20,
+      "xMax": 185
+    }
+  ]
+}

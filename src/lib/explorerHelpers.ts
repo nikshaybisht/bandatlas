@@ -35,7 +35,10 @@ export function spectrumForTab(c: Compound | null, tab: TechniqueTab): Spectrum 
   if (!c) return null
   if (tab === 'uvvis') return c.spectra.find((s) => s.technique === 'uvvis_abs') ?? null
   if (tab === 'ir') return c.spectra.find((s) => s.technique === 'ir') ?? null
-  return c.spectra.find((s) => s.technique === 'raman') ?? null
+  if (tab === 'raman') return c.spectra.find((s) => s.technique === 'raman') ?? null
+  if (tab === 'nmr1h') return c.spectra.find((s) => s.technique === 'nmr_1h') ?? null
+  if (tab === 'nmr13c') return c.spectra.find((s) => s.technique === 'nmr_13c') ?? null
+  return null
 }
 
 export function resolveDefaultId(

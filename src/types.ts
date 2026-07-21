@@ -1,9 +1,25 @@
-export type Technique = 'uvvis_abs' | 'fluorescence' | 'ir' | 'raman'
+export type Technique =
+  | 'uvvis_abs'
+  | 'fluorescence'
+  | 'ir'
+  | 'raman'
+  | 'nmr_1h'
+  | 'nmr_13c'
 
-export type TechniqueTab = 'uvvis' | 'ir' | 'raman'
+export type TechniqueTab = 'uvvis' | 'ir' | 'raman' | 'nmr1h' | 'nmr13c'
 
 // teaching envelopes must stay "teaching" — never relabel as experimental
 export type SpectrumQuality = 'teaching' | 'experimental'
+
+export type NmrNucleus = '1H' | '13C'
+
+export interface NmrPeak {
+  delta_ppm: number
+  multiplicity?: string
+  integration?: number
+  j_hz?: number[]
+  label?: string
+}
 
 export interface SpectrumSource {
   citation: string
@@ -32,6 +48,11 @@ export interface Spectrum {
   plain_caption: string
   display_points: [number, number][]
   source: SpectrumSource
+  /** NMR-only fields */
+  nucleus?: NmrNucleus
+  reference?: string
+  field_mhz_default?: number
+  nmr_peaks?: NmrPeak[]
 }
 
 // flags come from the dataset build — don't re-derive in the UI
@@ -40,6 +61,8 @@ export interface CompoundFlags {
   hasIr: boolean
   hasRaman: boolean
   hasFluorescence?: boolean
+  hasNmr1h?: boolean
+  hasNmr13c?: boolean
 }
 
 export interface Compound {
@@ -68,6 +91,8 @@ export interface Compound {
     fluorescence: boolean
     ir: boolean
     raman: boolean
+    nmr_1h?: boolean
+    nmr_13c?: boolean
   }
   flags?: CompoundFlags
   tier: 'full' | 'catalog' | 'partial'
@@ -106,6 +131,10 @@ export interface IndexCompound {
   has_raman: boolean
   /** @deprecated Alias of has_raman */
   hasRaman?: boolean
+  has_nmr_1h?: boolean
+  hasNmr1h?: boolean
+  has_nmr_13c?: boolean
+  hasNmr13c?: boolean
   has_experimental: boolean
   has_experimental_example: boolean
   lab_set?: boolean
@@ -134,12 +163,29 @@ export function indexHasRaman(c: IndexCompound): boolean {
 }
 
 export function compoundFlags(c: Compound): CompoundFlags {
-  if (c.flags) return c.flags
+  if (c.flags) {
+    return {
+      hasFullUvVis: c.flags.hasFullUvVis,
+      hasIr: c.flags.hasIr,
+      hasRaman: c.flags.hasRaman,
+      hasFluorescence: c.flags.hasFluorescence,
+      hasNmr1h:
+        typeof c.flags.hasNmr1h === 'boolean'
+          ? c.flags.hasNmr1h
+          : !!c.availability?.nmr_1h || c.spectra.some((s) => s.technique === 'nmr_1h'),
+      hasNmr13c:
+        typeof c.flags.hasNmr13c === 'boolean'
+          ? c.flags.hasNmr13c
+          : !!c.availability?.nmr_13c || c.spectra.some((s) => s.technique === 'nmr_13c'),
+    }
+  }
   return {
     hasFullUvVis: !!c.availability?.uvvis_abs,
     hasIr: !!c.availability?.ir,
     hasRaman: !!c.availability?.raman,
     hasFluorescence: !!c.availability?.fluorescence,
+    hasNmr1h: !!c.availability?.nmr_1h || c.spectra.some((s) => s.technique === 'nmr_1h'),
+    hasNmr13c: !!c.availability?.nmr_13c || c.spectra.some((s) => s.technique === 'nmr_13c'),
   }
 }
 

@@ -1,0 +1,82 @@
+{
+  "compound_id": "adenine",
+  "quality": "teaching",
+  "spectra": [
+    {
+      "id": "adenine-1h",
+      "nucleus": "1H",
+      "solvent": "DMSO-d6",
+      "reference": "TMS",
+      "plain_caption": "Two purine singlets (H-2, H-8) + NH₂ (exchangeable).",
+      "source": {
+        "citation": "Teaching ¹H/¹³C chemical shifts after standard organic spectroscopy tables (Pretsch / Pavia-style compilations). Multiplet envelopes are simulated from δ and J — not raw FIDs or instrument SI.",
+        "license": "CC-BY-4.0 packaging; teaching peak list",
+        "note": "Tier A teaching NMR"
+      },
+      "peaks": [
+        {
+          "delta_ppm": 12.9,
+          "multiplicity": "s",
+          "integration": 1,
+          "label": "NH (broad)"
+        },
+        {
+          "delta_ppm": 8.12,
+          "multiplicity": "s",
+          "integration": 1,
+          "label": "H-8"
+        },
+        {
+          "delta_ppm": 8.08,
+          "multiplicity": "s",
+          "integration": 1,
+          "label": "H-2"
+        },
+        {
+          "delta_ppm": 7.1,
+          "multiplicity": "s",
+          "integration": 2,
+          "label": "NH₂"
+        }
+      ],
+      "xMin": 6.5,
+      "xMax": 13.5
+    },
+    {
+      "id": "adenine-13c",
+      "nucleus": "13C",
+      "solvent": "DMSO-d6",
+      "reference": "TMS",
+      "plain_caption": "Purine carbons (teaching set of lines).",
+      "source": {
+        "citation": "Teaching ¹H/¹³C chemical shifts after standard organic spectroscopy tables (Pretsch / Pavia-style compilations). Multiplet envelopes are simulated from δ and J — not raw FIDs or instrument SI.",
+        "license": "CC-BY-4.0 packaging; teaching peak list",
+        "note": "Tier A teaching NMR"
+      },
+      "peaks": [
+        {
+          "delta_ppm": 155.3,
+          "multiplicity": "s"
+        },
+        {
+          "delta_ppm": 152.4,
+          "multiplicity": "s"
+        },
+        {
+          "delta_ppm": 151.3,
+          "multiplicity": "s"
+        },
+        {
+          "delta_ppm": 139.4,
+          "multiplicity": "s"
+        },
+        {
+          "delta_ppm": 117.6,
+          "multiplicity": "s"
+        }
+      ],
+      "xMin": 110,
+      "xMax": 165
+    }
+  ]
+}

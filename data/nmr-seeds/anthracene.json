@@ -1,0 +1,72 @@
+{
+  "compound_id": "anthracene",
+  "quality": "teaching",
+  "spectra": [
+    {
+      "id": "anthracene-1h",
+      "nucleus": "1H",
+      "solvent": "CDCl3",
+      "reference": "TMS",
+      "plain_caption": "Meso H-9/10 singlet ~8.4 ppm plus outer-ring multiplets.",
+      "source": {
+        "citation": "Teaching ¹H/¹³C chemical shifts after standard organic spectroscopy tables (Pretsch / Pavia-style compilations). Multiplet envelopes are simulated from δ and J — not raw FIDs or instrument SI.",
+        "license": "CC-BY-4.0 packaging; teaching peak list",
+        "note": "Tier A teaching NMR"
+      },
+      "peaks": [
+        {
+          "delta_ppm": 8.43,
+          "multiplicity": "s",
+          "integration": 2,
+          "label": "H-9,10"
+        },
+        {
+          "delta_ppm": 8.01,
+          "multiplicity": "m",
+          "integration": 4,
+          "label": "H-1,4,5,8"
+        },
+        {
+          "delta_ppm": 7.48,
+          "multiplicity": "m",
+          "integration": 4,
+          "label": "H-2,3,6,7"
+        }
+      ],
+      "xMin": 7,
+      "xMax": 9
+    },
+    {
+      "id": "anthracene-13c",
+      "nucleus": "13C",
+      "solvent": "CDCl3",
+      "reference": "TMS",
+      "plain_caption": "Teaching set of anthracene aromatic ¹³C lines.",
+      "source": {
+        "citation": "Teaching ¹H/¹³C chemical shifts after standard organic spectroscopy tables (Pretsch / Pavia-style compilations). Multiplet envelopes are simulated from δ and J — not raw FIDs or instrument SI.",
+        "license": "CC-BY-4.0 packaging; teaching peak list",
+        "note": "Tier A teaching NMR"
+      },
+      "peaks": [
+        {
+          "delta_ppm": 131.7,
+          "multiplicity": "s"
+        },
+        {
+          "delta_ppm": 128.1,
+          "multiplicity": "s"
+        },
+        {
+          "delta_ppm": 126.2,
+          "multiplicity": "s"
+        },
+        {
+          "delta_ppm": 125.3,
+          "multiplicity": "s"
+        }
+      ],
+      "xMin": 120,
+      "xMax": 140
+    }
+  ]
+}

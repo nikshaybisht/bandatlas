@@ -1,0 +1,97 @@
+{
+  "compound_id": "caffeine",
+  "quality": "teaching",
+  "spectra": [
+    {
+      "id": "caffeine-1h",
+      "nucleus": "1H",
+      "solvent": "CDCl3",
+      "reference": "TMS",
+      "plain_caption": "Imidazole H + three N–methyl singlets (classic undergrad caffeine spectrum).",
+      "source": {
+        "citation": "Teaching ¹H/¹³C chemical shifts after standard organic spectroscopy tables (Pretsch / Pavia-style compilations). Multiplet envelopes are simulated from δ and J — not raw FIDs or instrument SI.",
+        "license": "CC-BY-4.0 packaging; teaching peak list",
+        "note": "Tier A teaching NMR"
+      },
+      "peaks": [
+        {
+          "delta_ppm": 7.51,
+          "multiplicity": "s",
+          "integration": 1,
+          "label": "H-8"
+        },
+        {
+          "delta_ppm": 3.99,
+          "multiplicity": "s",
+          "integration": 3,
+          "label": "N7–CH₃"
+        },
+        {
+          "delta_ppm": 3.59,
+          "multiplicity": "s",
+          "integration": 3,
+          "label": "N3–CH₃"
+        },
+        {
+          "delta_ppm": 3.41,
+          "multiplicity": "s",
+          "integration": 3,
+          "label": "N1–CH₃"
+        }
+      ],
+      "xMin": 3,
+      "xMax": 8
+    },
+    {
+      "id": "caffeine-13c",
+      "nucleus": "13C",
+      "solvent": "CDCl3",
+      "reference": "TMS",
+      "plain_caption": "Carbonyl and imidazole carbons + three methyl carbons.",
+      "source": {
+        "citation": "Teaching ¹H/¹³C chemical shifts after standard organic spectroscopy tables (Pretsch / Pavia-style compilations). Multiplet envelopes are simulated from δ and J — not raw FIDs or instrument SI.",
+        "license": "CC-BY-4.0 packaging; teaching peak list",
+        "note": "Tier A teaching NMR"
+      },
+      "peaks": [
+        {
+          "delta_ppm": 155.4,
+          "multiplicity": "s"
+        },
+        {
+          "delta_ppm": 151.7,
+          "multiplicity": "s"
+        },
+        {
+          "delta_ppm": 148.7,
+          "multiplicity": "s"
+        },
+        {
+          "delta_ppm": 141.6,
+          "multiplicity": "s"
+        },
+        {
+          "delta_ppm": 107.6,
+          "multiplicity": "s"
+        },
+        {
+          "delta_ppm": 33.6,
+          "multiplicity": "s",
+          "label": "N–CH₃"
+        },
+        {
+          "delta_ppm": 29.7,
+          "multiplicity": "s",
+          "label": "N–CH₃"
+        },
+        {
+          "delta_ppm": 27.9,
+          "multiplicity": "s",
+          "label": "N–CH₃"
+        }
+      ],
+      "xMin": 20,
+      "xMax": 165
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "compound_id": "benzene",
+  "quality": "teaching",
+  "spectra": [
+    {
+      "id": "benzene-1h",
+      "nucleus": "1H",
+      "solvent": "CDCl3",
+      "reference": "TMS",
+      "plain_caption": "Six equivalent aromatic protons — single singlet near 7.34 ppm.",
+      "source": {
+        "citation": "Teaching ¹H/¹³C chemical shifts after standard organic spectroscopy tables (Pretsch / Pavia-style compilations). Multiplet envelopes are simulated from δ and J — not raw FIDs or instrument SI.",
+        "license": "CC-BY-4.0 packaging; teaching peak list",
+        "note": "Tier A teaching NMR"
+      },
+      "peaks": [
+        {
+          "delta_ppm": 7.34,
+          "multiplicity": "s",
+          "integration": 6,
+          "label": "Ar–H"
+        }
+      ],
+      "xMin": 6.5,
+      "xMax": 8.2
+    },
+    {
+      "id": "benzene-13c",
+      "nucleus": "13C",
+      "solvent": "CDCl3",
+      "reference": "TMS",
+      "plain_caption": "Six equivalent aromatic carbons — single line near 128.4 ppm.",
+      "source": {
+        "citation": "Teaching ¹H/¹³C chemical shifts after standard organic spectroscopy tables (Pretsch / Pavia-style compilations). Multiplet envelopes are simulated from δ and J — not raw FIDs or instrument SI.",
+        "license": "CC-BY-4.0 packaging; teaching peak list",
+        "note": "Tier A teaching NMR"
+      },
+      "peaks": [
+        {
+          "delta_ppm": 128.4,
+          "multiplicity": "s",
+          "integration": 6,
+          "label": "Ar–C"
+        }
+      ],
+      "xMin": 100,
+      "xMax": 150
+    }
+  ]
+}

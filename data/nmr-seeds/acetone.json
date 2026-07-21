@@ -1,0 +1,54 @@
+{
+  "compound_id": "acetone",
+  "quality": "teaching",
+  "spectra": [
+    {
+      "id": "acetone-1h",
+      "nucleus": "1H",
+      "solvent": "CDCl3",
+      "reference": "TMS",
+      "plain_caption": "Six equivalent methyl protons — singlet near 2.17 ppm.",
+      "source": {
+        "citation": "Teaching ¹H/¹³C chemical shifts after standard organic spectroscopy tables (Pretsch / Pavia-style compilations). Multiplet envelopes are simulated from δ and J — not raw FIDs or instrument SI.",
+        "license": "CC-BY-4.0 packaging; teaching peak list",
+        "note": "Tier A teaching NMR"
+      },
+      "peaks": [
+        {
+          "delta_ppm": 2.17,
+          "multiplicity": "s",
+          "integration": 6,
+          "label": "CH₃"
+        }
+      ],
+      "xMin": 1.5,
+      "xMax": 3
+    },
+    {
+      "id": "acetone-13c",
+      "nucleus": "13C",
+      "solvent": "CDCl3",
+      "reference": "TMS",
+      "plain_caption": "Carbonyl ~206 ppm; methyl carbons ~30.6 ppm.",
+      "source": {
+        "citation": "Teaching ¹H/¹³C chemical shifts after standard organic spectroscopy tables (Pretsch / Pavia-style compilations). Multiplet envelopes are simulated from δ and J — not raw FIDs or instrument SI.",
+        "license": "CC-BY-4.0 packaging; teaching peak list",
+        "note": "Tier A teaching NMR"
+      },
+      "peaks": [
+        {
+          "delta_ppm": 206.7,
+          "multiplicity": "s",
+          "label": "C=O"
+        },
+        {
+          "delta_ppm": 30.6,
+          "multiplicity": "s",
+          "label": "CH₃"
+        }
+      ],
+      "xMin": 20,
+      "xMax": 220
+    }
+  ]
+}

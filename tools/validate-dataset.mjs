@@ -3,7 +3,7 @@
  * Enforced at end of `npm run dataset`. Pure API for unit tests.
  *
  * Wire format notes:
- * - Spectra are a technique-tagged array (uvvis_abs | fluorescence | ir | raman).
+ * - Spectra are a technique-tagged array (uvvis_abs | fluorescence | ir | raman | nmr_1h | nmr_13c).
  * - Conceptual map: series → display_points, classLabels → class_labels / family + lab_classes,
  *   hasFullUvVis → flags.hasFullUvVis / has_uvvis.
  * - quality enum: teaching | experimental only.
@@ -14,7 +14,14 @@ import { fileURLToPath } from 'node:url'
 import { safeDoiUrl, safeHttpUrl } from './safe-url.mjs'
 
 const QUALITIES = new Set(['teaching', 'experimental'])
-const TECHNIQUES = new Set(['uvvis_abs', 'fluorescence', 'ir', 'raman'])
+const TECHNIQUES = new Set([
+  'uvvis_abs',
+  'fluorescence',
+  'ir',
+  'raman',
+  'nmr_1h',
+  'nmr_13c',
+])
 
 /**
  * @param {unknown} spectrum
@@ -145,20 +152,24 @@ export function validateCompoundRecord(compound, opts = {}) {
   // flags (computed at build — required on new builds)
   const flags = c.flags
   if (!flags || typeof flags !== 'object') {
-    err('flags { hasFullUvVis, hasIr, hasRaman } required (computed at build)')
+    err('flags { hasFullUvVis, hasIr, hasRaman, hasNmr1h, hasNmr13c } required (computed at build)')
   } else {
-    for (const k of ['hasFullUvVis', 'hasIr', 'hasRaman']) {
+    for (const k of ['hasFullUvVis', 'hasIr', 'hasRaman', 'hasNmr1h', 'hasNmr13c']) {
       if (typeof flags[k] !== 'boolean') err(`flags.${k} must be boolean`)
     }
     // Consistency with series presence
     const hasUv = c.spectra?.some((s) => s.technique === 'uvvis_abs')
     const hasIr = c.spectra?.some((s) => s.technique === 'ir')
     const hasRa = c.spectra?.some((s) => s.technique === 'raman')
+    const hasH = c.spectra?.some((s) => s.technique === 'nmr_1h')
+    const hasC = c.spectra?.some((s) => s.technique === 'nmr_13c')
     if (flags.hasFullUvVis !== !!hasUv) {
       err(`flags.hasFullUvVis (${flags.hasFullUvVis}) ≠ presence of uvvis_abs series`)
     }
     if (flags.hasIr !== !!hasIr) err(`flags.hasIr inconsistent with ir series`)
     if (flags.hasRaman !== !!hasRa) err(`flags.hasRaman inconsistent with raman series`)
+    if (flags.hasNmr1h !== !!hasH) err(`flags.hasNmr1h inconsistent with nmr_1h series`)
+    if (flags.hasNmr13c !== !!hasC) err(`flags.hasNmr13c inconsistent with nmr_13c series`)
   }
 
   // labSet requires full UV
@@ -174,6 +185,12 @@ export function validateCompoundRecord(compound, opts = {}) {
     if (c.availability.ir !== flags.hasIr) err('availability.ir must match flags.hasIr')
     if (c.availability.raman !== flags.hasRaman) {
       err('availability.raman must match flags.hasRaman')
+    }
+    if (c.availability.nmr_1h != null && c.availability.nmr_1h !== flags.hasNmr1h) {
+      err('availability.nmr_1h must match flags.hasNmr1h')
+    }
+    if (c.availability.nmr_13c != null && c.availability.nmr_13c !== flags.hasNmr13c) {
+      err('availability.nmr_13c must match flags.hasNmr13c')
     }
   }
 

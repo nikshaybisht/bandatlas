@@ -43,6 +43,16 @@ export function PropertyCard({ compound, activeSpectrum, technique }: Props) {
           {flags.hasFullUvVis && qualityTarget?.quality === 'teaching' && (
             <span className="tier-badge full">Full UV–Vis</span>
           )}
+          {flags.hasNmr1h && (
+            <span className="tier-badge full" title="Teaching ¹H NMR peak list">
+              ¹H NMR
+            </span>
+          )}
+          {flags.hasNmr13c && (
+            <span className="tier-badge full" title="Teaching ¹³C NMR peak list">
+              ¹³C NMR
+            </span>
+          )}
           {!flags.hasFullUvVis && !abs && (
             <span className="tier-badge catalog">Catalog / partial</span>
           )}
@@ -56,9 +66,17 @@ export function PropertyCard({ compound, activeSpectrum, technique }: Props) {
         <div className="active-spectrum-quality">
           <p className="quality-note">
             <strong>Active series:</strong> {spectrumQualityLabel(qualityTarget)}
-            {technique !== 'uvvis' ? ` (${technique.toUpperCase()})` : ' (UV–Vis)'}
+            {technique === 'uvvis'
+              ? ' (UV–Vis)'
+              : technique === 'nmr1h'
+                ? ' (¹H NMR)'
+                : technique === 'nmr13c'
+                  ? ' (¹³C NMR)'
+                  : ` (${technique.toUpperCase()})`}
             {qualityTarget.quality === 'teaching'
-              ? ' — multi-Gaussian / group-frequency model, not a raw instrument file.'
+              ? technique === 'nmr1h' || technique === 'nmr13c'
+                ? ' — teaching multiplet sketch from δ/J tables, not a raw FID.'
+                : ' — multi-Gaussian / group-frequency model, not a raw instrument file.'
               : qualityTarget.example_not_for_citation
                 ? ' — synthetic schema demo; do not cite as data.'
                 : ' — open experimental series; verify primary source before quantitative use.'}

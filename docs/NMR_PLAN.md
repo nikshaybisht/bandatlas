@@ -1,6 +1,9 @@
 # NMR upgrade plan (¹H, ¹³C, 60 MHz & 500 MHz)
 
-Status: **design only** — not yet wired into the explorer UI. Implement after agreeing sources (see [DATA_SOURCES.md](DATA_SOURCES.md)).
+Status: **v1 shipped (teaching pilot)** on branch `feature/nmr-1h-13c-upgrade`.
+Explorer tabs **¹H NMR** / **¹³C NMR**, field toggle **60 MHz | 500 MHz**, seeds under
+`data/nmr-seeds/`. Still teaching multiplet sketches — not instrument FIDs.
+See [DATA_SOURCES.md](DATA_SOURCES.md) before importing open experimental series.
 
 ## Goals
 

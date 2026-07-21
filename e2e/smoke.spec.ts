@@ -81,7 +81,7 @@ test.describe('BandAtlas smoke', () => {
     await page.locator('.search-hit', { hasText: /Benzene/i }).first().click()
     await expect(page.locator('.property-card h2')).toContainText(/Benzene/i)
 
-    for (const name of ['IR', 'Raman', 'UV–Vis'] as const) {
+    for (const name of ['IR', 'Raman', 'UV–Vis', '¹H NMR', '¹³C NMR'] as const) {
       const tab = page.getByRole('tab', { name })
       await tab.click()
       await expect(tab).toHaveAttribute('aria-selected', 'true')
@@ -90,6 +90,23 @@ test.describe('BandAtlas smoke', () => {
       await expect(page.locator('.spectrum-wrap')).toBeVisible()
       await expect(page.locator('.banner.error')).toHaveCount(0)
     }
+  })
+
+  test('NMR field toggle switches 60 vs 500 MHz without crash', async ({ page }) => {
+    const search = page.getByLabel('Search compounds')
+    await search.fill('benzene')
+    await page.locator('.search-hit', { hasText: /Benzene/i }).first().click()
+    await expect(page.locator('.property-card h2')).toContainText(/Benzene/i)
+    const hTab = page.getByRole('tab', { name: '¹H NMR' })
+    await hTab.click()
+    await expect(hTab).toHaveAttribute('aria-selected', 'true')
+    await expect(page.locator('.spectrum-wrap')).toBeVisible()
+    await expect(page.getByRole('button', { name: '60 MHz' })).toBeVisible()
+    await page.getByRole('button', { name: '60 MHz' }).click()
+    await expect(page.getByRole('heading', { name: /60 MHz/i })).toBeVisible()
+    await page.getByRole('button', { name: '500 MHz' }).click()
+    await expect(page.getByRole('heading', { name: /500 MHz/i })).toBeVisible()
+    await expect(page.getByTestId('error-boundary')).toHaveCount(0)
   })
 
   test('export CSV triggers a download', async ({ page }) => {

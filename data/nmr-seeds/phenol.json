@@ -1,0 +1,73 @@
+{
+  "compound_id": "phenol",
+  "quality": "teaching",
+  "spectra": [
+    {
+      "id": "phenol-1h",
+      "nucleus": "1H",
+      "solvent": "CDCl3",
+      "reference": "TMS",
+      "plain_caption": "Aromatic multiplet + phenolic OH (position solvent-dependent).",
+      "source": {
+        "citation": "Teaching ¹H/¹³C chemical shifts after standard organic spectroscopy tables (Pretsch / Pavia-style compilations). Multiplet envelopes are simulated from δ and J — not raw FIDs or instrument SI.",
+        "license": "CC-BY-4.0 packaging; teaching peak list",
+        "note": "Tier A teaching NMR"
+      },
+      "peaks": [
+        {
+          "delta_ppm": 7.25,
+          "multiplicity": "m",
+          "integration": 2,
+          "label": "Ar–H"
+        },
+        {
+          "delta_ppm": 6.95,
+          "multiplicity": "m",
+          "integration": 3,
+          "label": "Ar–H"
+        },
+        {
+          "delta_ppm": 5.5,
+          "multiplicity": "s",
+          "integration": 1,
+          "label": "OH"
+        }
+      ],
+      "xMin": 4.5,
+      "xMax": 8
+    },
+    {
+      "id": "phenol-13c",
+      "nucleus": "13C",
+      "solvent": "CDCl3",
+      "reference": "TMS",
+      "plain_caption": "Phenolic C–O near 155 ppm; aromatic CH carbons 115–130 ppm.",
+      "source": {
+        "citation": "Teaching ¹H/¹³C chemical shifts after standard organic spectroscopy tables (Pretsch / Pavia-style compilations). Multiplet envelopes are simulated from δ and J — not raw FIDs or instrument SI.",
+        "license": "CC-BY-4.0 packaging; teaching peak list",
+        "note": "Tier A teaching NMR"
+      },
+      "peaks": [
+        {
+          "delta_ppm": 155.1,
+          "multiplicity": "s",
+          "label": "C–OH"
+        },
+        {
+          "delta_ppm": 129.7,
+          "multiplicity": "s"
+        },
+        {
+          "delta_ppm": 120.8,
+          "multiplicity": "s"
+        },
+        {
+          "delta_ppm": 115.4,
+          "multiplicity": "s"
+        }
+      ],
+      "xMin": 100,
+      "xMax": 165
+    }
+  ]
+}

@@ -76,6 +76,9 @@ export function parseTechniqueParam(raw: string | null | undefined): TechniqueTa
   if (v === 'uvvis' || v === 'uv-vis' || v === 'uv' || v === 'abs') return 'uvvis'
   if (v === 'ir' || v === 'infrared') return 'ir'
   if (v === 'raman' || v === 'ra') return 'raman'
+  if (v === 'nmr1h' || v === 'nmr-1h' || v === '1h' || v === 'hnmr' || v === '1hnmr') return 'nmr1h'
+  if (v === 'nmr13c' || v === 'nmr-13c' || v === '13c' || v === 'cnmr' || v === '13cnmr')
+    return 'nmr13c'
   return null
 }
 
