@@ -29,7 +29,7 @@ PhotochemCAD-style layout ideas; not affiliated with PhotochemCAD.
 
 ## Screenshots
 
-| UV–Vis + emission (dark) | IR |
+| UV–Vis + emission | IR |
 |:---:|:---:|
 | ![UV–Vis](docs/images/screenshot-uvvis.png) | ![IR](docs/images/screenshot-ir.png) |
 
