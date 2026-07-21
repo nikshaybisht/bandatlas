@@ -16,12 +16,9 @@ public/dataset/structures/
 
 ## Rebuild (maintainers only — network)
 
-```bash
-npm run dataset
-npm run structures      # fetch-and-vendor; commit the SDF artifacts
-```
-
-Script: `tools/cache-structures.mjs`
+1. Rebuild the compound dataset first so the index lists lab-set / featured CIDs.
+2. Run the structure-cache script (`tools/cache-structures.mjs`; also exposed as the `structures` script in `package.json`).
+3. Commit the resulting SDF artifacts under `public/structures/` (and the legacy mirror if updated).
 
 - Targets **all labSet** compounds + **featured strip** IDs (~20–40).
 - Prefers PubChem `record_type=3d`, falls back to 2D.

@@ -8,7 +8,7 @@
  *   public/dataset/structures/manifest.json
  *
  * Run manually (network required), then commit artifacts:
- *   npm run dataset && npm run structures
+ *   Rebuild dataset first, then run the package.json "structures" script
  *
  * Targets: all labSet compounds + featured strip IDs (≈20–40).
  */
@@ -103,7 +103,7 @@ async function fetchSdfForCid(cid) {
 
 function loadTargets() {
   if (!fs.existsSync(indexPath)) {
-    console.error('index.json missing — run npm run dataset first')
+    console.error('index.json missing — rebuild the dataset first')
     process.exit(1)
   }
   const index = JSON.parse(fs.readFileSync(indexPath, 'utf8'))

@@ -45,7 +45,7 @@ PhotochemCAD-style layout ideas; not affiliated with PhotochemCAD.
 |:---:|:---:|
 | ![Light theme](docs/images/screenshot-light.png) | ![Export](docs/images/screenshot-export.png) |
 
-Screenshots are regenerated with `npm run build && npm run preview` then `npm run screenshots` (Playwright).
+Screenshots under `docs/images/` are refreshed with the project’s Playwright capture tool when the UI changes.
 
 ## Features
 
@@ -62,21 +62,16 @@ Screenshots are regenerated with `npm run build && npm run preview` then `npm ru
 
 ## Run it
 
-```bash
-git clone https://github.com/nikshaybisht/bandatlas.git
-cd bandatlas
-npm ci
-npm run dataset
-npm run dev
-```
+1. Clone this repository and install dependencies with the lockfile (`package.json` / `package-lock.json`).
+2. Build the static dataset (scripts in `package.json` under `dataset` / related names).
+3. Start the Vite development server (`dev` script). The app is usually at `http://127.0.0.1:5173`.
+4. For a full check before a pull request, use the `ci` script. End-to-end smokes use Playwright after a production build (`test:e2e`).
 
-Usually lands on `http://127.0.0.1:5173`. Full check: `npm run ci`. E2E after a build: `npm run test:e2e`.
-
-GitHub Pages uses base `/bandatlas/` (set via `GITHUB_ACTIONS` or `VITE_BASE`). Locally base is `/`.
+GitHub Pages uses base `/bandatlas/` (set via `GITHUB_ACTIONS` or `VITE_BASE`). Locally the base is `/`.
 
 ## Dataset (rough)
 
-From `npm run dataset` → `public/dataset/summary.json` (counts refresh each build):
+Counts come from `public/dataset/summary.json` after a dataset rebuild:
 
 - ~505 searchable compounds (identity + IR/Raman teaching models)
 - ~126 full UV–Vis teaching envelopes (`data/uv-seeds/`)

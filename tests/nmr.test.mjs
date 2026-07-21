@@ -57,7 +57,7 @@ test('60 MHz multiplets are wider in ppm than 500 MHz', () => {
 
 test('built benzene has nmr_1h and nmr_13c teaching series', () => {
   const p = path.join(datasetDir, 'compounds', 'benzene.json')
-  assert.ok(fs.existsSync(p), 'run npm run dataset first')
+  assert.ok(fs.existsSync(p), 'rebuild the dataset first')
   const c = JSON.parse(fs.readFileSync(p, 'utf8'))
   assert.equal(c.flags.hasNmr1h, true)
   assert.equal(c.flags.hasNmr13c, true)

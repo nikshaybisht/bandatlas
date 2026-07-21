@@ -43,7 +43,7 @@ test('simulateMsPoints normalizes base peak', () => {
 
 test('built benzene has EI MS teaching series', () => {
   const p = path.join(datasetDir, 'compounds', 'benzene.json')
-  assert.ok(fs.existsSync(p), 'run npm run dataset first')
+  assert.ok(fs.existsSync(p), 'rebuild the dataset first')
   const c = JSON.parse(fs.readFileSync(p, 'utf8'))
   assert.equal(c.flags.hasMs, true)
   const ms = c.spectra.filter((s) => s.technique === 'ms')

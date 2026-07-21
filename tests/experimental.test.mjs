@@ -53,7 +53,7 @@ test('built dataset: all teaching spectra stay quality teaching', () => {
 
 test('built schema-example-uv compound has experimental example series', () => {
   const p = path.join(datasetDir, 'compounds', 'schema-example-uv.json')
-  assert.ok(fs.existsSync(p), 'schema-example-uv missing — run npm run dataset')
+  assert.ok(fs.existsSync(p), 'schema-example-uv missing — rebuild the dataset')
   const c = JSON.parse(fs.readFileSync(p, 'utf8'))
   const abs = c.spectra.find((s) => s.technique === 'uvvis_abs')
   assert.ok(abs)

@@ -1,6 +1,6 @@
 /**
  * Validate data/ms-seeds/*.json
- * CLI: node tools/validate-ms-seeds.mjs
+ * package.json script: "validate:ms"
  */
 import fs from 'node:fs'
 import path from 'node:path'

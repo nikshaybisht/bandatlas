@@ -51,7 +51,7 @@ Network at **build time** (your machine / CI) is fine: pull allowed data → val
 
 | Source | Notes |
 |--------|--------|
-| **PubChem** 2D/3D SDF | Fine for live fallback; **cache lab set offline** for package builds (`npm run structures`) |
+| **PubChem** 2D/3D SDF | Fine for live fallback; **cache lab set offline** for package builds via the structure-cache script |
 
 ---
 

@@ -1,6 +1,6 @@
 /**
  * Minimal integrity suite for BandAtlas dataset + export contracts.
- * Run: npm test
+ * Invoked by the package.json "test" / "ci" scripts.
  */
 import test from 'node:test'
 import assert from 'node:assert/strict'
@@ -20,7 +20,7 @@ const datasetDir = path.join(root, 'public', 'dataset')
 const indexPath = path.join(datasetDir, 'index.json')
 
 test('index.json exists and parses', () => {
-  assert.ok(fs.existsSync(indexPath), 'public/dataset/index.json missing — run npm run dataset')
+  assert.ok(fs.existsSync(indexPath), 'public/dataset/index.json missing — rebuild the dataset')
   const index = JSON.parse(fs.readFileSync(indexPath, 'utf8'))
   assert.ok(index.compounds, 'missing compounds array')
   assert.ok(Array.isArray(index.compounds))

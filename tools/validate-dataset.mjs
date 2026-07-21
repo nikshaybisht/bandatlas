@@ -1,6 +1,6 @@
 /**
  * Dataset “backend” schema validator for built compound records + index + summary.
- * Enforced at end of `npm run dataset`. Pure API for unit tests.
+ * Enforced at end of the dataset build. Pure API for unit tests.
  *
  * Wire format notes:
  * - Spectra are a technique-tagged array (uvvis_abs | fluorescence | ir | raman | nmr_1h | nmr_13c | ms).

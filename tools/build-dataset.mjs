@@ -1,6 +1,6 @@
 /**
  * Build public/dataset (index + compound JSON).
- * Run: node tools/build-dataset.mjs
+ * Invoked via the package.json "dataset" script.
  *
  * UV teaching seeds: data/uv-seeds/*.json (see docs/ADD_SPECTRUM.md)
  * NMR teaching seeds: data/nmr-seeds/*.json (see docs/NMR_PLAN.md)

@@ -102,8 +102,8 @@ export function GuidePage() {
 
         <h2 className="page-h2">Stack</h2>
         <p className="page-lead" style={{ marginBottom: 0 }}>
-          React + TypeScript + Vite. Dataset is a Node script (
-          <code>npm run dataset</code>). Static deploy to GitHub Pages under{' '}
+          React + TypeScript + Vite. The compound dataset is built offline into{' '}
+          <code>public/dataset/</code>. Static deploy to GitHub Pages under{' '}
           <code>/bandatlas/</code>. Unit tests + Playwright smoke in CI.
         </p>
         <p className="page-muted">v{APP_VERSION}</p>

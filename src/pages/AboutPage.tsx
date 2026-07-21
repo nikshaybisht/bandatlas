@@ -90,7 +90,7 @@ export function AboutPage() {
             </li>
           </ul>
           <p className="page-muted">
-            Numbers from <code>dataset/summary.json</code> after <code>npm run dataset</code>.
+            Numbers from <code>dataset/summary.json</code> after a dataset rebuild.
           </p>
           <button type="button" className="welcome-primary" onClick={startTour}>
             Quick tour

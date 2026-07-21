@@ -5,7 +5,7 @@ Keep it small and honest.
 - Teaching envelopes stay labeled `teaching`. Never call them experimental.
 - Cite sources on every spectrum. Experimental files need redistribution rights + DOI or URL.
 - One concern per pull request when you can (data vs UI vs docs).
-- Before a pull request, make sure the project’s full check still passes (see the README “Run it” / CI section).
+- Before a pull request, make sure the project’s full check still passes (see README).
 
 ## Add a UV teaching curve
 
@@ -28,4 +28,4 @@ Only if you can redistribute the digitization. Put JSON under `data/experimental
 
 ## Local development
 
-Install dependencies, build the dataset, and start the dev server as described in the README (“Run it”). Day-to-day scripts are listed there — this file is for contribution policy, not a command cheat sheet.
+See the README for how to install dependencies, rebuild the dataset, and start the app. This file is contribution policy only.

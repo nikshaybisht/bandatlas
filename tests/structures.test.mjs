@@ -48,10 +48,10 @@ function resolveManifest() {
 test('structure cache directory and manifest exist', () => {
   assert.ok(
     fs.existsSync(primaryDir) || fs.existsSync(legacyDir),
-    'public/structures or public/dataset/structures missing — run npm run structures',
+    'public/structures or public/dataset/structures missing — rebuild the structure cache',
   )
   const manifestPath = resolveManifest()
-  assert.ok(manifestPath, 'manifest.json missing — run npm run structures')
+  assert.ok(manifestPath, 'manifest.json missing — rebuild the structure cache')
   const manifest = JSON.parse(fs.readFileSync(manifestPath, 'utf8'))
   assert.ok(manifest.count >= 15, `expected ≥15 cached structures, got ${manifest.count}`)
   assert.ok(Array.isArray(manifest.structures))
@@ -71,7 +71,7 @@ test('local structure files exist for known demo CIDs', () => {
   assert.equal(
     missing.length,
     0,
-    `missing local SDF for CIDs: ${missing.join(', ')} — run npm run structures`,
+    `missing local SDF for CIDs: ${missing.join(', ')} — rebuild the structure cache`,
   )
 })
 
@@ -94,7 +94,7 @@ test('structure cache total size is reasonable', () => {
 
 test('health.json exists after dataset build', () => {
   const healthPath = path.join(root, 'public', 'health.json')
-  assert.ok(fs.existsSync(healthPath), 'public/health.json missing — run npm run dataset')
+  assert.ok(fs.existsSync(healthPath), 'public/health.json missing — rebuild the dataset')
   const h = JSON.parse(fs.readFileSync(healthPath, 'utf8'))
   assert.equal(h.ok, true)
   assert.ok(typeof h.version === 'string')

@@ -157,7 +157,7 @@ export function ExplorerPage({ preset = 'default' }: Props) {
         }
       })
       .catch(() => {
-        if (!cancelled) setIndexError('Failed to load dataset. Run npm run dataset.')
+        if (!cancelled) setIndexError('Failed to load dataset. Rebuild public/dataset and reload.')
       })
     return () => {
       cancelled = true

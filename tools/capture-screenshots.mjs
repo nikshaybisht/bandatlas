@@ -1,6 +1,7 @@
 /**
- * Capture README + Guide screenshots (requires preview/dev server with dataset).
- * Usage: node tools/capture-screenshots.mjs [baseUrl]
+ * Capture README + Guide screenshots (requires a running preview/dev server with dataset).
+ * Optional first argument: base URL (default http://127.0.0.1:4173).
+ * package.json exposes this as the "screenshots" script.
  *
  * Writes:
  *   docs/images/screenshot-*.png  (README)

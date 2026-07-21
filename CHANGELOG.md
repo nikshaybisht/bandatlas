@@ -6,7 +6,7 @@ Docs & marketing assets for latest techniques:
 
 - Regenerated README screenshots (UV–Vis, IR, Raman, **¹H NMR**, **MS**, compare, export, light theme)
 - Guide step images + `og-cover.png` under `public/images/`
-- Capture script covers NMR/MS tabs (`npm run screenshots`)
+- Capture script covers NMR/MS tabs (package.json screenshots script)
 - `index.html` / README / Guide copy updated for UV–Vis · NMR · MS · IR · Raman
 
 ## 1.4.0
@@ -37,7 +37,7 @@ Library expansion + packaging research:
 - UV seeds remain the only source of truth under `data/uv-seeds/`
 - Docs: [DATA_SOURCES.md](docs/DATA_SOURCES.md) (open databases, what not to scrape, **local-first package** recommendation)
 - Docs: [NMR_PLAN.md](docs/NMR_PLAN.md) + `data/nmr-seeds/_template.json` (¹H/¹³C, 60 vs 500 MHz design — not wired in UI yet)
-- CONTRIBUTING trimmed (no command-dump contribution path)
+- CONTRIBUTING trimmed (policy only; no shell command dumps)
 
 ## 1.1.2
 
@@ -45,7 +45,7 @@ Maintainability and review follow-ups:
 
 - UV teaching seeds moved entirely to `data/uv-seeds/*.json` (build script no longer embeds the FULL array)
 - Dataset `version` stamp aligned with app (**1.1.1**+)
-- Lint (`oxlint --deny-warnings`) is part of `npm run ci`
+- Lint (`oxlint --deny-warnings`) is part of the full CI script
 - Safer DOI handling only via `safeDoiUrl` (no unsafe fallback)
 - Peak-label collision avoidance; 2D-only structure badge; explorer helpers extracted
 - Docs: `docs/PWA.md`, `docs/A11Y_MOBILE_CHECKLIST.md`
