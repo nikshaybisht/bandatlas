@@ -28,4 +28,4 @@ Only if you can redistribute the digitization. Put JSON under `data/experimental
 
 ## Local development
 
-See the README for how to install dependencies, rebuild the dataset, and start the app. This file is contribution policy only.
+See **Installation** in the [README](README.md) for clone, `npm ci`, dataset rebuild, and `npm run dev`. Before a PR, run `npm run ci`.

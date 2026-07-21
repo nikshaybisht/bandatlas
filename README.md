@@ -60,11 +60,58 @@ Screenshots under `docs/images/` are refreshed with the project’s Playwright c
 - **Offline structure cache** — committed SDFs for the lab set
 - **Accessibility** — keyboard focus, 375px mobile layout, reduced-motion support
 
-## Run it
+## Installation
 
-Clone the repository, install dependencies from the lockfile, rebuild the static dataset under `public/dataset/`, then start the Vite development server. The app is usually at `http://127.0.0.1:5173`. Maintainer automation lives in `package.json` and `.github/workflows/` (not documented as a command list here).
+### Requirements
 
-GitHub Pages uses base `/bandatlas/` (via the Pages workflow / `VITE_BASE`). Locally the base is `/`.
+- **Node.js 22+** (LTS recommended) and **npm** (ships with Node)
+- Git
+- Optional: Chromium for end-to-end tests (`npx playwright install chromium`)
+
+### Install & run (development)
+
+```bash
+git clone https://github.com/nikshaybisht/bandatlas.git
+cd bandatlas
+npm ci
+npm run dataset
+npm run dev
+```
+
+Then open **http://127.0.0.1:5173** in your browser.
+
+| Step | What it does |
+|------|----------------|
+| `npm ci` | Installs dependencies from `package-lock.json` (preferred over `npm install` for a clean tree) |
+| `npm run dataset` | Builds compound JSON under `public/dataset/` from UV / NMR / MS seeds |
+| `npm run dev` | Starts the Vite dev server with hot reload |
+
+### Production build & preview
+
+```bash
+npm run build
+npm run preview
+```
+
+- `build` — dataset + TypeScript check + Vite production bundle → `dist/`
+- `preview` — serves `dist/` locally (default **http://127.0.0.1:4173**)
+
+### Useful scripts
+
+| Script | Purpose |
+|--------|---------|
+| `npm run ci` | Full check: lint, validate seeds, dataset, unit tests, typecheck, production build |
+| `npm test` | Validate seeds + rebuild dataset + unit tests |
+| `npm run test:e2e` | Playwright smoke (run `npm run build` first; install Chromium once if needed) |
+| `npm run structures` | Refresh offline SDF cache for lab/featured compounds (needs network) |
+| `npm run screenshots` | Capture README/guide images (dev or preview server must be running) |
+| `npm run lint` | oxlint |
+
+### Deploy notes
+
+- **Live site:** https://nikshaybisht.github.io/bandatlas/
+- GitHub Pages uses base path `/bandatlas/` (`VITE_BASE` / Pages workflow). Locally the base is `/`.
+- Structure SDFs under `public/structures/` are committed so CI and offline demos work without PubChem.
 
 ## Dataset (rough)
 
