@@ -101,7 +101,8 @@ test.describe('BandAtlas smoke', () => {
     await msTab.click()
     await expect(msTab).toHaveAttribute('aria-selected', 'true')
     await expect(page.locator('.spectrum-wrap')).toBeVisible()
-    await expect(page.getByRole('button', { name: 'EI' })).toBeVisible()
+    // exact: true — "Fluorescein" featured chip also matches name /EI/i
+    await expect(page.getByRole('button', { name: 'EI', exact: true })).toBeVisible()
     await expect(page.getByText(/Literature note/i)).toBeVisible()
     await expect(page.getByTestId('error-boundary')).toHaveCount(0)
   })
