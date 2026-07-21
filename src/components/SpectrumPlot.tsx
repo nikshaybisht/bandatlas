@@ -57,7 +57,7 @@ function sampleLinear(xs: number[], ys: number[], at: number): number {
 
 /**
  * Smooth cubic Hermite sampling (Catmull–Rom style tangents).
- * Removes step / polyline look on emission curves.
+ * Good for dense abs curves; avoid alone on coarse stepped emission data (rings).
  */
 function sampleSmooth(xs: number[], ys: number[], at: number): number {
   const n = xs.length
@@ -91,6 +91,49 @@ function sampleSmooth(xs: number[], ys: number[], at: number): number {
       (2 * y0 - 5 * y1 + 4 * y2 - y3) * t2 +
       (-y0 + 3 * y1 - 3 * y2 + y3) * t3)
   )
+}
+
+/** Discrete Gaussian blur — kills staircase / ring on sparse emission teaching curves. */
+function gaussianSmooth1D(ys: number[], sigma = 3.5): number[] {
+  if (ys.length < 3 || sigma <= 0) return ys.slice()
+  const r = Math.max(1, Math.ceil(sigma * 3))
+  const kernel: number[] = []
+  let sum = 0
+  for (let i = -r; i <= r; i++) {
+    const w = Math.exp(-(i * i) / (2 * sigma * sigma))
+    kernel.push(w)
+    sum += w
+  }
+  for (let i = 0; i < kernel.length; i++) kernel[i] /= sum
+  const out = new Array<number>(ys.length)
+  for (let i = 0; i < ys.length; i++) {
+    let v = 0
+    for (let k = -r; k <= r; k++) {
+      const j = Math.min(ys.length - 1, Math.max(0, i + k))
+      v += ys[j] * kernel[k + r]
+    }
+    out[i] = Math.max(0, v)
+  }
+  return out
+}
+
+/** Clamp cursor CSS px into the plot data bbox (keeps probe off the rainbow strip / axis pad). */
+function clampCursorToPlot(
+  u: uPlot,
+  left: number,
+  top: number,
+): [number, number] {
+  const dpr = typeof window !== 'undefined' ? window.devicePixelRatio || 1 : 1
+  const bL = u.bbox.left / dpr
+  const bT = u.bbox.top / dpr
+  const bR = bL + u.bbox.width / dpr
+  const bB = bT + u.bbox.height / dpr
+  // Keep a few px inside so the focus point never sits on / under the x-axis
+  const pad = 2
+  return [
+    Math.min(Math.max(left, bL + pad), bR - pad),
+    Math.min(Math.max(top, bT + pad), bB - pad),
+  ]
 }
 
 /**
@@ -232,9 +275,12 @@ export function SpectrumPlot({
     const yMid = (ys.min + ys.max) / 2
     const xHalf = ((xs.max - xs.min) * factor) / 2
     const yHalf = ((ys.max - ys.min) * factor) / 2
+    // Never allow y below 0 — that parks the cursor under the x-axis
+    const yMin = Math.max(0, yMid - yHalf)
+    const yMax = Math.max(yMin + 1e-6, yMid + yHalf)
     u.batch(() => {
       u.setScale('x', { min: xMid - xHalf, max: xMid + xHalf })
-      u.setScale('y', { min: yMid - yHalf, max: yMid + yHalf })
+      u.setScale('y', { min: yMin, max: yMax })
     })
   }
 
@@ -327,7 +373,8 @@ export function SpectrumPlot({
     if (isEmpty) return
 
     const series: uPlot.Series[] = [{}]
-    const dataArrays: number[][] = []
+    // null = gap (emission outside its native λ window)
+    const dataArrays: (number | null)[][] = []
 
     // uPlot requires ascending x — never reverse the data array (IR reverse uses scale.dir)
     const collectX = new Set<number>()
@@ -340,7 +387,8 @@ export function SpectrumPlot({
     if (technique === 'uvvis' && xs.length >= 2) {
       const lo = xs[0]
       const hi = xs[xs.length - 1]
-      const step = Math.min(0.05, (hi - lo) / 2500)
+      // Slightly denser than before so Gaussian-smoothed emission stays continuous
+      const step = Math.min(0.04, (hi - lo) / 3200)
       const dense: number[] = []
       for (let x = lo; x <= hi + 1e-9; x += step) dense.push(Math.round(x * 10000) / 10000)
       if (dense[dense.length - 1] !== hi) dense.push(hi)
@@ -350,34 +398,57 @@ export function SpectrumPlot({
     dataArrays.push(xs)
 
     /**
-     * Pre-resample a curve onto a fine regular grid with cubic smoothing,
-     * then sample that grid onto the shared xs (double-smooth emission).
+     * Pre-resample onto a fine regular grid.
+     * - absorption: cubic (Catmull–Rom) — already dense teaching Gaussians
+     * - emission: linear densify + Gaussian blur — source steps are often 0.5 nm / 0.1 intensity
+     *   and cubic alone rings into a zigzag
      */
     const smoothSeriesY = (
       pts: [number, number][],
       forceNorm: boolean,
-    ): { px: number[]; py: number[] } => {
+      kind: 'abs' | 'emission' | 'other' = 'other',
+    ): { px: number[]; py: number[]; xMin: number; xMax: number } => {
       const sorted = [...pts].sort((a, b) => a[0] - b[0])
       let px = sorted.map((p) => p[0])
       let py = sorted.map((p) => p[1])
       if (mode === 'simple' || forceNorm || isWavenumber) py = normalizeYs(py)
 
-      // Fine intermediate grid + cubic sample → continuous emission (no steps)
       const lo = px[0]
       const hi = px[px.length - 1]
-      const step = Math.min(0.04, (hi - lo) / 3000)
+      const step =
+        kind === 'emission'
+          ? Math.min(0.025, (hi - lo) / 4000)
+          : Math.min(0.04, (hi - lo) / 3000)
       const fineX: number[] = []
       const fineY: number[] = []
       for (let x = lo; x <= hi + 1e-9; x += step) {
         const xx = Math.round(x * 10000) / 10000
         fineX.push(xx)
-        fineY.push(Math.max(0, sampleSmooth(px, py, xx)))
+        // Linear first for emission (no cubic overshoot), cubic for abs
+        const y =
+          kind === 'emission'
+            ? sampleLinear(px, py, xx)
+            : sampleSmooth(px, py, xx)
+        fineY.push(Math.max(0, y))
       }
       if (fineX[fineX.length - 1] !== hi) {
         fineX.push(hi)
-        fineY.push(Math.max(0, sampleSmooth(px, py, hi)))
+        fineY.push(
+          Math.max(
+            0,
+            kind === 'emission' ? sampleLinear(px, py, hi) : sampleSmooth(px, py, hi),
+          ),
+        )
       }
-      return { px: fineX, py: fineY }
+      // Strong blur on emission to erase discrete teaching-table steps
+      const blurred =
+        kind === 'emission' ? gaussianSmooth1D(fineY, 5.5) : fineY
+      // Re-normalize after blur so peak still hits 100 in simple mode
+      if (kind === 'emission' && (mode === 'simple' || forceNorm)) {
+        const m = Math.max(...blurred, 1e-12)
+        for (let i = 0; i < blurred.length; i++) blurred[i] = (blurred[i] / m) * 100
+      }
+      return { px: fineX, py: blurred, xMin: lo, xMax: hi }
     }
 
     const pushSeries = (
@@ -388,23 +459,37 @@ export function SpectrumPlot({
       dash?: number[],
       forceNorm?: boolean,
       smooth?: boolean,
+      kind: 'abs' | 'emission' | 'other' = 'other',
     ) => {
       if (!pts?.length) return
       let px: number[]
       let py: number[]
+      let domainMin = -Infinity
+      let domainMax = Infinity
       if (smooth) {
-        const fine = smoothSeriesY(pts, !!forceNorm)
+        const fine = smoothSeriesY(pts, !!forceNorm, kind)
         px = fine.px
         py = fine.py
+        domainMin = fine.xMin
+        domainMax = fine.xMax
       } else {
         const sorted = [...pts].sort((a, b) => a[0] - b[0])
         px = sorted.map((p) => p[0])
         py = sorted.map((p) => p[1])
         if (mode === 'simple' || forceNorm || isWavenumber) py = normalizeYs(py)
+        domainMin = px[0]
+        domainMax = px[px.length - 1]
       }
-      const sampled = xs.map((x) =>
-        smooth ? sampleLinear(px, py, x) : sampleAt(px, py, x, maxDist),
-      )
+      // Outside native domain: null (gap) for emission so cursor doesn't ride a plateau at 0
+      // under the full UV window; 0 elsewhere is fine for abs.
+      const pad = kind === 'emission' ? 0.25 : 0
+      const sampled = xs.map((x) => {
+        if (x < domainMin - pad || x > domainMax + pad) {
+          return kind === 'emission' ? null : 0
+        }
+        const y = smooth ? sampleLinear(px, py, x) : sampleAt(px, py, x, maxDist)
+        return Number.isFinite(y) ? Math.max(0, y) : kind === 'emission' ? null : 0
+      })
       dataArrays.push(sampled)
       series.push({
         label: '',
@@ -412,14 +497,16 @@ export function SpectrumPlot({
         width,
         dash,
         points: { show: false },
+        // Emission uses null outside its λ window (no plateau under the full UV axis)
+        spanGaps: false,
       })
       void label
     }
 
     if (technique === 'uvvis') {
-      // Both curves use cubic + dense grid for IG-smooth continuous lines
-      pushSeries(absPts, '', absLineColor, 3.6, undefined, mode === 'simple', true)
-      pushSeries(emPts ?? undefined, '', emLineColor, 3.6, undefined, true, true)
+      pushSeries(absPts, '', absLineColor, 3.6, undefined, mode === 'simple', true, 'abs')
+      // Emission: thicker slightly softer line after Gaussian smooth
+      pushSeries(emPts ?? undefined, '', emLineColor, 3.4, undefined, true, true, 'emission')
     } else if (technique === 'ir') {
       pushSeries(absPts, '', absLineColor, 3.2)
     } else {
@@ -464,12 +551,16 @@ export function SpectrumPlot({
       cursor: {
         drag: {
           // Mouse: drag-box zoom. Touch: disabled (use Zoom buttons; avoid scroll conflicts)
+          // Y-drag often pulls the marquee into the rainbow strip / under the x-axis and
+          // leaves the scale (and focus point) stuck — keep x-only drag zoom.
           x: !coarsePointer,
-          y: !coarsePointer,
+          y: false,
           setScale: !coarsePointer,
         },
         focus: { prox: 28 },
         points: { size: 9 },
+        // Never let the crosshair / series probe sit under the x-axis (bottom pad / rainbow)
+        move: (u, left, top) => clampCursorToPlot(u, left, top),
         bind: {
           dblclick: (u) => {
             return (e) => {
@@ -488,7 +579,14 @@ export function SpectrumPlot({
       legend: { show: false },
       scales: {
         x: { time: false, dir: xDir as 1 | -1 },
-        y: { auto: true },
+        // Intensity never goes below 0 (keeps series probe on / above the baseline)
+        y: {
+          auto: true,
+          range: (_u, _dataMin, dataMax) => {
+            const rawHi = Number.isFinite(dataMax) && dataMax > 0 ? dataMax : 1
+            return [0, rawHi * (1 + yPadTop)]
+          },
+        },
       },
       axes: [
         {
@@ -521,8 +619,9 @@ export function SpectrumPlot({
             const ys = u.scales.y
             const xSc = u.scales.x
             if (ys.min == null || ys.max == null || xSc.min == null || xSc.max == null) return
-            const lo = Math.min(0, ys.min)
-            const hi = ys.max + (ys.max - lo) * yPadTop
+            // Always pin floor at 0 so the probe never lives under the x-axis baseline
+            const lo = 0
+            const hi = Math.max(ys.max, 1e-6) + Math.max(ys.max, 1e-6) * yPadTop
             // Explicit x range so IR reverse + zoom/reset stay consistent
             const xMin = Math.min(...xs)
             const xMax = Math.max(...xs)
@@ -533,6 +632,24 @@ export function SpectrumPlot({
             baseScalesRef.current = {
               x: { min: xMin, max: xMax },
               y: { min: lo, max: hi },
+            }
+          },
+        ],
+        setScale: [
+          (u, key) => {
+            if (key !== 'y') return
+            const y = u.scales.y
+            if (y.min == null || y.max == null) return
+            // Repair inverted / negative y after any interaction
+            if (y.min < 0 || y.max <= y.min) {
+              const base = baseScalesRef.current
+              const lo = 0
+              const hi = base?.y.max ?? Math.max(y.max, 1)
+              // Defer to avoid re-entrancy in setScale
+              queueMicrotask(() => {
+                if (!plotRef.current) return
+                plotRef.current.setScale('y', { min: lo, max: hi })
+              })
             }
           },
         ],
