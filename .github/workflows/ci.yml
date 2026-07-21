@@ -21,24 +21,8 @@ jobs:
       - name: Dataset + unit tests + production build
         env:
           VITE_BASE: /
-        run: >
-          oxlint --deny-warnings
-          && node tools/validate-seeds.mjs
-          && node tools/validate-nmr-seeds.mjs
-          && node tools/validate-ms-seeds.mjs
-          && node tools/build-dataset.mjs
-          && node --test
-          tests/dataset.test.mjs
-          tests/experimental.test.mjs
-          tests/structures.test.mjs
-          tests/seeds.test.mjs
-          tests/export-labnote.test.mjs
-          tests/schema.test.mjs
-          tests/safe-url.test.mjs
-          tests/nmr.test.mjs
-          tests/ms.test.mjs
-          && tsc -b
-          && vite build
+        # npm run adds node_modules/.bin to PATH (oxlint, vite, tsc)
+        run: npm run ci
 
   e2e:
     name: Playwright smoke
@@ -54,18 +38,14 @@ jobs:
       - name: Dataset + production build
         env:
           VITE_BASE: /
-        run: >
-          node tools/build-dataset.mjs
-          && tsc -b
-          && vite build
-          && node tools/spa-fallback.mjs
+        run: npm run build
       - name: Install Playwright Chromium
-        run: node node_modules/playwright/cli.js install chromium --with-deps
+        run: npx playwright install chromium --with-deps
       - name: E2E smoke
         env:
           CI: true
           E2E_BASE_URL: http://127.0.0.1:4173
-        run: node node_modules/@playwright/test/cli.js test
+        run: npm run test:e2e
       - name: Upload Playwright report on failure
         if: failure()
         uses: actions/upload-artifact@v4
